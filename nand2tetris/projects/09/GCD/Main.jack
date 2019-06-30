@@ -1,0 +1,24 @@
+class Main {
+    function void main() {
+        var int a, b;
+        var int result;
+        let a = 10;
+        let b = 30;
+        let result = Main.gcd(a, b);
+        do Output.printInt(result);
+        return;
+    }
+    function int gcd(int a, int b) {
+        var int tmp;
+        if (a > b) {
+            let tmp = a;
+            let a = b;
+            let b = tmp;
+        }
+        /* 2 4 */
+        if (a = 0) {
+            return b;
+        }
+        return Main.gcd(b - a, a);
+    }
+}

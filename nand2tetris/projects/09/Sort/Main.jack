@@ -1,0 +1,127 @@
+class Main {
+    function void main() {
+        var Array data;
+        var int i;
+
+        let data = Array.new(10);
+
+        let data[0] = 1;
+        let data[1] = 2;
+        let data[2] = 8;
+        let data[3] = 2;
+        let data[4] = 3;
+        let data[5] = 7;
+        let data[6] = 9;
+        let data[7] = 11;
+        let data[8] = 20;
+        let data[9] = 6;
+
+        /*
+         * do Main.quick_sort(data, 0, 9);
+         */
+        let data = Main.merge_sort(data, 10);
+        do Main.print_array(data, 10);
+        return;
+    }
+
+    function void swap(Array data, int a, int b) {
+        var int tmp;
+        let tmp = data[a];
+        let data[a] = data[b];
+        let data[b] = tmp;
+        return;
+    }
+
+    function int partition(Array data, int from, int to) {
+        var int ret;
+        var int tmp;
+        var int index;
+
+        let index = from;
+        let from = from + 1;
+        while (~(from > to)) {
+            if (~(data[from] < data[index])) {
+                let from = from + 1;
+            } else {
+                do Main.swap(data, index + 1, from);
+                do Main.swap(data, index, index + 1);
+                let index = index + 1;
+                let from = from + 1;
+            }
+        }
+
+        return index;
+    }
+
+    function void quick_sort(Array data, int from, int to) {
+        var int index;
+
+        if (~(from < to)) {
+            return;
+        }
+
+        let index = Main.partition(data, from, to);
+        do Main.quick_sort(data, from, index - 1);
+        do Main.quick_sort(data, index + 1, to);
+        return;
+    }
+
+    function Array copy_array(Array data, int n) {
+        var Array ret;
+        var int i;
+
+        let ret = Array.new(n);
+        let i = 0;
+        while (i < n) {
+            let ret[i] = data[i];
+            let i = i + 1;
+        }
+        return ret;
+    }
+
+    function void print_array(Array data, int n) {
+        var int i;
+
+        let i = 0;
+        while (i < n) {
+            do Output.printInt(data[i]);
+            do Output.printChar(32);
+            let i = i + 1;
+        }
+        do Output.println();
+        return;
+    }
+
+    function Array merge_sort(Array data, int n) {
+        var int mid;
+        var Array first, second;
+        var int i, j, total;
+
+        if (n < 2) {
+            return data;
+        }
+
+        let mid = n / 2;
+        let first = Main.copy_array(data, mid);
+        let second = Main.copy_array(data + mid, n - mid);
+
+        let first = Main.merge_sort(first, mid);
+        let second = Main.merge_sort(second, n - mid);
+
+        let i = 0;
+        let j = 0;
+        let total = 0;
+        while (total < n) {
+            if ((i = mid) | ((~(j = (n - mid))) & (first[i] > second[j]))) {
+                let data[total] = second[j];
+                let total = total + 1;
+                let j = j + 1;
+            } else {
+                let data[total] = first[i];
+                let total = total + 1;
+                let i = i + 1;
+            }
+        }
+        return data;
+    }
+}

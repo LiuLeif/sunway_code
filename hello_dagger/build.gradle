@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'net.ltgt.apt' version "0.10"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    apt 'com.google.dagger:dagger-compiler:2.16'
+    implementation 'com.google.dagger:dagger:2.16'
+}
+
+// Define the main class for the application
+mainClassName = 'HelloDagger'

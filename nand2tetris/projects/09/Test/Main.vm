@@ -1,0 +1,39 @@
+function Main.main 3
+push constant 10
+call Array.new 1
+pop local 0
+push local 0
+push constant 5
+add
+pop local 1
+push constant 0
+push local 1
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push constant 10
+lt
+not
+if-goto WHILE_END0
+push local 2
+push local 0
+add
+pop pointer 1
+push that 0
+call Output.printInt 1
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
