@@ -53,13 +53,7 @@ class BasicDownloader {
   }
 }
 
-// 有两种情况无法直接使用 @Inject:
-//
-// 1. HttpClient 的实现在第三方库中, 无法给它的构造函数加上 @Inject
-// 2. Downloader 需要使用 IHttpClient, 后者无法实例化
-//
-// 这里需要通过 @Module 和 @Provides 来作一个转换
-// -----------------------------------\
+// -----------------------------------
 @Module
 class HttpClientModule {
   @Provides
