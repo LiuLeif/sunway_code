@@ -14,4 +14,4 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'HelloDagger'
+mainClassName = 'HelloDaggerModule'

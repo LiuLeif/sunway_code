@@ -1,0 +1,34 @@
+// 2019-06-29 19:08
+// note: 需要 gradle 4.x, 最新的 gradle 5.x 无法编译
+import javax.inject.Inject;
+import javax.inject.Scope;
+import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
+
+class BBB {
+  @Inject
+  public BBB() {}
+}
+
+@Component
+interface BasicComponent {
+  void inject(AAA target);
+}
+
+class AAA {
+  @Inject
+  BBB bbb;
+}
+
+public class HelloDaggerSimple {
+  static void testInjection() {
+    System.out.println("-------------------");
+    AAA program = new AAA();
+    DaggerBasicComponent.create().inject(program);
+  }
+
+  public static void main(String argv[]) {
+    testInjection();
+  }
+}
