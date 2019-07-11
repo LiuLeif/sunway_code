@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+}
+
+sourceSets {
+  main {
+    java {
+      exclude 'MyProcessor.java'
+    }
+  }
+}
+
+// Define the main class for the application
+mainClassName = 'HelloAnnotation'
