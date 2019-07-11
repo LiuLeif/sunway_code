@@ -12,9 +12,26 @@ import java.lang.annotation.Target;
 // javac -cp . -processor MyProcessor HelloAnnotation.java Author.java
 // 3. 运行
 // java -cp . HelloAnnotation
+
 @Author("sunway")
+class HelloAnnotation2 {}
+
+@Author("sunway")
+@RuntimeAuthor (name = "sunway", age = 16)
+class HelloAnnotation3 {}
+
 public class HelloAnnotation {
     public static void main(String argv[]) {
-        System.out.println(Authors.dump());
+        System.out.println(GeneratedAuthors.dump());
+        for (Annotation a : HelloAnnotation3.class.getAnnotations()) {
+            if (a instanceof RuntimeAuthor) {
+                System.out.println(((RuntimeAuthor)a).name());
+                System.out.println(((RuntimeAuthor)a).age());
+            }
+            if (a instanceof Author) {
+                System.out.println(((Author)a).value());
+            }
+        }
+
     }
 }

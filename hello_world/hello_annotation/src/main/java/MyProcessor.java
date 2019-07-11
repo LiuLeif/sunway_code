@@ -19,7 +19,7 @@ public class MyProcessor extends AbstractProcessor {
         System.out.println("process");
         StringBuilder builder = new StringBuilder()
                                 .append("import java.util.HashMap;")
-                                .append("public class Authors {\n")
+                                .append("public class GeneratedAuthors {\n")
                                 .append(" private static HashMap<String,String> sAuthors=new HashMap(); ")
                                 .append(" public static String dump() {return sAuthors.toString();}")
                                 .append(" static {");
@@ -43,7 +43,7 @@ public class MyProcessor extends AbstractProcessor {
         // generate code
         try {
             JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(
-                "Authors");
+                "GeneratedAuthors");
 
             PrintWriter out = new PrintWriter(sourceFile.openWriter());
             out.write(builder.toString());
