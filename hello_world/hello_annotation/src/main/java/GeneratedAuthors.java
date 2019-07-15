@@ -1,2 +1,2 @@
 import java.util.HashMap;public class GeneratedAuthors {
- private static HashMap<String,String> sAuthors=new HashMap();  public static String dump() {return sAuthors.toString();} static {sAuthors.put("HelloAnnotation2","sunway");sAuthors.put("HelloAnnotation3","sunway");}}
+ private static HashMap<String,String> sAuthors=new HashMap();  public static String dump() {return sAuthors.toString();} static {sAuthors.put("HelloAnnotation2","sunway");sAuthors.put("HelloAnnotation3","sunway");sAuthors.put("HelloAnnotation3","sunway");}}
