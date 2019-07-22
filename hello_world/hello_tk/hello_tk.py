@@ -26,13 +26,26 @@ class Application(Frame):
         self.tree.pack(fill="both")
 
 class Controller:
+    status_mapping = {
+        190: "PENDING",
+        192: "RUNNING",
+        200: "OK",
+        149: "CANCEL",
+    }
+
     def __init__(self, tree):
         self.id_to_info = {}
         self.id_to_widget = {}
         self.tree = tree;
 
+    @staticmethod
+    def map_status(status):
+        if status in Controller.status_mapping:
+            return Controller.status_mapping[status]
+        return str(status)
+
     def bind_view(self, info, tree_item):
-        self.tree.item(tree_item, values=(info.pid, info.id, info.status, "{}%".format(info.percent)))
+        self.tree.item(tree_item, values=(info.pid, info.id, Controller.map_status(int(info.status)), "{}%".format(info.percent)))
 
     def requested(self, pid, id):
         info = Info(id=id, pid=pid, status=190);
@@ -89,11 +102,11 @@ class Info:
         self.status = status;
         self.percent = 0;
 
-def parse_log():
+def logcat():
     controller = Controller(app.tree)
-    # test
-    # for i in range(60):
-    #     controller.requested(1, i + 1)
+
+    for i in range(60):
+        controller.requested(1, i + 1)
 
     router = {
         r'.*DownloadStateLog: ([0-9]+) / ([0-9]+) REQ': controller.requested,
@@ -115,6 +128,6 @@ def parse_log():
 root = Tk()
 app = Application(master=root)
 
-log_parser = threading.Thread(target=parse_log)
+log_parser = threading.Thread(target=logcat)
 log_parser.start()
 app.mainloop()
