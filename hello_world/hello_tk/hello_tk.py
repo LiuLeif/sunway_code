@@ -9,21 +9,21 @@ import time
 class Application(Frame):
     def __init__(self, master=None):
         super().__init__(master)
-        self.master = master
-        self.pack()
+        self.pack(fill="both")
         self.create_widgets()
 
     def create_widgets(self):
-        self.tree = Treeview(self, columns=("pid", "id", "status", "percent"))
+        self.tree = Treeview(self, columns=("pid", "id", "status", "percent"), height=768)
         self.tree.heading("pid", text="group id")
         self.tree.heading("id", text="id")
         self.tree.heading("status", text="status")
         self.tree.heading("percent", text="percent")
+        self.tree.column("#0", width=10)
         self.tree.tag_configure("deleted", background='gray')
-        self.tree.tag_configure("sched", background='yellow')
-        self.tree.tag_configure("started", background='gold')
+        self.tree.tag_configure("sched", background='gold')
+        self.tree.tag_configure("started", background='cyan')
         self.tree.tag_configure("success", background='green')
-        self.tree.pack()
+        self.tree.pack(fill="both")
 
 class Controller:
     def __init__(self, tree):
@@ -91,6 +91,10 @@ class Info:
 
 def parse_log():
     controller = Controller(app.tree)
+    # test
+    # for i in range(60):
+    #     controller.requested(1, i + 1)
+
     router = {
         r'.*DownloadStateLog: ([0-9]+) / ([0-9]+) REQ': controller.requested,
         r'.*DownloadStateLog: [0-9]+ / ([0-9]+) SCHED': controller.scheduled,
