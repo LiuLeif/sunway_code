@@ -105,8 +105,8 @@ class Info:
 def logcat():
     controller = Controller(app.tree)
 
-    for i in range(60):
-        controller.requested(1, i + 1)
+    # for i in range(60):
+    #     controller.requested(1, i + 1)
 
     router = {
         r'.*DownloadStateLog: ([0-9]+) / ([0-9]+) REQ': controller.requested,
