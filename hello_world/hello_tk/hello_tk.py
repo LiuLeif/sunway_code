@@ -30,7 +30,8 @@ class Controller:
         190: "PENDING",
         192: "RUNNING",
         200: "OK",
-        149: "CANCEL",
+        490: "CANCEL",
+        194: "RETRY",
     }
 
     def __init__(self, tree):
@@ -47,7 +48,7 @@ class Controller:
     def bind_view(self, info, tree_item):
         self.tree.item(tree_item, values=(info.pid, info.id, Controller.map_status(int(info.status)), "{}%".format(info.percent)))
 
-    def requested(self, pid, id):
+    def group_requested(self, pid, id):
         info = Info(id=id, pid=pid, status=190);
         self.id_to_info[id] = info
         if id == pid:
@@ -56,6 +57,13 @@ class Controller:
             parent_item = self.id_to_widget.get(pid, -1)
             tree_item = app.tree.insert(parent_item, "end")
 
+        self.id_to_widget[id] = tree_item
+        self.bind_view(info, tree_item)
+
+    def single_requested(self, id):
+        info = Info(id=id, pid="", status=190);
+        self.id_to_info[id] = info
+        tree_item = app.tree.insert("", "end", open=True)
         self.id_to_widget[id] = tree_item
         self.bind_view(info, tree_item)
 
@@ -109,12 +117,13 @@ def logcat():
     #     controller.requested(1, i + 1)
 
     router = {
-        r'.*DownloadStateLog: ([0-9]+) / ([0-9]+) REQ': controller.requested,
-        r'.*DownloadStateLog: [0-9]+ / ([0-9]+) SCHED': controller.scheduled,
-        r'.*DownloadStateLog: [0-9]+ / ([0-9]+) STARTED': controller.started,
-        r'.*DownloadStateLog: [0-9]+ / ([0-9]+) STATUS:([0-9]+)': controller.status,
-        r'.*DownloadStateLog: [0-9]+ / ([0-9]+) PROG:([0-9]+):([0-9]+)': controller.progress,
-        r'.*DownloadStateLog: [0-9]+ / ([0-9]+) DEL': controller.deleted,
+        r'.*DownloadStateLog: ([0-9]+) / ([0-9]+) REQ': controller.group_requested,
+        r'.*DownloadStateLog: ([0-9]+) REQ': controller.single_requested,
+        r'.*DownloadStateLog: (?:[0-9]+ / )?([0-9]+) SCHED': controller.scheduled,
+        r'.*DownloadStateLog: (?:[0-9]+ / )?([0-9]+) STARTED': controller.started,
+        r'.*DownloadStateLog: (?:[0-9]+ / )?([0-9]+) STATUS:([0-9]+)': controller.status,
+        r'.*DownloadStateLog: (?:[0-9]+ / )?([0-9]+) PROG:([0-9]+):([0-9]+)': controller.progress,
+        r'.*DownloadStateLog: (?:[0-9]+ / )?([0-9]+) DEL': controller.deleted,
     }
 
     for line in sys.stdin:
