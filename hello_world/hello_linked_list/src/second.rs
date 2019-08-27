@@ -36,6 +36,10 @@ impl<T> List<T> {
     pub fn peek(&self) -> Option<&T> {
         self.head.as_ref().map(|node| &node.elem)
     }
+
+    pub fn peek_mut(&mut self) -> Option<&mut T> {
+        self.head.as_mut().map(|node| &mut node.elem)
+    }
 }
 
 #[test]
@@ -50,7 +54,10 @@ fn test_push_and_pop() {
 fn test_peek() {
     let mut list = List::new();
     list.push(2);
-    assert_eq!(list.peek().unwrap(), &2);
+    list.peek_mut().map(|value| {
+        *value = 3;
+    });
+    assert_eq!(list.peek().unwrap(), &3);
     list.pop();
     assert!(list.peek().is_none());
 }
