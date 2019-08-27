@@ -1,21 +1,21 @@
 // 2019-08-27 13:24
-pub struct List<T> {
-    pub head: Link<T>,
+pub struct List {
+    pub head: Link,
 }
 
-type Link<T> = Option<Box<Node<T>>>;
+type Link = Option<Box<Node>>;
 
-pub struct Node<T> {
-    pub elem: T,
-    pub next: Link<T>,
+pub struct Node {
+    pub elem: i32,
+    pub next: Link,
 }
 
-impl<T> List<T> {
+impl List {
     pub fn new() -> Self {
         List { head: None }
     }
 
-    pub fn push(&mut self, elem: T) {
+    pub fn push(&mut self, elem: i32) {
         let new_node = Box::new(Node {
             elem,
             next: self.head.take(),
@@ -23,7 +23,7 @@ impl<T> List<T> {
         self.head = Some(new_node);
     }
 
-    pub fn pop(&mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<i32> {
         match self.head.take() {
             None => None,
             Some(node) => {
@@ -31,10 +31,6 @@ impl<T> List<T> {
                 Some(node.elem)
             }
         }
-    }
-
-    pub fn peek(&self) -> Option<&T> {
-        self.head.as_ref().map(|node| &node.elem)
     }
 }
 
@@ -44,13 +40,4 @@ fn test_push_and_pop() {
     list.push(2);
     assert_eq!(list.pop().unwrap(), 2);
     assert_eq!(list.pop(), None);
-}
-
-#[test]
-fn test_peek() {
-    let mut list = List::new();
-    list.push(2);
-    assert_eq!(list.peek().unwrap(), &2);
-    list.pop();
-    assert!(list.peek().is_none());
 }
