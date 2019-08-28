@@ -39,7 +39,14 @@ impl<T> List<T> {
     }
 }
 
-// into iterator
+//  _______________
+// < into iterator >
+//  ---------------
+//         \   ^__^
+//          \  (oo)\_______
+//             (__)\       )\/\
+//                 ||----w |
+//                 ||     ||
 pub struct ListIntoIterator<T>(List<T>);
 
 impl<T> std::iter::IntoIterator for List<T> {
@@ -58,11 +65,18 @@ impl<T> Iterator for ListIntoIterator<T> {
     }
 }
 
-// iter
+//  ______
+// < iter >
+//  ------
+//         \   ^__^
+//          \  (oo)\_______
+//             (__)\       )\/\
+//                 ||----w |
+//                 ||     ||
 impl<T> List<T> {
-    pub fn iter(&mut self) -> ListIter<T> {
+    pub fn iter(&self) -> ListIter<T> {
         ListIter {
-            next: self.head.as_ref()
+            next: self.head.as_ref(),
         }
     }
 }
@@ -73,11 +87,42 @@ pub struct ListIter<'a, T> {
 impl<'a, T> std::iter::Iterator for ListIter<'a, T> {
     type Item = &'a T;
     fn next(&mut self) -> Option<&'a T> {
-        self.next.map( |node| {
-
-        }})
+        self.next.take().map(|node| {
+            self.next = node.next.as_ref();
+            &node.elem
+        })
     }
 }
+//  __________
+// < iter mut >
+//  ----------
+//         \   ^__^
+//          \  (oo)\_______
+//             (__)\       )\/\
+//                 ||----w |
+//                 ||     ||
+impl<T> List<T> {
+    pub fn iter_mut(&mut self) -> ListIterMut<T> {
+        ListIterMut {
+            next: self.head.as_mut(),
+        }
+    }
+}
+
+pub struct ListIterMut<'a, T> {
+    next: Option<&'a mut Box<Node<T>>>,
+}
+
+impl<'a, T> std::iter::Iterator for ListIterMut<'a, T> {
+    type Item = &'a mut T;
+    fn next(&mut self) -> Option<&'a mut T> {
+        self.next.take().map(|node| {
+            self.next = node.next.as_mut();
+            &mut node.elem
+        })
+    }
+}
+
 #[test]
 fn test_push_and_pop() {
     let mut list = List::default();
@@ -109,4 +154,21 @@ fn test_into_iterator() {
     list2.push(1);
     list2.push(2);
     assert_eq!(list2.into_iter().collect::<Vec<_>>(), vec![2, 1]);
+}
+
+#[test]
+fn test_iter() {
+    let mut list2 = List::default();
+    list2.push(1);
+    list2.push(2);
+    assert_eq!(list2.iter().collect::<Vec<_>>(), vec![&2, &1]);
+}
+
+#[test]
+fn test_iter_mut() {
+    let mut list2 = List::default();
+    list2.push(1);
+    list2.push(2);
+    list2.iter_mut().for_each(|t| *t += 1);
+    assert_eq!(list2.iter().collect::<Vec<_>>(), vec![&3, &2]);
 }
