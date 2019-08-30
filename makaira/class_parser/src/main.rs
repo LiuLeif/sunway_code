@@ -8,8 +8,11 @@ use nom::combinator::*;
 use nom::multi::*;
 use nom::sequence::*;
 use nom::*;
+use nom::error::*;
 
 use std::io::Read;
+
+use enum_primitive::*;
 
 #[derive(Default, Debug)]
 struct ClassFile {
@@ -17,7 +20,7 @@ struct ClassFile {
     minor_vesion: u16,
     major_vesion: u16,
     constant_pool_count: u16,
-    constant_pool: Vec<CpInfo>,
+    constant_pool: Vec<ConstantInfo>,
     access_flags: u16,
     this_class: u16,
     super_class: u16,
@@ -31,22 +34,24 @@ struct ClassFile {
     attributes: Vec<AttributeInfo>,
 }
 
-#[derive(Debug)]
-enum ConstantType {
-    Class = 7,
-    Fieldref = 9,
-    Methodref = 10,
-    InterfaceMethodref = 11,
-    String = 8,
-    Integer = 3,
-    Float = 4,
-    Long = 5,
-    Double = 6,
-    NameAndType = 12,
-    Utf8 = 1,
-    MethodHandle = 15,
-    MethodType = 16,
-    InvokeDynamic = 18,
+enum_from_primitive! {
+    #[derive(Debug, Clone, Copy)]
+    enum ConstantType {
+        Class = 7,
+        Fieldref = 9,
+        Methodref = 10,
+        InterfaceMethodref = 11,
+        String = 8,
+        Integer = 3,
+        Float = 4,
+        Long = 5,
+        Double = 6,
+        NameAndType = 12,
+        Utf8 = 1,
+        MethodHandle = 15,
+        MethodType = 16,
+        InvokeDynamic = 18,
+    }
 }
 
 impl Default for ConstantType {
@@ -134,12 +139,6 @@ enum ConstantInfo {
 }
 
 #[derive(Default, Debug)]
-struct CpInfo {
-    tag: ConstantType,
-    info: ConstantInfo,
-}
-
-#[derive(Default, Debug)]
 struct FieldInfo {
     access_flags: u16,
     name_index: u16,
@@ -212,10 +211,27 @@ enum AccessFlags {
     ACC_ENUM = 0x4000,
 }
 
-fn parse_constant_pool(input: &[u8]) -> IResult<&[u8], (u16, Vec<CpInfo>)> {
-    let (input, count) = be_u16(input)?;
+fn parse_constant_info(input: &[u8]) -> IResult<&[u8], ConstantInfo> {
+    let (input, constant_type) = map_opt(be_u8, |t| ConstantType::from_u8(t))(input)?;
+    match constant_type {
+        ConstantType::Class => map(be_u16, |name_index| ConstantInfo::ClassInfo {
+            tag: constant_type,
+            name_index,
+        })(input),
+        ConstantType::Fieldref => map(
+            pair(be_u16, be_u16),
+            |(class_index, name_and_type_index)| ConstantInfo::FieldrefInfo {
+                tag: constant_type,
+                class_index,
+                name_and_type_index,
+            },
+        )(input),
 
-    Ok((input, (count, vec![])))
+    }
+}
+
+fn parse_constant_pool(input: &[u8]) -> IResult<&[u8], (u16, Vec<ConstantInfo>)> {
+    pair(be_u16, many0(parse_constant_info))(input)
 }
 
 fn parse_class(input: &[u8]) -> IResult<&[u8], ClassFile> {
