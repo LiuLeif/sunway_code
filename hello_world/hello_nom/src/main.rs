@@ -1,5 +1,9 @@
 use nom::bytes::complete::*;
 use nom::character::complete::*;
+use nom::number::complete::*;
+// use nom::bits::complete::*;
+
+use nom::branch::*;
 use nom::combinator::*;
 use nom::multi::*;
 use nom::sequence::*;
@@ -25,13 +29,13 @@ struct Person {
 }
 
 fn delim(input: &str) -> IResult<&str, &str> {
-    let (input, (_, _)) = pair(tag(","), space0)(input)?;
+    let (input, (_, _)) = pair(char(','), space0)(input)?;
     Ok((input, ""))
 }
 
 fn parse_person(input: &str) -> IResult<&str, Person> {
     let mut person = Person::default();
-    let (input, (_, name, _)) = tuple((tag("name:"), alpha0, delim))(input)?;
+    let (input, (name)) = delimited(tag("name:"), alpha0, delim)(input)?;
     person.name = name.to_owned();
     let (input, (_, age, _)) = tuple((
         tag("age:"),
@@ -39,7 +43,7 @@ fn parse_person(input: &str) -> IResult<&str, Person> {
         delim,
     ))(input)?;
     person.age = age;
-    let (input, (_, gender)) = pair(
+    let (input, gender) = preceded(
         tag("gender:"),
         map(alpha0, |s: &str| match s {
             "male" => Gender::MALE,
@@ -49,7 +53,7 @@ fn parse_person(input: &str) -> IResult<&str, Person> {
     )(input)?;
     person.gender = gender;
 
-    let (input, (_)) = space0(input)?;
+    let (input, _) = space0(input)?;
 
     Ok((input, person))
 }
