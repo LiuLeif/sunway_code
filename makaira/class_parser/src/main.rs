@@ -242,13 +242,39 @@ fn parse_constant_info(input: &[u8]) -> IResult<&[u8], ConstantInfo> {
                 name_and_type_index,
             },
         )(input),
-        ConstantType::String => map(
-            be_u16,
-            |string_index| ConstantInfo::StringInfo {
+        ConstantType::String => map(be_u16, |string_index| ConstantInfo::StringInfo {
+            tag: constant_type,
+            string_index,
+        })(input),
+        ConstantType::Integer => map(be_u32, |bytes| ConstantInfo::IntegerInfo {
+            tag: constant_type,
+            bytes,
+        })(input),
+        ConstantType::Float => map(be_u32, |bytes| ConstantInfo::FloatInfo {
+            tag: constant_type,
+            bytes,
+        })(input),
+        ConstantType::Long => map(pair(be_u32, be_u32), |(high_bytes, low_bytes)| {
+            ConstantInfo::LongInfo {
                 tag: constant_type,
-                string_index,
-            },
-        )(input),
+                high_bytes,
+                low_bytes,
+            }
+        })(input),
+        ConstantType::Double => map(pair(be_u32, be_u32), |(high_bytes, low_bytes)| {
+            ConstantInfo::DoubleInfo {
+                tag: constant_type,
+                high_bytes,
+                low_bytes,
+            }
+        })(input),
+        ConstantType::NameAndType => map(pair(be_u16, be_u16), |(name_index, descriptor_index)| {
+            ConstantInfo::NameAndTypeInfo {
+                tag: constant_type,
+                name_index,
+                descriptor_index,
+            }
+        })(input),
 
         _ => Err(Err::Error((input, ErrorKind::Tag))),
     }
