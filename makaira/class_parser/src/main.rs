@@ -5,10 +5,10 @@ use nom::number::complete::*;
 
 use nom::branch::*;
 use nom::combinator::*;
+use nom::error::*;
 use nom::multi::*;
 use nom::sequence::*;
 use nom::*;
-use nom::error::*;
 
 use std::io::Read;
 
@@ -226,7 +226,31 @@ fn parse_constant_info(input: &[u8]) -> IResult<&[u8], ConstantInfo> {
                 name_and_type_index,
             },
         )(input),
+        ConstantType::Methodref => map(
+            pair(be_u16, be_u16),
+            |(class_index, name_and_type_index)| ConstantInfo::MethodrefInfo {
+                tag: constant_type,
+                class_index,
+                name_and_type_index,
+            },
+        )(input),
+        ConstantType::InterfaceMethodref => map(
+            pair(be_u16, be_u16),
+            |(class_index, name_and_type_index)| ConstantInfo::InterfaceMethodrefInfo {
+                tag: constant_type,
+                class_index,
+                name_and_type_index,
+            },
+        )(input),
+        ConstantType::String => map(
+            be_u16,
+            |string_index| ConstantInfo::StringInfo {
+                tag: constant_type,
+                string_index,
+            },
+        )(input),
 
+        _ => Err(Err::Error((input, ErrorKind::Tag))),
     }
 }
 
