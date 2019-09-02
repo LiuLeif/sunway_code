@@ -6,4 +6,3 @@ edition = "2018"
 
 [dependencies]
 nom = "5"
-enum_primitive = "0.1.1"
