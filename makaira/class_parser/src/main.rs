@@ -34,6 +34,11 @@ struct ClassFile {
     attributes: Vec<AttributeInfo>,
 }
 
+impl ClassFile {
+    fn fixme(&mut self) {
+
+    }
+}
 enum_from_primitive! {
     #[derive(Debug, Clone, Copy)]
     enum ConstantType {
@@ -48,9 +53,6 @@ enum_from_primitive! {
         Double = 6,
         NameAndType = 12,
         Utf8 = 1,
-        MethodHandle = 15,
-        MethodType = 16,
-        InvokeDynamic = 18,
     }
 }
 
@@ -122,20 +124,6 @@ enum ConstantInfo {
         length: u16,
         bytes: Vec<u8>,
     },
-    MethodHandleInfo {
-        tag: ConstantType,
-        reference_kind: u8,
-        reference_index: u8,
-    },
-    MethodTypeInfo {
-        tag: ConstantType,
-        descriptor_index: u16,
-    },
-    InvokeDynamicInfo {
-        tag: ConstantType,
-        bootstrap_method_attr_index: u16,
-        name_and_type_index: u16,
-    },
 }
 
 #[derive(Default, Debug)]
@@ -144,7 +132,7 @@ struct FieldInfo {
     name_index: u16,
     descriptor_index: u16,
     attributes_count: u16,
-    attribute_info: Vec<AttributeInfo>,
+    attributes: Vec<AttributeInfo>,
 }
 
 #[derive(Default, Debug)]
@@ -158,6 +146,11 @@ struct MethodInfo {
 
 #[derive(Debug)]
 enum AttributeInfo {
+    RawInfo {
+        attribute_name_index: u16,
+        attribute_length: u32,
+        raw_data: Vec<u8>,
+    },
     ConstantValue {
         attribute_name_index: u16,
         attribute_length: u32,
@@ -275,13 +268,85 @@ fn parse_constant_info(input: &[u8]) -> IResult<&[u8], ConstantInfo> {
                 descriptor_index,
             }
         })(input),
-
-        _ => Err(Err::Error((input, ErrorKind::Tag))),
+        ConstantType::Utf8 => {
+            let (input, length) = be_u16(input)?;
+            let (input, bytes) = take(length)(input)?;
+            Ok((
+                input,
+                ConstantInfo::Utf8Info {
+                    tag: constant_type,
+                    length,
+                    bytes: bytes.to_owned(),
+                },
+            ))
+        } // _ => Err(Err::Error((input, ErrorKind::Tag))),
     }
 }
 
 fn parse_constant_pool(input: &[u8]) -> IResult<&[u8], (u16, Vec<ConstantInfo>)> {
     pair(be_u16, many0(parse_constant_info))(input)
+}
+
+fn parse_interface(input: &[u8]) -> IResult<&[u8], (u16, Vec<u16>)> {
+    let (input, interface_count) = be_u16(input)?;
+    let (input, interfaces) = count(be_u16, interface_count as usize)(input)?;
+    Ok((input, (interface_count, interfaces)))
+}
+
+fn parse_attributes(input: &[u8]) -> IResult<&[u8], (u16, Vec<AttributeInfo>)> {
+    let (input, attributes_count) = be_u16(input)?;
+    let (input, attribute_info) = count(
+        map(
+            pair(be_u16, length_data(be_u32)),
+            |(attribute_name_index, raw_data)| AttributeInfo::RawInfo {
+                attribute_name_index,
+                attribute_length: raw_data.len() as u32,
+                raw_data: raw_data.to_vec(),
+            },
+        ),
+        attributes_count as usize,
+    )(input)?;
+    Ok((input, (attributes_count, attribute_info)))
+}
+
+fn parse_fields(input: &[u8]) -> IResult<&[u8], (u16, Vec<FieldInfo>)> {
+    let (input, fields_count) = be_u16(input)?;
+    let (input, fields) = count(
+        map(
+            tuple((be_u16, be_u16, be_u16, parse_attributes)),
+            |(access_flags, name_index, descriptor_index, (attributes_count, attributes))| {
+                FieldInfo {
+                    access_flags,
+                    name_index,
+                    descriptor_index,
+                    attributes_count,
+                    attributes,
+                }
+            },
+        ),
+        fields_count as usize,
+    )(input)?;
+    Ok((input, (fields_count, fields)))
+}
+
+fn parse_methods(input: &[u8]) -> IResult<&[u8], (u16, Vec<MethodInfo>)> {
+    let (input, methods_count) = be_u16(input)?;
+    let (input, methods) = count(
+        map(
+            tuple((be_u16, be_u16, be_u16, parse_attributes)),
+            |(access_flags, name_index, descriptor_index, (attributes_count, attributes))| {
+                MethodInfo {
+                    access_flags,
+                    name_index,
+                    descriptor_index,
+                    attributes_count,
+                    attributes,
+                }
+            },
+        ),
+        methods_count as usize,
+    )(input)?;
+    Ok((input, (methods_count, methods)))
 }
 
 fn parse_class(input: &[u8]) -> IResult<&[u8], ClassFile> {
@@ -290,18 +355,49 @@ fn parse_class(input: &[u8]) -> IResult<&[u8], ClassFile> {
     ret.magic = magic;
     ret.minor_vesion = minor_vesion;
     ret.major_vesion = major_vesion;
+
     let (input, (constant_pool_count, constant_pool)) = parse_constant_pool(input)?;
     ret.constant_pool_count = constant_pool_count;
     ret.constant_pool = constant_pool;
-    Ok((&[], ret))
+
+    let (input, (access_flags, this_class, super_class)) = tuple((be_u16, be_u16, be_u16))(input)?;
+    ret.access_flags = access_flags;
+    ret.this_class = this_class;
+    ret.super_class = super_class;
+
+    let (input, (interface_count, interfaces)) = parse_interface(input)?;
+    ret.interface_count = interface_count;
+    ret.interfaces = interfaces;
+
+    let (input, (fields_count, fields)) = parse_fields(input)?;
+    ret.fields_count = fields_count;
+    ret.fields = fields;
+
+    let (input, (methods_count, methods)) = parse_methods(input)?;
+    ret.methods_count = methods_count;
+    ret.methods = methods;
+
+    let (input, (attributes_count, attributes)) = parse_attributes(input)?;
+    ret.attributes_count = attributes_count;
+    ret.attributes = attributes;
+
+    Ok((input, ret))
 }
 
 fn main() {
     let mut path = std::env::home_dir().unwrap();
     path.push("Gitbox/code/makaira/class_parser/Test.class.sample");
     let mut f = std::fs::File::open(path).unwrap();
-    let mut buff = Vec::new();
-    f.read_to_end(&mut buff);
+    let mut input = Vec::new();
+    f.read_to_end(&mut input);
 
-    println!("{:?}", parse_class(&buff));
+    let mut class_file = {
+        match parse_class(&input) {
+            Ok((_, class_file)) => class_file,
+            Err(_) => panic!(""),
+        }
+    };
+
+    class_file.fixme();
+    // println!("{:#?}", class_file);
 }
