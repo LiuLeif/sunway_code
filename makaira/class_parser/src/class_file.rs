@@ -18,10 +18,6 @@ pub struct ClassFile {
     pub attributes: Vec<AttributeInfo>,
 }
 
-impl ClassFile {
-    pub fn resolve(&mut self) {}
-}
-
 #[derive(Debug, Clone, Copy)]
 pub enum ConstantType {
     Class = 7,

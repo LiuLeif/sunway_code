@@ -14,6 +14,7 @@ use std::io::Read;
 
 mod parser;
 mod class_file;
+mod makaira_object;
 
 fn main() {
     let mut path = std::env::home_dir().unwrap();
@@ -29,6 +30,6 @@ fn main() {
         }
     };
 
-    class_file.resolve();
-    println!("{:#?}", class_file);
+    let makaira_class = makaira_object::MakairaClass::new(class_file);
+    println!("{:#?}", makaira_class);
 }
