@@ -199,3 +199,25 @@ pub enum AccessFlags {
     ACC_ANNOTATION = 0x2000,
     ACC_ENUM = 0x4000,
 }
+
+impl ClassFile {
+    pub fn get_string(&self, index: usize) -> String {
+        let utf8_info = &self.constant_pool[index - 1];
+        if let ConstantInfo::Utf8Info { tag, length, bytes } = utf8_info {
+            String::from_utf8(bytes.to_vec()).unwrap()
+        } else {
+            panic!("error");
+        }
+    }
+    pub fn get_class_name(&self, index: usize) -> String {
+        let class_info = &self.constant_pool[index - 1];
+        let name_index = {
+            if let ConstantInfo::ClassInfo { tag, name_index } = class_info {
+                name_index
+            } else {
+                panic!("error parse class");
+            }
+        };
+        self.get_string(*name_index as usize)
+    }
+}
