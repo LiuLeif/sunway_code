@@ -1,3 +1,5 @@
+use crate::parser;
+
 #[derive(Default, Debug)]
 pub struct ClassFile {
     pub magic: u32,
@@ -141,37 +143,30 @@ pub struct MethodInfo {
 }
 
 #[derive(Debug)]
-pub enum AttributeInfo {
-    RawInfo {
-        attribute_name_index: u16,
-        attribute_length: u32,
-        raw_data: Vec<u8>,
-    },
-    ConstantValue {
-        attribute_name_index: u16,
-        attribute_length: u32,
-        constantvalue_index: u16,
-    },
-    Code {
-        attribute_name_index: u16,
-        attribute_length: u32,
-        max_stack: u16,
-        max_locals: u16,
-        code_length: u32,
-        code: Vec<u8>,
-        exception_table_length: u16,
-        exception_table: Vec<ExceptionTableEntry>,
-        attributes_count: u16,
-        attributes: Vec<AttributeInfo>,
-    },
+pub struct AttributeInfo {
+    pub attribute_name_index: u16,
+    pub attribute_length: u32,
+    pub raw_data: Vec<u8>,
+}
+
+#[derive(Debug)]
+pub struct CodeInfo {
+    pub max_stack: u16,
+    pub max_locals: u16,
+    pub code_length: u32,
+    pub code: Vec<u8>,
+    pub exception_table_length: u16,
+    pub exception_table: Vec<ExceptionTableEntry>,
+    pub attributes_count: u16,
+    pub attributes: Vec<AttributeInfo>,
 }
 
 impl Default for AttributeInfo {
     fn default() -> Self {
-        Self::ConstantValue {
+        Self {
             attribute_name_index: 0,
             attribute_length: 0,
-            constantvalue_index: 0,
+            raw_data: vec![],
         }
     }
 }
@@ -219,5 +214,14 @@ impl ClassFile {
             }
         };
         self.get_string(*name_index as usize)
+    }
+
+    pub fn get_code(&self, attributes: &[AttributeInfo]) -> CodeInfo {
+        let code_info = attributes
+            .iter()
+            .find(|raw_info| self.get_string(raw_info.attribute_name_index as usize) == "Code")
+            .unwrap();
+
+        parser::parse_code(&code_info.raw_data).unwrap().1
     }
 }

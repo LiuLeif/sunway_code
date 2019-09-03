@@ -1,9 +1,9 @@
 // 2019-09-02 22:47
 use crate::class_file::*;
+use crate::instruction_parser::*;
 
 #[derive(Debug)]
 pub struct MakairaClass {
-    class_file: ClassFile,
     name: String,
     super_name: String,
     access_flags: u16,
@@ -16,20 +16,59 @@ impl MakairaClass {
         let name = class_file.get_class_name(class_file.this_class as usize);
         let super_name = class_file.get_class_name(class_file.super_class as usize);
 
-        let mut ret = MakairaClass {
-            class_file,
+        let fields = class_file
+            .fields
+            .iter()
+            .map(|field_info| MakairaField {
+                access_flags: field_info.access_flags,
+                name: class_file.get_string(field_info.name_index as usize),
+                descriptor: class_file.get_string(field_info.descriptor_index as usize),
+            })
+            .collect::<Vec<_>>();
+
+        let methods = class_file
+            .methods
+            .iter()
+            .map(|method_info| MakairaMethod {
+                access_flags: method_info.access_flags,
+                name: class_file.get_string(method_info.name_index as usize),
+                descriptor: class_file.get_string(method_info.descriptor_index as usize),
+                code: {
+                    let code = class_file.get_code(&method_info.attributes);
+                    MakairaCode {
+                        max_stack: code.max_stack,
+                        max_locals: code.max_locals,
+                        code_length: code.code_length,
+                        insts: instruction_parser::parse(&code.code),
+                    }
+                },
+            })
+            .collect::<Vec<_>>();
+
+        MakairaClass {
             name,
             super_name,
             access_flags: 0,
-            fields: vec![],
-            methods: vec![],
-        };
-        ret
+            fields,
+            methods,
+        }
     }
 }
 
 #[derive(Debug)]
-struct MakairaMethod {}
+struct MakairaMethod {
+    access_flags: u16,
+    name: String,
+    descriptor: String,
+    code: MakairaCode,
+}
+
+struct MakairaCode {
+    pub max_stack: u16,
+    pub max_locals: u16,
+    pub code_length: u32,
+    pub insts: Vec<MakairaInstruction>,
+}
 
 #[derive(Debug)]
 struct MakairaField {

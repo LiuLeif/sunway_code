@@ -106,7 +106,7 @@ fn parse_attributes(input: &[u8]) -> IResult<&[u8], (u16, Vec<AttributeInfo>)> {
     let (input, attribute_info) = count(
         map(
             pair(be_u16, length_data(be_u32)),
-            |(attribute_name_index, raw_data)| AttributeInfo::RawInfo {
+            |(attribute_name_index, raw_data)| AttributeInfo {
                 attribute_name_index,
                 attribute_length: raw_data.len() as u32,
                 raw_data: raw_data.to_vec(),
@@ -190,4 +190,22 @@ pub fn parse_class(input: &[u8]) -> IResult<&[u8], ClassFile> {
     ret.attributes = attributes;
 
     Ok((input, ret))
+}
+
+pub fn parse_code(input: &[u8]) -> IResult<&[u8], CodeInfo> {
+    let (input, (max_stack, max_locals, code)) =
+        tuple((be_u16, be_u16, length_data(be_u32)))(input)?;
+    Ok((
+        input,
+        CodeInfo {
+            max_stack,
+            max_locals,
+            code_length: code.len() as u32,
+            code: code.to_vec(),
+            exception_table_length: 0,
+            exception_table: vec![],
+            attributes_count: 0,
+            attributes: vec![],
+        },
+    ))
 }

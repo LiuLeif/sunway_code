@@ -30,6 +30,7 @@ fn main() {
         }
     };
 
+    println!("{:#?}", class_file);
     let makaira_class = makaira_object::MakairaClass::new(class_file);
     println!("{:#?}", makaira_class);
 }
