@@ -1,4 +1,4 @@
-use crate::parser;
+use crate::class_parser;
 
 #[derive(Default, Debug)]
 pub struct ClassFile {
@@ -222,6 +222,6 @@ impl ClassFile {
             .find(|raw_info| self.get_string(raw_info.attribute_name_index as usize) == "Code")
             .unwrap();
 
-        parser::parse_code(&code_info.raw_data).unwrap().1
+        class_parser::parse_code(&code_info.raw_data).unwrap().1
     }
 }

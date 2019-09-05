@@ -1,6 +1,7 @@
 // 2019-09-02 22:47
 use crate::class_file::*;
-use crate::instruction_parser::*;
+use crate::inst_parser;
+use crate::inst_parser::*;
 
 #[derive(Debug)]
 pub struct MakairaClass {
@@ -39,7 +40,7 @@ impl MakairaClass {
                         max_stack: code.max_stack,
                         max_locals: code.max_locals,
                         code_length: code.code_length,
-                        insts: instruction_parser::parse(&code.code),
+                        insts: inst_parser::parse(&code.code).unwrap().1,
                     }
                 },
             })
@@ -63,11 +64,12 @@ struct MakairaMethod {
     code: MakairaCode,
 }
 
+#[derive(Debug)]
 struct MakairaCode {
     pub max_stack: u16,
     pub max_locals: u16,
     pub code_length: u32,
-    pub insts: Vec<MakairaInstruction>,
+    pub insts: Vec<MakairaInst>,
 }
 
 #[derive(Debug)]

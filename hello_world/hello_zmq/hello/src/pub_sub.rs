@@ -12,12 +12,16 @@ fn start_subscriber() {
     let socket = CONTEXT.socket(zmq::SUB).unwrap();
     // assert!(socket.connect("ipc:///tmp/hello.ipc").is_ok());
     assert!(socket.connect("inproc://hello").is_ok());
+
     socket.set_subscribe("alert".as_bytes());
-    let mut msg = zmq::Message::new();
+    socket.set_subscribe("info".as_bytes());
+    loop {
+        let mut msg = zmq::Message::new();
 
-    socket.recv(&mut msg, 0).unwrap();
+        socket.recv(&mut msg, 0).unwrap();
 
-    println!("received: {}", msg.as_str().unwrap());
+        println!("received: {}", msg.as_str().unwrap());
+    }
 }
 
 fn start_publisher() {
@@ -25,8 +29,11 @@ fn start_publisher() {
     assert!(socket.bind("inproc://hello").is_ok());
 
     let mut msg = zmq::Message::new();
-    socket.send("info server", 0).unwrap();
-    socket.send("alert server", 0).unwrap();
+    socket.send("infomation", 0);
+    socket.send("alert", 0);
+    socket.send("nonono", 0);
+    // socket.send("info server", 0).unwrap();
+    // socket.send("alert server", 0).unwrap();
 }
 
 pub fn run() {

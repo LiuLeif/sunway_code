@@ -157,7 +157,7 @@ fn parse_methods(input: &[u8]) -> IResult<&[u8], (u16, Vec<MethodInfo>)> {
     Ok((input, (methods_count, methods)))
 }
 
-pub fn parse_class(input: &[u8]) -> IResult<&[u8], ClassFile> {
+pub fn parse(input: &[u8]) -> IResult<&[u8], ClassFile> {
     let mut ret = ClassFile::default();
     let (input, (magic, minor_vesion, major_vesion)) = tuple((be_u32, be_u16, be_u16))(input)?;
     ret.magic = magic;

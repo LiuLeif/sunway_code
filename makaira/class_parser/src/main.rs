@@ -12,9 +12,10 @@ use nom::*;
 
 use std::io::Read;
 
-mod parser;
+mod class_parser;
 mod class_file;
 mod makaira_object;
+mod inst_parser;
 
 fn main() {
     let mut path = std::env::home_dir().unwrap();
@@ -24,13 +25,14 @@ fn main() {
     f.read_to_end(&mut input);
 
     let mut class_file = {
-        match parser::parse_class(&input) {
+        match class_parser::parse(&input) {
             Ok((_, class_file)) => class_file,
             Err(_) => panic!(""),
         }
     };
 
-    println!("{:#?}", class_file);
+    // println!("{:#?}", class_file);
+
     let makaira_class = makaira_object::MakairaClass::new(class_file);
     println!("{:#?}", makaira_class);
 }
