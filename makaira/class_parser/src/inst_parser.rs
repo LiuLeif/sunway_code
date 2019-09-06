@@ -11,6 +11,8 @@ use nom::multi::*;
 use nom::sequence::*;
 use nom::*;
 
+use std::cell::Cell;
+
 #[derive(Debug)]
 pub enum MakairaInst {
     AALOAD,
@@ -185,7 +187,7 @@ pub enum MakairaInst {
     LLOAD_3,
     LMUL,
     LNEG,
-    LOOKUPSWITCH,
+    LOOKUPSWITCH(u32, Vec<(u32, u32)>),
     LOR,
     LREM,
     LRETURN,
@@ -462,6 +464,14 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
                 INVOKEINTERFACE(value, count)
             }
 
+            0xab => {
+                let total_len = INST_LEN.with(|len| len.get());
+                let padding = (4 - (total_len - input.len() as i32) % 4) % 4;
+                let (tmp, (default_value, n_pairs)) = pair(be_u32, be_u32)(input)?;
+                let (tmp, pairs) = count(pair(be_u32, be_u32), n_pairs as usize)(tmp)?;
+                input = tmp;
+                LOOKUPSWITCH(default_value, pairs)
+            }
             // _ => Err(Err::Error((input, ErrorKind::Tag))),
             _ => panic!("unknown inst"),
         }
@@ -469,6 +479,11 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
     Ok((input, inst))
 }
 
+thread_local! {
+    static INST_LEN: Cell<i32> = Cell::new(0);
+}
+
 pub fn parse(input: &[u8]) -> IResult<&[u8], Vec<MakairaInst>> {
+    INST_LEN.with(|len| len.set(input.len() as i32));
     many0(parse_inst)(input)
 }
