@@ -229,7 +229,7 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
         match opcode {
             0x32 => AALOAD,
             0x53 => AASTORE,
-            0x1 => ACONST_NULL,
+            0x01 => ACONST_NULL,
             0x2a => ALOAD_0,
             0x2b => ALOAD_1,
             0x2c => ALOAD_2,
