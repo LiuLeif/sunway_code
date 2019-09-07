@@ -217,7 +217,7 @@ pub enum MakairaInst {
     SASTORE,
     SIPUSH(u16),
     SWAP,
-    TABLESWITCH,
+    TABLESWITCH(u32, u32, u32, Vec<u32>),
     WIDE,
 }
 
@@ -466,16 +466,31 @@ fn parse_inst(input: &[u8], pc: usize) -> IResult<&[u8], (MakairaInst, usize)> {
             }
 
             0xab => {
-                let padding = (4 - (pc as i32) % 4) % 4;
-                let (input, (default_value, n_pairs)) = pair(be_u32, be_u32)(&input[padding..])?;
-                let (input, pairs) = count(pair(be_u32, be_u32), n_pairs as usize)(input)?;
+                let padding = (4 - (pc as i32 + 1) % 4) % 4;
+                let (input, (_, default_value, n_pairs)) = tuple((
+                    take(padding as usize),
+                    map(be_u32, |x| x + pc as u32),
+                    be_u32,
+                ))(input)?;
+                let (input, pairs) = count(
+                    pair(be_u32, map(be_u32, |x| x + pc as u32)),
+                    n_pairs as usize,
+                )(input)?;
                 size += padding + 8 + 8 * n_pairs as i32;
                 LOOKUPSWITCH(default_value, pairs)
             }
 
             0xaa => {
-                let padding = (4 - (pc as i32) % 4) % 4;
-                let (input, (default_value, n_pairs)) = pair(be_u32, be_u32)(&input[padding..])?;
+                let padding = (4 - (pc as i32 + 1) % 4) % 4;
+                let (input, (_, default_value, lo, hi)) = tuple((
+                    take(padding as usize),
+                    map(be_u32, |x| x + pc as u32),
+                    be_u32,
+                    be_u32,
+                ))(input)?;
+                let (input, offsets) =
+                    count(map(be_u32, |x| x + pc as u32), (hi - lo + 1) as usize)(input)?;
+                TABLESWITCH(default_value, lo, hi, offsets)
             }
             // _ => Err(Err::Error((input, ErrorKind::Tag))),
             _ => panic!("unknown inst"),
