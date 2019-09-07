@@ -221,12 +221,12 @@ pub enum MakairaInst {
     WIDE,
 }
 
-fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
+fn parse_inst(input: &[u8], pc: usize) -> IResult<&[u8], (MakairaInst, usize)> {
     use MakairaInst::*;
 
-    let mut input = input;
-    let (tmp, opcode) = be_u8(input)?;
-    input = tmp;
+    let input = &input[pc as usize..];
+    let (input, opcode) = be_u8(input)?;
+    let mut size = 1;
     let inst = {
         match opcode {
             0x32 => AALOAD,
@@ -380,8 +380,8 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
             0x5f => SWAP,
             0x19 | 0x3a | 0x10 | 0x18 | 0x39 | 0x17 | 0x38 | 0x15 | 0x36 | 0x12 | 0x16 | 0x37
             | 0xbc | 0xa9 => {
-                let (tmp, index) = be_u8(input)?;
-                input = tmp;
+                size += 1;
+                let (input, index) = be_u8(input)?;
                 match opcode {
                     0x19 => ALOAD(index),
                     0x3a => ASTORE(index),
@@ -403,8 +403,8 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
             0x64 | 0xb2 | 0xa7 | 0xb7 | 0xbd | 0xc0 | 0xa5 | 0xa6 | 0x9f | 0xa2 | 0xa3 | 0xa4
             | 0xa1 | 0xa0 | 0x99 | 0x9c | 0x9d | 0x9e | 0x9b | 0x9a | 0xc7 | 0xc6 | 0x84 | 0xc1
             | 0xb7 | 0xb8 | 0xb6 | 0xa8 | 0x13 | 0x14 | 0xbb | 0xb5 | 0xb3 | 0x11 => {
-                let (tmp, value) = be_u16(input)?;
-                input = tmp;
+                let (input, value) = be_u16(input)?;
+                size += 2;
                 match opcode {
                     0xbd => ANEWARRAY(value),
                     0xc0 => CHECKCAST(value),
@@ -444,14 +444,14 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
             }
 
             0xc5 => {
-                let (tmp, (value, dimen)) = pair(be_u16, be_u8)(input)?;
-                input = tmp;
+                let (input, (value, dimen)) = pair(be_u16, be_u8)(input)?;
+                size += 3;
                 MULTIANEWARRAY(value, dimen)
             }
 
             0xc8 | 0xa8 => {
-                let (tmp, value) = be_u32(input)?;
-                input = tmp;
+                let (input, value) = be_u32(input)?;
+                size += 4;
                 match opcode {
                     0xc8 => GOTO_W(value),
                     0xa8 => JSR_W(value),
@@ -460,30 +460,38 @@ fn parse_inst(input: &[u8]) -> IResult<&[u8], MakairaInst> {
             }
 
             0xb9 => {
-                let (tmp, (value, count, _)) = tuple((be_u16, be_u8, be_u8))(input)?;
+                let (input, (value, count, _)) = tuple((be_u16, be_u8, be_u8))(input)?;
+                size += 4;
                 INVOKEINTERFACE(value, count)
             }
 
             0xab => {
-                let total_len = INST_LEN.with(|len| len.get());
-                let padding = (4 - (total_len - input.len() as i32) % 4) % 4;
-                let (tmp, (default_value, n_pairs)) = pair(be_u32, be_u32)(input)?;
-                let (tmp, pairs) = count(pair(be_u32, be_u32), n_pairs as usize)(tmp)?;
-                input = tmp;
+                let padding = (4 - (pc as i32) % 4) % 4;
+                let (input, (default_value, n_pairs)) = pair(be_u32, be_u32)(&input[padding..])?;
+                let (input, pairs) = count(pair(be_u32, be_u32), n_pairs as usize)(input)?;
+                size += padding + 8 + 8 * n_pairs as i32;
                 LOOKUPSWITCH(default_value, pairs)
+            }
+
+            0xaa => {
+                let padding = (4 - (pc as i32) % 4) % 4;
+                let (input, (default_value, n_pairs)) = pair(be_u32, be_u32)(&input[padding..])?;
             }
             // _ => Err(Err::Error((input, ErrorKind::Tag))),
             _ => panic!("unknown inst"),
         }
     };
-    Ok((input, inst))
+    Ok((input, (inst, size as usize)))
 }
 
-thread_local! {
-    static INST_LEN: Cell<i32> = Cell::new(0);
-}
-
-pub fn parse(input: &[u8]) -> IResult<&[u8], Vec<MakairaInst>> {
-    INST_LEN.with(|len| len.set(input.len() as i32));
-    many0(parse_inst)(input)
+pub fn parse(input: &[u8]) -> Vec<MakairaInst> {
+    let len = input.len();
+    let mut pc = 0;
+    let mut ret = vec![];
+    while pc < len {
+        let (inst, size) = parse_inst(&input, pc).unwrap().1;
+        ret.push(inst);
+        pc += size;
+    }
+    ret
 }

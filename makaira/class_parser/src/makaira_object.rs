@@ -2,6 +2,7 @@
 use crate::class_file::*;
 use crate::inst_parser;
 use crate::inst_parser::*;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct MakairaClass {
@@ -40,7 +41,7 @@ impl MakairaClass {
                         max_stack: code.max_stack,
                         max_locals: code.max_locals,
                         code_length: code.code_length,
-                        insts: inst_parser::parse(&code.code).unwrap().1,
+                        code: code.code,
                     }
                 },
             })
@@ -64,14 +65,22 @@ struct MakairaMethod {
     code: MakairaCode,
 }
 
-#[derive(Debug)]
 struct MakairaCode {
     pub max_stack: u16,
     pub max_locals: u16,
     pub code_length: u32,
-    pub insts: Vec<MakairaInst>,
+    pub code: Vec<u8>,
 }
 
+impl fmt::Debug for MakairaCode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "max_stack: {}, max_locals: {}, code_length: {}\ninst: {:#?} ",
+            self.max_stack, self.max_locals, self.code_length, inst_parser::parse(&self.code)
+        )
+    }
+}
 #[derive(Debug)]
 struct MakairaField {
     access_flags: u16,
