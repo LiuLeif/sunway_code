@@ -1,6 +1,5 @@
 Cargo.lock
 .dir-locals.el
 build
-*.class
 .gradle
 target/

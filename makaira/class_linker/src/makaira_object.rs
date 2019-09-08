@@ -1,7 +1,7 @@
 // 2019-09-02 22:47
-use crate::class_file::*;
-use crate::inst_parser;
-use crate::inst_parser::*;
+use class_parser::class_file::*;
+use class_parser::inst_parser;
+use class_parser::inst_parser::*;
 use std::fmt;
 
 #[derive(Debug)]
