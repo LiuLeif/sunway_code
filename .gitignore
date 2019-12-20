@@ -3,3 +3,6 @@ Cargo.lock
 build
 .gradle
 target/
+*.o
+moc_*
+qrc_*.cpp
