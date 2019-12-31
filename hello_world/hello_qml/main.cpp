@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "backend.h"
-#include "message_box.h"
+#include "complex_message_box.h"
 #include <QDebug>
 
 int main(int argc, char *argv[]) {
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     Backend backend;
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<MessageBox>("sunway.message_box", 1, 0, "MessageBox");
+    qmlRegisterType<ComplexMessageBox>("sunway.message_box", 1, 0, "MessageBox");
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("backend", &backend);

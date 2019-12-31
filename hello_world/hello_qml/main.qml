@@ -12,7 +12,20 @@ Window {
 
     signal windowChanged()
     MessageBox {
-        id: msg
+        id: message
+        height: 1
+        width: 1
+        onHeightChanged: console.log("height changed "+height)
+    }
+
+    Connections {
+        target: message
+        onChangedTwoTimes: console.log("height changed 2 times")
+    }
+
+    Connections {
+        target: message
+        onOopsWidthChanged: console.log("oops width changed")
     }
 
     Connections {
@@ -82,12 +95,19 @@ Window {
 
         width: 80
         height: 20
-        text: qsTr("d")
+        text: "d"
         wrapMode: Text.NoWrap
         font.pixelSize: 12
 
-        onTextChanged: msg.onTextChanged(d.text)
+        onTextChanged: message.onTextChanged(d.text)
+    }
 
+    Binding {
+        target: d
+        property: "text"
+        value: {
+            if (c.text.length > 2) {return c.text}  else {return c.text+c.text}
+        }
     }
 
     Connections {
@@ -95,9 +115,20 @@ Window {
         onTextChanged: windowChanged()
     }
 
-    function update_with_js () {
-        b.text=a.text
+    Button {
+        id:button
+        onClicked: {
+            print("button clicked")
+            d.text=Qt.binding(function() {return c.text+c.text+c.text})
+        }
     }
 
-
+    function update_with_js () {
+        b.text=a.text
+        message.height += 1
+        message.width += 1
+        if (message.height == 2) {
+            message.changedTwoTimes()
+        }
+    }
 }

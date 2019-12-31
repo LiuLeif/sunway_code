@@ -54,15 +54,19 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		backend.cpp \
-		message_box.cpp qrc_qml.cpp \
+		message_box.cpp \
+		complex_message_box.cpp qrc_qml.cpp \
 		moc_backend.cpp \
-		moc_message_box.cpp
+		moc_message_box.cpp \
+		moc_complex_message_box.cpp
 OBJECTS       = main.o \
 		backend.o \
 		message_box.o \
+		complex_message_box.o \
 		qrc_qml.o \
 		moc_backend.o \
-		moc_message_box.o
+		moc_message_box.o \
+		moc_complex_message_box.o
 DIST          = ../../../../program/qt/5.14.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../program/qt/5.14.0/gcc_64/mkspecs/common/unix.conf \
 		../../../../program/qt/5.14.0/gcc_64/mkspecs/common/linux.conf \
@@ -239,9 +243,11 @@ DIST          = ../../../../program/qt/5.14.0/gcc_64/mkspecs/features/spec_pre.p
 		../../../../program/qt/5.14.0/gcc_64/mkspecs/features/yacc.prf \
 		../../../../program/qt/5.14.0/gcc_64/mkspecs/features/lex.prf \
 		hello_qml.pro backend.h \
-		message_box.h main.cpp \
+		message_box.h \
+		complex_message_box.h main.cpp \
 		backend.cpp \
-		message_box.cpp
+		message_box.cpp \
+		complex_message_box.cpp
 QMAKE_TARGET  = hello_qml
 DESTDIR       = 
 TARGET        = hello_qml
@@ -624,8 +630,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../program/qt/5.14.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents backend.h message_box.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp backend.cpp message_box.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents backend.h message_box.h complex_message_box.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp backend.cpp message_box.cpp complex_message_box.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -663,9 +669,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../program/qt/5.14.0/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h ../../../../program/qt/5.14.0/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_backend.cpp moc_message_box.cpp
+compiler_moc_header_make_all: moc_backend.cpp moc_message_box.cpp moc_complex_message_box.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_backend.cpp moc_message_box.cpp
+	-$(DEL_FILE) moc_backend.cpp moc_message_box.cpp moc_complex_message_box.cpp
 moc_backend.cpp: backend.h \
 		../../../../program/qt/5.14.0/gcc_64/include/QtCore/QObject \
 		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobject.h \
@@ -781,6 +787,65 @@ moc_message_box.cpp: message_box.h \
 		moc_predefs.h \
 		../../../../program/qt/5.14.0/gcc_64/bin/moc
 	/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/bin/moc $(DEFINES) --include /home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qml/moc_predefs.h -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++ -I/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qml -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQuick -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtGui -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQmlModels -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQml -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtNetwork -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include message_box.h -o moc_message_box.cpp
+
+moc_complex_message_box.cpp: complex_message_box.h \
+		message_box.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/QObject \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobject.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qglobal.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qconfig.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qlogging.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qflags.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qmutex.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qnumeric.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstring.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qchar.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringview.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qlist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qiterator.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qpair.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qvector.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qpoint.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qregexp.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobject_impl.h \
+		moc_predefs.h \
+		../../../../program/qt/5.14.0/gcc_64/bin/moc
+	/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/bin/moc $(DEFINES) --include /home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qml/moc_predefs.h -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++ -I/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qml -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQuick -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtGui -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQmlModels -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtQml -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtNetwork -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include complex_message_box.h -o moc_complex_message_box.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1037,6 +1102,76 @@ message_box.o: message_box.cpp message_box.h \
 		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o message_box.o message_box.cpp
 
+complex_message_box.o: complex_message_box.cpp complex_message_box.h \
+		message_box.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/QObject \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobject.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qglobal.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qconfig.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qlogging.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qflags.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qmutex.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qnumeric.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstring.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qchar.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringview.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qlist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qiterator.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qpair.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qvector.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qpoint.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qregexp.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/QDebug \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qdebug.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qhash.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qmap.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qtextstream.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qlocale.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qvariant.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qset.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../program/qt/5.14.0/gcc_64/include/QtCore/qsharedpointer_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o complex_message_box.o complex_message_box.cpp
+
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
 
@@ -1045,6 +1180,9 @@ moc_backend.o: moc_backend.cpp
 
 moc_message_box.o: moc_message_box.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_message_box.o moc_message_box.cpp
+
+moc_complex_message_box.o: moc_complex_message_box.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_complex_message_box.o moc_complex_message_box.cpp
 
 ####### Install
 
