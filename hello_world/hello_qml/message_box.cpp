@@ -18,3 +18,7 @@ void MessageBox::setWidth(int x) {
 void MessageBox::onTextChanged(QString text) {
     qDebug() << "onTextChanged " << text;
 }
+
+void MessageBox::foo() {
+    qDebug() << "invoke foo";
+}

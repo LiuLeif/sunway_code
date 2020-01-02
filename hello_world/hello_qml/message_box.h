@@ -12,6 +12,7 @@ class MessageBox : public QObject {
 
   public:
     explicit MessageBox(QObject *parent = 0);
+    Q_INVOKABLE void foo();
 
   signals:
     void heightChanged();

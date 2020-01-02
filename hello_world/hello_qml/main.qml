@@ -129,6 +129,7 @@ Window {
         message.width += 1
         if (message.height == 2) {
             message.changedTwoTimes()
+            message.foo()
         }
     }
 }
