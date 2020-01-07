@@ -1,0 +1,7 @@
+[
+    {
+        "command": "c++ -c -pipe -O2 -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_CORE_LIB -I/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qt/hello_core -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore -I/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qt/hello_core -I/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++ -o main.o /home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qt/hello_core/main.cpp",
+        "directory": "/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qt/hello_core",
+        "file": "/home/ANT.AMAZON.COM/waysun/Gitbox/code/hello_world/hello_qt/hello_core/main.cpp"
+    }
+]
