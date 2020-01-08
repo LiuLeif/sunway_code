@@ -210,7 +210,6 @@ DIST          = /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/fea
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -396,7 +395,6 @@ Makefile: hello_core.pro /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mk
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -572,7 +570,6 @@ Makefile: hello_core.pro /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mk
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/qt_config.prf:
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/toolchain.prf:
 /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/mkspecs/features/default_pre.prf:
@@ -709,10 +706,7 @@ main.o: main.cpp /home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/Qt
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/qobject_impl.h \
 		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/qeventloop.h \
-		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/QTimer \
-		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/qtimer.h \
-		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/qbasictimer.h \
-		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/QEvent
+		/home/ANT.AMAZON.COM/waysun/program/qt/5.14.0/gcc_64/include/QtCore/QVector
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 ####### Install
