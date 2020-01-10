@@ -1,3 +1,4 @@
+// Accepted
 struct Solution {}
 /*
  * @lc app=leetcode id=1232 lang=rust
