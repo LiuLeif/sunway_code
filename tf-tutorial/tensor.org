@@ -73,10 +73,11 @@ tf.Tensor(
    [0. 1.]]]], shape=(1, 2, 2, 2), dtype=float32)
 :end:
 
-*** fill
+*** fill/ones
 
 #+begin_src ipython
   print(tf.fill([2, 3], 9))
+  print(tf.ones([2, 3]))
   print(tf.constant(9, shape=(2, 3)))
   print(tf.convert_to_tensor(np.full([2,3], 9)))
 #+end_src
@@ -92,6 +93,9 @@ tf.Tensor(
 tf.Tensor(
 [[9 9 9]
  [9 9 9]], shape=(2, 3), dtype=int64)
+tf.Tensor(
+[[1. 1. 1.]
+ [1. 1. 1.]], shape=(2, 3), dtype=float32)
 :end:
 
 *** gather
@@ -120,27 +124,33 @@ tf.Tensor(
 
 # TODO
 
-*** identity
+*** identity/ones_like/zeros_like
 
 #+begin_src ipython
   # 相当于 obj.clone
   print(tf.identity([1, 2, 3]))
+  print(tf.ones_like([1, 2, 3]))
+  print(tf.zeros_like([1, 2, 3]))
 #+end_src
 
 #+RESULTS:
 :results:
 tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1 1 1], shape=(3,), dtype=int32)
+tf.Tensor([0 0 0], shape=(3,), dtype=int32)
 :end:
 
-*** linspace
+*** linspace/range
 
 #+begin_src ipython
   print(tf.linspace(0., 9., 10))
+  print(tf.range(0, 10, 3))
 #+end_src
 
 #+RESULTS:
 :results:
 tf.Tensor([0. 1. 2. 3. 4. 5. 6. 7. 8. 9.], shape=(10,), dtype=float32)
+tf.Tensor([0 3 6 9], shape=(4,), dtype=int32)
 :end:
 
 *** one_hot
@@ -162,6 +172,10 @@ tf.Tensor(
  [ 1  1  1 10]
  [ 1  1 10  1]], shape=(3, 4), dtype=int32)
 :end:
+
+*** repeat
+
+# WAIT
 
 ** 类型转换
 
@@ -377,7 +391,7 @@ tf.Tensor(
 tf.Tensor([1 0 1], shape=(3,), dtype=int32)
 :end:
 
-*** add/substract/multiply/divide
+*** add/substract/multiply/divide/pow
 
 #+begin_src ipython
   print("=== add")
@@ -577,3 +591,27 @@ tf.Tensor(
 *** maximum/minimum
 
 *** norm
+
+*** reduce_{all,any,max,min,mean,prod,sum}
+
+#+begin_src ipython
+  print("=== reduce_all")
+  print(tf.reduce_all(tf.constant([True, True, False])))
+  a = tf.constant([[True, True], [False, False]])
+  print(tf.reduce_all(a))
+  print(tf.reduce_all(a, axis=0))
+  print(tf.reduce_all(a, axis=1))
+  print("=== reduce_sum")
+  print(tf.reduce_sum(tf.constant([1, 2, 3])))
+#+end_src
+
+#+RESULTS:
+:results:
+=== reduce_all
+tf.Tensor(False, shape=(), dtype=bool)
+tf.Tensor(False, shape=(), dtype=bool)
+tf.Tensor([False False], shape=(2,), dtype=bool)
+tf.Tensor([ True False], shape=(2,), dtype=bool)
+=== reduce_sum
+tf.Tensor(6, shape=(), dtype=int32)
+:end:
