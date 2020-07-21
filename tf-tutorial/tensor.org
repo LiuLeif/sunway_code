@@ -50,9 +50,120 @@ tf.Tensor(
 
 ** 类型转换
 
+*** cast
+
 #+begin_src ipython
-  print("=== as_dtype")
+  a = tf.constant([0, 2, 3])
+  print(a)
+  print(tf.cast(a,tf.float32))
+  print(tf.cast(a,tf.bool))
+
+  a=tf.constant([0., 1., 2.])
+  print(tf.cast(a, tf.int32))
 #+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([0 2 3], shape=(3,), dtype=int32)
+tf.Tensor([0. 2. 3.], shape=(3,), dtype=float32)
+tf.Tensor([False  True  True], shape=(3,), dtype=bool)
+tf.Tensor([0 1 2], shape=(3,), dtype=int32)
+:end:
+
+*** bitcast
+
+#+begin_src ipython
+  a = tf.constant([0, 1, 2], dtype=tf.int32)
+  print(a)
+  # 每个 int32 被转换为 [byte_0, byte_1, byte_2, byte_3]
+  print(tf.bitcast(a, tf.int8))
+  # int8 转换为 int32, 则 shape[-1] 需要等于 4, 因为 4 个 int8 才能当作一个 int32
+  a = tf.constant([0, 1, 0, 0], dtype=tf.int8)
+  print(tf.bitcast(a, tf.int32))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([0 1 2], shape=(3,), dtype=int32)
+tf.Tensor(
+[[0 0 0 0]
+ [1 0 0 0]
+ [2 0 0 0]], shape=(3, 4), dtype=int8)
+tf.Tensor(256, shape=(), dtype=int32)
+:end:
+
+*** convert_to_tensor
+#+begin_src ipython
+  print(tf.convert_to_tensor(1))
+  print(tf.convert_to_tensor([1,2,3]))
+  print(tf.convert_to_tensor(np.array([1,2,3])))
+  print(tf.convert_to_tensor(tf.constant([1, 2, 3]).numpy()))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(1, shape=(), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int64)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+:end:
+
+** 操作大小
+
+*** broadcast_to
+
+#+begin_src ipython
+  a = tf.constant([1, 2, 3])
+  print(tf.broadcast_to(a, (2, 3)))
+
+  # (x0,x1,x2) 能 broadcast_to (y0,y1,y2) 的条件是 x[i] == 1 或 x[i] == y[i]
+  # 所以下面的函数会失败, (2,3) 无法 broadcast_to (4,3)
+  # a = tf.constant([[1, 2, 3], [4, 5, 6]])
+  # print(tf.broadcast_to(a, (4, 3)))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(
+[[1 2 3]
+ [1 2 3]], shape=(2, 3), dtype=int32)
+:end:
+
+*** clip_by_value
+
+#+begin_src ipython
+  a = tf.constant([1, 2, 3])
+  print(tf.clip_by_value(a, 1, 2))
+  # min, max 可以是一个 shape 为 a.shape 的 tensor
+  print(tf.clip_by_value(a, [1, 2, 3], 3))
+  #或者可以 broadcast_to (a) 
+  print(tf.clip_by_value(a, [1], 3))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([1 2 2], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+:end:
+
+*** concat
+
+#+begin_src ipython
+  a = tf.constant([[1, 2, 3]])
+  b = tf.constant([[4, 5, 6]])
+  # concat 没有默认的 axis
+  print(tf.concat([a, b],axis=0))
+  print(tf.concat([a, b],axis=1))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(
+[[1 2 3]
+ [4 5 6]], shape=(2, 3), dtype=int32)
+tf.Tensor([[1 2 3 4 5 6]], shape=(1, 6), dtype=int32)
+:end:
 
 ** 运算
 
