@@ -129,24 +129,6 @@ tf.Tensor(
  [1 2 3]], shape=(2, 3), dtype=int32)
 :end:
 
-*** clip_by_value
-
-#+begin_src ipython
-  a = tf.constant([1, 2, 3])
-  print(tf.clip_by_value(a, 1, 2))
-  # min, max 可以是一个 shape 为 a.shape 的 tensor
-  print(tf.clip_by_value(a, [1, 2, 3], 3))
-  #或者可以 broadcast_to (a) 
-  print(tf.clip_by_value(a, [1], 3))
-#+end_src
-
-#+RESULTS:
-:results:
-tf.Tensor([1 2 2], shape=(3,), dtype=int32)
-tf.Tensor([1 2 3], shape=(3,), dtype=int32)
-tf.Tensor([1 2 3], shape=(3,), dtype=int32)
-:end:
-
 *** concat
 
 #+begin_src ipython
@@ -167,60 +149,108 @@ tf.Tensor([[1 2 3 4 5 6]], shape=(1, 6), dtype=int32)
 
 ** 运算
 
-#+begin_src ipython
-  print("=== abs")
-  print(tf.abs(tf.constant([-1,0,1])))
+*** abs
 
-  print("=== add")
+#+begin_src ipython
+  print(tf.abs(tf.constant([-1,0,1])))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([1 0 1], shape=(3,), dtype=int32)
+:end:
+
+*** add
+
+#+begin_src ipython
   a = tf.constant([1, 2])
   print(tf.add(a, a))
   print(a + a)
   print(a + 1)
   print(tf.add_n([a, a, a]))
 
-  print("=== subtract")
+  # broadcast
+  print(tf.add(tf.constant([1, 2, 3]), tf.constant([[1, 1, 1], [1, 1, 1]])))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([2 4], shape=(2,), dtype=int32)
+tf.Tensor([2 4], shape=(2,), dtype=int32)
+tf.Tensor([2 3], shape=(2,), dtype=int32)
+tf.Tensor([3 6], shape=(2,), dtype=int32)
+tf.Tensor(
+[[2 3 4]
+ [2 3 4]], shape=(2, 3), dtype=int32)
+:end:
+
+*** subtract
+
+#+begin_src ipython
   a = tf.constant([1,2,3])
   b = tf.constant([0, 1, 2])
   print(tf.subtract(a, b))
   print(a - b)
+#+end_src
 
-  print("=== argmax / argmin")
+#+RESULTS:
+:results:
+tf.Tensor([1 1 1], shape=(3,), dtype=int32)
+tf.Tensor([1 1 1], shape=(3,), dtype=int32)
+:end:
+
+*** argmin argmax
+
+#+begin_src ipython
   print(tf.argmax([1, 2, 3]))
   a = tf.constant([[1, 2, 3], [4, 5, 6]])
   print(a.shape)
   print(tf.argmax(a))
   print(tf.argmax(a,axis=0))
   print(tf.argmax(a,axis=1))
-
-  print("=== argsort")
-  print(tf.argsort ([3, 2, 1]))
-  print(tf.argsort([3, 2, 1], direction="DESCENDING"))
-  a = tf.constant([[3, 2, 1], [1, 2, 3]])
-  print(tf.argsort (a))
-  # argsort 默认的 axis 是 -1 而不是 0
-  print(tf.argsort (a,axis=-1))
-  print(tf.argsort (a, axis=0))
 #+end_src
 
 #+RESULTS:
 :results:
-=== abs
-tf.Tensor([1 0 1], shape=(3,), dtype=int32)
-=== add
-tf.Tensor([2 4], shape=(2,), dtype=int32)
-tf.Tensor([2 4], shape=(2,), dtype=int32)
-tf.Tensor([2 3], shape=(2,), dtype=int32)
-tf.Tensor([3 6], shape=(2,), dtype=int32)
-=== subtract
-tf.Tensor([1 1 1], shape=(3,), dtype=int32)
-tf.Tensor([1 1 1], shape=(3,), dtype=int32)
-=== argmax / argmin
 tf.Tensor(2, shape=(), dtype=int64)
 (2, 3)
 tf.Tensor([1 1 1], shape=(3,), dtype=int64)
 tf.Tensor([1 1 1], shape=(3,), dtype=int64)
 tf.Tensor([2 2], shape=(2,), dtype=int64)
-=== argsort
+:end:
+
+*** clip_by_value
+
+#+begin_src ipython
+  a = tf.constant([1, 2, 3])
+  print(tf.clip_by_value(a, 1, 2))
+  # min, max 可以是一个 shape 为 a.shape 的 tensor
+  print(tf.clip_by_value(a, [1, 2, 3], 3))
+  #或者可以 broadcast_to (a) 
+  print(tf.clip_by_value(a, [1], 3))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([1 2 2], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+:end:
+
+*** argsort
+
+#+begin_src ipython
+  print(tf.argsort ([3, 2, 1]))
+  print(tf.argsort([3, 2, 1], direction="DESCENDING"))
+  a = tf.constant([[3, 2, 1], [1, 2, 3]])
+  print(tf.argsort (a))
+  # argsort 默认的 axis 是 -1 而不是 0
+  print(tf.argsort (a, axis=-1))
+  print(tf.argsort (a, axis=0))
+#+end_src
+
+#+RESULTS:
+:results:
 tf.Tensor([2 1 0], shape=(3,), dtype=int32)
 tf.Tensor([0 1 2], shape=(3,), dtype=int32)
 tf.Tensor(
@@ -234,4 +264,62 @@ tf.Tensor(
  [0 1 1]], shape=(2, 3), dtype=int32)
 :end:
 
+*** cumsum
 
+#+begin_src ipython
+  a = tf.constant([[1, 2, 3], [4, 5, 6]])
+  print(tf.cumsum(a))
+  print(tf.cumsum(a, axis=1))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(
+[[1 2 3]
+ [5 7 9]], shape=(2, 3), dtype=int32)
+tf.Tensor(
+[[ 1  3  6]
+ [ 4  9 15]], shape=(2, 3), dtype=int32)
+:end:
+
+
+*** divide
+
+#+begin_src ipython
+  a = tf.constant([1, 2, 3])
+  b = tf.constant([1, 2, 3])
+  print(tf.divide(a, b))
+  print(a / b)
+  print(a / 2)
+  # broadcast
+  print(tf.constant([[1, 2, 3], [4, 5, 6]]) / tf.constant([1, 2, 3]))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor([1. 1. 1.], shape=(3,), dtype=float64)
+tf.Tensor([1. 1. 1.], shape=(3,), dtype=float64)
+tf.Tensor([0.5 1.  1.5], shape=(3,), dtype=float64)
+tf.Tensor(
+[[1.  1.  1. ]
+ [4.  2.5 2. ]], shape=(2, 3), dtype=float64)
+:end:
+
+*** dynamic_partition
+
+#+begin_src ipython
+  a = tf.constant([1, 2, 3, 4])
+  p = tf.constant([0, 1, 0, 1])
+  print(tf.dynamic_partition(a, p, 2))
+
+  # dynamic_partition 返回 n 个向量, 不论 a 在 shape 是什么
+  a = tf.constant([[1, 2, 3, 4], [5, 6, 7, 8]])
+  p = tf.constant([[0, 1, 0, 1], [0, 1, 0, 1]])
+  print(tf.dynamic_partition(a, p, 2))
+#+end_src
+
+#+RESULTS:
+:results:
+[<tf.Tensor: shape=(2,), dtype=int32, numpy=array([1, 3], dtype=int32)>, <tf.Tensor: shape=(2,), dtype=int32, numpy=array([2, 4], dtype=int32)>]
+[<tf.Tensor: shape=(4,), dtype=int32, numpy=array([1, 3, 5, 7], dtype=int32)>, <tf.Tensor: shape=(4,), dtype=int32, numpy=array([2, 4, 6, 8], dtype=int32)>]
+:end:
