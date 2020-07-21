@@ -7,3 +7,120 @@
 
 * Tensor
 
+** 生成 Tensor
+
+*** tf.constant
+
+#+begin_src ipython
+  import tensorflow as tf
+  import numpy as np
+
+  print(tf.constant(1))
+  print(tf.constant(1, dtype=tf.int64))
+  print(tf.constant(1.0))
+  print(tf.constant(1.0, dtype=tf.float64))
+  print(tf.constant(1.0, dtype=tf.double))
+  print(tf.constant("hello world"))
+  print(tf.constant(True))
+  print(tf.constant([1,2,3]))
+  print(tf.constant([1,2,3],dtype=tf.float32))
+  print(tf.constant([1,2,3,4],shape=(2,2),dtype=tf.float32))
+  print(tf.constant([[1,2],[3,4]]))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(1, shape=(), dtype=int32)
+tf.Tensor(1, shape=(), dtype=int64)
+tf.Tensor(1.0, shape=(), dtype=float32)
+tf.Tensor(1.0, shape=(), dtype=float64)
+tf.Tensor(1.0, shape=(), dtype=float64)
+tf.Tensor(b'hello world', shape=(), dtype=string)
+tf.Tensor(True, shape=(), dtype=bool)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1. 2. 3.], shape=(3,), dtype=float32)
+tf.Tensor(
+[[1. 2.]
+ [3. 4.]], shape=(2, 2), dtype=float32)
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+(2,)
+:end:
+
+** 类型转换
+
+#+begin_src ipython
+  print("=== as_dtype")
+#+end_src
+
+** 运算
+
+#+begin_src ipython
+  print("=== abs")
+  print(tf.abs(tf.constant([-1,0,1])))
+
+  print("=== add")
+  a = tf.constant([1, 2])
+  print(tf.add(a, a))
+  print(a + a)
+  print(a + 1)
+  print(tf.add_n([a, a, a]))
+
+  print("=== subtract")
+  a = tf.constant([1,2,3])
+  b = tf.constant([0, 1, 2])
+  print(tf.subtract(a, b))
+  print(a - b)
+
+  print("=== argmax / argmin")
+  print(tf.argmax([1, 2, 3]))
+  a = tf.constant([[1, 2, 3], [4, 5, 6]])
+  print(a.shape)
+  print(tf.argmax(a))
+  print(tf.argmax(a,axis=0))
+  print(tf.argmax(a,axis=1))
+
+  print("=== argsort")
+  print(tf.argsort ([3, 2, 1]))
+  print(tf.argsort([3, 2, 1], direction="DESCENDING"))
+  a = tf.constant([[3, 2, 1], [1, 2, 3]])
+  print(tf.argsort (a))
+  # argsort 默认的 axis 是 -1 而不是 0
+  print(tf.argsort (a,axis=-1))
+  print(tf.argsort (a, axis=0))
+#+end_src
+
+#+RESULTS:
+:results:
+=== abs
+tf.Tensor([1 0 1], shape=(3,), dtype=int32)
+=== add
+tf.Tensor([2 4], shape=(2,), dtype=int32)
+tf.Tensor([2 4], shape=(2,), dtype=int32)
+tf.Tensor([2 3], shape=(2,), dtype=int32)
+tf.Tensor([3 6], shape=(2,), dtype=int32)
+=== subtract
+tf.Tensor([1 1 1], shape=(3,), dtype=int32)
+tf.Tensor([1 1 1], shape=(3,), dtype=int32)
+=== argmax / argmin
+tf.Tensor(2, shape=(), dtype=int64)
+(2, 3)
+tf.Tensor([1 1 1], shape=(3,), dtype=int64)
+tf.Tensor([1 1 1], shape=(3,), dtype=int64)
+tf.Tensor([2 2], shape=(2,), dtype=int64)
+=== argsort
+tf.Tensor([2 1 0], shape=(3,), dtype=int32)
+tf.Tensor([0 1 2], shape=(3,), dtype=int32)
+tf.Tensor(
+[[2 1 0]
+ [0 1 2]], shape=(2, 3), dtype=int32)
+tf.Tensor(
+[[2 1 0]
+ [0 1 2]], shape=(2, 3), dtype=int32)
+tf.Tensor(
+[[1 0 0]
+ [0 1 1]], shape=(2, 3), dtype=int32)
+:end:
+
+
