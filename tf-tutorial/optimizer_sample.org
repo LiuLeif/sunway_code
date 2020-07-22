@@ -1,0 +1,69 @@
+#+TITLE: Optimizer Sample
+#+AUTHOR: Wei Sun (孙伟)
+#+EMAIL: waysun@amazon.com
+#+DATE: <2020-07-22 Wed>
+#+CATEGORY:
+#+FILETAGS:
+
+
+* Optimizer Sample
+
+#+begin_src ipython
+  import tensorflow as tf
+  import numpy as np
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+求解 $f(x)=x^2+1$ 的最小值
+** gradient tap
+
+#+begin_src ipython
+  x = tf.Variable(1., name="x")
+  with tf.GradientTape() as tape:
+      y = tf.pow(x, 2) + 1
+  print(tape.gradient(y, x))
+#+end_src
+
+#+RESULTS:
+:results:
+tf.Tensor(2.0, shape=(), dtype=float32)
+:end:
+
+** optimizer
+
+*** apply_gradients
+
+#+begin_src ipython
+  x = tf.Variable(10., name="x")
+  optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
+  for _ in range(1000):
+      with tf.GradientTape() as tape:
+          y = tf.pow(x, 2) + 10
+      dy = tape.gradient(y, x)
+      optimizer.apply_gradients([(dy, x)])
+  tf.print(y, x)    
+#+end_src
+
+#+RESULTS:
+:results:
+10 1.68296665e-08
+:end:
+
+*** minimize
+
+#+begin_src ipython
+  x = tf.Variable(1., name="x")
+  optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
+  for _ in range(1000):
+      optimizer.minimize(lambda:tf.pow(x, 2) + 10, [x])
+  tf.print(y, x)    
+#+end_src
+
+#+RESULTS:
+:results:
+10 1.6829661e-09
+:end:
+
