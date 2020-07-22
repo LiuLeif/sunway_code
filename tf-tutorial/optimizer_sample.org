@@ -17,8 +17,11 @@
 :results:
 :end:
 
-求解 $f(x)=x^2+1$ 的最小值
-** gradient tap
+** 求解 $f(x)=x^2+1$ 的最小值
+
+*** gradient tap
+
+**** 计算梯度
 
 #+begin_src ipython
   x = tf.Variable(1., name="x")
@@ -32,38 +35,87 @@
 tf.Tensor(2.0, shape=(), dtype=float32)
 :end:
 
-** optimizer
+**** 手动的梯度下降:
 
-*** apply_gradients
+#+begin_src ipython
+  x = tf.Variable(10., name="x")
+  lr = 0.01
+  for _ in range(1000):
+      with tf.GradientTape() as tape:
+          y = tf.pow(x, 2) + 1
+      dx = tape.gradient(y, x)
+      x.assign(x - dx * lr)
+  tf.print(y, x)
+#+end_src
+
+#+RESULTS:
+:results:
+1 1.68296665e-08
+:end:
+
+*** optimizer
+
+**** apply_gradients
 
 #+begin_src ipython
   x = tf.Variable(10., name="x")
   optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
   for _ in range(1000):
       with tf.GradientTape() as tape:
-          y = tf.pow(x, 2) + 10
-      dy = tape.gradient(y, x)
-      optimizer.apply_gradients([(dy, x)])
+          y = tf.pow(x, 2) + 1
+      dx = tape.gradient(y, x)
+      optimizer.apply_gradients([(dx, x)])
   tf.print(y, x)    
 #+end_src
 
 #+RESULTS:
 :results:
-10 1.68296665e-08
+1 1.68296665e-08
 :end:
 
-*** minimize
+**** minimize
 
 #+begin_src ipython
   x = tf.Variable(1., name="x")
   optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)
   for _ in range(1000):
-      optimizer.minimize(lambda:tf.pow(x, 2) + 10, [x])
+      optimizer.minimize(lambda:tf.pow(x, 2) + 1, [x])
   tf.print(y, x)    
 #+end_src
 
 #+RESULTS:
 :results:
-10 1.6829661e-09
+1 1.6829661e-09
 :end:
 
+** 拟合 $f(x)=x^2$
+
+#+begin_src ipython
+  import tensorflow as tf
+  import numpy as np
+  from tensorflow.keras import layers,losses,metrics,optimizers, models
+
+  n = 100
+
+  X = tf.random.uniform([n, 1], minval = 1, maxval = 10.)
+  Y = tf.pow(X,2)
+
+  tf.keras.backend.clear_session()
+
+  model = models.Sequential();
+  model.add(layers.Dense(50, input_shape=(1,),activation="relu"))
+  model.add(layers.Dense(1))
+
+  model.compile(optimizer="adam",loss="mse")
+  history = model.fit(X,Y,batch_size = 20,epochs = 5000, verbose = 0)
+  print(history.history["loss"][-1])
+  print(model.predict([2.,10.,20]))
+  #+end_src
+
+#+RESULTS:
+:results:
+0.002070189220830798
+[[  4.0138993]
+ [ 99.874664 ]
+ [292.50418  ]]
+:end:
