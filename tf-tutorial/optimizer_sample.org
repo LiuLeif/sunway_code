@@ -80,11 +80,12 @@ tf.Tensor(2.0, shape=(), dtype=float32)
 1 1.6829661e-09
 :end:
 
-** 高阶 API: model
+** 高阶 API: keras
 
 拟合 $f(x)=x^2$
 
-*** Sequential
+*** Sequential API
+
 #+begin_src ipython
   import tensorflow as tf
   import numpy as np
@@ -115,7 +116,7 @@ tf.Tensor(2.0, shape=(), dtype=float32)
  [292.50418  ]]
 :end:
 
-*** Functional
+*** Functional API
 
 #+begin_src ipython
   import tensorflow as tf
