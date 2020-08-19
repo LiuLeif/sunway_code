@@ -53,13 +53,26 @@ class MFCC(object):
             )
 
 
+def export_c(data):
+    # float data[] = {}
+    with open("output.cc", "w") as f:
+        f.write("float data[] = {\n")
+        for x in data:
+            f.write(str(x) + ",")
+        f.write("\n};")
+
+
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) == 1:
         print("usage: mfcc <wav>")
         exit(1)
     mfcc = MFCC()
     x = mfcc.get(sys.argv[1])
+    print(x)
     np.save("output", x)
     print("output to output.npy")
     print(x.shape)
+    export_c(x.flatten())
+    print("output to output.cc")
