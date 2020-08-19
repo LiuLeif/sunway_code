@@ -60,6 +60,12 @@ def export_c(data):
         for x in data:
             f.write(str(x) + ",")
         f.write("\n};")
+    print("output to output.cc")
+
+
+def export_python(data):
+    np.save("output", x)
+    print("output to output.npy")
 
 
 if __name__ == "__main__":
@@ -71,8 +77,7 @@ if __name__ == "__main__":
     mfcc = MFCC()
     x = mfcc.get(sys.argv[1])
     print(x)
-    np.save("output", x)
-    print("output to output.npy")
     print(x.shape)
+
+    export_python(x)
     export_c(x.flatten())
-    print("output to output.cc")

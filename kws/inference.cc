@@ -11,6 +11,7 @@
 // ./square /tmp/tflite-q
 
 #include <cstdio>
+#include <unistd.h>
 
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
@@ -33,7 +34,6 @@ int main(int argc, char* argv[]) {
     std::unique_ptr<Interpreter> interpreter;
     builder(&interpreter);
     interpreter->AllocateTensors();
-
     printf("input: %s\n", interpreter->GetInputName(0));
     printf("output: %s\n", interpreter->GetOutputName(0));
 
