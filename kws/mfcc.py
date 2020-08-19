@@ -3,7 +3,7 @@
 import numpy as np
 import tensorflow as tf
 
-from tensorflow.contrib.framework.python.ops import audio_ops as audio
+from tensorflow.python.ops import gen_audio_ops as audio_ops
 from tensorflow.python.ops import io_ops
 
 SAMPLE_RATE = 16000
@@ -13,44 +13,28 @@ WINDOW_STRIDE_MS = 20  # ms
 DCT_COEFFICIENT_COUNT = 10
 
 
-class MFCC(object):
-    """Handles loading, partitioning, and preparing audio training data."""
+def mfcc(file_name):
+    wav_loader = io_ops.read_file(file_name)
+    wav_decoder = tf.audio.decode_wav(
+        wav_loader,
+        desired_channels=1,
+        desired_samples=SAMPLE_RATE * CLIP_DURATION / 1000,
+    )
 
-    def __init__(self,):
-        self.prepare_processing_graph()
+    window_size = int(SAMPLE_RATE * WINDOW_SIZE_MS / 1000)
+    window_stride = int(SAMPLE_RATE * WINDOW_STRIDE_MS / 1000)
 
-    def prepare_processing_graph(self):
-        self.wav_filename_placeholder_ = tf.placeholder(tf.string, [])
-        wav_loader = io_ops.read_file(self.wav_filename_placeholder_)
-        wav_decoder = audio.decode_wav(
-            wav_loader,
-            desired_channels=1,
-            desired_samples=SAMPLE_RATE * CLIP_DURATION / 1000,
-        )
-
-        window_size = int(SAMPLE_RATE * WINDOW_SIZE_MS / 1000)
-        window_stride = int(SAMPLE_RATE * WINDOW_STRIDE_MS / 1000)
-
-        spectrogram = audio.audio_spectrogram(
-            wav_decoder.audio,
-            window_size=window_size,
-            stride=window_stride,
-            magnitude_squared=True,
-        )
-        self.mfcc_ = audio.mfcc(
-            spectrogram,
-            wav_decoder.sample_rate,
-            dct_coefficient_count=DCT_COEFFICIENT_COUNT,
-        )
-
-    def get(self, file_name):
-        input_dict = {
-            self.wav_filename_placeholder_: file_name,
-        }
-        with tf.Session() as sess:
-            return sess.run(
-                self.mfcc_, feed_dict={self.wav_filename_placeholder_: file_name,}
-            )
+    spectrogram = audio_ops.audio_spectrogram(
+        wav_decoder.audio,
+        window_size=window_size,
+        stride=window_stride,
+        magnitude_squared=True,
+    )
+    return audio_ops.mfcc(
+        spectrogram,
+        wav_decoder.sample_rate,
+        dct_coefficient_count=DCT_COEFFICIENT_COUNT,
+    )
 
 
 def export_c(data):
@@ -64,7 +48,7 @@ def export_c(data):
 
 
 def export_python(data):
-    np.save("output", x)
+    np.save("output", data)
     print("output to output.npy")
 
 
@@ -74,10 +58,10 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         print("usage: mfcc <wav>")
         exit(1)
-    mfcc = MFCC()
-    x = mfcc.get(sys.argv[1])
+
+    x = mfcc(sys.argv[1])
     print(x)
     print(x.shape)
 
     export_python(x)
-    export_c(x.flatten())
+    export_c(x.numpy().flatten())
