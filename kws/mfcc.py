@@ -48,7 +48,7 @@ def export_c(data):
 
 
 def export_python(data):
-    np.save("output", data)
+    np.save("/tmp/output.npy", data)
     print("output to /tmp/output.npy")
 
 
