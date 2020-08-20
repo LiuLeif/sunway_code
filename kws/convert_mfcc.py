@@ -32,6 +32,8 @@ for d in dirs:
     category = 1  # unknown
     if d in mapping:
         category = mapping[d]
+    if d != "left":
+        continue
     for f in os.listdir(DATA_DIR + d):
         X.append(mfcc(DATA_DIR + d + "/" + f))
         Y.append(category)
