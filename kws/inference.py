@@ -9,7 +9,7 @@ import psutil
 
 process = psutil.Process(os.getpid())
 
-interpreter = tf.lite.Interpreter(model_path="output.tflite")
+interpreter = tf.lite.Interpreter(model_path="/tmp/output.tflite")
 print(">allocate tensors")
 time.sleep(2);
 before = process.memory_info().vms
@@ -26,7 +26,7 @@ print("<<<allocate tensors")
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-input_data = np.load("output.npy")
+input_data = np.load("/tmp/output.npy")
 
 interpreter.set_tensor(input_details[0]["index"], input_data)
 interpreter.invoke()

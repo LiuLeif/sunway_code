@@ -39,17 +39,17 @@ def mfcc(file_name):
 
 def export_c(data):
     # float data[] = {}
-    with open("output.cc", "w") as f:
+    with open("/tmp/output.cc", "w") as f:
         f.write("float data[] = {\n")
         for x in data:
             f.write(str(x) + ",")
         f.write("\n};")
-    print("output to output.cc")
+    print("output to /tmp/output.cc")
 
 
 def export_python(data):
     np.save("output", data)
-    print("output to output.npy")
+    print("output to /tmp/output.npy")
 
 
 if __name__ == "__main__":
