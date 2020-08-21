@@ -5,6 +5,7 @@ import pyaudio
 import numpy as np
 from mfcc import mfcc_data
 from inference import Inference
+from smooth import Smooth
 
 chunk = 320  # 20ms
 sample_format = pyaudio.paInt16  # 16 bits per sample
@@ -27,6 +28,7 @@ stream = p.open(
 
 buffer = np.array([], dtype=np.float32)
 
+smooth = Smooth()
 while True:
     data = stream.read(chunk)
     buffer = buffer[chunk - fs :]
@@ -35,4 +37,5 @@ while True:
     if len(buffer) != fs:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
-    print(inference.run(x))
+    output = inference.run(x)
+    print(smooth.feed(output))

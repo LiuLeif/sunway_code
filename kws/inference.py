@@ -22,6 +22,8 @@ WORDS = [
     "go",
 ]
 
+MIN_PROBABILITY = 0.8
+
 
 class Inference(object):
     def __init__(self):
@@ -36,7 +38,11 @@ class Inference(object):
         output_data = self.interpreter.get_tensor(
             self.output_details[0]["index"]
         ).flatten()
-        return WORDS[np.argmax(output_data)]
+        index = np.argmax(output_data)
+        if output_data[index] > MIN_PROBABILITY:
+            return WORDS[index]
+        else:
+            return WORDS[0]
 
 
 if __name__ == "__main__":
