@@ -22,6 +22,8 @@ words = [
     "go",
 ]
 
+WORD_TO_CHECK = set(["right", "left", "up", "down"])
+
 mapping = dict(zip(words, range(len(words))))
 dirs = os.listdir(DATA_DIR)
 
@@ -32,12 +34,15 @@ for d in dirs:
     category = 1  # unknown
     if d in mapping:
         category = mapping[d]
-    if d != "left":
+
+    if d not in WORD_TO_CHECK:
         continue
+
     for f in os.listdir(DATA_DIR + d):
         X.append(mfcc(DATA_DIR + d + "/" + f))
         Y.append(category)
 
+print(WORD_TO_CHECK)
 np.save("/tmp/test_x.npy", np.stack(X))
 np.save("/tmp/test_y.npy", np.array(Y))
 

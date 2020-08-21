@@ -15,11 +15,14 @@ converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(
     sys.argv[1], ["Mfcc"], ["labels_softmax"]
 )
 
-input_data = np.load("/tmp/output2.npy")
+# input_data = np.load("/tmp/output2.npy")
+input_data = np.load("/tmp/test_x.npy")
+
 
 def representative_dataset_gen():
-    for i in range(10):
-        yield [input_data]
+    for data in input_data:
+        yield [data]
+
 
 converter.representative_dataset = representative_dataset_gen
 
