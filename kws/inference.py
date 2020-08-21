@@ -22,7 +22,7 @@ WORDS = [
     "go",
 ]
 
-MIN_PROBABILITY = 0.8
+MIN_PROBABILITY = 0.618
 
 
 class Inference(object):
