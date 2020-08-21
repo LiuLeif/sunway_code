@@ -8,7 +8,7 @@
 // -L${TENSORFLOW_ROOT_DIR}/tensorflow/lite/tools/make/gen/linux_x86_64/lib/
 // -ltensorflow-lite -ldl
 
-// ./square /tmp/tflite-q
+// ./square ./temp/tflite-q
 
 #include <cstdio>
 #include <unistd.h>
@@ -25,7 +25,7 @@ char* words[] = {
     "left",   "right",   "on",  "off", "stop", "go",
 };
 int main(int argc, char* argv[]) {
-    const char* filename = "/tmp/output.tflite";
+    const char* filename = "./temp/output.tflite";
     std::unique_ptr<tflite::FlatBufferModel> model =
         tflite::FlatBufferModel::BuildFromFile(filename);
 

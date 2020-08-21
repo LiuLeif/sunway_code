@@ -9,14 +9,14 @@ import psutil
 
 process = psutil.Process(os.getpid())
 
-interpreter = tf.lite.Interpreter(model_path="/tmp/output.tflite")
+interpreter = tf.lite.Interpreter(model_path="./temp/output.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-input_data = np.load("/tmp/test_x.npy")
-true_data = np.load("/tmp/test_y.npy")
+input_data = np.load("./temp/test_x.npy")
+true_data = np.load("./temp/test_y.npy")
 
 prediction = []
 for x in input_data:

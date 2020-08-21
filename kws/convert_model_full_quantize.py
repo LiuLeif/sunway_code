@@ -15,8 +15,8 @@ converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(
     sys.argv[1], ["Mfcc"], ["labels_softmax"]
 )
 
-# input_data = np.load("/tmp/output2.npy")
-input_data = np.load("/tmp/test_x.npy")
+# input_data = np.load("./temp/output2.npy")
+input_data = np.load("./temp/test_x.npy")
 
 
 def representative_dataset_gen():
@@ -30,7 +30,7 @@ converter.optimizations = [tf.lite.Optimize.DEFAULT]
 converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
 
 tflite_model = converter.convert()
-with open("/tmp/output.tflite", "wb") as f:
+with open("./temp/output.tflite", "wb") as f:
     f.write(tflite_model)
-    print("converted model saved to /tmp/output.tflite")
+    print("converted model saved to ./temp/output.tflite")
     print("size of output.tflite:", len(tflite_model))

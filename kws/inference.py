@@ -7,37 +7,7 @@ import time
 import os
 import psutil
 
-process = psutil.Process(os.getpid())
-
-interpreter = tf.lite.Interpreter(model_path="/tmp/output.tflite")
-print(">allocate tensors")
-time.sleep(2);
-before = process.memory_info().vms
-print(process.memory_info())
-
-print(">>>allocate tensors")
-interpreter.allocate_tensors()
-time.sleep(2);
-
-after = process.memory_info().vms
-print(process.memory_info())
-print("<<<allocate tensors")
-
-input_details = interpreter.get_input_details()
-output_details = interpreter.get_output_details()
-
-input_data = np.load("/tmp/output.npy")
-
-interpreter.set_tensor(input_details[0]["index"], input_data)
-interpreter.invoke()
-
-last = process.memory_info().vms
-print(process.memory_info())
-
-print("result:", (after - before) / 1024, (last - after) / 1024)
-output_data = interpreter.get_tensor(output_details[0]["index"]).flatten()
-
-words = [
+WORDS = [
     "silent",
     "unknown",
     "yes",
@@ -51,5 +21,24 @@ words = [
     "stop",
     "go",
 ]
-print(output_data)
-print(words[np.argmax(output_data)])
+
+
+class Inference(object):
+    def __init__(self):
+        self.interpreter = tf.lite.Interpreter(model_path="./temp/output.tflite")
+        self.interpreter.allocate_tensors()
+        self.input_details = self.interpreter.get_input_details()
+        self.output_details = self.interpreter.get_output_details()
+
+    def run(self, input_data):
+        self.interpreter.set_tensor(self.input_details[0]["index"], input_data)
+        self.interpreter.invoke()
+        output_data = self.interpreter.get_tensor(
+            self.output_details[0]["index"]
+        ).flatten()
+        return WORDS[np.argmax(output_data)]
+
+
+if __name__ == "__main__":
+    inference = Inference()
+    print(inference.run(np.load("./temp/output.npy")))

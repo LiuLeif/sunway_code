@@ -7,4 +7,4 @@ target/
 moc_*
 qrc_*.cpp
 .ccls-cache
-code/kws/temp
+kws/temp

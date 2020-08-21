@@ -43,7 +43,7 @@ for d in dirs:
         Y.append(category)
 
 print(WORD_TO_CHECK)
-np.save("/tmp/test_x.npy", np.stack(X))
-np.save("/tmp/test_y.npy", np.array(Y))
+np.save("./temp/test_x.npy", np.stack(X))
+np.save("./temp/test_y.npy", np.array(Y))
 
-print("saved to /tmp/test_x.npy and /tmp/test_y.npy")
+print("saved to ./temp/test_x.npy and ./temp/test_y.npy")
