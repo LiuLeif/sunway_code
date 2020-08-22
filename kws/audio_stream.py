@@ -6,11 +6,13 @@ import numpy as np
 from mfcc import mfcc_data
 from inference import Inference
 from smooth import Smooth
+from unique import Unique
+from config import *
 
-chunk = 320  # 20ms
+fs = 16000
+chunk = fs * INFERENCE_INTERVAL // CLIP_DURATION
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
-fs = 16000  # Record at 44100 samples per second
 
 p = pyaudio.PyAudio()  # Create an interface to PortAudio
 
@@ -29,6 +31,8 @@ stream = p.open(
 buffer = np.array([], dtype=np.float32)
 
 smooth = Smooth()
+unique = Unique()
+
 while True:
     data = stream.read(chunk)
     buffer = buffer[chunk - fs :]
@@ -38,4 +42,7 @@ while True:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
     output = inference.run(x)
-    print(smooth.feed(output))
+    output = smooth(output)
+    output = unique(output)
+    if output:
+        print(output)

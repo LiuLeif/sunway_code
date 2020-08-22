@@ -3,8 +3,9 @@
 # 2020-08-21 16:25
 
 import collections
+from config import *
 
-N = 50  # 1s/20ms = 50
+N = SMOOTH_INTERVAL // INFERENCE_INTERVAL
 
 
 class Smooth(object):
@@ -12,7 +13,7 @@ class Smooth(object):
         self.bucket = []
         self.counter = collections.defaultdict(int)
 
-    def feed(self, value):
+    def __call__(self, value):
         if len(self.bucket) == N:
             self.counter[self.bucket[0]] -= 1
 
@@ -33,8 +34,8 @@ class Smooth(object):
 if __name__ == "__main__":
     N = 3
     smooth = Smooth()
-    print(smooth.feed(1))
-    print(smooth.feed(2))
-    print(smooth.feed(1))
-    print(smooth.feed(2))
-    print(smooth.feed(3))
+    print(smooth(1))
+    print(smooth(2))
+    print(smooth(1))
+    print(smooth(2))
+    print(smooth(3))

@@ -6,6 +6,7 @@ import tensorflow as tf
 import time
 import os
 import psutil
+from config import *
 
 WORDS = [
     "silent",
@@ -21,8 +22,6 @@ WORDS = [
     "stop",
     "go",
 ]
-
-MIN_PROBABILITY = 0.618
 
 
 class Inference(object):

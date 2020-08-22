@@ -2,12 +2,12 @@
 
 import numpy as np
 import tensorflow as tf
+from config import *
 
 from tensorflow.python.ops import gen_audio_ops as audio_ops
 from tensorflow.python.ops import io_ops
 
 SAMPLE_RATE = 16000
-CLIP_DURATION = 1000  # ms
 WINDOW_SIZE_MS = 40  # ms
 WINDOW_STRIDE_MS = 20  # ms
 DCT_COEFFICIENT_COUNT = 10
