@@ -4,7 +4,7 @@
 from config import *
 
 
-class Unique(object):
+class Rectify(object):
     def __init__(self):
         self.count = 0
         self.prev = "silent"
@@ -27,10 +27,10 @@ class Unique(object):
 
 
 if __name__ == "__main__":
-    unique = Unique()
-    print(unique("right"))
-    print(unique("left"))
-    print(unique("unknown"))
-    print(unique("silent"))
-    print(unique("left"))
-    print(unique("right"))
+    rectify = Rectify()
+    print(rectify("right"))
+    print(rectify("left"))
+    print(rectify("unknown"))
+    print(rectify("silent"))
+    print(rectify("left"))
+    print(rectify("right"))

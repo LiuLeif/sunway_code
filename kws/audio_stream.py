@@ -6,7 +6,7 @@ import numpy as np
 from mfcc import mfcc_data
 from inference import Inference
 from smooth import Smooth
-from unique import Unique
+from rectify import Rectify
 from config import *
 
 fs = 16000
@@ -31,7 +31,7 @@ stream = p.open(
 buffer = np.array([], dtype=np.float32)
 
 smooth = Smooth()
-unique = Unique()
+rectify = Rectify()
 
 while True:
     data = stream.read(chunk)
@@ -43,6 +43,6 @@ while True:
     x = mfcc_data(np.expand_dims(buffer, 1))
     output = inference.run(x)
     output = smooth(output)
-    output = unique(output)
+    output = rectify(output)
     if output:
         print(output)
