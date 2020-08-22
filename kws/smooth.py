@@ -14,6 +14,9 @@ class Smooth(object):
         self.counter = collections.defaultdict(int)
 
     def __call__(self, value):
+        if N <= 1:
+            return value
+
         if len(self.bucket) == N:
             self.counter[self.bucket[0]] -= 1
 
@@ -32,7 +35,7 @@ class Smooth(object):
 
 
 if __name__ == "__main__":
-    N = 3
+    N = 2
     smooth = Smooth()
     print(smooth(1))
     print(smooth(2))
