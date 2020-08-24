@@ -41,7 +41,7 @@ while True:
     if len(buffer) != fs:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
-    output = inference.run(x)
+    output = inference(x)
     output = smooth(output)
     output = rectify(output)
     if output:

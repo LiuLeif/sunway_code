@@ -31,7 +31,7 @@ class Inference(object):
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
 
-    def run(self, input_data):
+    def __call__(self, input_data):
         self.interpreter.set_tensor(self.input_details[0]["index"], input_data)
         self.interpreter.invoke()
         output_data = self.interpreter.get_tensor(
@@ -46,4 +46,4 @@ class Inference(object):
 
 if __name__ == "__main__":
     inference = Inference()
-    print(inference.run(np.load("./temp/output.npy")))
+    print(inference(np.load("./temp/output.npy")))
