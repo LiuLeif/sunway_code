@@ -1,0 +1,50 @@
+#+TITLE: Model
+#+AUTHOR: Wei Sun (孙伟)
+#+EMAIL: waysun@amazon.com
+#+DATE: <2020-08-24 Mon>
+#+CATEGORY:
+#+FILETAGS:
+
+* Model
+
+** DS_CNN
+
+*** Small
+
+54KB + 18KB = 72KB
+
+*** Medium
+
+200KB + 56KB = 256KB
+
+*** Large
+
+530KB + 89KB = 619KB
+
+** CNN
+
+*** Small
+
+75KB + 83KB = 158KB
+
+*** Medium
+
+186KB + 187KB = 373KB
+
+*** Large
+
+485KB + 177KB = 662KB
+
+** DNN
+
+*** Small
+
+84KB + 1KB = 85KB
+
+*** Medium
+
+204KB + 1KB = 205KB
+
+*** Large
+
+502KB + 2KB = 504KB

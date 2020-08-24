@@ -9,7 +9,7 @@ from smooth import Smooth
 from rectify import Rectify
 from config import *
 
-fs = 16000
+fs = SAMPLE_RATE
 chunk = fs * INFERENCE_INTERVAL // CLIP_DURATION
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1

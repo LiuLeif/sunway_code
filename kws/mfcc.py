@@ -7,12 +7,6 @@ from config import *
 from tensorflow.python.ops import gen_audio_ops as audio_ops
 from tensorflow.python.ops import io_ops
 
-SAMPLE_RATE = 16000
-WINDOW_SIZE_MS = 40  # ms
-WINDOW_STRIDE_MS = 20  # ms
-DCT_COEFFICIENT_COUNT = 10
-
-
 def mfcc_data(data):
     window_size = int(SAMPLE_RATE * WINDOW_SIZE_MS / 1000)
     window_stride = int(SAMPLE_RATE * WINDOW_STRIDE_MS / 1000)
