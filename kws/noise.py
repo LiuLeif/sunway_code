@@ -16,14 +16,15 @@ class Noise(object):
         for f in os.listdir(NOISE_DIR):
             wav_loader = io_ops.read_file(NOISE_DIR + f)
             wav_decoder = tf.audio.decode_wav(wav_loader, desired_channels=1)
-            self.data.append(wav_decoder.audio)
+            self.data.append(wav_decoder.audio * 0.1)
 
     def __call__(self):
         index = np.random.randint(0, len(self.data))
         offset = np.random.randint(0, self.data[index].shape[0] - SAMPLES)
         return self.data[index][offset : offset + SAMPLES]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     noise = Noise()
     print(noise())
     print(noise())

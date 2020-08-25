@@ -4,9 +4,9 @@
 
 INFERENCE_INTERVAL = 100  # ms
 SMOOTH_INTERVAL = 500  # ms
-MIN_PROBABILITY = 0.1
+MIN_PROBABILITY = 0.95
 CLIP_DURATION = 1000  # ms
-RESPONSE_INTERVAL = 1000  # ms
+RESPONSE_INTERVAL = 500  # ms
 
 # MFCC
 WINDOW_SIZE_MS = 40  # ms
@@ -32,5 +32,5 @@ WORDS = [
     "go",
 ]
 WORDS_TO_CHECK = set(
-    ["silent", "unknown", "right", "left", "yes", "no", "stop", "go", "off", "on"]
+    ["silent", "right", "yes", "stop"]
 )

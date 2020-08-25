@@ -32,9 +32,11 @@ print(WORDS_TO_CHECK)
 noise = Noise()
 
 for d in dirs:
-    category = 1  # unknown
+    # category = 1  # unknown
     if d in mapping and d in WORDS_TO_CHECK:
         category = mapping[d]
+    else:
+        continue
 
     seperate_x = SEPERATE_X[WORDS[category]]
     seperate_y = SEPERATE_Y[WORDS[category]]
@@ -43,21 +45,23 @@ for d in dirs:
         fingerprint = mfcc(f, time_shift, noise)
         X.append(fingerprint)
         Y.append(category)
-        seperate_x.append(fingerprint)
-        seperate_y.append(category)
+        if mode != "train":
+            seperate_x.append(fingerprint)
+            seperate_y.append(category)
 
     for f in os.listdir(DATA_DIR + d):
         if mode == "train":
-            for _ in range(3):
-                do_mfcc(DATA_DIR + d + "/" + f, time_shift=100, noise=noise())
+            # for _ in range(3):
+            do_mfcc(DATA_DIR + d + "/" + f, time_shift=160, noise=noise())
         else:
             do_mfcc(DATA_DIR + d + "/" + f)
 
 np.save("./temp/" + mode + "_x.npy", np.stack(X))
 np.save("./temp/" + mode + "_y.npy", np.array(Y))
 
-for (k, v) in SEPERATE_X.items():
-    np.save("./temp/" + mode + "_" + k + "_x.npy", np.stack(v))
-    np.save("./temp/" + mode + "_" + k + "_y.npy", np.array(SEPERATE_Y[k]))
+if mode != "train":
+    for (k, v) in SEPERATE_X.items():
+        np.save("./temp/" + mode + "_" + k + "_x.npy", np.stack(v))
+        np.save("./temp/" + mode + "_" + k + "_y.npy", np.array(SEPERATE_Y[k]))
 
 print("saved to ./temp/" + mode)
