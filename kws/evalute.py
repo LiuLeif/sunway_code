@@ -6,8 +6,7 @@ import tensorflow as tf
 import time
 import os
 import psutil
-
-process = psutil.Process(os.getpid())
+from config import *
 
 interpreter = tf.lite.Interpreter(model_path="./temp/output.tflite")
 interpreter.allocate_tensors()
@@ -15,15 +14,17 @@ interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-input_data = np.load("./temp/test_x.npy")
-true_data = np.load("./temp/test_y.npy")
+for w in sorted(WORDS_TO_CHECK):
+    X = np.load("./temp/test_" + w + "_x.npy")
+    Y = np.load("./temp/test_" + w + "_y.npy")
 
-prediction = []
-for x in input_data:
-    interpreter.set_tensor(input_details[0]["index"], x)
-    interpreter.invoke()
-    output_data = interpreter.get_tensor(output_details[0]["index"]).flatten()
-    y = np.argmax(output_data)
-    prediction.append(y)
+    print("evalute for " + w)
+    prediction = []
+    for x in X:
+        interpreter.set_tensor(input_details[0]["index"], x)
+        interpreter.invoke()
+        output_data = interpreter.get_tensor(output_details[0]["index"]).flatten()
+        y = np.argmax(output_data)
+        prediction.append(y)
 
-print((np.array(prediction) == true_data).sum() / len(true_data))
+    print((np.array(prediction) == Y).sum() / len(Y))

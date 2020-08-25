@@ -9,8 +9,7 @@ from smooth import Smooth
 from rectify import Rectify
 from config import *
 
-fs = SAMPLE_RATE
-chunk = fs * INFERENCE_INTERVAL // CLIP_DURATION
+chunk = SAMPLE_RATE * INFERENCE_INTERVAL // CLIP_DURATION
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 
@@ -23,7 +22,7 @@ print("Recording")
 stream = p.open(
     format=sample_format,
     channels=channels,
-    rate=fs,
+    rate=SAMPLE_RATE,
     frames_per_buffer=chunk,
     input=True,
 )
@@ -35,10 +34,10 @@ rectify = Rectify()
 
 while True:
     data = stream.read(chunk)
-    buffer = buffer[chunk - fs :]
+    buffer = buffer[chunk - SAMPLE_RATE :]
     tmp = np.frombuffer(data, dtype=np.int16)
     buffer = np.append(buffer, tmp / 32767)
-    if len(buffer) != fs:
+    if len(buffer) != SAMPLE_RATE:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
     output = inference(x)

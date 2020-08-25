@@ -7,6 +7,7 @@ from config import *
 from tensorflow.python.ops import gen_audio_ops as audio_ops
 from tensorflow.python.ops import io_ops
 
+
 def mfcc_data(data):
     window_size = int(SAMPLE_RATE * WINDOW_SIZE_MS / 1000)
     window_stride = int(SAMPLE_RATE * WINDOW_STRIDE_MS / 1000)
@@ -19,14 +20,36 @@ def mfcc_data(data):
     )
 
 
-def mfcc(file_name):
+def apply_background_noise(data, noise):
+    data += noise
+    return data
+
+
+# max_shift: ms
+def apply_time_shift(data, max_shift):
+    shift_length = np.random.randint(-max_shift, max_shift)
+    if shift_length > 0:
+        padding = np.array([[shift_length, 0], [0, 0]])
+        offset = [0, 0]
+    else:
+        padding = np.array([[0, -shift_length], [0, 0]])
+        offset = [-shift_length, 0]
+    data = tf.pad(data, padding)
+    data = tf.slice(data, offset, [SAMPLES, -1])
+    return data
+
+
+def mfcc(file_name, time_shift=0, noise=None):
     wav_loader = io_ops.read_file(file_name)
     wav_decoder = tf.audio.decode_wav(
-        wav_loader,
-        desired_channels=1,
-        desired_samples=SAMPLE_RATE * CLIP_DURATION / 1000,
+        wav_loader, desired_channels=1, desired_samples=SAMPLES,
     )
-    return mfcc_data(wav_decoder.audio)
+    data = wav_decoder.audio
+    if time_shift != 0:
+        data = apply_time_shift(data, time_shift)
+    if noise is not None:
+        data = apply_background_noise(data, noise)
+    return mfcc_data(data)
 
 
 def export_c(data):

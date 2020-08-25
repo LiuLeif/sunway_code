@@ -14,6 +14,7 @@ WINDOW_STRIDE_MS = 20  # ms
 DCT_COEFFICIENT_COUNT = 10
 
 SAMPLE_RATE = 16000
+SAMPLES = SAMPLE_RATE * CLIP_DURATION // 1000
 
 # train
 WORDS = [
@@ -30,4 +31,6 @@ WORDS = [
     "stop",
     "go",
 ]
-WORDS_TO_CHECK = set(["silent", "unknown", "right", "left", "yes", "no", "stop", "go", "off", "on"])
+WORDS_TO_CHECK = set(
+    ["silent", "unknown", "right", "left", "yes", "no", "stop", "go", "off", "on"]
+)
