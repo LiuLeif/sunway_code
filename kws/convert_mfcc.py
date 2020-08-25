@@ -1,49 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 2020-08-20 13:24
+import sys
+
+if len(sys.argv) == 1 or sys.argv[1] not in set(["train", "validation", "test"]):
+    print("usage: convert_mfcc.py [train|validation|test]")
+    exit(1)
+
 import os
 from mfcc import mfcc
 import numpy as np
+from config import *
 
-DATA_DIR = "/home/sunway/download/speech_commands/test/"
+mode = sys.argv[1]
+DATA_DIR = "/home/sunway/download/speech_commands/" + mode + "/"
 
-words = [
-    "silent",
-    "unknown",
-    "yes",
-    "no",
-    "up",
-    "down",
-    "left",
-    "right",
-    "on",
-    "off",
-    "stop",
-    "go",
-]
-
-WORD_TO_CHECK = set(["right", "left", "up", "down"])
-
-mapping = dict(zip(words, range(len(words))))
+mapping = dict(zip(WORDS, range(len(WORDS))))
 dirs = os.listdir(DATA_DIR)
 
 X = []
 Y = []
 
+print(WORDS_TO_CHECK)
+
 for d in dirs:
     category = 1  # unknown
-    if d in mapping:
+    if d in mapping and d in WORDS_TO_CHECK:
         category = mapping[d]
-
-    if d not in WORD_TO_CHECK:
-        continue
 
     for f in os.listdir(DATA_DIR + d):
         X.append(mfcc(DATA_DIR + d + "/" + f))
         Y.append(category)
 
-print(WORD_TO_CHECK)
-np.save("./temp/test_x.npy", np.stack(X))
-np.save("./temp/test_y.npy", np.array(Y))
+np.save("./temp/" + mode + "_x.npy", np.stack(X))
+np.save("./temp/" + mode + "_y.npy", np.array(Y))
 
-print("saved to ./temp/test_x.npy and ./temp/test_y.npy")
+print("saved to ./temp/" + mode + "_x.npy and ./temp/" + mode + "_y.npy")

@@ -6,22 +6,9 @@ import tensorflow as tf
 import time
 import os
 import psutil
+import sys
 from config import *
-
-WORDS = [
-    "silent",
-    "unknown",
-    "yes",
-    "no",
-    "up",
-    "down",
-    "left",
-    "right",
-    "on",
-    "off",
-    "stop",
-    "go",
-]
+from mfcc import mfcc
 
 
 class Inference(object):
@@ -45,5 +32,8 @@ class Inference(object):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print("usage: inference <wav>")
+        exit(1)
     inference = Inference()
-    print(inference(np.load("./temp/output.npy")))
+    print(inference(mfcc(sys.argv[1])))

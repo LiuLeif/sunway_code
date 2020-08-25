@@ -4,7 +4,7 @@
 
 INFERENCE_INTERVAL = 100  # ms
 SMOOTH_INTERVAL = 500  # ms
-MIN_PROBABILITY = 0.6
+MIN_PROBABILITY = 0.1
 CLIP_DURATION = 1000  # ms
 RESPONSE_INTERVAL = 1000  # ms
 
@@ -14,3 +14,20 @@ WINDOW_STRIDE_MS = 20  # ms
 DCT_COEFFICIENT_COUNT = 10
 
 SAMPLE_RATE = 16000
+
+# train
+WORDS = [
+    "silent",
+    "unknown",
+    "yes",
+    "no",
+    "up",
+    "down",
+    "left",
+    "right",
+    "on",
+    "off",
+    "stop",
+    "go",
+]
+WORDS_TO_CHECK = set(["silent", "unknown", "right", "left", "yes", "no", "stop", "go", "off", "on"])
