@@ -11,8 +11,6 @@ from tensorflow.keras import layers, losses, metrics, optimizers, models
 
 from config import *
 
-# tf.config.set_visible_devices([], "GPU")
-
 x_train = np.load("./temp/train_x.npy")
 y_train = np.load("./temp/train_y.npy")
 x_train = np.squeeze(x_train)
@@ -34,14 +32,14 @@ else:
     outputs = layers.Conv2D(filters=48, kernel_size=[10, 4], strides=[2, 1])(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.5)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     outputs = layers.Flatten()(outputs)
 
     outputs = layers.Dense(16)(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.5)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     outputs = layers.Dense(128, activation="relu")(outputs)
     outputs = layers.Dense(12, activation="softmax")(outputs)

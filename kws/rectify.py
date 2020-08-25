@@ -12,7 +12,7 @@ class Rectify(object):
 
     def __call__(self, value):
         self.count += 1
-        if value == "unknown" or value == "silent":
+        if value == "silent":
             self.bucket |= 1
             return None
 

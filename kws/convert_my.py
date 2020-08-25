@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # 2020-08-24 16:20
 import tensorflow as tf
+import numpy as np
 
 converter = tf.lite.TFLiteConverter.from_saved_model("./temp/my")
 converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
