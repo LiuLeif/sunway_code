@@ -8,22 +8,22 @@ class Rectify(object):
     def __init__(self):
         self.count = 0
         self.pending = None
-        self.bucket = 0
+        self.flag = 0
 
     def __call__(self, value):
         self.count += 1
         if value == "silent":
-            self.bucket |= 1
+            self.flag |= 1
             return None
 
         self.pending = value
 
         if self.count >= RESPONSE_INTERVAL // INFERENCE_INTERVAL:
-            self.bucket |= 2
+            self.flag |= 2
 
-        if self.bucket == 3:
+        if self.flag == 3:
             self.count = 0
-            self.bucket = 0
+            self.flag = 0
             return self.pending
 
         return None
