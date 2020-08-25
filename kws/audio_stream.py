@@ -40,8 +40,8 @@ while True:
     if len(buffer) != SAMPLE_RATE:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
-    output = inference(x)
+    output, prob = inference(x)
     output = smooth(output)
     output = rectify(output)
     if output:
-        print(output)
+        print("%-6s:%f" % (output, prob))

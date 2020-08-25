@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 # 2020-08-22 20:14
 
-INFERENCE_INTERVAL = 100  # ms
-SMOOTH_INTERVAL = 500  # ms
-MIN_PROBABILITY = 0.95
+INFERENCE_INTERVAL = 50  # ms
+SMOOTH_INTERVAL = 250  # ms
+MIN_PROBABILITY = 0.9
 CLIP_DURATION = 1000  # ms
 RESPONSE_INTERVAL = 500  # ms
 
@@ -31,6 +31,4 @@ WORDS = [
     "stop",
     "go",
 ]
-WORDS_TO_CHECK = set(
-    ["silent", "right", "yes", "stop"]
-)
+WORDS_TO_CHECK = set(["silent", "right", "yes", "stop"])

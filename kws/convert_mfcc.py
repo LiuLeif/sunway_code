@@ -32,12 +32,10 @@ print(WORDS_TO_CHECK)
 noise = Noise()
 
 for d in dirs:
-    # category = 1  # unknown
-    if d in mapping and d in WORDS_TO_CHECK:
-        category = mapping[d]
-    else:
+    if d not in WORDS_TO_CHECK:
         continue
 
+    category = mapping[d]
     seperate_x = SEPERATE_X[WORDS[category]]
     seperate_y = SEPERATE_Y[WORDS[category]]
 

@@ -26,9 +26,9 @@ class Inference(object):
         ).flatten()
         index = np.argmax(output_data)
         if output_data[index] > MIN_PROBABILITY:
-            return WORDS[index]
+            return WORDS[index], output_data[index]
         else:
-            return WORDS[0]
+            return WORDS[0], 0
 
 
 if __name__ == "__main__":
