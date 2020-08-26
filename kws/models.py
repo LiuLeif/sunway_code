@@ -55,7 +55,7 @@ def dscnn():
     )(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.1)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     # DepthwiseConv2D 2
     outputs = layers.DepthwiseConv2D(
@@ -66,7 +66,7 @@ def dscnn():
     )(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.1)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     # DepthwiseConv2D 3
     outputs = layers.DepthwiseConv2D(
@@ -77,7 +77,7 @@ def dscnn():
     )(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.1)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     # DepthwiseConv2D 4
     outputs = layers.DepthwiseConv2D(
@@ -88,7 +88,7 @@ def dscnn():
     )(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.1)(outputs)
+    outputs = layers.Dropout(0.2)(outputs)
 
     outputs = layers.AveragePooling2D(
         pool_size=outputs.shape[1:3], strides=[2, 2], padding="valid"
