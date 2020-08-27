@@ -21,7 +21,7 @@ MODEL_PATH = "./temp/my"
 if os.path.exists(MODEL_PATH):
     model = keras.models.load_model(MODEL_PATH)
 else:
-    model = cnn()
+    model = dscnn()
 
 model.compile(
     optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]

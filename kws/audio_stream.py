@@ -41,7 +41,9 @@ while True:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
     output, prob = inference(x)
+    # print("inf ", output, prob, flush = True)
     output = smooth(output)
+    # print("  smo ", output)
     output = rectify(output)
     if output:
         print("%-6s:%f" % (output, prob))

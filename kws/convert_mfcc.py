@@ -9,7 +9,7 @@ if len(sys.argv) == 1 or sys.argv[1] not in set(["train", "validation", "test"])
     exit(1)
 
 import os
-from mfcc import mfcc
+from mfcc import *
 from noise import Noise
 import numpy as np
 
@@ -47,10 +47,16 @@ for d in dirs:
             seperate_x.append(fingerprint)
             seperate_y.append(category)
 
+    def do_mfcc_for_unknown():
+        fingerprint = mfcc_data(np.random.uniform(low=-1, high=1, size=(SAMPLES, 1)))
+        X.append(fingerprint)
+        Y.append(1)
+
     for f in os.listdir(DATA_DIR + d):
         if mode == "train":
             # for _ in range(3):
-            do_mfcc(DATA_DIR + d + "/" + f, time_shift=160, noise=noise())
+            do_mfcc(DATA_DIR + d + "/" + f, time_shift=100, noise=noise())
+            # do_mfcc_for_unknown()
         else:
             do_mfcc(DATA_DIR + d + "/" + f)
 

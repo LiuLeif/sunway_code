@@ -3,10 +3,10 @@
 # 2020-08-22 20:14
 
 INFERENCE_INTERVAL = 50  # ms
-SMOOTH_INTERVAL = 250  # ms
-MIN_PROBABILITY = 0.999
+SMOOTH_INTERVAL = 500  # ms
+MIN_PROBABILITY = 0.6
 CLIP_DURATION = 1000  # ms
-RESPONSE_INTERVAL = 500  # ms
+RESPONSE_INTERVAL = 1000  # ms
 
 # MFCC
 WINDOW_SIZE_MS = 40  # ms
@@ -31,4 +31,4 @@ WORDS = [
     "stop",
     "go",
 ]
-WORDS_TO_CHECK = set(["silent", "right", "yes", "stop"])
+WORDS_TO_CHECK = set(["silent", "right", "yes"])
