@@ -34,10 +34,10 @@ rectify = Rectify()
 
 while True:
     data = stream.read(chunk)
-    buffer = buffer[chunk - SAMPLE_RATE :]
+    buffer = buffer[chunk - SAMPLES :]
     tmp = np.frombuffer(data, dtype=np.int16)
     buffer = np.append(buffer, tmp / 32767)
-    if len(buffer) != SAMPLE_RATE:
+    if len(buffer) != SAMPLES:
         continue
     x = mfcc_data(np.expand_dims(buffer, 1))
     output, prob = inference(x)

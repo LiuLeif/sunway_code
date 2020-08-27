@@ -21,12 +21,12 @@ MODEL_PATH = "./temp/my"
 if os.path.exists(MODEL_PATH):
     model = keras.models.load_model(MODEL_PATH)
 else:
-    model = dscnn()
+    model = cnn()
 
 model.compile(
     optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
 )
-model.fit(x_train, y_train, batch_size=100, epochs=20, shuffle=True, verbose=1)
+model.fit(x_train, y_train, batch_size=100, epochs=5, shuffle=True, verbose=1)
 
 x_test = np.load("./temp/test_x.npy")
 y_test = np.load("./temp/test_y.npy")
