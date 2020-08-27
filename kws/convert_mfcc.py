@@ -32,11 +32,15 @@ print(WORDS_TO_CHECK)
 noise = Noise()
 
 for d in dirs:
-    print(d)
-    if d not in WORDS_TO_CHECK:
-        continue
+    if d not in WORDS:
+        category = 1
+    else:
+        if d not in WORDS_TO_CHECK:
+            continue
+        else:
+            category = mapping[d]
 
-    category = mapping[d]
+    print(d, WORDS[category])
     seperate_x = SEPERATE_X[WORDS[category]]
     seperate_y = SEPERATE_Y[WORDS[category]]
 
@@ -50,7 +54,8 @@ for d in dirs:
 
     for f in os.listdir(DATA_DIR + d):
         if mode == "train":
-            do_mfcc(DATA_DIR + d + "/" + f, time_shift=100, noise=noise())
+            for _ in range(10):
+                do_mfcc(DATA_DIR + d + "/" + f, time_shift=200, noise=noise())
         else:
             do_mfcc(DATA_DIR + d + "/" + f)
 

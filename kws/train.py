@@ -26,7 +26,7 @@ else:
 model.compile(
     optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
 )
-model.fit(x_train, y_train, batch_size=100, epochs=5, shuffle=True, verbose=1)
+model.fit(x_train, y_train, batch_size=200, epochs=5, shuffle=True, verbose=1)
 
 x_test = np.load("./temp/test_x.npy")
 y_test = np.load("./temp/test_y.npy")

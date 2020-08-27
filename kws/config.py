@@ -18,5 +18,18 @@ SAMPLES = SAMPLE_RATE * CLIP_DURATION // 1000
 FRAMES = (CLIP_DURATION - WINDOW_SIZE_MS) // WINDOW_STRIDE_MS + 1
 
 # train
-WORDS = ["silent", "unknown", "right"]
+WORDS = [
+    "silent",
+    "unknown",
+    "yes",
+    "no",
+    "up",
+    "down",
+    "left",
+    "right",
+    "on",
+    "off",
+    "stop",
+    "go",
+]
 WORDS_TO_CHECK = set(["silent", "unknown", "right"])
