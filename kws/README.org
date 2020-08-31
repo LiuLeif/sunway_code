@@ -1,0 +1,24 @@
+1. install miniconda
+
+   https://docs.conda.io/en/latest/miniconda.html
+
+   NOTE: Python 3.8 is preferred
+
+2. restore anaconda environment
+
+   #+begin_example
+     cd <GIT_TOP_DIR>
+     conda env create
+   #+end_example
+
+   which will instead tensorflow-gpu, cuda-toolkit and cudnn
+
+3. run the test
+
+   #+begin_example
+     conda activate gpu
+     ./audio_stream.py
+   #+end_example
+
+   currently, only one wake word ("right") is defined.
+   

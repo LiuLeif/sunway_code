@@ -1,49 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 2020-08-21 11:57
-import pyaudio
+import sys
+from stream import *
+
+if len(sys.argv) != 2:
+    print("usage: audio_stream  <mic|xxx.wav>")
+    exit(1)
+
+if sys.argv[1] == "mic":
+    stream = MicStream()
+else:
+    stream = WavStream(sys.argv[1])
+
 import numpy as np
-from mfcc import mfcc_data
+import tensorflow as tf
 from inference import Inference
-from smooth import Smooth
-from rectify import Rectify
+from smooth import *
+from rectify import *
 from config import *
-
-chunk = SAMPLE_RATE * INFERENCE_INTERVAL // CLIP_DURATION
-sample_format = pyaudio.paInt16  # 16 bits per sample
-channels = 1
-
-p = pyaudio.PyAudio()  # Create an interface to PortAudio
+from log import *
+from mfcc import MFCC
 
 inference = Inference()
+smooth = MaximumSmooth()
+rectify = SilenceRectify()
 
-print("Recording")
-
-stream = p.open(
-    format=sample_format,
-    channels=channels,
-    rate=SAMPLE_RATE,
-    frames_per_buffer=chunk,
-    input=True,
-)
-
-buffer = np.array([], dtype=np.float32)
-
-smooth = Smooth()
-rectify = Rectify()
-
-while True:
-    data = stream.read(chunk)
-    buffer = buffer[chunk - SAMPLES :]
-    tmp = np.frombuffer(data, dtype=np.int16)
-    buffer = np.append(buffer, tmp / 32767)
-    if len(buffer) != SAMPLES:
-        continue
-    x = mfcc_data(np.expand_dims(buffer, 1))
+for (i, data) in enumerate(stream):
+    x = MFCC.decode_pcm(data)
     output, prob = inference(x)
-    # print("inf ", output, prob, flush = True)
+    get_logger().info("inf: %6d %s %f" % (i, output, prob))
     output = smooth(output)
-    # print("  smo ", output)
+    get_logger().info("    smo: %s" % (output))
     output = rectify(output)
     if output:
-        print("%-6s:%f" % (output, prob))
+        get_logger().info("        result: %-6s:%f" % (output, prob))
+        wav_file = tf.audio.encode_wav(data, SAMPLE_RATE)
+        with open("./logs/%s_%d.wav" % (output, i), "wb") as f:
+            f.write(wav_file.numpy())
+        print("%-6s %-6f %d" % (output, prob, i))

@@ -8,12 +8,12 @@ import os
 import psutil
 import sys
 from config import *
-from mfcc import mfcc
+from mfcc import MFCC
 
 
 class Inference(object):
     def __init__(self):
-        self.interpreter = tf.lite.Interpreter(model_path="./temp/output.tflite")
+        self.interpreter = tf.lite.Interpreter(model_path="./model/output.tflite")
         self.interpreter.allocate_tensors()
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
@@ -36,4 +36,4 @@ if __name__ == "__main__":
         print("usage: inference <wav>")
         exit(1)
     inference = Inference()
-    print(inference(mfcc(sys.argv[1])))
+    print(inference(MFCC.decode_wav(sys.argv[1])))

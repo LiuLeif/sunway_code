@@ -8,13 +8,13 @@ import os
 import psutil
 from config import *
 
-interpreter = tf.lite.Interpreter(model_path="./temp/output.tflite")
+interpreter = tf.lite.Interpreter(model_path="./model/output.tflite")
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-for w in sorted(WORDS_TO_CHECK):
+for w in sorted(WORDS):
     X = np.load("./temp/test_" + w + "_x.npy")
     Y = np.load("./temp/test_" + w + "_y.npy")
 

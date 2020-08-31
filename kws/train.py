@@ -26,7 +26,7 @@ else:
 model.compile(
     optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
 )
-model.fit(x_train, y_train, batch_size=200, epochs=5, shuffle=True, verbose=1)
+model.fit(x_train, y_train, batch_size=200, epochs=10, shuffle=True, verbose=1)
 
 x_test = np.load("./temp/test_x.npy")
 y_test = np.load("./temp/test_y.npy")
@@ -38,13 +38,13 @@ converter = tf.lite.TFLiteConverter.from_saved_model("./temp/my")
 converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
 
 tflite = converter.convert()
-with open("./temp/output.tflite", "wb") as f:
+with open("./model/output.tflite", "wb") as f:
     f.write(tflite)
     print("size of tflite:", len(tflite))
 
 print("evalute for all")
 model.evaluate(x_test, y_test, verbose=2)
-for w in WORDS_TO_CHECK:
+for w in WORDS:
     x = np.load("./temp/test_" + w + "_x.npy")
     y = np.load("./temp/test_" + w + "_y.npy")
     x = np.squeeze(x)

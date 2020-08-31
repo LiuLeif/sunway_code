@@ -16,19 +16,19 @@ def cnn():
     outputs = layers.Conv2D(filters=64, kernel_size=[10, 4], strides=[1, 1])(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.2)(outputs)
+    outputs = layers.Dropout(0.5)(outputs)
 
     outputs = layers.Conv2D(filters=48, kernel_size=[10, 4], strides=[2, 1])(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.2)(outputs)
+    outputs = layers.Dropout(0.5)(outputs)
 
     outputs = layers.Flatten()(outputs)
 
     outputs = layers.Dense(16)(outputs)
     outputs = layers.BatchNormalization()(outputs)
     outputs = layers.ReLU()(outputs)
-    outputs = layers.Dropout(0.2)(outputs)
+    outputs = layers.Dropout(0.1)(outputs)
 
     outputs = layers.Dense(128, activation="relu")(outputs)
     outputs = layers.Dense(len(WORDS), activation="softmax")(outputs)

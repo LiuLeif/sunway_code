@@ -30,7 +30,7 @@ converter.optimizations = [tf.lite.Optimize.DEFAULT]
 converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
 
 tflite_model = converter.convert()
-with open("./temp/output.tflite", "wb") as f:
+with open("./model/output.tflite", "wb") as f:
     f.write(tflite_model)
-    print("converted model saved to ./temp/output.tflite")
+    print("converted model saved to ./model/output.tflite")
     print("size of output.tflite:", len(tflite_model))

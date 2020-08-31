@@ -25,7 +25,7 @@ char* words[] = {
     "left",   "right",   "on",  "off", "stop", "go",
 };
 int main(int argc, char* argv[]) {
-    const char* filename = "./temp/output.tflite";
+    const char* filename = "./model/output.tflite";
     std::unique_ptr<tflite::FlatBufferModel> model =
         tflite::FlatBufferModel::BuildFromFile(filename);
 
