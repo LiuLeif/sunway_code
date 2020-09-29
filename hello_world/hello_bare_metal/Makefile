@@ -1,4 +1,4 @@
-OBJ=startup.o test.o
+OBJ=test.o startup.o
 CFLAGS= -mcpu=arm926ej-s
 ASFLAGS = -mcpu=arm926ej-s
 
@@ -10,7 +10,7 @@ OBJCOPY=arm-none-eabi-objcopy
 all: test.bin
 
 test.elf:${OBJ}
-	${LD} -T test.ld $^ -o $@
+	${CC}  $^ -o $@ -v --specs=nosys.specs ${CFLAGS} -T test.ld
 
 test.bin:test.elf
 	${OBJCOPY} -O binary $^ $@
