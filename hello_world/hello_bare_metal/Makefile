@@ -6,6 +6,10 @@ CC=arm-none-eabi-gcc -g
 AS=arm-none-eabi-as
 LD=arm-none-eabi-ld
 OBJCOPY=arm-none-eabi-objcopy
+# CC=mips-img-elf-gcc -g
+# AS=mips-img-elf-as
+# LD=mips-img-elf-ld
+# OBJCOPY=mips-img-elf-objcopy
 
 all: test.bin
 
