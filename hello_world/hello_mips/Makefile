@@ -3,7 +3,7 @@ LD=mips-linux-gnu-ld
 
 all:test
 
-%.o:%.asm
+%.o:%.mips
 	${AS} $^ -o $@
 
 test:test.o
