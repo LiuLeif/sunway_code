@@ -7,7 +7,7 @@ all:test
 	${AS} $^ -o $@
 
 test:test.o
-	${LD} $^ -o $@
+	${LD} -G8 $^ -o $@
 
 .PHONY: debug clean
 
