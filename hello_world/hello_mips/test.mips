@@ -1,7 +1,10 @@
-    .text
+    .text   0x4000d4
     .global __start
 
 __start:
+    move $t1, $t2
+    la      $t1, 0x4000d1
+    bge     $t1, $t2, __start
     li      $t1, 0
     li      $t2, 0
     seq     $t3, $t1, $t2
