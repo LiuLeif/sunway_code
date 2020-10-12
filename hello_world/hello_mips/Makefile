@@ -11,7 +11,7 @@ test:test.o lib.o
 
 .PHONY: debug clean
 
-debug:test
+gdb:test
 	-pkill -9 qemu-mips-static || true
 	cat test.stdin|qemu-mips-static -g 12345 ./test &
 
