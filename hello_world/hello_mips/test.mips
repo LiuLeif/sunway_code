@@ -2,6 +2,8 @@
     .global __start
 
 __start:
-    lw      $t1, a
+    lw      $t1, __start
+    move    $t2, $t1
+    lw      $t3, a
     .sdata
 a:  .word   1
