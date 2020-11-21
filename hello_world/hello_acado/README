@@ -1,0 +1,7 @@
+# build ACADOtoolkit first
+tar zxvf ACADOtoolkit.tar.gz
+cd ./ACADOtoolkit
+mkdir build
+cd build
+cmake ..
+make
