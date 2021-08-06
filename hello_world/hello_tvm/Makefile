@@ -9,11 +9,13 @@ endif
 
 APP=double
 
-CPPFLAGS = -std=c++14 -O2 -fPIC\
-		-I${TVM_ROOT}/include\
-		-I${DMLC_CORE}/include\
-		-I${TVM_ROOT}/3rdparty/dlpack/include\
-		-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\>
+CPPFLAGS = -std=c++14 -O2 -fPIC \
+		-I${TVM_ROOT}/include \
+		-I${TVM_ROOT}/src \
+		-I${DMLC_CORE}/include \
+		-I${TVM_ROOT}/3rdparty/dlpack/include \
+		-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\> \
+
 CXXFLAGS = -Wvla -ffunction-sections -fdata-sections
 LDFLAGS = -L${TVM_ROOT}/build -static -Wl,-Map=${APP}.map -Wl,-gc-sections
 
