@@ -20,9 +20,6 @@ CPPFLAGS = -std=c++14 -O2 -fPIC \
 CXXFLAGS = -Wvla -ffunction-sections -fdata-sections
 LDFLAGS = -L${TVM_ROOT}/build -static -Wl,-Map=${APP}.map -Wl,-gc-sections
 
-# comment out the following lines in library_module.cc to get rid of `-lpthread`
-# TVM_INIT_CONTEXT_FUNC(TVMBackendParallelLaunch);
-# TVM_INIT_CONTEXT_FUNC(TVMBackendParallelBarrier);
 LDLIBS = -lstdc++ -lpthread
 
 all: ${APP}
@@ -30,11 +27,31 @@ all: ${APP}
 libdouble.o: libdouble.py
 	python3 libdouble.py
 
-OBJS=double.o libdouble.o  tvm_runtime.o
-${APP}: ${OBJS}
+TVM_SRC= \
+   ${TVM_ROOT}/src/runtime/c_runtime_api.cc \
+   ${TVM_ROOT}/src/runtime/container.cc \
+   ${TVM_ROOT}/src/runtime/cpu_device_api.cc \
+   ${TVM_ROOT}/src/runtime/file_utils.cc \
+   ${TVM_ROOT}/src/runtime/library_module.cc \
+   ${TVM_ROOT}/src/runtime/logging.cc \
+   ${TVM_ROOT}/src/runtime/module.cc \
+   ${TVM_ROOT}/src/runtime/ndarray.cc \
+   ${TVM_ROOT}/src/runtime/object.cc \
+   ${TVM_ROOT}/src/runtime/registry.cc \
+   ${TVM_ROOT}/src/runtime/system_library.cc \
+   ${TVM_ROOT}/src/runtime/thread_pool.cc \
+   ${TVM_ROOT}/src/runtime/threading_backend.cc \
+   ${TVM_ROOT}/src/runtime/workspace_pool.cc \
+
+TVM_OBJ=$(patsubst %.cc,%.o,$(TVM_SRC))
+
+OBJ=double.o libdouble.o
+
+${APP}: ${OBJ} ${TVM_OBJ}
 
 clean:
-	-rm ${OBJS}
+	-rm ${OBJ}
+	-rm ${TVM_OBJ}
 	-rm ${APP}
 	-rm ${APP}.map
 

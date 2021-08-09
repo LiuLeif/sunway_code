@@ -39,12 +39,9 @@ tvm_crt_error_t TVMPlatformTimerStop(double* elapsed_time_seconds) {
 }
 
 TVMModuleHandle tvm_runtime_create() {
-    int64_t device_type = kDLCPU;
-    int64_t device_id = 0;
-
     DLDevice dev;
-    dev.device_type = (DLDeviceType)device_type;
-    dev.device_id = device_id;
+    dev.device_type = (DLDeviceType)kDLCPU;
+    dev.device_id = 0;
 
     // get pointers
     PageMemoryManagerCreate(

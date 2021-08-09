@@ -14,14 +14,14 @@ int main(int argc, char** argv) {
     int device_id = 0;
     int64_t shape[1] = {10};
 
-    DLTensor _x;
-    TVMArrayHandle input = &_x;
+    DLTensor x;
+    TVMArrayHandle input = &x;
     TVMArrayAlloc(
         shape, ndim, dtype_code, dtype_bits, dtype_lanes, device_type,
         device_id, &input);
 
-    DLTensor _y;
-    TVMArrayHandle output = &_y;
+    DLTensor y;
+    TVMArrayHandle output = &y;
     TVMArrayAlloc(
         shape, ndim, dtype_code, dtype_bits, dtype_lanes, device_type,
         device_id, &output);
