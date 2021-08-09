@@ -11,9 +11,9 @@ CFLAGS = ${PKG_COMPILE_OPTS} \
 	-I${TVM_ROOT}/3rdparty/dlpack/include \
 	-I. \
 	-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\> \
-	-g
+	-ffunction-sections -fdata-sections
 
-LDLIBS = -pthread -lm
+LDFLAGS = -static -Wl,-gc-sections
 
 CRT_SRCS = $(shell find $(CRT_ROOT))
 
@@ -39,4 +39,4 @@ clean:
 	-rm ${OBJS}
 	-rm ${MODEL_OBJ}
 	-rm double
-	-rm -rf crt/*
+	-rm -rf crt
