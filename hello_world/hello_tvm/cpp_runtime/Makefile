@@ -15,6 +15,7 @@ CPPFLAGS = -std=c++14 -O2 -fPIC \
 		-I${DMLC_CORE}/include \
 		-I${TVM_ROOT}/3rdparty/dlpack/include \
 		-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\> \
+		-g \
 
 CXXFLAGS = -Wvla -ffunction-sections -fdata-sections
 LDFLAGS = -L${TVM_ROOT}/build -static -Wl,-Map=${APP}.map -Wl,-gc-sections
