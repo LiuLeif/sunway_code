@@ -4,8 +4,11 @@
 
 #include "tvm_runtime.h"
 
-extern unsigned char test_data[];
-extern unsigned int test_data_len;
+extern unsigned char test_xiaoai[];
+extern unsigned int test_xiaoai_len;
+
+extern unsigned char test_unknown[];
+extern unsigned int test_unknown_len;
 
 int main(int argc, char** argv) {
     TVMGraphExecutor* executor = tvm_runtime_create();
@@ -36,14 +39,24 @@ int main(int argc, char** argv) {
 
     TVMGraphExecutor_SetInput(executor, "input_1", &input);
 
-    int STEP = 99 * 12 * 4;
-    int n = test_data_len / STEP;
-    unsigned char* mfcc = (unsigned char*)test_data;
-    for (int i = 0; i < n; i++) {
-        memcpy(input_data, mfcc, STEP);
-        mfcc += STEP;
-        TVMGraphExecutor_Run(executor);
-        TVMGraphExecutor_GetOutput(executor, 0, &output);
-        printf("output: %f\n", output_data[0]);
+    int STEP = 99 * 12 * sizeof(float) / sizeof(char);
+
+#define TEST(data, len)                                       \
+    {                                                         \
+        unsigned char* mfcc = (unsigned char*)data;           \
+        int n = len / STEP;                                   \
+        for (int i = 0; i < n; i++) {                         \
+            memcpy(input_data, mfcc, STEP);                   \
+            mfcc += STEP;                                     \
+            TVMGraphExecutor_Run(executor);                   \
+            TVMGraphExecutor_GetOutput(executor, 0, &output); \
+            printf("output: %f\n", output_data[0]);           \
+        }                                                     \
     }
+
+    printf("\n------test xiaoai------\n");
+    TEST(test_xiaoai, test_xiaoai_len);
+
+    printf("\n------test unknown------\n");
+    TEST(test_unknown, test_unknown_len);
 }

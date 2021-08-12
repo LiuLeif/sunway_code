@@ -40,7 +40,7 @@ crt/libmemory.a: $(CRT_SRCS)
 crt/libgraph_executor.a: $(CRT_SRCS)
 	$(QUIET)cd $(CRT_ROOT) && make QUIET= BUILD_DIR=$(abspath .)/crt CRT_CONFIG=$(abspath crt_config.h) "EXTRA_CFLAGS=$(PKG_COMPILE_OPTS)" graph_executor
 
-OBJS=kws.o tvm_runtime.o kws_graph.o kws_params.o test_data.o
+OBJS=kws.o tvm_runtime.o kws_graph.o kws_params.o test/test_xiaoai.o test/test_unknown.o
 
 kws: ${OBJS} $(MODEL_OBJ) crt/libmemory.a crt/libcommon.a crt/libgraph_executor.a
 
@@ -54,3 +54,5 @@ clean:
 	-rm -rf crt
 	-rm kws_graph.json
 	-rm kws_params.bin
+	-rm kws_graph.c
+	-rm kws_params.c
