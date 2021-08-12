@@ -1,12 +1,15 @@
-#include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "tvm_runtime.h"
 
+extern unsigned char test_data[];
+extern unsigned int test_data_len;
+
 int main(int argc, char** argv) {
     TVMGraphExecutor* executor = tvm_runtime_create();
-    float input_data[1 * 99 * 12];
+    float input_data[1 * 99 * 12] = {0};
 
     DLTensor input;
     input.data = input_data;
@@ -19,10 +22,7 @@ int main(int argc, char** argv) {
     input.strides = NULL;
     input.byte_offset = 0;
 
-    TVMGraphExecutor_SetInput(executor, "input_1", &input);
-    TVMGraphExecutor_Run(executor);
-
-    float output_data[1];
+    float output_data[1] = {0};
     DLTensor output;
     output.data = output_data;
     DLDevice out_dev = {kDLCPU, 0};
@@ -34,7 +34,16 @@ int main(int argc, char** argv) {
     output.strides = NULL;
     output.byte_offset = 0;
 
-    TVMGraphExecutor_GetOutput(executor, 0, &output);
+    TVMGraphExecutor_SetInput(executor, "input_1", &input);
 
-    printf("output: %f\n", output_data[0]);
+    int STEP = 99 * 12 * 4;
+    int n = test_data_len / STEP;
+    unsigned char* mfcc = (unsigned char*)test_data;
+    for (int i = 0; i < n; i++) {
+        memcpy(input_data, mfcc, STEP);
+        mfcc += STEP;
+        TVMGraphExecutor_Run(executor);
+        TVMGraphExecutor_GetOutput(executor, 0, &output);
+        printf("output: %f\n", output_data[0]);
+    }
 }
