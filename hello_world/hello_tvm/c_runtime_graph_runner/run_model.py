@@ -15,21 +15,15 @@ def run_model(mod, params):
     target = "llvm"
     with tvm.transform.PassContext(opt_level=3):
         lib = relay.build_module.build(mod, target=target, params=params)
-
     rt_mod = graph_executor.GraphModule(lib["default"](tvm.cpu(0)))
-    x = np.load("test/test_xiaoai.npy")
-    for i in range(len(x)):
-        rt_mod.set_input(INPUT_NAME, x[i : i + 1])
-        rt_mod.run()
-        tvm_res = rt_mod.get_output(0).numpy()
-        print(tvm_res)
-    print("------------")
-    x = np.load("test/test_unknown.npy")
-    for i in range(len(x)):
-        rt_mod.set_input(INPUT_NAME, x[i : i + 1])
-        rt_mod.run()
-        tvm_res = rt_mod.get_output(0).numpy()
-        print(tvm_res)
+
+    for f in ("test/test_xiaoai.npy", "test/test_unknown.npy"):
+        print(f"------{f}------")
+        for x in np.expand_dims(np.load(f), 1):
+            rt_mod.set_input(INPUT_NAME, x)
+            rt_mod.run()
+            tvm_res = rt_mod.get_output(0).numpy()
+            print(tvm_res)
 
 
 def get_model(mode):
@@ -56,7 +50,7 @@ def get_model(mode):
                 yield {INPUT_NAME: data}
 
         mod, params = load_tflite("kws.tflite")
-        with relay.quantize.qconfig(calibrate_mode="kl_divergence", weight_scale="max"):
+        with relay.quantize.qconfig(calibrate_mode="percentile", weight_scale="max"):
             mod = relay.quantize.quantize(mod, params, dataset=calibrate_dataset())
         return mod, None
 

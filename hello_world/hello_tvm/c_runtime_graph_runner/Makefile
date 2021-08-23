@@ -1,6 +1,6 @@
 all: kws
 
-TVM_ROOT=/home/sunway/source/tvm
+TVM_ROOT=~/source/tvm
 CRT_ROOT=${TVM_ROOT}/build/standalone_crt
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
@@ -44,7 +44,7 @@ OBJ=kws.o tvm_runtime.o kws_graph.o kws_params.o test/test_xiaoai.o test/test_un
 kws: ${OBJ} $(MODEL_OBJ) crt/libmemory.a crt/libcommon.a crt/libgraph_executor.a
 
 run:kws
-	./kws
+	./kws 2>/dev/null
 
 clean:
 	-rm ${OBJ}
