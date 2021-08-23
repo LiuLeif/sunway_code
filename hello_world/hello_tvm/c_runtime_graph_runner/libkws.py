@@ -7,11 +7,9 @@ import tvm
 from tvm.contrib import graph_executor
 from tvm import relay, runtime
 
-tflite_model = tflite.Model.GetRootAsModel(open("kws.tflite", "rb").read(), 0)
+from run_model import get_model
 
-mod, params = relay.frontend.from_tflite(
-    tflite_model, shape_dict={"input_1": (1, 99, 12)}, dtype_dict={"input_1": "float32"}
-)
+mod, params = get_model(mode="tflite_quant")
 
 target = "llvm  --system-lib --runtime=c"
 with tvm.transform.PassContext(opt_level=3):
