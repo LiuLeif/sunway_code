@@ -17,16 +17,17 @@ EPOCH = 200000
 class Converter:
     def __init__(self):
         self._load_word2vec()
+        print(f"token size: {self.size()}")
 
     def _load_word2vec(self):
-        if os.path.exists("bai_lu_yuan.w2v"):
-            self.vec = word2vec.Word2Vec.load("bai_lu_yuan.w2v")
+        if os.path.exists("rr.w2v"):
+            self.vec = word2vec.Word2Vec.load("rr.w2v")
         else:
-            sentences = word2vec.Text8Corpus("bai_lu_yuan.txt")
+            sentences = word2vec.Text8Corpus("rr.txt")
             self.vec = word2vec.Word2Vec(
                 sentences, vector_size=FEATURE_SIZE, epochs=200, min_count=0
             )
-            self.vec.save("bai_lu_yuan.w2v")
+            self.vec.save("rr.w2v")
         vocabulary = self.vec.wv.key_to_index
         self.char_to_idx = {}
         self.idx_to_char = {}
@@ -77,7 +78,7 @@ class WordSamplerDataset(Dataset):
     def __init__(
         self,
     ):
-        with open("bai_lu_yuan.txt", "r") as f:
+        with open("rr.txt", "r") as f:
             self.data = f.read()
             self.data = self.data.split()
 
