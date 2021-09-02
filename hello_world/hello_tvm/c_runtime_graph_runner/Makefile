@@ -1,6 +1,6 @@
 all: kws
 
-TVM_ROOT=~/source/tvm
+TVM_ROOT=/home/sunway/source/tvm
 CRT_ROOT=${TVM_ROOT}/build/standalone_crt
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core

@@ -20,5 +20,6 @@ mod.lib.export_library("/tmp/libkws.tar")
 with open("kws_graph.json", "w") as f_graph_json:
     f_graph_json.write(mod.graph_json)
 
+
 with open("kws_params.bin", "wb") as f_params:
     f_params.write(runtime.save_param_dict(mod.params))
