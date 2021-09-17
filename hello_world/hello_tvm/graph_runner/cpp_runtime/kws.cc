@@ -8,6 +8,10 @@ extern unsigned int test_unknown_len;
 int main(int argc, char* argv[]) {
     tvm::runtime::Module* handle = tvm_runtime_create();
 
+    auto set_input = handle->GetFunction("set_input");
+    auto get_output = handle->GetFunction("get_output");
+    auto run = handle->GetFunction("run");
+
     float input_data[1 * 99 * 12] = {0};
 
     DLTensor input;
@@ -39,17 +43,18 @@ int main(int argc, char* argv[]) {
 
     int STEP = 99 * 12 * sizeof(float) / sizeof(char);
 
-#define TEST(data, len)                                    \
-    {                                                      \
-        unsigned char* mfcc = (unsigned char*)data;        \
-        int n = len / STEP;                                \
-        for (int i = 0; i < n; i++) {                      \
-            memcpy(input_data, mfcc, STEP);                \
-            mfcc += STEP;                                  \
-            handle->GetFunction("run")();                  \
-            handle->GetFunction("get_output")(0, &output); \
-            printf("output: %f\n", output_data[0]);        \
-        }                                                  \
+#define TEST(data, len)                             \
+    {                                               \
+        unsigned char* mfcc = (unsigned char*)data; \
+        int n = len / STEP;                         \
+        for (int i = 0; i < n; i++) {               \
+            memcpy(input_data, mfcc, STEP);         \
+            set_input("input_1", &input);           \
+            mfcc += STEP;                           \
+            run();                                  \
+            get_output(0, &output);                 \
+            printf("output: %f\n", output_data[0]); \
+        }                                           \
     }
 
     printf("\n------test xiaoai------\n");
