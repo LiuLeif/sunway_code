@@ -1,17 +1,15 @@
 TVM_ROOT=/home/sunway/source/tvm
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
-PKG_COMPILE_OPTS = -g -Wall -O0 -fPIC
+PKG_COMPILE_OPTS = -g -Wall -O2 -fPIC
 CPPFLAGS = ${PKG_COMPILE_OPTS} \
 	-I${TVM_ROOT}/include \
 	-I${DMLC_CORE}/include \
 	-I${TVM_ROOT}/3rdparty/dlpack/include \
 	-I. \
-	-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\> \
-	# -ffunction-sections -fdata-sections
+	-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\>
 
-# LDFLAGS = -static # -Wl,-gc-sections
-LDLIBS = -lm
+LDLIBS += -lm
 
 ifeq (${MODE},c)
 	MODEL_OBJ = devc.o lib0.o lib1.o
