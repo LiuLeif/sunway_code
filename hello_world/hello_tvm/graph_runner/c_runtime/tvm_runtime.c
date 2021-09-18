@@ -69,3 +69,7 @@ TVMGraphExecutor* tvm_runtime_create() {
 
     return graph_executor;
 }
+
+// https://gustedt.wordpress.com/2010/11/29/myth-and-reality-about-inline-in-c99/
+extern inline TVMModuleHandle TVMArgs_AsModuleHandle(
+    const TVMArgs* args, size_t index);
