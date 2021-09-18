@@ -18,7 +18,7 @@ mod, params = get_model(mode="float")
 
 if args.mode in ("c", "c++"):
     target = f"llvm  --system-lib --runtime={args.mode}"
-print(mod)
+
 if args.mode == "dnnl":
     # dnnl byoc implementation sucks, see ./dnnl.patch for details
     seq = tvm.transform.Sequential(
@@ -26,7 +26,7 @@ if args.mode == "dnnl":
     )
     with tvm.transform.PassContext(opt_level=3):
         mod = seq(mod)
-    print(mod)
+
     mod = relay.transform.AnnotateTarget("dnnl")(mod)
     mod = relay.transform.PartitionGraph()(mod)
     target = f"llvm  --system-lib --runtime=c++"
