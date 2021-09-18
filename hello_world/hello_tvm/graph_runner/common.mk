@@ -1,7 +1,7 @@
 TVM_ROOT=/home/sunway/source/tvm
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
-PKG_COMPILE_OPTS = -g -Wall -O2 -fPIC
+PKG_COMPILE_OPTS = -g -Wall -O0 -fPIC
 CPPFLAGS = ${PKG_COMPILE_OPTS} \
 	-I${TVM_ROOT}/include \
 	-I${DMLC_CORE}/include \

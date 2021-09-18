@@ -18,18 +18,15 @@ mod, params = get_model(mode="float")
 
 if args.mode in ("c", "c++"):
     target = f"llvm  --system-lib --runtime={args.mode}"
-
+print(mod)
 if args.mode == "dnnl":
-    # due to dnnl byoc bugs: these following lines need to be commented out from dnnl.py
-    # _register_external_op_helper("nn.relu")
-    # _register_external_op_helper("add")
-    # _register_external_op_helper("subtract")
-    # _register_external_op_helper("multiply")
+    # dnnl byoc implementation sucks, see ./dnnl.patch for details
     seq = tvm.transform.Sequential(
-        [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "default"]})]
+        [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]})]
     )
     with tvm.transform.PassContext(opt_level=3):
         mod = seq(mod)
+    print(mod)
     mod = relay.transform.AnnotateTarget("dnnl")(mod)
     mod = relay.transform.PartitionGraph()(mod)
     target = f"llvm  --system-lib --runtime=c++"
