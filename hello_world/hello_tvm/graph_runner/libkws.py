@@ -20,6 +20,16 @@ if args.mode in ("c", "c++"):
     target = f"llvm  --system-lib --runtime={args.mode}"
 
 if args.mode == "dnnl":
+    # due to dnnl byoc bugs: these following lines need to be commented out from dnnl.py
+    # _register_external_op_helper("nn.relu")
+    # _register_external_op_helper("add")
+    # _register_external_op_helper("subtract")
+    # _register_external_op_helper("multiply")
+    seq = tvm.transform.Sequential(
+        [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "default"]})]
+    )
+    with tvm.transform.PassContext(opt_level=3):
+        mod = seq(mod)
     mod = relay.transform.AnnotateTarget("dnnl")(mod)
     mod = relay.transform.PartitionGraph()(mod)
     target = f"llvm  --system-lib --runtime=c++"
