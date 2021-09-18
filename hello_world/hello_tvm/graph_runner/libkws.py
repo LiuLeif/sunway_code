@@ -14,13 +14,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--mode", choices=["c", "c++", "dnnl"], required=True)
 args = parser.parse_args()
 
-mod, params = get_model(mode="float")
-
 if args.mode in ("c", "c++"):
+    mod, params = get_model(mode="tvm_quant")
     target = f"llvm  --system-lib --runtime={args.mode}"
 
 if args.mode == "dnnl":
-    # dnnl byoc implementation sucks, see ./dnnl.patch for details
+    mod, params = get_model(mode="float")
+    target = f"llvm  --system-lib --runtime=c++"
+    # NOTE: dnnl byoc implementation sucks, see ./dnnl.patch for details
     seq = tvm.transform.Sequential(
         [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]})]
     )
@@ -29,7 +30,6 @@ if args.mode == "dnnl":
 
     mod = relay.transform.AnnotateTarget("dnnl")(mod)
     mod = relay.transform.PartitionGraph()(mod)
-    target = f"llvm  --system-lib --runtime=c++"
 
 with tvm.transform.PassContext(opt_level=3):
     mod = relay.build_module.build(mod, target=target, params=params)
