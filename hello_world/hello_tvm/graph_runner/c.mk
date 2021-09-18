@@ -1,6 +1,6 @@
 all: c_runtime/kws
 
-RUNTIME=c
+MODE?=c
 
 include common.mk
 

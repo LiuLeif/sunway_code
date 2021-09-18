@@ -11,11 +11,19 @@ from tvm import relay, runtime
 from run_model import get_model
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--runtime", choices=["c", "c++"], required=True)
+parser.add_argument("--mode", choices=["c", "c++", "dnnl"], required=True)
 args = parser.parse_args()
 
-mod, params = get_model(mode="tflite_quant")
-target = f"llvm  --system-lib --runtime={args.runtime}"
+mod, params = get_model(mode="float")
+
+if args.mode in ("c", "c++"):
+    target = f"llvm  --system-lib --runtime={args.mode}"
+
+if args.mode == "dnnl":
+    mod = relay.transform.AnnotateTarget("dnnl")(mod)
+    mod = relay.transform.PartitionGraph()(mod)
+    target = f"llvm  --system-lib --runtime=c++"
+
 with tvm.transform.PassContext(opt_level=3):
     mod = relay.build_module.build(mod, target=target, params=params)
 

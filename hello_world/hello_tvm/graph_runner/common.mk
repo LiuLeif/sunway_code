@@ -10,17 +10,20 @@ CPPFLAGS = ${PKG_COMPILE_OPTS} \
 	-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\> \
 	# -ffunction-sections -fdata-sections
 
-LDFLAGS = -static # -Wl,-gc-sections
+# LDFLAGS = -static # -Wl,-gc-sections
 LDLIBS = -lm
 
-ifeq (${RUNTIME},c)
+ifeq (${MODE},c)
 	MODEL_OBJ = devc.o lib0.o lib1.o
 endif
 
-ifeq (${RUNTIME},c++)
-	MODEL_OBJ = lib0.o
+ifeq (${MODE},dnnl)
+	MODEL_OBJ = lib0.o devc.o
 endif
 
+ifeq (${MODE},c++)
+	MODEL_OBJ = lib0.o
+endif
 
 MODEL_OBJ_AUX = kws_graph.o kws_params.o
 
@@ -32,7 +35,7 @@ kws_params.c:kws_params.bin
 
 
 ${MODEL_OBJ} kws_graph.json kws_params.bin:libkws.py
-	python ./libkws.py --runtime=${RUNTIME}
+	python ./libkws.py --mode=${MODE}
 	tar xvf /tmp/libkws.tar
 
 common_clean:

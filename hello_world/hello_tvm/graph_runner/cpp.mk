@@ -1,10 +1,12 @@
 all: cpp_runtime/kws
 
-RUNTIME=c++
+MODE?=c++
 include common.mk
-LDLIBS += -lstdc++ -lpthread
+LDLIBS += -lstdc++ -lpthread -ldnnl
 
 TVM_SRC= \
+   ${TVM_ROOT}/src/runtime/metadata_module.cc \
+   ${TVM_ROOT}/src/runtime/contrib/dnnl/dnnl_json_runtime.cc\
    ${TVM_ROOT}/src/runtime/graph_executor/graph_executor.cc \
    ${TVM_ROOT}/src/runtime/graph_executor/graph_executor_factory.cc \
    ${TVM_ROOT}/src/runtime/c_runtime_api.cc \
