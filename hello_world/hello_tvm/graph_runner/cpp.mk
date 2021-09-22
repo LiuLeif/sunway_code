@@ -1,7 +1,7 @@
 all: cpp_runtime/kws
 
 MODE?=c++
-include common.mk
+include libkws.mk
 LDLIBS += -lstdc++ -lpthread -ldnnl
 
 TVM_SRC= \
@@ -28,7 +28,8 @@ TVM_OBJ=$(patsubst %.cc,%.o,$(TVM_SRC))
 
 CPP_RUNTIME_OBJ=cpp_runtime/kws.o cpp_runtime/tvm_runtime.o test/test_xiaoai.o test/test_unknown.o
 
-cpp_runtime/kws: $(MODEL_OBJ) $(MODEL_OBJ_AUX) ${CPP_RUNTIME_OBJ} ${TVM_OBJ}
+cpp_runtime/kws:libkws.a
+cpp_runtime/kws: ${CPP_RUNTIME_OBJ} ${TVM_OBJ}
 
 run:cpp_runtime/kws
 	./cpp_runtime/kws

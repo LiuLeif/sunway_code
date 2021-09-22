@@ -7,6 +7,8 @@ import tflite
 import tvm
 from tvm.contrib import graph_executor
 from tvm import relay, runtime
+import shutil
+import tarfile
 
 from run_model import get_model
 
@@ -36,9 +38,22 @@ with tvm.transform.PassContext(opt_level=3):
 
 mod.lib.export_library("/tmp/libkws.tar")
 
-with open("kws_graph.json", "w") as f_graph_json:
+shutil.rmtree("/tmp/libkws", ignore_errors = True)
+tarfile.open("/tmp/libkws.tar").extractall("/tmp/libkws")
+with open("/tmp/libkws/kws_graph.json", "w") as f_graph_json:
     f_graph_json.write(mod.graph_json)
 
-
-with open("kws_params.bin", "wb") as f_params:
+with open("/tmp/libkws/kws_params.bin", "wb") as f_params:
     f_params.write(runtime.save_param_dict(mod.params))
+
+os.system("cd /tmp/libkws/ && xxd -i kws_params.bin > kws_params.c")
+os.system("cd /tmp/libkws/ && xxd -i kws_graph.json > kws_graph.c")
+with open("/tmp/libkws/libkws.mk", "w") as f:
+    f.write(
+        """
+libkws.a:$(wildcard /tmp/libkws/*.o)
+libkws.a:$(patsubst %.c,%.o,$(wildcard /tmp/libkws/*.c))
+libkws.a:
+	ar rcs $@ $^
+"""
+    )

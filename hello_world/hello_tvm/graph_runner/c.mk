@@ -2,7 +2,7 @@ all: c_runtime/kws
 
 MODE?=c
 
-include common.mk
+include libkws.mk
 
 CRT_ROOT=${TVM_ROOT}/build/standalone_crt
 CRT_SRCS = $(shell find $(CRT_ROOT))
@@ -18,7 +18,8 @@ crt/libgraph_executor.a: $(CRT_SRCS)
 
 C_RUNTIME_OBJ=c_runtime/kws.o c_runtime/tvm_runtime.o test/test_xiaoai.o test/test_unknown.o
 
-c_runtime/kws: ${C_RUNTIME_OBJ} $(MODEL_OBJ) $(MODEL_OBJ_AUX) crt/libmemory.a crt/libcommon.a crt/libgraph_executor.a
+c_runtime/kws: libkws.a
+c_runtime/kws: ${C_RUNTIME_OBJ} crt/libmemory.a crt/libcommon.a crt/libgraph_executor.a
 
 run:c_runtime/kws
 	./c_runtime/kws 2>/dev/null
