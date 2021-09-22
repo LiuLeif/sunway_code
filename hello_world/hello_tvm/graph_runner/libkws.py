@@ -22,7 +22,7 @@ if args.mode in ("c", "c++"):
 
 if args.mode == "dnnl":
     mod, params = get_model(mode="float")
-    target = f"llvm  --system-lib --runtime=c++"
+    target = f"llvm  --system-lib --runtime=c"
     # NOTE: dnnl byoc implementation sucks, see ./dnnl.patch for details
     seq = tvm.transform.Sequential(
         [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]})]

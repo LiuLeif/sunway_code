@@ -1,2 +1,2 @@
 MODE=dnnl
-include cpp.mk
+include c.mk
