@@ -36,7 +36,7 @@ if args.mode == "dnnl":
 with tvm.transform.PassContext(opt_level=3):
     mod = relay.build_module.build(mod, target=target, params=params)
 
-mod.lib.export_library("/tmp/libkws.tar")
+mod.lib.export_library("/tmp/libkws.tar", cc = "c++")
 
 shutil.rmtree("/tmp/libkws", ignore_errors = True)
 tarfile.open("/tmp/libkws.tar").extractall("/tmp/libkws")
@@ -51,8 +51,20 @@ os.system("cd /tmp/libkws/ && xxd -i kws_graph.json > kws_graph.c")
 with open("/tmp/libkws/libkws.mk", "w") as f:
     f.write(
         """
+TVM_ROOT=/home/sunway/source/tvm
+
+DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
+PKG_COMPILE_OPTS = -g -Wall -O2 -fPIC
+CPPFLAGS = ${PKG_COMPILE_OPTS} \
+	-I${TVM_ROOT}/include \
+	-I${TVM_ROOT}/src/runtime/contrib/ \
+	-I${DMLC_CORE}/include \
+	-I${TVM_ROOT}/3rdparty/dlpack/include \
+	-I. \
+	-DDMLC_USE_LOGGING_LIBRARY=\<tvm/runtime/logging.h\>
+
 libkws.a:$(wildcard /tmp/libkws/*.o)
-libkws.a:$(patsubst %.c,%.o,$(wildcard /tmp/libkws/*.c))
+libkws.a:$(patsubst %.cc,%.o,$(wildcard /tmp/libkws/*.cc))
 libkws.a:
 	ar rcs $@ $^
 """
