@@ -1,6 +1,6 @@
 all: c_runtime/kws
 
-MODE?=c
+RUNTIME=c
 
 include libkws.mk
 

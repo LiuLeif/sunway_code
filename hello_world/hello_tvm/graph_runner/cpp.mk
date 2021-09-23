@@ -1,6 +1,6 @@
 all: cpp_runtime/kws
 
-MODE?=c++
+RUNTIME=c++
 include libkws.mk
 LDLIBS += -lstdc++ -lpthread -ldnnl
 
