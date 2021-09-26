@@ -34,7 +34,7 @@ if args.dnnl:
             # ConvertLayout will convert `nn.bias_add` to `add`, the converted
             # `add` op also need to be broadcasted
             relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]}),
-            Broadcast("add"),
+            Broadcast("add", "multiply"),
             relay.transform.AnnotateTarget("dnnl"),
             relay.transform.PartitionGraph(),
         ]
