@@ -18,11 +18,11 @@
  */
 
 /*!
- * \file apps/bundle_deploy/crt_config.h
- * \brief CRT configuration for bundle_deploy app.
+ * \file tvm/runtime/crt_config.h.template
+ * \brief Template for CRT configuration, to be modified on each target.
  */
-#ifndef TVM_RUNTIME_CRT_CONFIG_H_
-#define TVM_RUNTIME_CRT_CONFIG_H_
+#ifndef TVM_RUNTIME_CRT_CRT_CONFIG_TEMPLATE_H_
+#define TVM_RUNTIME_CRT_CRT_CONFIG_TEMPLATE_H_
 
 /*! Log level of the CRT runtime */
 #define TVM_CRT_LOG_LEVEL TVM_CRT_LOG_LEVEL_DEBUG
@@ -32,20 +32,29 @@
 
 /*! Maximum supported dimension in NDArray */
 #define TVM_CRT_MAX_NDIM 6
+
 /*! Maximum supported arguments in generated functions */
-#define TVM_CRT_MAX_ARGS 12
-/*! Maximum supported string length in dltype, e.g. "int8", "int16", "float32" */
-#define TVM_CRT_STRLEN_DLTYPE 10
-/*! Maximum supported string length in function names */
-#define TVM_CRT_STRLEN_NAME 80
+#define TVM_CRT_MAX_ARGS 10
+
+/*! Size of the global function registry, in bytes. */
+#define TVM_CRT_GLOBAL_FUNC_REGISTRY_SIZE_BYTES 512
 
 /*! Maximum number of registered modules. */
 #define TVM_CRT_MAX_REGISTERED_MODULES 2
 
-/*! Size of the global function registry, in bytes. */
-#define TVM_CRT_GLOBAL_FUNC_REGISTRY_SIZE_BYTES 200
-
 /*! Maximum packet size, in bytes, including the length header. */
-#define TVM_CRT_MAX_PACKET_SIZE_BYTES 512
+#define TVM_CRT_MAX_PACKET_SIZE_BYTES 2048
 
-#endif  // TVM_RUNTIME_CRT_CONFIG_H_
+/*! Maximum supported string length in dltype, e.g. "int8", "int16", "float32" */
+#define TVM_CRT_MAX_STRLEN_DLTYPE 10
+
+/*! Maximum supported string length in function names */
+#define TVM_CRT_MAX_STRLEN_FUNCTION_NAME 80
+
+/*! \brief Maximum length of a PackedFunc function name. */
+#define TVM_CRT_MAX_FUNCTION_NAME_LENGTH_BYTES 30
+
+/*! \brief Enable checks to enforce the stack allocator with a FIFO ordering. Off by default */
+// #define TVM_CRT_STACK_ALLOCATOR_ENABLE_FIFO_CHECK
+
+#endif  // TVM_RUNTIME_CRT_CRT_CONFIG_TEMPLATE_H_
