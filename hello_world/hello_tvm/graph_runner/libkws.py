@@ -12,6 +12,7 @@ import tarfile
 from tvm.relay.op.contrib import get_pattern_table
 
 from run_model import get_model
+from broadcast_pass import Broadcast
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--runtime", choices=["c", "c++"], required=True)
@@ -22,16 +23,20 @@ target = f"llvm  --system-lib --runtime={args.runtime}"
 
 if args.dnnl:
     mod, params = get_model(mode="float")
-    print(mod)
-    # NOTE: dnnl byoc implementation sucks, see ./README.org for details
-    dnnl_patterns = get_pattern_table("dnnl")
+    # dnnl_patterns = get_pattern_table("dnnl")
 
     seq = tvm.transform.Sequential(
         [
-            relay.transform.MergeComposite(dnnl_patterns),
+            # commented out because dnnl_json_runtime have bugs when handling composite
+            # relay.transform.MergeComposite(dnnl_patterns),
+            #
+            # Broadcast must be placed `after` ConvertLayout, because
+            # ConvertLayout will convert `nn.bias_add` to `add`, the converted
+            # `add` op also need to be broadcasted
+            relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]}),
+            Broadcast("add"),
             relay.transform.AnnotateTarget("dnnl"),
             relay.transform.PartitionGraph(),
-            relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]}),
         ]
     )
     with tvm.transform.PassContext(opt_level=3):
