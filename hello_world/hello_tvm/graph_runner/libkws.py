@@ -9,6 +9,7 @@ from tvm.contrib import graph_executor
 from tvm import relay, runtime
 import shutil
 import tarfile
+from tvm.relay.op.contrib import get_pattern_table
 
 from run_model import get_model
 
@@ -21,19 +22,25 @@ target = f"llvm  --system-lib --runtime={args.runtime}"
 
 if args.dnnl:
     mod, params = get_model(mode="float")
+    print(mod)
     # NOTE: dnnl byoc implementation sucks, see ./README.org for details
+    dnnl_patterns = get_pattern_table("dnnl")
+
     seq = tvm.transform.Sequential(
-        [relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]})]
+        [
+            relay.transform.MergeComposite(dnnl_patterns),
+            relay.transform.AnnotateTarget("dnnl"),
+            relay.transform.PartitionGraph(),
+            relay.transform.ConvertLayout({"nn.conv2d": ["NCHW", "OIHW"]}),
+        ]
     )
     with tvm.transform.PassContext(opt_level=3):
         mod = seq(mod)
 
-    mod = relay.transform.AnnotateTarget("dnnl")(mod)
-    mod = relay.transform.PartitionGraph()(mod)
 else:
-    mod, params = get_model(mode="tvm_quant")
-
-with tvm.transform.PassContext(opt_level=3):
+    mod, params = get_model(mode="float")
+print(mod)
+with tvm.transform.PassContext(opt_level=2):
     mod = relay.build_module.build(mod, target=target, params=params)
 
 mod.lib.export_library("/tmp/libkws.tar")
