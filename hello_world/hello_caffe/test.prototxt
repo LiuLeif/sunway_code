@@ -72,3 +72,16 @@ layer {
     phase: TRAIN
   }      
 }
+
+layer {
+  name: "threshold"
+  type: "Threshold"      
+  bottom: "decode1"
+  top: "threshold"
+  threshold_param {
+    threshold:0.5
+  }
+  include {
+    phase: TEST
+  }      
+}
