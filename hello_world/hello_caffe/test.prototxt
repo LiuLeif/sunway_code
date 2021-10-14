@@ -1,0 +1,115 @@
+name: "test"
+
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  include {
+    phase: TEST
+  }      
+  input_param {
+    shape {
+      dim: 1
+      dim: 1
+    }
+  }
+}
+
+layer {
+  name: "input"
+  type: "Python"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  python_param {
+    module: "test_data"
+    layer: "TestDataLayer"
+  }
+}
+
+layer {
+  name: "encode1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "encode1"
+  inner_product_param {
+    num_output: 100
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }    
+  }
+}
+layer {
+  name: "encode1neuron"
+  type: "ReLU"
+  bottom: "encode1"
+  top: "encode1neuron"
+}
+
+layer {
+  name: "encode2"
+  type: "InnerProduct"
+  bottom: "encode1neuron"
+  top: "encode2"
+  inner_product_param {
+    num_output: 100
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+layer {
+  name: "encode2neuron"
+  type: "ReLU"
+  bottom: "encode2"
+  top: "encode2neuron"
+}
+layer {
+  name: "encode3"
+  type: "InnerProduct"
+  bottom: "encode2neuron"
+  top: "encode3"
+  inner_product_param {
+    num_output: 100
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+layer {
+  name: "encod3neuron"
+  type: "ReLU"
+  bottom: "encode3"
+  top: "encode3neuron"
+}
+
+layer {
+  name: "decode1"
+  type: "InnerProduct"
+  bottom: "encode3neuron"
+  top: "decode1"
+
+  inner_product_param {
+    num_output: 1
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+layer {
+  name: "loss"
+  type: "EuclideanLoss"      
+  bottom: "decode1"
+  bottom: "label"
+  top: "l2_error"
+  loss_weight: 1
+  include {
+    phase: TRAIN
+  }      
+}
