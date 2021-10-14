@@ -7,6 +7,7 @@ import numpy as np
 
 class TestDataLayer(caffe.Layer):
     def setup(self, bottom, top):
+        self.batch = 10
         pass
 
     def reshape(self, bottom, top):
@@ -14,8 +15,7 @@ class TestDataLayer(caffe.Layer):
         top[1].reshape(10, 1)
 
     def forward(self, bottom, top):
-        # x = np.random.randn(100, 1)
-        x = np.random.randint(1, 10, (10, 1))
+        x = np.random.rand(self.batch, 1)
         top[0].data[...] = x
         top[1].data[...] = x
 

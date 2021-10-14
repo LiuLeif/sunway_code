@@ -4,6 +4,6 @@
 import caffe
 import numpy as np
 
-net = caffe.Net("test.prototxt", "test_solver_iter_100000.caffemodel", caffe.TEST)
+net = caffe.Net("test.prototxt", "test_solver_iter_1000.caffemodel", caffe.TEST)
 net.blobs["data"].data[...] = np.array([10])
 print(net.forward())
