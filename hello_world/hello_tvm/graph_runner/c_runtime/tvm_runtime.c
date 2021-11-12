@@ -28,12 +28,15 @@ void __attribute__((noreturn)) TVMPlatformAbort(tvm_crt_error_t error_code) {
 
 tvm_crt_error_t TVMPlatformMemoryAllocate(
     size_t num_bytes, DLDevice dev, void** out_ptr) {
-    return g_memory_manager->Allocate(
-        g_memory_manager, num_bytes, dev, out_ptr);
+    *out_ptr = malloc(num_bytes);
+    memset(*out_ptr, 0xff, num_bytes);
+    if (out_ptr == NULL) return kTvmErrorPlatformNoMemory;
+    return kTvmErrorNoError;
 }
 
 tvm_crt_error_t TVMPlatformMemoryFree(void* ptr, DLDevice dev) {
-    return g_memory_manager->Free(g_memory_manager, ptr, dev);
+    free(ptr);
+    return kTvmErrorNoError;
 }
 
 tvm_crt_error_t TVMPlatformTimerStart() {

@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "tvm_runtime.h"
+#include <dlpack/dlpack.h>
 
 extern unsigned char test_xiaoai[];
 extern unsigned int test_xiaoai_len;
@@ -11,6 +12,7 @@ extern unsigned char test_unknown[];
 extern unsigned int test_unknown_len;
 
 int main(int argc, char** argv) {
+    printf("%d %d\n", sizeof(DLDeviceType), sizeof(DLDevice));
     TVMGraphExecutor* executor = tvm_runtime_create();
     float input_data[1 * 99 * 12] = {0};
 

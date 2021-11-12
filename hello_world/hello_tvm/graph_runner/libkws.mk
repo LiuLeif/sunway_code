@@ -8,7 +8,7 @@ endif
 TVM_ROOT=/home/sunway/source/tvm
 
 DMLC_CORE=${TVM_ROOT}/3rdparty/dmlc-core
-PKG_COMPILE_OPTS = -g -Wall -O0 -fPIC
+PKG_COMPILE_OPTS = -g -Wall -O0 -fPIC -fshort-enums
 CPPFLAGS = ${PKG_COMPILE_OPTS} \
 	-I${TVM_ROOT}/include \
 	-I${DMLC_CORE}/include \
