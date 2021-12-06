@@ -39,18 +39,85 @@ layer {
     }    
   }
 }
+
 layer {
-  name: "encode1neuron"
-  type: "ReLU"
+  name: "encode2"
+  type: "InnerProduct"
   bottom: "encode1"
-  top: "encode1neuron"
+  top: "encode2"
+  inner_product_param {
+    num_output: 1000
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }    
+  }
+}
+
+layer {
+  name: "encode3"
+  type: "InnerProduct"
+  bottom: "encode2"
+  top: "encode3"
+  inner_product_param {
+    num_output: 1000
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }    
+  }
 }
 
 layer {
   name: "decode1"
   type: "InnerProduct"
-  bottom: "encode1neuron"
+  bottom: "encode3"
   top: "decode1"
+
+  inner_product_param {
+    num_output: 1000
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+
+layer {
+  name: "decode2"
+  type: "InnerProduct"
+  bottom: "decode1"
+  top: "decode2"
+
+  inner_product_param {
+    num_output: 1000
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+
+layer {
+  name: "decode3"
+  type: "InnerProduct"
+  bottom: "decode2"
+  top: "decode3"
+
+  inner_product_param {
+    num_output: 100
+    weight_filler {
+      type: "xavier"
+      variance_norm: AVERAGE
+    }        
+  }
+}
+
+layer {
+  name: "decode4"
+  type: "InnerProduct"
+  bottom: "decode3"
+  top: "decode4"
 
   inner_product_param {
     num_output: 1
@@ -64,7 +131,7 @@ layer {
 layer {
   name: "loss"
   type: "EuclideanLoss"      
-  bottom: "decode1"
+  bottom: "decode4"
   bottom: "label"
   top: "l2_error"
   loss_weight: 1
@@ -73,15 +140,4 @@ layer {
   }      
 }
 
-layer {
-  name: "threshold"
-  type: "Threshold"      
-  bottom: "decode1"
-  top: "threshold"
-  threshold_param {
-    threshold:0.5
-  }
-  include {
-    phase: TEST
-  }      
-}
+
