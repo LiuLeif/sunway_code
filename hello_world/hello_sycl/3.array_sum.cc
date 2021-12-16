@@ -27,14 +27,15 @@ namespace sycl = cl::sycl;
 // .                  .
 // 2016               6112
 //
-// 最后由 group 的第一个 thread (local_linear_id 为 0) 负责把当前 group 的 sum 写到
-// global_memory[group_id] 的位置
+// 最后由 group 的第一个 thread (local_linear_id 为 0) 负责把当前 group 的 sum
+// 写到 global_memory[group_id] 的位置
 //
 // 所以第一次循环过后 global memory 会变成:
 //
 // 2016 6112 2 3 4 5 ... 127
 //
-// 下一个循环会只启动一个 group, 虽然仍然有 32 个线程, 但只有第一个线程会工作 (if
+// 下一个循环会只启动一个 group, 虽然仍然有 32 个线程, 但只有第一个线程会工作
+// (if
 // ((2 * global_id) < len)).
 //
 // 最终 global_memory[0] 是 reduce 的结果
@@ -53,7 +54,7 @@ int main(int, char**) {
 
     sycl::buffer<int32_t, 1> buf(arr.data(), sycl::range<1>(arr.size()));
 
-    sycl::device device = sycl::default_selector{}.select_device();
+    sycl::device device = sycl::host_selector{}.select_device();
 
     sycl::queue queue(device, [](sycl::exception_list el) {
         for (auto ex : el) {
