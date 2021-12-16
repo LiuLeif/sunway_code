@@ -12,4 +12,4 @@ ALL: ${APP}
 	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${CPPFLAGS} ${LDFLAGS} ${LDLIBS} -sycl-driver -o $@
 
 clean:
-	-rm -f ${APP}
+	-rm -f *.elf

@@ -39,7 +39,13 @@ namespace sycl = cl::sycl;
 // ((2 * global_id) < len)).
 //
 // 最终 global_memory[0] 是 reduce 的结果
-#define N 16
+//
+// Q: 每个 workgroup 大小如何确定? 为什么这里选择 32?
+// A: 总线程数是相同的, 但更大的 workgroup 可以更多的使用 local memory, 可以减少访存
+// 及同步开销, 但最终 workgroup 大小受限于 thread 多少及 local memory 大小
+// (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#features-and-technical-specifications__technical-specifications-per-compute-capability)
+
+#define N 100
 int main(int, char**) {
     std::array<int32_t, N> arr;
     std::cout << "Data: ";
