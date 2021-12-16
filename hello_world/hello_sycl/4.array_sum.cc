@@ -39,16 +39,13 @@ namespace sycl = cl::sycl;
 // ((2 * global_id) < len)).
 //
 // 最终 global_memory[0] 是 reduce 的结果
+#define N 16
 int main(int, char**) {
-    std::array<int32_t, 16> arr;
-
-    std::mt19937 mt_engine(std::random_device{}());
-    std::uniform_int_distribution<int32_t> idist(0, 10);
-
+    std::array<int32_t, N> arr;
     std::cout << "Data: ";
-    for (auto& el : arr) {
-        el = idist(mt_engine);
-        std::cout << el << " ";
+    for (int i = 0; i < N; i++) {
+        arr[i] = i + 1;
+        std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
 
