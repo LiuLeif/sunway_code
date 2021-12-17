@@ -101,7 +101,9 @@ int main(int argc, char* argv[]) {
                     std::array<float, 1> private_buf1 = {const_acc[global_id]};
                     float private_buf2[1] = {const_acc[global_id]};
                     global_acc[global_id] += private_buf1[0] + private_buf2[0];
-                    // NOTE: accessor 还有一个 get_pointer 方法
+                    // NOTE: accessor 还有一个 get_pointer 方法, 与底层 buffer 的绑
+                    // 定 (global, local, constant, host) 是通过 sycl::accessor, 而
+                    // 不是 sycl::buffer
                     auto ptr = global_acc.get_pointer();
                     auto const_ptr = const_acc.get_pointer();
                     auto local_ptr = local_acc.get_pointer();
@@ -122,6 +124,8 @@ int main(int argc, char* argv[]) {
             host_acc(buff_a);
 
         auto host_ptr = host_acc.get_pointer();
+        // NOTE: host ptr 与 host buffer 不同, 因为默认情况下 accessor 是分配新的内
+        // 存 (host 或 device 上), 同一个 sycl::buffer 对应的 accessor 会按需要自动完成数据的复制
         printf("host ptr: %p, host buffer: %p", host_ptr, a.data());
 
         printf("------\n");
