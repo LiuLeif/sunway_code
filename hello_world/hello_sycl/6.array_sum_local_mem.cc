@@ -101,6 +101,13 @@ int main(int, char**) {
                         local_mem[local_id] = global_mem[2 * global_id] +
                                               global_mem[2 * global_id + 1];
                     }
+                    // NOTE: barrier 有两个作用
+                    // 1. 做为 barrier, 确保当前 work_group 的所有 work_item 都执行到这个地方
+                    // 2. 做为 mem fence, 确保所有对 local buffer 的修改都已经生效了
+                    //
+                    // ps. fence_space 可以是 local_space, global_space 或
+                    // global_and_local, 是指 mem fence 影响的范围: local buffer 还
+                    // 是 global buffer
                     item.barrier(sycl::access::fence_space::local_space);
 
                     for (size_t stride = 1; stride < wgroup_size; stride *= 2) {
