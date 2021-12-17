@@ -27,11 +27,16 @@ int main(int argc, char* argv[]) {
             auto c_acc =
                 buff_c.get_access<sycl::access::mode::discard_write>(cgh);
 
-            // single_task 表示只启动一个线程
+            // NOTE: single_task 表示只启动一个线程
             // 更常用的是 parallel_for 以启动多个线程
             // [=] 表示 lambda 使用 copy 来 capture 自由变量
             // [&] 表示 lambda 使用 refernece 来 capture 自由变量
             // sycl 的 kernel 只支持 [=] 而不支持 [&]
+            // single_task 相当于
+            // cgh.parallel_for<class kernel_vector_add>(
+            //     sycl::nd_range<1>(1, 1),
+            //     [=](sycl::nd_item<1> item) { c_acc[0] = a_acc[0] + b_acc[0];
+            //     });
             cgh.single_task<class kernel_vector_add>(
                 [=]() { c_acc[0] = a_acc[0] + b_acc[0]; });
         });

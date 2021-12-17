@@ -97,7 +97,6 @@ int main(int, char**) {
                     size_t local_id = item.get_local_linear_id();
                     size_t global_id = item.get_global_linear_id();
                     local_mem[local_id] = 0;
-
                     if ((2 * global_id) < len) {
                         local_mem[local_id] = global_mem[2 * global_id] +
                                               global_mem[2 * global_id + 1];
