@@ -10,18 +10,26 @@ int main(int argc, char *argv[]) {
     sycl::queue queue_gpu(
         sycl::gpu_selector{}, {sycl::property::queue::enable_profiling()});
     sycl::queue queue_cpu(
-        sycl::cpu_selector{}, {sycl::property::queue::enable_profiling()});
+        sycl::host_selector{}, {sycl::property::queue::enable_profiling()});
 
-    auto event = queue_cpu.submit([&](sycl::handler &handle) {
-        handle.single_task<class kernel_dummy_1>([=]() {
-            // delay
-            int x = 1;
-            for (int i = 0; i < 100000000; i++) {
-                x += i;
-            }
-            printf("kernel_dummy_1\n");
+    sycl::event event;
+    {
+        // NOTE: buffer 出作用域时 sycl runtime 会加上一个隐含的 barrier
+        int a = 0;
+        sycl::buffer<int32_t, 1> dummy_buffer(&a, sycl::range<1>(1));
+        event = queue_cpu.submit([&](sycl::handler &handle) {
+            auto dummy_acc =
+                dummy_buffer.get_access<sycl::access::mode::read>(handle);
+            handle.single_task<class kernel_dummy_1>([=]() {
+                // delay
+                int x = 1;
+                for (int i = 0; i < 100000000; i++) {
+                    x += i;
+                }
+                printf("kernel_dummy_1\n");
+            });
         });
-    });
+    }
     queue_cpu.submit([&](sycl::handler &handle) {
         handle.single_task<class kernel_dummy_3>(
             [=]() { printf("kernel_dummy_3\n"); });
