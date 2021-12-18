@@ -30,6 +30,9 @@ int main(int argc, char *argv[]) {
             });
         });
     }
+    // NOTE: dummy_buffer 的 accessor 也影响 kernel 的执行时机
+    // auto dummy_acc = dummy_buffer.get_access<sycl::access::mode::read>();
+
     queue_cpu.submit([&](sycl::handler &handle) {
         handle.single_task<class kernel_dummy_3>(
             [=]() { printf("kernel_dummy_3\n"); });
@@ -47,6 +50,9 @@ int main(int argc, char *argv[]) {
     auto start =
         event.get_profiling_info<sycl::info::event_profiling::command_start>();
 
+    // NOTE: computecpp 针对 host_selector 的实现返回的 start, end 都是 0, 针对
+    // cpu_selector 和 gpu_selector 能返回正确的 start, end. dpc++ 的实现没有这
+    // 个问题.
     std::cout << "kernel_dummy_1 elapsed time: " << (end - start) / 1.0e6
               << " ms\n";
 
