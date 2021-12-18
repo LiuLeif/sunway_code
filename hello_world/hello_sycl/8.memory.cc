@@ -80,6 +80,10 @@ int main(int argc, char* argv[]) {
             //
             // NOTE: 看起来 USM (malloc_{device,host,shared}) 没有 api 可以从
             // constant_buffer 或 local 分配内存
+            //
+            // NOTE: command group 中声明的各种 accessor 实际上是声明了 kernel对
+            // 数据的依赖关系, sycl runtime 会根据 accessor 来 enqueue 一些涉及
+            // 数据拷贝的命令
 
             sycl::accessor<
                 float, 1, sycl::access::mode::read_write,
