@@ -24,6 +24,12 @@ int main(int argc, char* argv[]) {
             a.data(), sycl::range<1>(10),
             {sycl::property::buffer::use_host_ptr()});
 
+        // NOTE: buffer 并不需要一定指定 host data. 当指定了 host data 时, sycl
+        // runtime 会负责用 host data 初始化所有的 accessor 的数据, 并且把数据写
+        // 回到 host ptr. buffer 对象本身并没有对应的 storage, storage 是与
+        // accessor 绑定在一起, buffer 只是用来同步 accessor 的数据
+        sycl::buffer<float, 1> buff_b(sycl::range<1>(10));
+
         queue.submit([&](sycl::handler& cgh) {
             // accessor 有 4 种 target:
             //
@@ -81,6 +87,11 @@ int main(int argc, char* argv[]) {
                 global_acc(buff_a, cgh);
 
             sycl::accessor<
+                float, 1, sycl::access::mode::read_write,
+                sycl::access::target::global_buffer>
+                global_acc_b(buff_b, cgh);
+
+            sycl::accessor<
                 float, 1, sycl::access::mode::read,
                 sycl::access::target::constant_buffer>
                 const_acc(buff_a, cgh);
@@ -101,9 +112,11 @@ int main(int argc, char* argv[]) {
                     std::array<float, 1> private_buf1 = {const_acc[global_id]};
                     float private_buf2[1] = {const_acc[global_id]};
                     global_acc[global_id] += private_buf1[0] + private_buf2[0];
-                    // NOTE: accessor 还有一个 get_pointer 方法, 与底层 buffer 的绑
-                    // 定 (global, local, constant, host) 是通过 sycl::accessor, 而
-                    // 不是 sycl::buffer
+                    global_acc_b[global_id] +=
+                        private_buf1[0] + private_buf2[0];
+                    // NOTE: accessor 还有一个 get_pointer 方法, 所以与底层
+                    // buffer的绑 定 (global, local, constant, host) 是通过
+                    // sycl::accessor, 而 不是 sycl::buffer
                     auto ptr = global_acc.get_pointer();
                     auto const_ptr = const_acc.get_pointer();
                     auto local_ptr = local_acc.get_pointer();
@@ -123,9 +136,15 @@ int main(int argc, char* argv[]) {
             sycl::access::target::host_buffer>
             host_acc(buff_a);
 
+        sycl::accessor<
+            float, 1, sycl::access::mode::read,
+            sycl::access::target::host_buffer>
+            host_acc_b(buff_b);
+
         auto host_ptr = host_acc.get_pointer();
-        // NOTE: host ptr 与 host buffer 不同, 因为默认情况下 accessor 是分配新的内
-        // 存 (host 或 device 上), 同一个 sycl::buffer 对应的 accessor 会按需要自动完成数据的复制
+        // NOTE: host ptr 与 host buffer 不同, 因为默认情况下 accessor
+        // 是分配新的内 存 (host 或 device 上), 同一个 sycl::buffer 对应的
+        // accessor 会按需要自动完成数据的复制
         printf("host ptr: %p, host buffer: %p", host_ptr, a.data());
 
         printf("------\n");
@@ -136,6 +155,11 @@ int main(int argc, char* argv[]) {
         printf("------\n");
         for (int i = 0; i < 10; i++) {
             printf("%f\n", host_acc[i]);
+        }
+
+        printf("------\n");
+        for (int i = 0; i < 10; i++) {
+            printf("%f\n", host_acc_b[i]);
         }
 
         printf("------\n");

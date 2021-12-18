@@ -45,7 +45,7 @@ void hello_usm_shared() {
     sycl::vec<float, 4> b = {1.0, 2.0, 3.0, 4.0};
     sycl::host_selector device;
     sycl::queue queue(device);
-    
+
     float *device_a = sycl::malloc_device<float>(4, queue);
     float *device_b = sycl::malloc_device<float>(4, queue);
     float *c = sycl::malloc_shared<float>(4, queue);

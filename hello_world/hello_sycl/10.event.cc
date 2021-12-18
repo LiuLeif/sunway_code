@@ -5,6 +5,7 @@ namespace sycl = cl::sycl;
 class kernel_dummy_1;
 class kernel_dummy_2;
 class kernel_dummy_3;
+class kernel_dummy_4;
 
 int main(int argc, char *argv[]) {
     sycl::queue queue_gpu(
@@ -13,8 +14,8 @@ int main(int argc, char *argv[]) {
         sycl::host_selector{}, {sycl::property::queue::enable_profiling()});
 
     sycl::event event;
-    {
-        // NOTE: buffer 出作用域时 sycl runtime 会加上一个隐含的 barrier
+    // NOTE: buffer 出作用域时 sycl runtime 会加上一个隐含的 barrier
+    // {
         int a = 0;
         sycl::buffer<int32_t, 1> dummy_buffer(&a, sycl::range<1>(1));
         event = queue_cpu.submit([&](sycl::handler &handle) {
@@ -29,13 +30,19 @@ int main(int argc, char *argv[]) {
                 printf("kernel_dummy_1\n");
             });
         });
-    }
+    // }
     // NOTE: dummy_buffer 的 accessor 也影响 kernel 的执行时机
     // auto dummy_acc = dummy_buffer.get_access<sycl::access::mode::read>();
 
     queue_cpu.submit([&](sycl::handler &handle) {
         handle.single_task<class kernel_dummy_3>(
             [=]() { printf("kernel_dummy_3\n"); });
+    });
+    queue_gpu.submit([&](sycl::handler &handle) {
+        // NOTE: handler 的 depends_on 与 event.wait 作用类似
+        handle.depends_on(event);
+        handle.single_task<class kernel_dummy_4>(
+            [=]() { printf("kernel_dummy_4\n"); });
     });
     // NOTE: 使用 event.wait 来协调两个不同的 queue, 针对同一个 queue 一般是不需
     // 要用 event.wait 的, 因为同一个 queue 从`概念`上是顺序执行的
