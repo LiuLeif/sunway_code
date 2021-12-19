@@ -67,8 +67,8 @@ int main(int argc, char* argv[]) {
             //     sycl::access::target::constant_buffer>
             //     const_acc(buff_a, cgh);
             //
-            // NOTE: 如果使用 local_buffer, 因为 local_buffer 是 workgroup 内部
-            // buffer, sycl 不支持通过初始数据来初始化, 只能指定一个大小
+            // NOTE: local_buffer 是 workgroup 内部 buffer, sycl 不支持通过初始
+            // 数据来初始化, 只能指定一个大小. host 无法访问 local_buffer
             //
             // sycl::accessor<
             //     float, 1, sycl::access::mode::read_write,
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
             //     const_acc(sycl::range<1>(10), cgh);
             //
             // NOTE: private memory 没有对应的 target, kernel
-            // 中的局部变量会自动使用 private memory
+            // 中的局部变量等会自动使用 private memory, 同时 host 也无法访问 private memory
             //
             // NOTE: 看起来 USM (malloc_{device,host,shared}) 没有 api 可以从
             // constant_buffer 或 local 分配内存
