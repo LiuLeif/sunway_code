@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     sycl::float4 b = {1.0, 2.0, 3.0, 4.0};
     sycl::float4 c = {0.0, 0.0, 0.0, 0.0};
     // <<Initialize device selector>>
-    sycl::host_selector device_selector;
+    sycl::gpu_selector device_selector;
     // <<Initialize queue>>
     sycl::queue queue(device_selector);
     {
