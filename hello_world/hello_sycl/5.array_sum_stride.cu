@@ -31,7 +31,6 @@ void array_sum_stride() {
     for (int stride = 1; stride < N; stride *= 2) {
         ArraySum<<<1, N>>>(dev_arr, stride);
     }
-    cudaDeviceSynchronize();
     cudaMemcpy(&arr, dev_arr, sizeof(int), cudaMemcpyDeviceToHost);
     printf("Sum: %d\n", arr[0]);
 }
@@ -50,7 +49,6 @@ void array_sum_stride_more_data() {
     for (int stride = 1; stride < NN; stride *= 2) {
         ArraySumMoreData<<<int(NN / 1024) + 1, 1024>>>(dev_arr, stride);
     }
-    cudaDeviceSynchronize();
     cudaMemcpy(&arr, dev_arr, sizeof(int), cudaMemcpyDeviceToHost);
     printf("Sum: %d\n", arr[0]);
 }

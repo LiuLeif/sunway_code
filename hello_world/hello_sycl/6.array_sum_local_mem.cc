@@ -41,11 +41,12 @@ namespace sycl = cl::sycl;
 // 最终 global_memory[0] 是 reduce 的结果
 //
 // Q: 每个 workgroup 大小如何确定? 为什么这里选择 32?
-// A: 总线程数是相同的, 但更大的 workgroup 可以更多的使用 local memory, 可以减少访存
-// 及同步开销, 但最终 workgroup 大小受限于 thread 多少及 local memory 大小
+// A: 总线程数是相同的, 但更大的 workgroup 可以更多的使用 local memory,
+// 可以减少访存 及同步开销, 但最终 workgroup 大小受限于 thread 多少及 local
+// memory 大小
 // (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#features-and-technical-specifications__technical-specifications-per-compute-capability)
 
-#define N 100
+#define N 1026
 int main(int, char**) {
     std::array<int32_t, N> arr;
     std::cout << "Data: ";
@@ -98,16 +99,24 @@ int main(int, char**) {
                     size_t global_id = item.get_global_linear_id();
                     local_mem[local_id] = 0;
                     if ((2 * global_id) < len) {
-                        local_mem[local_id] = global_mem[2 * global_id] +
-                                              global_mem[2 * global_id + 1];
+                        local_mem[local_id] = global_mem[2 * global_id];
                     }
+                    if ((2 * global_id + 1) < len) {
+                        local_mem[local_id] += global_mem[2 * global_id + 1];
+                    }
+                    // if ((2 * global_id) < len) {
+                    //     local_mem[local_id] = global_mem[2 * global_id] +
+                    //                           global_mem[2 * global_id + 1];
+                    // }
                     // NOTE: barrier 有两个作用
-                    // 1. 做为 barrier, 确保当前 work_group 的所有 work_item 都执行到这个地方
-                    // 2. 做为 mem fence, 确保所有对 local buffer 的修改都已经生效了
+                    // 1. 做为 barrier, 确保当前 work_group 的所有 work_item
+                    // 都执行到这个地方
+                    // 2. 做为 mem fence, 确保所有对 local buffer
+                    // 的修改都已经生效了
                     //
                     // ps. fence_space 可以是 local_space, global_space 或
-                    // global_and_local, 是指 mem fence 影响的范围: local buffer 还
-                    // 是 global buffer
+                    // global_and_local, 是指 mem fence 影响的范围: local buffer
+                    // 还 是 global buffer
                     item.barrier(sycl::access::fence_space::local_space);
 
                     for (size_t stride = 1; stride < wgroup_size; stride *= 2) {

@@ -22,8 +22,6 @@ void hello_usm() {
 
     VecAdd<<<1, 1>>>(d_a, d_b, d_c);
 
-    cudaDeviceSynchronize();
-
     cudaMemcpy(&c, d_c, sizeof(float4), cudaMemcpyDeviceToHost);
     printf("%f %f %f %f\n", c.x, c.y, c.z, c.w);
 }

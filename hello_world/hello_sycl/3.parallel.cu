@@ -12,7 +12,6 @@ void rot13(char* text) {
     cudaMalloc(&d_text, N);
     cudaMemcpy(d_text, text, N, cudaMemcpyHostToDevice);
     Rot13<<<1, N>>>(d_text);
-    cudaDeviceSynchronize();
     cudaMemcpy(text, d_text, N, cudaMemcpyDeviceToHost);
 }
 

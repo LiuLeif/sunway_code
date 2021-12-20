@@ -20,7 +20,6 @@ int main(int argc, char* argv[]) {
     cudaMalloc(&dev_result, sizeof(int));
     cudaMemcpy(dev_arr, arr, sizeof(arr), cudaMemcpyHostToDevice);
     ArraySum<<<1, N>>>(dev_arr, dev_result);
-    cudaDeviceSynchronize();
     cudaMemcpy(&result, dev_result, sizeof(result), cudaMemcpyDeviceToHost);
     printf("Sum: %d\n", result);
     return 0;

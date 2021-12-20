@@ -12,10 +12,11 @@ SYCL_LDLIBS := -lComputeCpp -lOpenCL
 SYCL_APP := $(patsubst %.cc,%.sycl.elf,${SYCL_SRC})
 CUDA_APP := $(patsubst %.cu,%.cu.elf,${CUDA_SRC})
 
+ALL: sycl cuda
+
 cuda:${CUDA_APP}
 sycl:${SYCL_APP}
 
-ALL: sycl cuda
 # %.elf:%.cc
 # 	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${SYCL_CPPFLAGS} ${SYCL_LDFLAGS} ${SYCL_LDLIBS} -sycl-driver -o $@
 
