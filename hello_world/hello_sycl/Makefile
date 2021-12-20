@@ -1,23 +1,32 @@
 # 1. Get ComputeCPP from https://developer.codeplay.com/products/computecpp/ce/download/
 # 2. apt install intel-opencl-icd
-SRC := $(shell find ./ -name "*.cc")
-CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
-LDFLAGS := -L ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/ -Wl,-rpath,/home/sunway/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/
-LDLIBS := -lComputeCpp -lOpenCL
+CUDA_SRC := $(shell find ./ -name "*.cu")
 
-.PHONY: ALL clean
+SYCL_SRC := $(shell find ./ -name "*.cc")
+SYCL_CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
+SYCL_LDFLAGS := -L ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/ -Wl,-rpath,/home/sunway/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/
+SYCL_LDLIBS := -lComputeCpp -lOpenCL
 
-APP := $(patsubst %.cc,%.elf,${SRC})
+.PHONY: ALL clean cuda sycl
 
-ALL: ${APP}
+SYCL_APP := $(patsubst %.cc,%.sycl.elf,${SYCL_SRC})
+CUDA_APP := $(patsubst %.cu,%.cu.elf,${CUDA_SRC})
+
+cuda:${CUDA_APP}
+sycl:${SYCL_APP}
+
+ALL: sycl cuda
 # %.elf:%.cc
-# 	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${CPPFLAGS} ${LDFLAGS} ${LDLIBS} -sycl-driver -o $@
+# 	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${SYCL_CPPFLAGS} ${SYCL_LDFLAGS} ${SYCL_LDLIBS} -sycl-driver -o $@
 
 %.sycl:%.cc
-	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${CPPFLAGS} -sycl -c $^
+	~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/bin/compute $^ ${SYCL_CPPFLAGS} -sycl -c $^
 
-%.elf: %.sycl %.cc
-	g++ ${CPPFLAGS} ${LDFLAGS} -include $^ -o $@ ${LDLIBS}
+%.sycl.elf: %.sycl %.cc
+	g++ ${SYCL_CPPFLAGS} ${SYCL_LDFLAGS} -include $^ -o $@ ${SYCL_LDLIBS}
+
+%.cu.elf: %.cu
+	nvcc $^ -o $@
 
 clean:
 	-rm -f *.elf
