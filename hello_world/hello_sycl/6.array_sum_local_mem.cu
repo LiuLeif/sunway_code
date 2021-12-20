@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cuda_profiler_api.h>
 
 #define N 1026
 
