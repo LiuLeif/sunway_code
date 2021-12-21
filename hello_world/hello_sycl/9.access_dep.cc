@@ -5,8 +5,9 @@ namespace sycl = cl::sycl;
 class kernel_dummy_1;
 class kernel_dummy_2;
 class kernel_dummy_3;
-
-int main(int argc, char* argv[]) {
+class kernel_dummy_4;
+class kernel_dummy_5;
+void test_buffer_dep() {
     // A=a*2
     // B=b*3
     // C=A+B
@@ -23,13 +24,13 @@ int main(int argc, char* argv[]) {
     sycl::buffer<int32_t, 1> buff_A(&A, sycl::range<1>(1));
     sycl::buffer<int32_t, 1> buff_B(&B, sycl::range<1>(1));
     sycl::buffer<int32_t, 1> buff_C(&C, sycl::range<1>(1));
-    // NOTE: 在 cuda 中, 同一个 stream 里的 kernel 都是串行执行的, 但按照
-    // sycl的文 档, kernel 被 submit 的顺序是用户期望的 kernel 执行的顺序 (与
-    // cuda 相同), 但 是 accessor 决定的数据依赖关系可以使没有数据依赖的 kernel
-    // 可以并行执行或改变执行顺序.
+    // NOTE: 在 cuda 中, 同一个 stream 里的 kernel 都是 in-order 执行的. 但是在
+    // sycl 中, 按照 sycl 规范, kernel 总是 out-of-order 执行的, out-of-order 真
+    // 正是如何执行的取决于 accessor 决定的数据依赖关系 (DAG)
     //
-    // 需要注意的是 sycl runtime 并不能完全自己推导出来 DAG, 例如, 若 submit 的
-    // kernel 顺序变成 (C=A+B, A=2a, B=2B), 则 C 的结果会是错误的 0 (而不是 8)
+    // 需要注意的是 sycl runtime 不可能完全自己推导出来 DAG, DAG 和 用户 submit
+    // 的顺序有关. 例如, 若 submit 的kernel 顺序变成 (C=A+B, A=2a, B=2B), 则 C
+    // 的结果会是错误的 0 (而不是 8)
     //
     // 原因在于, 即使多个 kernel 中有些是 `read A`, 有些是 `write A`, sycl
     // runtime 也并不能推导出 `read A` 依赖 `write A`, 需要用户通过 submit
@@ -76,5 +77,39 @@ int main(int argc, char* argv[]) {
 
     auto host_acc = buff_C.get_access<sycl::access::mode::read>();
     printf("%d\n", host_acc[0]);
+}
+
+void test_sub_buffer_dep() {
+    int data[10] = {0};
+    sycl::buffer<int, 1> buf(data, sycl::range<1>(10));
+    sycl::buffer<int, 1> sub_buf_1(buf, sycl::id<1>(0), sycl::range<1>(5));
+    sycl::buffer<int, 1> sub_buf_2(buf, sycl::id<1>(5), sycl::range<1>(5));
+
+    sycl::queue queue(sycl::host_selector{});
+
+    // NOTE: 由于 sub_buf_1 与 sub_buf_2 没有重合, 所以下面两个 kernel 执行的顺
+    // 序可以是不确定的
+    queue.submit([&](sycl::handler& cgh) {
+        auto acc = sub_buf_1.get_access<sycl::access::mode::discard_write>(cgh);
+        cgh.parallel_for<class kernel_dummy_4>(
+            sycl::range<1>(5), [=](sycl::item<1> item) {
+                printf("sub_buf_1\n");
+                acc[item.get_id()] = 1;
+            });
+    });
+    queue.submit([&](sycl::handler& cgh) {
+        auto acc = sub_buf_2.get_access<sycl::access::mode::discard_write>(cgh);
+        cgh.parallel_for<class kernel_dummy_5>(
+            sycl::range<1>(5), [=](sycl::item<1> item) {
+                printf("sub_buf_2\n");
+                acc[item.get_id()] = 2;
+            });
+    });
+    queue.wait();
+}
+
+int main(int argc, char* argv[]) {
+    test_buffer_dep();
+    test_sub_buffer_dep();
     return 0;
 }

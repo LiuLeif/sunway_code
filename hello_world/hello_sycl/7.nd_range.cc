@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
     });
     queue.submit([&](sycl::handler &handle) {
         handle.parallel_for<class kernel_dummy>(
+            // NOTE: 使用 range 时 sycl 会自己决定 workgroup/work_item 的个数,
+            // 给用户的 item.get_id 相当于 nd_item 的 get_global_linear_id
             sycl::range<2>(2, 5), [=](sycl::item<2> item) {
                 printf("%ld %ld\n", item.get_id(0), item.get_id(1));
             });

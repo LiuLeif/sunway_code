@@ -5,6 +5,7 @@ namespace sycl = cl::sycl;
 class kernel_vector_add;
 class kernel_vector_add_2;
 int main(int argc, char* argv[]) {
+    // NOTE: 这里是 application scope
     // <<Setup host storage>>
     // float4 是 sycl::vec<float,4> 的别名
     sycl::float4 a = {1.0, 2.0, 3.0, 4.0};
@@ -15,13 +16,16 @@ int main(int argc, char* argv[]) {
     // <<Initialize queue>>
     sycl::queue queue(device_selector);
     {
-        //   <<Setup device storage>>
-        //   sycl::range<dims>(dim1,dim2,...)
+        // <<Setup device storage>>
+        // sycl::range<dims>(dim1,dim2,...)
+        // NOTE: buffer 必须定义在 application scope
         sycl::buffer<sycl::float4, 1> buff_a(&a, sycl::range<1>(1));
         sycl::buffer<sycl::float4, 1> buff_b(&b, sycl::range<1>(1));
         sycl::buffer<sycl::float4, 1> buff_c(&c, sycl::range<1>(1));
         //   <<Execute kernel>>
         queue.submit([&](sycl::handler& cgh) {
+            // NOTE: 这里是 command group scope
+            // accessor 必须定义在 command group scope
             auto a_acc = buff_a.get_access<sycl::access::mode::read>(cgh);
             auto b_acc = buff_b.get_access<sycl::access::mode::read>(cgh);
             auto c_acc =
@@ -37,8 +41,12 @@ int main(int argc, char* argv[]) {
             //     sycl::nd_range<1>(1, 1),
             //     [=](sycl::nd_item<1> item) { c_acc[0] = a_acc[0] + b_acc[0];
             //     });
+            // NOTE: 一个 command group 只能有一个 kernel function
             cgh.single_task<class kernel_vector_add>(
-                [=]() { c_acc[0] = a_acc[0] + b_acc[0]; });
+                [=]() {
+                    // NOTE: 这里是 kernel scope
+                    c_acc[0] = a_acc[0] + b_acc[0];
+                });
         });
 
         // NOTE: queue.submit 后是异步的, 这里直接访问还没有结果.

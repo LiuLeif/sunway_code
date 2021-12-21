@@ -2,8 +2,39 @@
 #include <iostream>
 namespace sycl = cl::sycl;
 
-class kernel_vector_add;
-class kernel_vector_add_2;
+class kernel_vector_add_shared;
+
+class kernel_vector_add {
+   public:
+    kernel_vector_add(float *device_c, float *device_a, float *device_b)
+        : device_c(device_c), device_a(device_a), device_b(device_b) {}
+
+    void operator()() {
+        device_c[0] = device_c[0] + this->device_a[0] + this->device_b[0];
+        device_c[1] = device_c[1] + this->device_a[1] + this->device_b[1];
+        device_c[2] = device_c[2] + this->device_a[2] + this->device_b[2];
+        device_c[3] = device_c[3] + this->device_a[3] + this->device_b[3];
+    }
+
+   private:
+    float *device_c, *device_a, *device_b;
+};
+
+class kernel_vector_copy_a {
+   public:
+    kernel_vector_copy_a(float *device_c, float *device_a, float *device_b)
+        : device_c(device_c), device_a(device_a), device_b(device_b) {}
+
+    void operator()() {
+        device_c[0] = this->device_a[0];
+        device_c[1] = this->device_a[1];
+        device_c[2] = this->device_a[2];
+        device_c[3] = this->device_a[3];
+    }
+
+   private:
+    float *device_c, *device_a, *device_b;
+};
 
 void hello_usm_device() {
     // <<Setup host storage>>
@@ -22,14 +53,23 @@ void hello_usm_device() {
 
     queue.memcpy(device_a, &a, 16).wait();
     queue.memcpy(device_b, &b, 16).wait();
+    queue.memcpy(device_c, &c, 16).wait();
+
+    // NOTE: 由于 kernel_vector_add 和 kernel_vector_copy_a 并没有使用 accessor
+    // 来声明它们的依赖关系, 所以虽然实际上它们对 device_c 有 write-write data
+    // race, 但 sycl runtime 并不知道...实际执行时结果有可能是 [1,2,3,4] 或
+    // [2,4,6,8], 或者可能是 udefined behaviour?
+    //
+    // NOTE: 为了解决上面的问题, 可以使用 queue.wait, event.depends_on 以及
+    // queue::in_order 属性, 例如
+    // sycl::queue(device,sycl::property::queue::in_order{})
+    //
+    queue.submit([&](sycl::handler &cgh) {
+        cgh.single_task(kernel_vector_add(device_c, device_a, device_b));
+    });
 
     queue.submit([&](sycl::handler &cgh) {
-        cgh.single_task<class kernel_vector_add>([=]() {
-            device_c[0] = device_a[0] + device_b[0];
-            device_c[1] = device_a[1] + device_b[1];
-            device_c[2] = device_a[2] + device_b[2];
-            device_c[3] = device_a[3] + device_b[3];
-        });
+        cgh.single_task(kernel_vector_copy_a(device_c, device_a, device_b));
     });
 
     queue.wait();
@@ -54,7 +94,7 @@ void hello_usm_shared() {
     queue.memcpy(device_b, &b, 16).wait();
 
     queue.submit([&](sycl::handler &cgh) {
-        cgh.single_task<class kernel_vector_add_2>([=]() {
+        cgh.single_task<class kernel_vector_add_shared>([=]() {
             c[0] = device_a[0] + device_b[0];
             c[1] = device_a[1] + device_b[1];
             c[2] = device_a[2] + device_b[2];
