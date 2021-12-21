@@ -4,7 +4,7 @@ namespace sycl = cl::sycl;
 
 class kernel_dummy;
 
-int main(int argc, char* argv[]) {
+void test_different_accessor() {
     std::array<float, 10> a = {1.0, 2.0, 3.0, 4.0, 5.0,
                                6.0, 7.0, 8.0, 9.0, 10.0};
     sycl::gpu_selector device_selector;
@@ -76,7 +76,8 @@ int main(int argc, char* argv[]) {
             //     const_acc(sycl::range<1>(10), cgh);
             //
             // NOTE: private memory 没有对应的 target, kernel
-            // 中的局部变量等会自动使用 private memory, 同时 host 也无法访问 private memory
+            // 中的局部变量等会自动使用 private memory, 同时 host 也无法访问
+            // private memory
             //
             // NOTE: 看起来 USM (malloc_{device,host,shared}) 没有 api 可以从
             // constant_buffer 或 local 分配内存
@@ -176,6 +177,32 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 10; i++) {
         printf("%f\n", a[i]);
     }
+}
 
+void test_smart_pointer() {
+    // NOTE: buffer 正常情况下会写回数据到 hostData, 为了避免写回可以在初始化
+    // buffer 时不指定 hostData, 但这样又无法直接给 buffer 初值. 如果既想用
+    // hostData 给 buffer 初始化, 又想避免 buffer 写回数据, 可以用:
+    // 1. unique_ptr
+    // 2. const data
+    sycl::queue queue(sycl::gpu_selector{});
+    int* a = new int[10];
+    std::unique_ptr<int, std::default_delete<int[]>> data(a);
+
+    {
+        sycl::buffer<int, 1> buf(std::move(data), sycl::range<1>(10));
+
+        queue.submit([&](sycl::handler& cgh) {
+            auto buf_acc = buf.get_access<sycl::access::mode::read_write>(cgh);
+            cgh.parallel_for<class kernel_dummy_2>(
+                sycl::range<1>(10),
+                [=](sycl::item<1> item) { buf_acc[item.get_id()] += 1; });
+        });
+    }
+}
+int main(int argc, char* argv[]) {
+    test_different_accessor();
+    printf("---------------\n");
+    test_smart_pointer();
     return 0;
 }
