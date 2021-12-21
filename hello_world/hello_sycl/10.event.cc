@@ -14,24 +14,24 @@ int main(int argc, char *argv[]) {
         sycl::host_selector{}, {sycl::property::queue::enable_profiling()});
 
     sycl::event event;
-    // NOTE: buffer 出作用域时 sycl runtime 会加上一个隐含的 barrier
+    // NOTE: buffer 的析构函数有的 barrier 作用
     // {
-        int a = 0;
-        sycl::buffer<int32_t, 1> dummy_buffer(&a, sycl::range<1>(1));
-        event = queue_cpu.submit([&](sycl::handler &handle) {
-            auto dummy_acc =
-                dummy_buffer.get_access<sycl::access::mode::read>(handle);
-            handle.single_task<class kernel_dummy_1>([=]() {
-                // delay
-                int x = 1;
-                for (int i = 0; i < 100000000; i++) {
-                    x += i;
-                }
-                printf("kernel_dummy_1\n");
-            });
+    int a = 0;
+    sycl::buffer<int32_t, 1> dummy_buffer(&a, sycl::range<1>(1));
+    event = queue_cpu.submit([&](sycl::handler &handle) {
+        auto dummy_acc =
+            dummy_buffer.get_access<sycl::access::mode::read>(handle);
+        handle.single_task<class kernel_dummy_1>([=]() {
+            // delay
+            int x = 1;
+            for (int i = 0; i < 100000000; i++) {
+                x += i;
+            }
+            printf("kernel_dummy_1\n");
         });
+    });
     // }
-    // NOTE: dummy_buffer 的 accessor 也影响 kernel 的执行时机
+    // NOTE: dummy_buffer 的 host accessor 的构造函数也有 barrier 的作用
     // auto dummy_acc = dummy_buffer.get_access<sycl::access::mode::read>();
 
     queue_cpu.submit([&](sycl::handler &handle) {

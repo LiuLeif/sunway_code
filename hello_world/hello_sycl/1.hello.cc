@@ -42,11 +42,16 @@ int main(int argc, char* argv[]) {
             //     [=](sycl::nd_item<1> item) { c_acc[0] = a_acc[0] + b_acc[0];
             //     });
             // NOTE: 一个 command group 只能有一个 kernel function
-            cgh.single_task<class kernel_vector_add>(
-                [=]() {
-                    // NOTE: 这里是 kernel scope
-                    c_acc[0] = a_acc[0] + b_acc[0];
-                });
+            // NOTE: kernel function 必须有一个名字, 以标识 kernel compiler
+            // 生成的数据. 对于 kernel function class 来说直接用 class 名字即可,
+            // 对于没名字的 lambda, sycl 要求提供一个模板参数做为名字
+            // (比如这里的 class kernel_vector_add)
+            // NOTE: kernel function 的参数(或者 lambda 能 capture 的数据)
+            // 都是传值的, 不能包含指针, 且需要是 POD 类型
+            cgh.single_task<class kernel_vector_add>([=]() {
+                // NOTE: 这里是 kernel scope
+                c_acc[0] = a_acc[0] + b_acc[0];
+            });
         });
 
         // NOTE: queue.submit 后是异步的, 这里直接访问还没有结果.
