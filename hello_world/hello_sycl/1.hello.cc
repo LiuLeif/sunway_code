@@ -8,6 +8,10 @@ int main(int argc, char* argv[]) {
     // NOTE: 这里是 application scope
     // <<Setup host storage>>
     // float4 是 sycl::vec<float,4> 的别名
+    // NOTE: sycl::vec 并不是类似 std::vector 的实现, 因为它只支持 1,2,3,4,8,16
+    // 个元素, 且数据只能是基本的 scalar type, 它可以直接映射为 opencl 的 vector
+    // 类型例如 cl_float16. sycl::vec 可以作为一个整体进行操作, 例如
+    // +,-,*,/,==,=,~,<<, > 等
     sycl::float4 a = {1.0, 2.0, 3.0, 4.0};
     sycl::float4 b = {1.0, 2.0, 3.0, 4.0};
     sycl::float4 c = {0.0, 0.0, 0.0, 0.0};

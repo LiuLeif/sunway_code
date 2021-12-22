@@ -1,6 +1,11 @@
 #include <stdio.h>
 
 __global__ void VecAdd(float4* a, float4* b, float4* c) {
+    // NOTE: float4 等类型可以用 x,y,z,w 表示 0,1,2,3, float4 是
+    // sycl::vec<float,4> 的别名, sycl::vec 可以用如下的别名作为下标:
+    // x,y,z,w (0,1,2,3)
+    // r,g,b,a(0,1,2,3)
+    // s0...s9,sA...sF (0...15)
     c[0].x = a[0].x + b[0].x;
     c[0].y = a[0].y + b[0].y;
     c[0].z = a[0].z + b[0].z;

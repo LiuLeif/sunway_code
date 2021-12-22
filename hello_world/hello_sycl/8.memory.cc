@@ -180,26 +180,63 @@ void test_different_accessor() {
 }
 
 void test_smart_pointer() {
-    // NOTE: buffer 正常情况下会写回数据到 hostData, 为了避免写回可以在初始化
-    // buffer 时不指定 hostData, 但这样又无法直接给 buffer 初值. 如果既想用
-    // hostData 给 buffer 初始化, 又想避免 buffer 写回数据, 可以用:
+    // NOTE: buffer 正常情况下会写回数据到 host_data, 为了避免写回, 可以在初始化
+    // buffer 时不指定 host_data, 但这样又无法直接给 accessor 初值 (可以用
+    // queue.memcpy 或 cgh.memcpy 来赋值). 如果既想用 host_data 给 accessor
+    // 初始化, 又想避免 buffer 写回数据, 可以用:
     // 1. unique_ptr
     // 2. const data
+    // 当然使用 unique_ptr 控制写回数据只是它的副作用, unique_ptr
+    // 最大的用处还是它作为 smart pointer 用来自动回收资源
     sycl::queue queue(sycl::gpu_selector{});
+
     int* a = new int[10];
     std::unique_ptr<int, std::default_delete<int[]>> data(a);
 
+    int b[10] = {0};
+    int c[10] = {0};
+    int d[10] = {0};
+
     {
-        sycl::buffer<int, 1> buf(std::move(data), sycl::range<1>(10));
+        sycl::buffer<int, 1> buf_a(std::move(data), sycl::range<1>(10));
+        sycl::buffer<int, 1> buf_b(b, sycl::range<1>(10));
+        sycl::buffer<int, 1> buf_c(b, sycl::range<1>(10));
+        // NOTE: buffer.set_write_back 也可以阻止 data 的写回
+        buf_b.set_write_back(false);
+        // NOTE: buffer.set_final_data 可以控制写回到什么地方
+        buf_c.set_final_data(c);
 
         queue.submit([&](sycl::handler& cgh) {
-            auto buf_acc = buf.get_access<sycl::access::mode::read_write>(cgh);
+            auto a_acc = buf_a.get_access<sycl::access::mode::read_write>(cgh);
+            auto b_acc = buf_b.get_access<sycl::access::mode::read_write>(cgh);
+            auto c_acc = buf_c.get_access<sycl::access::mode::read_write>(cgh);
+
             cgh.parallel_for<class kernel_dummy_2>(
-                sycl::range<1>(10),
-                [=](sycl::item<1> item) { buf_acc[item.get_id()] += 1; });
+                sycl::range<1>(10), [=](sycl::item<1> item) {
+                    a_acc[item.get_id()] += 1;
+                    b_acc[item.get_id()] = 1;
+                    c_acc[item.get_id()] = 1;
+                });
+            // NOTE: cgh 还提供了 copy, fill 可以直接读写 accessor 和 host ptr
+            cgh.copy(c_acc, d);
         });
+        // NOTE: buf_a 析构时无法写回数据到 data, 因为 application scope
+        // 已经无法访问 data
     }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", b[i]);
+    }
+    printf("\n");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", c[i]);
+    }
+    printf("\n");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", d[i]);
+    }
+    printf("\n");
 }
+
 int main(int argc, char* argv[]) {
     test_different_accessor();
     printf("---------------\n");
