@@ -5,10 +5,10 @@
 namespace sycl = cl::sycl;
 
 int HowManySteps(int x, int y, int width, int height, int zoom) {
-    float cx = 0.285;
-    float cy = 0.01;
+    float cx = -0.74543;
+    float cy = 0.11301;
 
-    float zx = (x - 0.5 * width) / (0.5 * width * zoom);
+    float zx = 1.6 * (x - 0.5 * width) / (0.5 * width * zoom);
     float zy = (y - 0.5 * height) / (0.5 * height * zoom);
 
     float zx2 = 0.0;

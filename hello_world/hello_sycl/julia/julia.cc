@@ -8,8 +8,8 @@
 
 #include "julia_calc.h"
 
-constexpr size_t WIDTH = 800;
-constexpr size_t HEIGHT = 600;
+constexpr size_t WIDTH = 1920;
+constexpr size_t HEIGHT = 1080;
 
 class JuliaApp : public ci::app::App {
     // Texture for displaying the set
