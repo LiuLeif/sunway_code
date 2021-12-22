@@ -9,3 +9,4 @@ qrc_*.cpp
 .ccls-cache
 kws/temp
 kws/logs
+*.d
