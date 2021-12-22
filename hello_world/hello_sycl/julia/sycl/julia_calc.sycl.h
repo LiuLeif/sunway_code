@@ -4,7 +4,7 @@
 #include <CL/sycl.hpp>
 #include <iostream>
 
-#include "julia_calc.h"
+#include "../julia_calc.h"
 
 namespace sycl = cl::sycl;
 
