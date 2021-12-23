@@ -1,8 +1,8 @@
 # 1. Get ComputeCPP from https://developer.codeplay.com/products/computecpp/ce/download/
 # 2. apt install intel-opencl-icd
-CUDA_SRC := $(shell find ./ -name "*.cu")
+CUDA_SRC := $(wildcard *.cu)
 
-SYCL_SRC := $(shell find ./ -name "*.cc")
+SYCL_SRC := $(wildcard *.cc)
 SYCL_CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
 SYCL_LDFLAGS := -L ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/ -Wl,-rpath,/home/sunway/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/
 SYCL_LDLIBS := -lComputeCpp -lOpenCL

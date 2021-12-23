@@ -6,7 +6,7 @@ SYCL_CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
 SYCL_LDFLAGS := -L ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/ -Wl,-rpath,/home/sunway/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/
 SYCL_LDLIBS := -lComputeCpp -lOpenCL
 
-CUDA_LDFLAGS := -L/opt/anaconda3/envs/cuda-11/lib -Wl,-rpath,/opt/anaconda3/envs/cuda-11/lib
+CUDA_LDFLAGS := -L/usr/local/cuda/lib64 -Wl,-rpath,/usr/local/cuda/lib64
 CUDA_LDLIBS := -lcudart
 
 CPPFLAGS := -I/home/sunway/download/Cinder/include -MMD -O3
