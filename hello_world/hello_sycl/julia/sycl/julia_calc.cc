@@ -35,7 +35,7 @@ int HowManySteps(
 
 void JuliaCalculatorSycl::Calc() {
     queue_.submit([&](sycl::handler& cgh) {
-        auto img_acc = img_.get_access<sycl::access::mode::discard_write>(cgh);
+        auto img_acc = img_.get_access<sycl::access::mode::read_write>(cgh);
 
         // NOTE: 这样写是因为 kernel 无法 capture this...
         int width = width_;
@@ -53,9 +53,11 @@ void JuliaCalculatorSycl::Calc() {
                     (uint8_t)(color >> 16), (uint8_t)(color >> 8),
                     (uint8_t)color, (uint8_t)255};
             });
+        cgh.copy(img_acc, data_);
     });
-    auto host_acc = img_.get_access<sycl::access::mode::read>();
-    memcpy(data_, host_acc.get_pointer(), width_ * height_ * 4);
+    // auto host_acc = img_.get_access<sycl::access::mode::read>();
+    // memcpy(data_, host_acc.get_pointer(), width_ * height_ * 4);
+    queue_.wait();
 }
 
 JuliaCalculator* JuliaCalculator::get(size_t width, size_t height, void* data) {
