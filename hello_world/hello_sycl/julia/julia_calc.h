@@ -5,8 +5,7 @@
 
 class JuliaCalculator {
    protected:
-    size_t const width_;
-    size_t const height_;
+    size_t const size_;
     float zoom_ = 1.0;
     void* data_;
     float cx_ = 0.285;
@@ -15,8 +14,7 @@ class JuliaCalculator {
     float center_y_ = 0.0;
 
    public:
-    JuliaCalculator(size_t width, size_t height, void* data)
-        : width_(width), height_(height), data_(data) {}
+    JuliaCalculator(size_t size, void* data) : size_(size), data_(data) {}
 
     virtual void Calc() = 0;
 
@@ -32,7 +30,7 @@ class JuliaCalculator {
         center_y_ = y;
     }
 
-    static JuliaCalculator* get(size_t width, size_t height, void* data);
+    static JuliaCalculator* get(size_t size, void* data);
 };
 
 #endif  // JULIA_CALC_H

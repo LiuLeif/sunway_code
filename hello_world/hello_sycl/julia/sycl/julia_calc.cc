@@ -33,20 +33,19 @@ void JuliaCalculatorSycl::Calc() {
         auto img_acc = img_.get_access<sycl::access::mode::read_write>(cgh);
 
         // NOTE: 这样写是因为 kernel 无法 capture this...
-        int width = width_;
-        int height = height_;
+        int size = size_;
         float zoom = zoom_;
         float cx = cx_;
         float cy = cy_;
         float center_x = center_x_;
         float center_y = center_y_;
         cgh.parallel_for<class JuliaCalculator>(
-            sycl::range<2>(height, width), [=](sycl::item<2> item) {
+            sycl::range<2>(size, size), [=](sycl::item<2> item) {
                 int x = item.get_id(0);
                 int y = item.get_id(1);
-                float zx = (x - 0.5 * width) / (0.5 * width * zoom) + center_x;
+                float zx = (x - 0.5 * size) / (0.5 * size * zoom) + center_x;
                 float zy =
-                    (y - 0.5 * height) / (0.5 * height * zoom) + center_y;
+                    (y - 0.5 * size) / (0.5 * size * zoom) + center_y;
 
                 int count =
                     HowManySteps(sycl::float2{zx, zy}, sycl::float2{cx, cy});
@@ -62,6 +61,6 @@ void JuliaCalculatorSycl::Calc() {
     queue_.wait();
 }
 
-JuliaCalculator* JuliaCalculator::get(size_t width, size_t height, void* data) {
-    return new JuliaCalculatorSycl(width, height, data);
+JuliaCalculator* JuliaCalculator::get(size_t size, void* data) {
+    return new JuliaCalculatorSycl(size, data);
 }

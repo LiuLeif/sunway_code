@@ -13,10 +13,10 @@ class JuliaCalculatorSycl : public JuliaCalculator {
     sycl::buffer<sycl::cl_uchar4, 2> img_;
 
    public:
-    JuliaCalculatorSycl(size_t width, size_t height, void* data)
-        : JuliaCalculator(width, height, data),
+    JuliaCalculatorSycl(size_t size, void* data)
+        : JuliaCalculator(size, data),
           queue_(sycl::host_selector{}),
-          img_(sycl::range<2>(height, width)) {}
+          img_(sycl::range<2>(size, size)) {}
 
     void Calc();
 };

@@ -7,8 +7,8 @@
 
 class JuliaCalculatorCu : public JuliaCalculator {
    public:
-    JuliaCalculatorCu(size_t width, size_t height, void* data)
-        : JuliaCalculator(width, height, data) {}
+    JuliaCalculatorCu(size_t size, void* data)
+        : JuliaCalculator(size, data) {}
 
     void Calc();
 };

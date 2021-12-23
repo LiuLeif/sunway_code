@@ -10,8 +10,7 @@
 
 #include "julia_calc.h"
 
-constexpr size_t WIDTH = 2000;
-constexpr size_t HEIGHT = 2000;
+constexpr size_t SIZE = 2000;
 
 class JuliaApp : public ci::app::App {
     // Texture for displaying the set
@@ -23,8 +22,8 @@ class JuliaApp : public ci::app::App {
 
    public:
     JuliaApp()
-        : data_(malloc(WIDTH * HEIGHT * 4)),
-          calc_(JuliaCalculator::get(WIDTH, HEIGHT, data_)),
+        : data_(malloc(SIZE * SIZE * 4)),
+          calc_(JuliaCalculator::get(SIZE, data_)),
           zoom_(1.0),
           center_x_(0.0),
           center_y_(0.0) {
@@ -33,7 +32,7 @@ class JuliaApp : public ci::app::App {
 
     void setup() override {
         this->tex_ = ci::gl::Texture2d::create(
-            nullptr, GL_RGBA, WIDTH, HEIGHT,
+            nullptr, GL_RGBA, SIZE, SIZE,
             ci::gl::Texture2d::Format()
                 .dataType(GL_UNSIGNED_BYTE)
                 .internalFormat(GL_RGBA));
@@ -43,7 +42,7 @@ class JuliaApp : public ci::app::App {
 
     void draw() override {
         ci::gl::clear();
-        tex_->update(data_, GL_RGBA, GL_UNSIGNED_BYTE, 0, WIDTH, HEIGHT);
+        tex_->update(data_, GL_RGBA, GL_UNSIGNED_BYTE, 0, SIZE, SIZE);
         ci::Rectf screen(
             0, 0, getWindow()->getWidth(), getWindow()->getHeight());
         ci::gl::draw(tex_, screen);
