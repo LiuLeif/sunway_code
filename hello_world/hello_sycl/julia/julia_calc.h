@@ -7,10 +7,12 @@ class JuliaCalculator {
  protected:
   size_t const width_;
   size_t const height_;
-  int zoom_ = 1;
+  float zoom_ = 1.0;
   void* data_;
   float cx_ = 0.285;
   float cy_ = 0.01;
+  float center_x_ = 0.0;
+  float center_y_ = 0.0;
 
  public:
   JuliaCalculator(size_t width, size_t height, void* data)
@@ -18,16 +20,16 @@ class JuliaCalculator {
 
   virtual void Calc() = 0;
 
-  void Zoom(float zoom) {
-    zoom_ += int(zoom);
-    if (zoom_ < 1) {
-      zoom_ = 1;
-    }
-  }
+  void Zoom(float zoom) { zoom_ = zoom; }
 
   void SetC(float x, float y) {
     cx_ = x;
     cy_ = y;
+  }
+
+  void SetCenter(float x, float y) {
+    center_x_ = x;
+    center_y_ = y;
   }
 
   static JuliaCalculator* get(size_t width, size_t height, void* data);

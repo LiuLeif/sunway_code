@@ -5,7 +5,7 @@
 namespace sycl = cl::sycl;
 
 int HowManySteps(
-    int x, int y, int width, int height, int zoom, float cx, float cy) {
+    int x, int y, int width, int height, float zoom, float cx, float cy) {
   float zx = (x - 0.5 * width) / (0.5 * width * zoom);
   float zy = (y - 0.5 * height) / (0.5 * height * zoom);
 
@@ -40,7 +40,7 @@ void JuliaCalculatorSycl::Calc() {
     // NOTE: 这样写是因为 kernel 无法 capture this...
     int width = width_;
     int height = height_;
-    int zoom = zoom_;
+    float zoom = zoom_;
     float cx = cx_;
     float cy = cy_;
     cgh.parallel_for<class JuliaCalculator>(
