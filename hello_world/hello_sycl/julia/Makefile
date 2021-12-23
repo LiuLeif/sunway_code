@@ -9,7 +9,7 @@ SYCL_LDLIBS := -lComputeCpp -lOpenCL
 CUDA_LDFLAGS := -L/opt/anaconda3/envs/cuda-11/lib -Wl,-rpath,/opt/anaconda3/envs/cuda-11/lib
 CUDA_LDLIBS := -lcudart
 
-CPPFLAGS := -I/home/sunway/download/Cinder/include -MMD
+CPPFLAGS := -I/home/sunway/download/Cinder/include -MMD -O3
 LDLIBS := /home/sunway/download/Cinder/lib/linux/x86_64/ogl/Debug/libcinder.a \
 		  -ldl -lOpenGL -lcurl -lpthread -lX11 -lfontconfig -lXrandr -lXinerama -lXcursor \
 

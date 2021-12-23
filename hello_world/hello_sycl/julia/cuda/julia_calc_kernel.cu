@@ -1,24 +1,24 @@
 #include <stdint.h>
 #include <stdio.h>
 
-// NOTE: 这里误指定 zx, zy 为 int 也能编译通过...导致结果错误
-__device__ int HowManySteps(float zx, float zy, float cx, float cy) {
-    float zx2 = 0.0;
-    float zy2 = 0.0;
-    float norm = 0.0;
+__device__ float2 complex_mul(float2 a, float2 b) {
+    return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x};
+}
 
+__device__ float2 complex_add(float2 a, float2 b) {
+    return {a.x + b.x, a.y + b.y};
+}
+
+__device__ float complex_norm(float2 a) { return a.x * a.x + a.y * a.y; }
+
+__device__ int HowManySteps(float2 z, float2 c) {
     int MAX_ITERS = 255;
     float DIVERGENCE_LIMIT = 2.0;
 
     for (size_t i = MAX_ITERS; i > 0; i--) {
-        zx2 = zx * zx - zy * zy + cx;
-        zy2 = 2.0 * zx * zy + cy;
-
-        zx = zx2;
-        zy = zy2;
-
-        norm = zx * zx + zy * zy;
-
+        z = complex_mul(z, z);
+        z = complex_add(z, c);
+        float norm = complex_norm(z);
         if (norm >= DIVERGENCE_LIMIT) {
             return i;
         }
@@ -37,7 +37,7 @@ __global__ void JuliaKernel(
     float zx = (x - 0.5 * width) / (0.5 * width * zoom) + center_x;
     float zy = (y - 0.5 * height) / (0.5 * height * zoom) + center_y;
 
-    int count = HowManySteps(zx, zy, cx, cy);
+    int count = HowManySteps(float2{zx, zy}, float2{cx, cy});
     int color = (count << 21) + (count << 10) + (count << 3);
     dev_data[x * height + y] = {
         (uint8_t)(color >> 16), (uint8_t)(color >> 8), (uint8_t)color,

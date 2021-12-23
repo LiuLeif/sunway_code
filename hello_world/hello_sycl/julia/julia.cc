@@ -56,10 +56,7 @@ class JuliaApp : public ci::app::App {
         } else {
             zoom_ /= 1.1;
         }
-        if (zoom_ < 1) {
-            zoom_ = 1.0;
-        }
-        calc_->Zoom(zoom_);
+        calc_->SetZoom(zoom_);
     }
 
     void mouseDown(ci::app::MouseEvent event) override {
@@ -69,7 +66,7 @@ class JuliaApp : public ci::app::App {
         }
         if (event.isShiftDown()) {
             zoom_ = 1.0;
-            calc_->Zoom(zoom_);
+            calc_->SetZoom(zoom_);
             center_x_ = 0.0;
             center_y_ = 0.0;
             calc_->SetCenter(center_y_, center_x_);

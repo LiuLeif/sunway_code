@@ -20,7 +20,7 @@ class JuliaCalculator {
 
     virtual void Calc() = 0;
 
-    void Zoom(float zoom) { zoom_ = zoom; }
+    void SetZoom(float zoom) { zoom_ = zoom; }
 
     void SetC(float x, float y) {
         cx_ = x;

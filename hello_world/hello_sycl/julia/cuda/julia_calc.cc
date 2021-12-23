@@ -2,7 +2,7 @@
 
 extern void Julia(
     int height, int width, float zoom, void* data, float cx, float cy,
-    float center_x_, float center_y_);
+    float center_x, float center_y);
 
 void JuliaCalculatorCu::Calc() {
     Julia(height_, width_, zoom_, data_, cx_, cy_, center_x_, center_y_);

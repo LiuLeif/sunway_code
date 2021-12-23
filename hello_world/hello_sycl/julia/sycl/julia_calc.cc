@@ -4,32 +4,27 @@
 #include <iostream>
 namespace sycl = cl::sycl;
 
-int HowManySteps(
-    int x, int y, int width, int height, float zoom, float cx, float cy) {
-    float zx = (x - 0.5 * width) / (0.5 * width * zoom);
-    float zy = (y - 0.5 * height) / (0.5 * height * zoom);
+sycl::float2 complex_mul(sycl::float2 a, sycl::float2 b) {
+    return {a.x() * b.x() - a.y() * b.y(), a.x() * b.y() + a.y() * b.x()};
+}
 
-    float zx2 = 0.0;
-    float zy2 = 0.0;
-    float abs_sq = 0.0;
+sycl::float2 complex_add(sycl::float2 a, sycl::float2 b) {
+    return {a.x() + b.x(), a.y() + b.y()};
+}
 
+float complex_norm(sycl::float2 a) { return a.x() * a.x() + a.y() * a.y(); }
+
+int HowManySteps(sycl::float2 z, sycl::float2 c) {
     static constexpr size_t MAX_ITERS = 255;
     static constexpr float DIVERGENCE_LIMIT = 2.0;
-
     for (size_t i = MAX_ITERS; i > 0; i--) {
-        zx2 = zx * zx - zy * zy + cx;
-        zy2 = 2.0 * zx * zy + cy;
-
-        zx = zx2;
-        zy = zy2;
-
-        abs_sq = zx * zx + zy * zy;
-
-        if (abs_sq >= DIVERGENCE_LIMIT) {
+        z = complex_mul(z, z);
+        z = complex_add(z, c);
+        float norm = complex_norm(z);
+        if (norm >= DIVERGENCE_LIMIT) {
             return i;
         }
     }
-
     return 0;
 }
 
@@ -43,11 +38,18 @@ void JuliaCalculatorSycl::Calc() {
         float zoom = zoom_;
         float cx = cx_;
         float cy = cy_;
+        float center_x = center_x_;
+        float center_y = center_y_;
         cgh.parallel_for<class JuliaCalculator>(
             sycl::range<2>(height, width), [=](sycl::item<2> item) {
-                int count = HowManySteps(
-                    item.get_id(1), item.get_id(0), width, height, zoom, cx,
-                    cy);
+                int x = item.get_id(0);
+                int y = item.get_id(1);
+                float zx = (x - 0.5 * width) / (0.5 * width * zoom) + center_x;
+                float zy =
+                    (y - 0.5 * height) / (0.5 * height * zoom) + center_y;
+
+                int count =
+                    HowManySteps(sycl::float2{zx, zy}, sycl::float2{cx, cy});
                 int color = (count << 21) + (count << 10) + (count << 3);
                 img_acc[item] = {
                     (uint8_t)(color >> 16), (uint8_t)(color >> 8),
