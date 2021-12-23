@@ -1,4 +1,4 @@
-#include "julia_calc.sycl.h"
+#include "julia_calc.h"
 
 #include <CL/sycl.hpp>
 #include <iostream>

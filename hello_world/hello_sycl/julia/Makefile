@@ -6,12 +6,12 @@ SYCL_CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
 SYCL_LDFLAGS := -L ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/ -Wl,-rpath,/home/sunway/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/lib/
 SYCL_LDLIBS := -lComputeCpp -lOpenCL
 
+CUDA_LDFLAGS := -L/opt/anaconda3/envs/cuda-11/lib -Wl,-rpath,/opt/anaconda3/envs/cuda-11/lib
+CUDA_LDLIBS := -lcudart
+
 CPPFLAGS := -I/home/sunway/download/Cinder/include -MMD
 LDLIBS := /home/sunway/download/Cinder/lib/linux/x86_64/ogl/Debug/libcinder.a \
 		  -ldl -lOpenGL -lcurl -lpthread -lX11 -lfontconfig -lXrandr -lXinerama -lXcursor \
-
-CUDA_LDFLAGS := -L/opt/anaconda3/envs/cuda-11/lib -Wl,-rpath,/opt/anaconda3/envs/cuda-11/lib
-CUDA_LDLIBS := -lcudart
 
 CPPFLAGS += ${SYCL_CPPFLAGS}
 LDFLAGS += ${SYCL_LDFLAGS} ${CUDA_LDFLAGS}
@@ -26,8 +26,7 @@ SYCL_OBJ:=$(patsubst %.cc,%.o,${SYCL_SRC})
 
 CUDA_KERNEL_SRC:=$(wildcard cuda/*.cu)
 CUDA_SRC := $(wildcard cuda/*.cc)
-CUDA_OBJ := $(patsubst %.cu,%.o,${CUDA_KERNEL_SRC})
-CUDA_OBJ += $(patsubst %.cc,%.o,${CUDA_SRC})
+CUDA_OBJ := $(patsubst %.cu,%.o,${CUDA_KERNEL_SRC}) $(patsubst %.cc,%.o,${CUDA_SRC})
 
 ALL_OBJ := ${OBJ} ${SYCL_OBJ} ${CUDA_OBJ}
 DEPS := $(ALL_OBJ:.o=.d)
@@ -47,6 +46,7 @@ julia.cu.elf:${OBJ} ${CUDA_OBJ}
 
 clean:
 	-rm -f julia.sycl.elf
-	-rm -f ${OBJ}
+	-rm -f julia.cu.elf
+	-rm -f ${ALL_OBJ}
 	-rm -f ${DEPS}
 	-rm -f ${SYCL_HEADER}
