@@ -6,11 +6,11 @@
 #include "../julia_calc.h"
 
 class JuliaCalculatorCu : public JuliaCalculator {
- public:
-  JuliaCalculatorCu(size_t width, size_t height, void* data)
-      : JuliaCalculator(width, height, data) {}
+   public:
+    JuliaCalculatorCu(size_t width, size_t height, void* data)
+        : JuliaCalculator(width, height, data) {}
 
-  void Calc();
+    void Calc();
 };
 
 #endif  // JULIA_CALC_SYCL_H

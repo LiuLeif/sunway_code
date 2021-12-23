@@ -5,9 +5,9 @@ extern void Julia(
     float center_x_, float center_y_);
 
 void JuliaCalculatorCu::Calc() {
-  Julia(height_, width_, zoom_, data_, cx_, cy_, center_x_, center_y_);
+    Julia(height_, width_, zoom_, data_, cx_, cy_, center_x_, center_y_);
 }
 
 JuliaCalculator* JuliaCalculator::get(size_t width, size_t height, void* data) {
-  return new JuliaCalculatorCu(width, height, data);
+    return new JuliaCalculatorCu(width, height, data);
 }
