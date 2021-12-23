@@ -5,7 +5,7 @@
 __device__ int HowManySteps(float zx, float zy, float cx, float cy) {
   float zx2 = 0.0;
   float zy2 = 0.0;
-  float abs_sq = 0.0;
+  float norm = 0.0;
 
   int MAX_ITERS = 255;
   float DIVERGENCE_LIMIT = 2.0;
@@ -17,9 +17,9 @@ __device__ int HowManySteps(float zx, float zy, float cx, float cy) {
     zx = zx2;
     zy = zy2;
 
-    abs_sq = zx * zx + zy * zy;
+    norm = zx * zx + zy * zy;
 
-    if (abs_sq >= DIVERGENCE_LIMIT) {
+    if (norm >= DIVERGENCE_LIMIT) {
       return i;
     }
   }
@@ -51,15 +51,11 @@ void Julia(
   if (dev_data == 0) {
     cudaMalloc(&dev_data, sizeof(uchar4) * height * width);
   }
-  // NOTE: 直接指定 kernel shape 为 (height, width) 不可行, 因为一个 block
-  // 最多只能有 1024 个 thread, 导致 width 不能超过 1024, 这里实现上是模拟了
-  // sycl 的 range 方法
+  // NOTE: 直接指定 kernel shape 为 (height, width) 不可行, 因为一个 block最多只
+  // 能有 1024 个 thread, 导致 width 不能超过 1024, 这里是模拟了sycl 的 range 方
+  // 法
   JuliaKernel<<<ceil((height * width) / 32), 32>>>(
       height, width, zoom, dev_data, cx, cy, center_x, center_y);
-  // cudaError_t err = cudaGetLastError();
-  // if (err != cudaSuccess) {
-  //   printf("CUDA Error: %s\n", cudaGetErrorString(err));
-  // }
   cudaDeviceSynchronize();
   cudaMemcpy(
       data, dev_data, sizeof(uchar4) * height * width, cudaMemcpyDeviceToHost);

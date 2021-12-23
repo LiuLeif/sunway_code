@@ -18,7 +18,6 @@ class JuliaApp : public ci::app::App {
   ci::gl::Texture2dRef tex_;
   void* data_;
   JuliaCalculator* calc_;
-
   float center_x_, center_y_;
   float zoom_;
 
