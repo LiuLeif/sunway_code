@@ -8,8 +8,8 @@
 
 #include "julia_calc.h"
 
-constexpr size_t WIDTH = 1920;
-constexpr size_t HEIGHT = 1080;
+constexpr size_t WIDTH = 1024;
+constexpr size_t HEIGHT = 1024;
 
 class JuliaApp : public ci::app::App {
   // Texture for displaying the set
@@ -31,7 +31,6 @@ class JuliaApp : public ci::app::App {
   }
 
   void update() override {
-    printf("update\n");
     calc_->Calc();
   }
 
@@ -44,7 +43,6 @@ class JuliaApp : public ci::app::App {
 
   void mouseWheel(ci::app::MouseEvent event) override {
     auto inc = event.getWheelIncrement();
-    printf("mouse whell %f\n", inc);
     calc_->Zoom(inc);
   }
 

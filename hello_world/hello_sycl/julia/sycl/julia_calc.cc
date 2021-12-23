@@ -4,10 +4,8 @@
 #include <iostream>
 namespace sycl = cl::sycl;
 
-int HowManySteps(int x, int y, int width, int height, int zoom) {
-  float cx = 0.285;
-  float cy = 0.01;
-
+int HowManySteps(
+    int x, int y, int width, int height, int zoom, float cx, float cy) {
   float zx = (x - 0.5 * width) / (0.5 * width * zoom);
   float zy = (y - 0.5 * height) / (0.5 * height * zoom);
 
@@ -39,13 +37,16 @@ void JuliaCalculatorSycl::Calc() {
   queue_.submit([&](sycl::handler& cgh) {
     auto img_acc = img_.get_access<sycl::access::mode::discard_write>(cgh);
 
+    // NOTE: 这样写是因为 kernel 无法 capture this...
     int width = width_;
     int height = height_;
     int zoom = zoom_;
+    float cx = cx_;
+    float cy = cy_;
     cgh.parallel_for<class JuliaCalculator>(
         sycl::range<2>(height, width), [=](sycl::item<2> item) {
-          int count =
-              HowManySteps(item.get_id(1), item.get_id(0), width, height, zoom);
+          int count = HowManySteps(
+              item.get_id(1), item.get_id(0), width, height, zoom, cx, cy);
           int color = (count << 21) + (count << 10) + (count << 3);
           img_acc[item] = {
               (uint8_t)(color >> 16), (uint8_t)(color >> 8), (uint8_t)color,

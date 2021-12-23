@@ -1,9 +1,8 @@
 #include <stdint.h>
+#include <stdio.h>
 
-__device__ int HowManySteps(int zx, int zy) {
-  float cx = 0.285;
-  float cy = 0.01;
-
+// NOTE: 这里误指定 zx, zy 为 int 竟然能编译通过...导致结果错误
+__device__ int HowManySteps(float zx, float zy, float cx, float cy) {
   float zx2 = 0.0;
   float zy2 = 0.0;
   float abs_sq = 0.0;
@@ -28,24 +27,32 @@ __device__ int HowManySteps(int zx, int zy) {
   return 0;
 }
 
-__global__ void JuliaKernel(int height, int width, int zoom, uchar4 *dev_data) {
+__global__ void JuliaKernel(
+    int height, int width, int zoom, uchar4 *dev_data, float cx, float cy) {
   int x = threadIdx.x;
   int y = blockIdx.x;
 
   float zx = (x - 0.5 * width) / (0.5 * width * zoom);
   float zy = (y - 0.5 * height) / (0.5 * height * zoom);
 
-  int count = HowManySteps(zx, zy);
+  int count = HowManySteps(zx, zy, cx, cy);
   int color = (count << 21) + (count << 10) + (count << 3);
   dev_data[x * height + y] = {
       (uint8_t)(color >> 16), (uint8_t)(color >> 8), (uint8_t)color,
       (uint8_t)255};
 }
 
-void Julia(int height, int width, int zoom, void *data) {
-  uchar4 *dev_data;
-  cudaMalloc(&dev_data, sizeof(uchar4) * height * width);
-  JuliaKernel<<<height, width>>>(height, width, zoom, dev_data);
+void Julia(int height, int width, int zoom, void *data, float cx, float cy) {
+  static uchar4 *dev_data = 0;
+  if (dev_data == 0) {
+    cudaMalloc(&dev_data, sizeof(uchar4) * height * width);
+  }
+  JuliaKernel<<<height, width>>>(height, width, zoom, dev_data, cx, cy);
+  // cudaError_t err = cudaGetLastError();
+  // if (err != cudaSuccess) {
+  //   printf("CUDA Error: %s\n", cudaGetErrorString(err));
+  // }
+  cudaDeviceSynchronize();
   cudaMemcpy(
       data, dev_data, sizeof(uchar4) * height * width, cudaMemcpyDeviceToHost);
 }
