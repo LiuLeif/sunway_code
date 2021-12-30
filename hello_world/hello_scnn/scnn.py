@@ -93,14 +93,15 @@ class SCNN(nn.Module):
         # 4. out[2]=slice[2]+conv(out[1])
         # ...
         #
-        # 计算完以后 out 的 shape 和 input shape 是一样的, 因为 stride = 1, 且
+        # 计算完以后 out shape 和 input shape (基本) 是一样的, 因为 stride = 1,
         # padding=w//2, 而 O=(w+2p-k)/s+1.
         #
         # 另外整个过程和 rnn 很像: slice 是 input 序列, out 是 hidden state 序列
         #
         # 按论文的说法, 这样操作更容易捕获长条形状的物体 (比如车道线) 或大的物体
+        # 的空间信息
         #
-        # intuition:
+        # Intuition:
         # 为了让 cnn 能捕获大物体的信息, 需要有较大的 receptive field:
         #
         # 1. 通过 pooling
