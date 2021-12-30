@@ -26,21 +26,31 @@ class SCNN(nn.Module):
         self.bce_loss = nn.BCELoss()
 
     def forward(self, img, seg_gt=None, exist_gt=None):
+        # img: [1, 3, 288, 800]
         x = self.backbone(img)
+        # x: [1, 512, 36, 100]
         x = self.layer1(x)
+        # x: [1, 128, 36, 100]
         x = self.message_passing_forward(x)
+        # x: [1, 128, 36, 100]
         x = self.layer2(x)
-
+        # x: [1, 5, 36, 100]
         seg_pred = F.interpolate(x, scale_factor=8, mode="bilinear", align_corners=True)
+        # seg_pred: [1, 5, 288, 800]
         x = self.layer3(x)
+        # x: [1, 5, 18, 50]
         x = x.view(-1, self.fc_input_feature)
+        # x: [1, 4500]
         exist_pred = self.fc(x)
+        # exist_pred: [1, 4]
 
         if seg_gt is not None and exist_gt is not None:
+            # training
             loss_seg = self.ce_loss(seg_pred, seg_gt)
             loss_exist = self.bce_loss(exist_pred, exist_gt)
             loss = loss_seg * self.scale_seg + loss_exist * self.scale_exist
         else:
+            # inferencing
             loss_seg = torch.tensor(0, dtype=img.dtype, device=img.device)
             loss_exist = torch.tensor(0, dtype=img.dtype, device=img.device)
             loss = torch.tensor(0, dtype=img.dtype, device=img.device)
