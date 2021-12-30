@@ -68,6 +68,9 @@ class SCNN(nn.Module):
 
     def message_passing_forward(self, x):
         # NOTE: message_passing_forward 是 SCNN 最核心的部分
+        # vertical 和 reverse zip 起来, 一共需要做 4 遍 message_passing:
+        # up, down, left, right
+        # see https://arxiv.org/pdf/1712.06080.pdf page 3
         Vertical = [True, True, False, False]
         Reverse = [False, True, False, True]
         for ms_conv, v, r in zip(self.message_passing, Vertical, Reverse):
@@ -83,6 +86,32 @@ class SCNN(nn.Module):
         reverse: False for up-down or left-right, True for down-up or right-left
         """
         nB, C, H, W = x.shape
+        # NOTE: down 时的计算步骤:
+        # 1. 按 H 方向切成 H 个 (C,1,W) 的 slice
+        # 2. out[0]=slice[0]
+        # 3. out[1]=slice[1]+conv(out[0])
+        # 4. out[2]=slice[2]+conv(out[1])
+        # ...
+        #
+        # 计算完以后 out 的 shape 和 input shape 是一样的, 因为 stride = 1, 且
+        # padding=w//2, 而 O=(w+2p-k)/s+1.
+        #
+        # 另外整个过程和 rnn 很像: slice 是 input 序列, out 是 hidden state 序列
+        #
+        # 按论文的说法, 这样操作更容易捕获长条形状的物体 (比如车道线) 或大的物体
+        #
+        # intuition:
+        # 为了让 cnn 能捕获大物体的信息, 需要有较大的 receptive field:
+        #
+        # 1. 通过 pooling
+        # 2. 通过更大的 kernel
+        #
+        # 前者会导致信息丢失
+        # 后者计算量太大
+        #
+        # SCNN 的作法是通过类似 rnn 的作法让空间中不同位置的信息能传递(合并)在一
+        # 起, 让网络能看到整个空间的信息
+        #
         if vertical:
             slices = [x[:, :, i : (i + 1), :] for i in range(H)]
             dim = 2
