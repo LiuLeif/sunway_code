@@ -34,7 +34,16 @@ class SCNN(nn.Module):
         x = self.message_passing_forward(x)
         # x: [1, 128, 36, 100]
         x = self.layer2(x)
+        #
         # x: [1, 5, 36, 100]
+        # interpolate 在这里是在做 up sampling, 36*8=288, 100*8=800
+        #
+        # 在 semantic segmentation 网络中最后都需要 up sampling 操作, 才能生成针
+        # 对每个像素的 prob_map
+        #
+        # 如果暂时忽略 message_passing_forward 不关注, scnn 实际就是不断的做
+        # conv2d, 把 channel 降成 5 之后, 再做一个 up sampling 恢复原始的尺寸
+        #
         seg_pred = F.interpolate(x, scale_factor=8, mode="bilinear", align_corners=True)
         # seg_pred: [1, 5, 288, 800]
         x = self.layer3(x)
@@ -58,6 +67,7 @@ class SCNN(nn.Module):
         return seg_pred, exist_pred, loss_seg, loss_exist, loss
 
     def message_passing_forward(self, x):
+        # NOTE: message_passing_forward 是 SCNN 最核心的部分
         Vertical = [True, True, False, False]
         Reverse = [False, True, False, True]
         for ms_conv, v, r in zip(self.message_passing, Vertical, Reverse):
@@ -92,6 +102,11 @@ class SCNN(nn.Module):
     def net_init(self, input_size, ms_ks):
         input_w, input_h = input_size
         self.fc_input_feature = 5 * int(input_w / 16) * int(input_h / 16)
+        # NOTE: backbone 是 vgg16 的特征提取部分, 但替换某几层 conv2d 为
+        # dilation conv2d...至于为啥...大概和 FCN (full conv net) 有关吧同时还删
+        # 除了 33,43 两层 maxpooling, 应该也是和 FCN 有关. 因为为了避免 pooling
+        # 导致的信息丢失, FCN 并不包含 pooling, 但是去掉 pooling 会导致 conv2d
+        # 的 receptive filed 变小, 做为补偿, 才使用 dilation conv2d 代替 conv2d
         self.backbone = models.vgg16_bn(pretrained=self.pretrained).features
 
         # ----------------- process backbone -----------------
