@@ -31,8 +31,6 @@ def normalize(img, mean, std):
     return torchvision.transforms.Normalize(mean, std)(img)
 
 
-# download hello_tusimple.pth from
-# https://drive.google.com/open?id=1IwEenTekMt-t6Yr5WJU9_kv4d_Pegd_Q
 net = SCNN(input_size=resize_shape, pretrained=False)
 save_dict = torch.load("hello_tusimple.pth")
 net.load_state_dict(save_dict["net"])
@@ -42,7 +40,7 @@ net.eval()
 #
 # scnn 的输出有两个: seg_pred 和 exist_pred
 #
-# seg_pred: [5, 288,800], 表示每一个像素所属 class 的概率.
+# seg_pred: [5, 288, 800], 表示每一个像素所属 class 的概率.
 #
 # 0 表示属于 backgroud 的概率, 即这个像素不属于任何一条车道线.
 # 1 表示属于车道线 0 的概率
@@ -51,8 +49,8 @@ net.eval()
 #
 # exist_pred: [1, 4], 表示检测到有相应车道的概率
 #
-# seg_pred 这种针对所有像素的分类概率叫做 prob_map. scnn 本质上是一个语义分割的
-# 问题
+# seg_pred 这种针对所有像素的分类概率叫做 prob_map. lane detection 本质上是一个
+# 语义分割的问题
 #
 # 有了 prob_map 后, 那些 argmax(prob_map,axis=0) == 1 的点就是预测出来的车道线 0
 # 上的点
