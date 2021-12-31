@@ -3,7 +3,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 
-
+# NOTE: arxiv
+#
+# scnn: 2017/12
+# https://arxiv.org/pdf/1712.06080.pdf
+#
+# dilated_net: 2017/5
+# https://towardsdatascience.com/review-dilated-convolution-semantic-segmentation-9d5a5bd768f5
+# https://arxiv.org/pdf/1606.00915
+#
+# fcn for semantic segmentation: 2015/3
+# https://towardsdatascience.com/review-dilated-convolution-semantic-segmentation-9d5a5bd768f5
+# https://arxiv.org/pdf/1411.4038.pdf
+#
 class SCNN(nn.Module):
     def __init__(self, input_size, ms_ks=9, pretrained=True):
         """
@@ -132,13 +144,16 @@ class SCNN(nn.Module):
     def net_init(self, input_size, ms_ks):
         input_w, input_h = input_size
         self.fc_input_feature = 5 * int(input_w / 16) * int(input_h / 16)
-        # NOTE: backbone 是 vgg16 的特征提取部分, 但替换某几层 conv2d 为
-        # dilation conv2d...至于为啥...大概和 FCN (full conv net) 有关吧同时还删
-        # 除了 33,43 两层 maxpooling, 应该也是和 FCN 有关. 因为为了避免 pooling
-        # 导致的信息丢失, FCN 并不包含 pooling, 但是去掉 pooling 会导致 conv2d
-        # 的 receptive filed 变小, 做为补偿, 才使用 dilation conv2d 代替 conv2d
+        # NOTE: backbone 用的是 vgg16 的特征提取部分, 但删除了 33,43 两层
+        # maxpooling, 因为 pooling 会导致的空间信息丢失; 同时替换最后几层 conv2d
+        # 为 dilation conv2d, 因为删除 pooling 会导致 receptive field 变小, 用
+        # dilation conv2d 可以改善这种情况.
+        #
+        # 关于 pooling 与 semantic segmentation 参考 fcn
+        #
+        # 关于 dilation conv 与 semantic segmentation 参考 dilated_net
+        #
         self.backbone = models.vgg16_bn(pretrained=self.pretrained).features
-
         # ----------------- process backbone -----------------
         for i in [34, 37, 40]:
             conv = self.backbone._modules[str(i)]
