@@ -60,6 +60,7 @@ class Tusimple(Dataset):
         print("val set is done")
 
     def _gen_label_for_json(self, image_set):
+        # NOTE: tusimple 图片的尺寸是 1280x720
         H, W = 720, 1280
 
         # NOTE: SEG_WIDTH 是指 cv2.line 的宽度...

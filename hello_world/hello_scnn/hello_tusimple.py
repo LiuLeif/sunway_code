@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 2021-12-30 15:06
+#
+# NOTE: code from https://github.com/harryhan618/SCNN_Pytorch
+#
 import cv2
 import torch
 import torchvision
