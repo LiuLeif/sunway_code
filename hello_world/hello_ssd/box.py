@@ -19,7 +19,7 @@ def gen_anchors():
 
     boxes = []
     for lvl in range(N_ANCHOR_LEVELS):
-        # NOTE: FEATURE_MAP_SIZES = [19, 10, 5, 3, 2, 1], 因为网络一共会输出
+        # NOTE: FEATURE_MAP_SIZES = [19, 10, 5, 3, 2, 1] 表示网络一共会输出
         # N_ANCHOR_LEVELS (6) 个不同大小 (level) 的 feature map. 例如:
         #
         # mobilenet 的 `out_relu` 层的 feature map 大小为 [1, 19, 19, 576], 接一个
@@ -37,6 +37,7 @@ def gen_anchors():
         # lvl_3 的 anchor 个数: 9*(2+4)=54
         # lvl_4 的 anchor 个数: 4*(2+2)=16
         # lvl_5 的 anchor 个数: 1*(2+2)=4
+        #
         # 总共为 2268
         #
         # ANCHOR_SCALES 代表不同 lvl 的 box 的大小: lvl 越大 box 越大
