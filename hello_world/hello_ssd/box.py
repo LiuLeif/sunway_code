@@ -134,19 +134,27 @@ def decode(anchors, locs):
 
 
 def compute_ground_truth(boxes, labels):
+    # NOTE: boxes [2,4], 表示 box 的 corner 坐标 (x_min, y_min, x_max, y_max)
+    # labels [2,], box 所属的类别 (bicycle, bird, boat, ...)
+    #
     # NOTE: 假设测试图片中有两个 box
     #
-    # boxes [2,4], 表示 box 的 corner 坐标 (x_min, y_min, x_max, y_max)
-    # labels [2,], box 所属的类别 (bicycle, bird, boat, ...)
+    # 先定义几个名词:
+    #
+    # 1. anchor, 表示 gen_anchors 生成的 anchor, 每个 anchor 有它的 center 坐标
+    #
+    # 2. anchor_box, 表示 anchor 对应的 box 相对于 anchor 中心的 center 坐标
+    #
+    # 3. box, 表示标签中的 box
+    #
+    # 模型的标签和输出 (loc) 是 anchor_box:
+    # 在 compute_ground_truth 时需要根据 (box,anchor) 获得 anchor_box 做为标签
+    # 在 inference 时从模型输出得到 anchor_box, 然后根据 (anchor_box, anchor) 获得最终 box
     #
     # NOTE: anchors [2268, 4]
     #
     # 一共 2268 个 anchor, 每个 anchor 为 center 坐标 (center_x, center_y,
     # width, height).
-    #
-    # 先定义几个名词:
-    # 1. anchor, 表示 gen_anchors 生成的 anchor box
-    #
     #
     anchors = gen_anchors()
     #
@@ -175,6 +183,7 @@ def compute_ground_truth(boxes, labels):
     locs = boxes[best_box_index]
     #
     # NOTE: encode 会把 anchor 对应的 box 的坐标转换为相对于 anchor 中心的坐标
+    # (即 anchor_box)
     #
     locs = encode(anchors, locs)
     return confs, locs
@@ -184,8 +193,8 @@ Box = namedtuple("Box", ["label", "score", "box"])
 
 # NOTE: Not Max Supression
 #
-# 预测的结果中每个 anchor 都会输出一个 (label, score, box), 这个结果会有许多重复:
-# 同一个物体被多个 anchor 输出.
+# 预测的结果中每个 anchor 都会输出一个 (label, score, anchor_box), 这个结果会有许多重复:
+# 多个 anchor 的 anchor_box 对应同一个 box
 #
 # NMS 的计算方法是:
 # 1. 把所有 anchor 按 score 排序, 结果为集合 X

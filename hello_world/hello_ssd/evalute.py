@@ -30,6 +30,9 @@ if __name__ == "__main__":
     img = (img - 127.5) / 127.5
     img = np.expand_dims(img, 0)
 
+    # NOTE: confs: [1, 2268, 21], locs: [1, 2268, 4]
+    # 21 表示 21 个 class
+    # 4 表示 anchor box 的 center 坐标 (相对于 anchor)
     confs, locs = model(img, training=False)
     confs, locs = np.squeeze(confs), np.squeeze(locs)
     confs = tf.math.softmax(confs, axis=-1)
@@ -38,6 +41,8 @@ if __name__ == "__main__":
     classes = np.argmax(confs, axis=-1)
 
     anchors = gen_anchors()
+    # NOTE: decode 把 anchor box 相对于 anchor 的 center 坐标转换为绝对的 corner
+    # 坐标
     locs = decode(anchors, locs)
     locs = (locs * np.array([width, height, width, height])).astype("int")
 
