@@ -11,7 +11,7 @@ from config import *
 _anchors = None
 
 
-# NOTE: gen_anchors 是提前计算好的, 最终会生成 2268 个 anchor 的 center 坐标.
+# NOTE: gen_anchors 是提前计算好的, 最终会生成 2268 个 anchor 的坐标.
 def gen_anchors():
     global _anchors
     if _anchors is not None:
@@ -97,7 +97,7 @@ def corner_to_center(boxes):
 
 
 def encode(anchors, locs):
-    # NOTE: encode 需要把 box 的 corner 坐标转换为相对于 anchor 的 center 坐标
+    # NOTE: encode 需要把 box 的坐标转换为相对于 anchor 的坐标 (anchor_box)
     #
     #       +--------+
     #    +--+-----+  |
@@ -120,8 +120,8 @@ def encode(anchors, locs):
 
 
 def decode(anchors, locs):
-    # NOTE: decoder 与 encoder 相反, 把相对于 anchor 的 center 坐标转换为相对于
-    # 整个图片的 corner 坐标
+    # NOTE: decoder 与 encoder 相反, 把相对于 anchor 的坐标转换为相对于整个图片
+    # 的坐标
     locs = np.hstack(
         [
             locs[:, :2] * 0.1 * anchors[:, 2:] + anchors[:, :2],
@@ -134,16 +134,16 @@ def decode(anchors, locs):
 
 
 def compute_ground_truth(boxes, labels):
-    # NOTE: boxes [2,4], 表示 box 的 corner 坐标 (x_min, y_min, x_max, y_max)
+    # NOTE: boxes [2,4], 表示 box 的坐标 (x_min, y_min, x_max, y_max)
     # labels [2,], box 所属的类别 (bicycle, bird, boat, ...)
     #
     # NOTE: 假设测试图片中有两个 box
     #
     # 先定义几个名词:
     #
-    # 1. anchor, 表示 gen_anchors 生成的 anchor, 每个 anchor 有它的 center 坐标
+    # 1. anchor, 表示 gen_anchors 生成的 anchor, 每个 anchor 有它的坐标
     #
-    # 2. anchor_box, 表示 anchor 对应的 box 相对于 anchor 中心的 center 坐标
+    # 2. anchor_box, 表示 anchor 对应的 box 相对于 anchor 中心的坐标
     #
     # 3. box, 表示标签中的 box
     #
@@ -153,8 +153,7 @@ def compute_ground_truth(boxes, labels):
     #
     # NOTE: anchors [2268, 4]
     #
-    # 一共 2268 个 anchor, 每个 anchor 为 center 坐标 (center_x, center_y,
-    # width, height).
+    # 一共 2268 个 anchor, (center_x, center_y, width, height).
     #
     anchors = gen_anchors()
     #
