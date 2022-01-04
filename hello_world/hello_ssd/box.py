@@ -19,8 +19,17 @@ def gen_anchors():
 
     boxes = []
     for lvl in range(N_ANCHOR_LEVELS):
-        # NOTE: FEATURE_MAP_SIZES = [19, 10, 5, 3, 2, 1], 表示 backbone 一共会输
-        # 出这么多 feature, 一共分成 N_ANCHOR_LEVELS (6) 个 level.
+        # NOTE: FEATURE_MAP_SIZES = [19, 10, 5, 3, 2, 1], 因为网络一共会输出
+        # N_ANCHOR_LEVELS (6) 个不同大小 (level) 的 feature map. 例如:
+        #
+        # mobilenet 的 `out_relu` 层的 feature map 大小为 [1, 19, 19, 576], 接一个
+        # conv2d(4*4, kernel=3,strides=1,padding=same) 输出为 19*19*4*4, 可以看作
+        # 是 19*19*4 个 box 的坐标
+        #
+        # mobilenet 的 `block_13_expand_relu` 层的 feature map 大小为 [1, 10, 10, 1280], 接一个
+        # conv2d(6*4, kernel=3,strides=1,padding=same) 输出为 10*10*6*4, 可以看作
+        # 是 10*10*6 个 box 的坐标
+        #
         #
         # lvl_0 的 anchor 个数: 19*19*(2+2) = 1444
         # lvl_1 的 anchor 个数: 100*(2+4)=600
@@ -31,8 +40,14 @@ def gen_anchors():
         # 总共为 2268
         #
         # ANCHOR_SCALES 代表不同 lvl 的 box 的大小: lvl 越大 box 越大
-        # ANCHOR_RATIOS 决定了 box 的形状, ratio 越大 box 越长(或越宽)
+        # ANCHOR_RATIOS 决定了 box 的长宽比, ratio 越大 box 越长(或越宽)
         #
+        # 分成多少个 level, 每个 level 里 box 的间隔, 大小, 形状, 多少等都取决于要
+        # 检测的物体的大小, 多少, 形状等.
+        #
+        # 例如, 若物体普遍比较大, 则 lvl_0 可能并不需要, 而其它 lvl 可以适当增加 box
+        # 的大小和数目. 以 google mediapipe 的人脸检测模型为例, 它只有两个 lvl, 而
+        # 且所有 box 的长宽均为 1
         for i in range(FEATURE_MAP_SIZES[lvl]):
             for j in range(FEATURE_MAP_SIZES[lvl]):
                 cx = (j + 0.5) / FEATURE_MAP_SIZES[lvl]
