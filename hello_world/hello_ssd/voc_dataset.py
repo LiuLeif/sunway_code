@@ -129,15 +129,15 @@ if __name__ == "__main__":
     image, confs, locs = next(voc._generator(["002477"]))
     # image = voc._get_image("002477")
     anchors = gen_anchors()
-    corner_anchors = center_to_corner(anchors)
     locs = decode(anchors, locs)
-
+    anchors = center_to_corner(anchors)
     for i in range(len(confs)):
         if confs[i] == 0:
             continue
         x1, y1, x2, y2 = locs[i]
-        xx1, yy1, xx2, yy2 = corner_anchors[i]
+        xx1, yy1, xx2, yy2 = anchors[i]
         height, width, _ = image.shape
+        # NOTE: 红色框是真实 box 的坐标
         cv2.rectangle(
             image,
             (int(x1 * width), int(y1 * height)),
@@ -146,6 +146,7 @@ if __name__ == "__main__":
             1,
             1,
         )
+        # NOTE: 绿色框是对应于这个 box 的 anchor 的坐标
         cv2.rectangle(
             image,
             (int(xx1 * width), int(yy1 * height)),

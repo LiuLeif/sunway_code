@@ -11,6 +11,7 @@ from config import *
 _anchors = None
 
 
+# NOTE: gen_anchors 是提前计算好的, 最终会生成 2268 个 anchor 的 center 坐标.
 def gen_anchors():
     global _anchors
     if _anchors is not None:
@@ -19,7 +20,7 @@ def gen_anchors():
     boxes = []
     for lvl in range(N_ANCHOR_LEVELS):
         # NOTE: FEATURE_MAP_SIZES = [19, 10, 5, 3, 2, 1], 表示 backbone 一共会输
-        # 出这么多 feature, 一共 N_ANCHOR_LEVELS (6) 个 level.
+        # 出这么多 feature, 一共分成 N_ANCHOR_LEVELS (6) 个 level.
         #
         # lvl_0 的 anchor 个数: 19*19*(2+2) = 1444
         # lvl_1 的 anchor 个数: 100*(2+4)=600
@@ -133,7 +134,7 @@ def decode(anchors, locs):
 
 
 def compute_ground_truth(boxes, labels):
-    # NOTE: 测试图片中有两个 box
+    # NOTE: 假设测试图片中有两个 box
     #
     # boxes [2,4], 表示 box 的 corner 坐标 (x_min, y_min, x_max, y_max)
     # labels [2,], box 所属的类别 (bicycle, bird, boat, ...)
@@ -183,13 +184,15 @@ Box = namedtuple("Box", ["label", "score", "box"])
 
 # NOTE: Not Max Supression
 #
-# 预测的结果中每个 anchor 都会输出一个 (box, score), 这个结果会有许多重复: 同一
-# 个物体被多个 anchor 输出.
+# 预测的结果中每个 anchor 都会输出一个 (label, score, box), 这个结果会有许多重复:
+# 同一个物体被多个 anchor 输出.
+#
 # NMS 的计算方法是:
 # 1. 把所有 anchor 按 score 排序, 结果为集合 X
 # 2. 输出 X 中 score 最大的 A, 并且 X.pop(A)
 # 3. 计算 X 和 A 的 IOU, 所有超过 threshold(例如 0.5) 的 anchor (B) 被认为是与 A 重复, X.pop(B)
 # 4. 重复 2
+#
 def nms(boxes):
     if len(boxes) <= 0:
         return np.array([])

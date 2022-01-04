@@ -22,7 +22,6 @@ class MobileNet(Model):
             weights=weights,
             input_tensor=input,
         )
-
         self.model = tf.keras.Model(
             inputs=input,
             outputs=[
@@ -35,8 +34,12 @@ class MobileNet(Model):
         x, feature1 = self.model(x)
         return x, (self.bn(feature1), x)
 
+    # NOTE: conf layer 一共 6 层, 用来输入不同 level 的 anchor 对应的 conf,
+    # 其中每层输出的 channel 前 4*xxx,6*xxx 和 box.py 中生成 anchor 的部分是对应的
     def get_conf_layers(self):
         return [
+            # NOTE: 由于 stride 为 1, padding 为 same, 所以 conv2d 的输出尺寸与
+            # 输入相同
             layers.SeparableConv2D(4 * N_CLASSES, kernel_size=3, padding="same"),
             layers.SeparableConv2D(6 * N_CLASSES, kernel_size=3, padding="same"),
             layers.SeparableConv2D(6 * N_CLASSES, kernel_size=3, padding="same"),
@@ -45,6 +48,7 @@ class MobileNet(Model):
             layers.Conv2D(4 * N_CLASSES, kernel_size=1),
         ]
 
+    # NOTE: loc layer 一共 6 层, 用来输入不同 level 的 anchor 对应的 loc
     def get_loc_layers(self):
         return [
             layers.SeparableConv2D(4 * 4, kernel_size=3, padding="same"),
@@ -55,7 +59,8 @@ class MobileNet(Model):
             layers.Conv2D(4 * 4, kernel_size=1),
         ]
 
-    # 5, 3, 2, 1
+    # NOTE: extra_feature_layers 输出的 channel 数并不重要, 但它的 feature map
+    # 的 shape 必须依次是 5, 3, 2, 1 (主要通过 strides=2 达到这个目的)
     def get_extra_feature_layers(self):
         return [
             Sequential(

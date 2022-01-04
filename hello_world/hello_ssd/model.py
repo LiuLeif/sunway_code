@@ -11,6 +11,8 @@ from tensorflow.keras import backend as K
 from backbone import *
 from config import *
 
+# NOTE: https://arxiv.org/abs/1512.02325
+
 
 class SSDModel(Model):
     def __init__(self, resume=False):
@@ -44,15 +46,26 @@ class SSDModel(Model):
     def call(self, x, training=True):
         K.set_learning_phase(training)
         self._reset_classifier()
-        # vgg16
+        # mobilenet
+        # NOTE: x: [1, 10, 10, 1280],
+        # features[0]: [1, 19, 19, 576],
+        # features[1]: [1, 10, 10, 1280]
+
+        # features 表示 6 个 level 的前两个 level (1444, 600) 对应的 anchor 的输
+        # 入由 backbone 产生
         x, features = self.backbone(x)
         for f in features:
             self._classify(f)
-        # extra layer layers
+        # 后 4 个 level (5, 3, 2, 1) 通过 extra_feature_layers 来产生
         for layer in self.extra_feature_layers:
             x = layer(x)
+            # NOTE: 四个 extra_feature_layers 输出的 shape 依次为:
+            # [1, 5, 5, 512]
+            # [1, 3, 3, 256]
+            # [1, 2, 2, 256]
+            # [1, 1, 1, 256]
             self._classify(x)
-
+        # NOTE: 最后 6 个 level 的 anchor 数据被 concat 在一起, 长度为 2268
         return tf.concat(self.confs, axis=1), tf.concat(self.locs, axis=1)
 
 

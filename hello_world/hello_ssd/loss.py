@@ -10,13 +10,6 @@ from config import *
 
 class SSDLoss(object):
     def __init__(self):
-        # temp_cross_entropy 是用来比较哪个 box 的 loss 较大, 所以需要指定
-        # reduction 为 none 避免 loss 被 reduce 成 scalar
-        # conf_layers 没有包含 softmax, 所以 from_logits 需要为 True
-        # confs: (B, 8732, 21),
-        # gt_confs: (B, 8732), 即 sparse categorical
-        # temp_cross_entropy 输出为 (B, 8732)
-        # cross_entropy 输出为 (B)
         self.temp_cross_entropy = SparseCategoricalCrossentropy(
             from_logits=True, reduction="none"
         )
@@ -25,10 +18,12 @@ class SSDLoss(object):
         )
         self.smooth_l1 = Huber(reduction="sum")
 
+    # NOTE: 由于 2268 个 anchor 中一般只有几个 anchor 的 conf 为非 0, 导致标签中
+    # 有大量的负样本, 通过 hard_negative_mining, 只选择几个误差最大的负样本参与
+    # loss 的计算, 以避免数据不平衡的问题
     def _hard_negative_mining(self, gt_confs, confs):
-        # confs: (B, 8732, 21),
-        # gt_confs: (B, 8732)
-        # conf_layers 没有包含 softmax, 所以 from_logits 需要为 True
+        # confs: (N, 2268, 21),
+        # gt_confs: (N, 2268)
         temp_loss = self.temp_cross_entropy(gt_confs, confs)
         pos_idx = gt_confs > 0
         num_pos = tf.reduce_sum(tf.dtypes.cast(pos_idx, tf.int32), axis=1)
@@ -42,7 +37,10 @@ class SSDLoss(object):
 
     def __call__(self, gt_confs, gt_locs, confs, locs):
         pos_index, all_index = self._hard_negative_mining(gt_confs, confs)
+        # NOTE: 计算 conf_loss 使用了 all_index
         conf_loss = self.cross_entropy(gt_confs[all_index], confs[all_index])
+        # NOTE: 计算 loc_loss 时只选择了 pos_index, 因为 compute_ground_truth 时
+        # 负样本的 loc 数据是无效的
         loc_loss = self.smooth_l1(gt_locs[pos_index], locs[pos_index])
         num_pos = tf.reduce_sum(tf.dtypes.cast(pos_index, tf.float32))
         return conf_loss / num_pos, loc_loss / num_pos
