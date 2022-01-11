@@ -13,7 +13,7 @@ import torchvision.models as models
 # https://arxiv.org/pdf/1606.00915
 #
 # fcn for semantic segmentation: 2015/3
-# https://towardsdatascience.com/review-dilated-convolution-semantic-segmentation-9d5a5bd768f5
+# https://towardsdatascience.com/review-fcn-semantic-segmentation-eb8c9b50d2d1
 # https://arxiv.org/pdf/1411.4038.pdf
 #
 class SCNN(nn.Module):
