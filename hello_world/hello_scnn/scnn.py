@@ -106,7 +106,7 @@ class SCNN(nn.Module):
         # ...
         #
         # 计算完以后 out shape 和 input shape (基本) 是一样的, 因为 stride = 1,
-        # padding=w//2, 而 O=(w+2p-k)/s+1.
+        # padding=k//2, 而 O=(w+2p-k)/s+1.
         #
         # 另外整个过程和 rnn 很像: slice 是 input 序列, out 是 hidden state 序列
         #
