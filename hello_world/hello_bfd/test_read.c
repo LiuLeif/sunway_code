@@ -81,10 +81,8 @@ int main(int argc, char *argv[]) {
      */
     assert(bfd_check_format(abfd, bfd_object) != 0);
 
-    /*
-     * read_symtab(abfd);
-     * read_reloc(abfd);
-     */
+    read_symtab(abfd);
+    read_reloc(abfd);
     read_section(abfd);
     return 0;
 }
