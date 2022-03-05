@@ -59,12 +59,12 @@ void write_reloc() {
     reloc_table[0] = bfd_alloc(abfd, sizeof(arelent));
     reloc_table[0]->address = 0xa;
     reloc_table[0]->addend = -4;
-    reloc_table[0]->howto = 2; /* R_X86_64_PC32; */
+    /* R_X86_64_PC32 */
+    reloc_table[0]->howto = bfd_reloc_type_lookup(abfd, 2);
     reloc_table[0]->sym_ptr_ptr = &symbol_table[1];
     bfd_set_reloc(
         abfd, text_section, reloc_table,
-        sizeof(reloc_table) / sizeof(reloc_table[0]));
-
+        sizeof(reloc_table) / sizeof(reloc_table[0]) - 1);
     bfd_close(abfd);
 }
 
