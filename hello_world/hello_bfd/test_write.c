@@ -60,7 +60,7 @@ void write_reloc() {
     reloc_table[0]->address = 0xa;
     reloc_table[0]->addend = -4;
     /* R_X86_64_PC32 */
-    reloc_table[0]->howto = bfd_reloc_type_lookup(abfd, 2);
+    reloc_table[0]->howto = bfd_reloc_type_lookup(abfd, BFD_RELOC_32_PCREL);
     reloc_table[0]->sym_ptr_ptr = &symbol_table[1];
     bfd_set_reloc(
         abfd, text_section, reloc_table,
@@ -102,7 +102,7 @@ void write_section() {
     asection* text_section = bfd_make_section_old_way(abfd, ".text");
 
     symbol_table[0] = bfd_make_empty_symbol(abfd);
-    symbol_table[0]->name = "foo";
+    symbol_table[0]->name = "foo2";
     symbol_table[0]->section = text_section;
     symbol_table[0]->flags = BSF_GLOBAL | BSF_FUNCTION;
     symbol_table[0]->value = 0;
@@ -120,10 +120,8 @@ void write_section() {
 }
 
 int main(int argc, char* argv[]) {
-    /*
-     * write_symbol();
-     * write_section();
-     */
+    write_symbol();
+    write_section();
     write_reloc();
     return 0;
 }
