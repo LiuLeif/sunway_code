@@ -5,6 +5,9 @@ import "github.com/gin-gonic/gin"
 
 func main() {
 	router := gin.Default()
+	router.LoadHTMLGlob("src/hexintek.com/monitor/ui/*")
+	router.Static("/assets", "src/hexintek.com/monitor/assets")
+
 	router.GET("/devices/", handleGetDevices)
 	router.PUT("/devices/", handleInsertDevice)
 	router.Run()

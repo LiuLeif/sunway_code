@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -35,7 +34,7 @@ func getConnection() *mongo.Client {
 }
 
 func GetDeviceInfo(config map[string]interface{}) []DeviceInfo {
-	cursor, _ := device_info_collection.Find(context.TODO(), bson.M{})
+	cursor, _ := device_info_collection.Find(context.TODO(), config)
 	var ret []DeviceInfo
 	cursor.All(context.TODO(), &ret)
 	return ret
