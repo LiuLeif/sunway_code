@@ -18,7 +18,7 @@ func error(c *gin.Context, msg string) {
 	log.Fatal(msg)
 }
 
-func handleGetDevices(c *gin.Context) {
+func showDashBoard(c *gin.Context) {
 	imei := strings.TrimSpace(c.Query("imei"))
 	vendor := strings.TrimSpace(c.Query("vendor"))
 	filter := map[string]interface{}{}
@@ -29,20 +29,20 @@ func handleGetDevices(c *gin.Context) {
 		filter["vendor"] = vendor
 	}
 	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices, "filter": filter})
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
 }
 
-func handleInsertDevice(c *gin.Context) {
+func enroll(c *gin.Context) {
 	imei := strings.TrimSpace(c.PostForm("imei"))
 	vendor := strings.TrimSpace(c.PostForm("vendor"))
 	InsertDeviceInfo(DeviceInfo{imei, vendor})
 
 	filter := map[string]interface{}{"imei": imei, "vendor": vendor}
 	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices, "filter": filter})
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
 }
 
-func handleUpload(c *gin.Context) {
+func bulkEnroll(c *gin.Context) {
 	fmt.Println("handle upload")
 	file, err := c.FormFile("upload_file")
 	if err != nil {
@@ -98,5 +98,9 @@ func handleUpload(c *gin.Context) {
 	}
 
 	devices = GetDeviceInfo(nil)
-	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices})
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices})
+}
+
+func showLogin(c *gin.Context) {
+    c.HTML(http.StatusOK, "login.tmpl", gin.H{})
 }

@@ -17,15 +17,16 @@
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#query">Query</a></li>
     <li><a data-toggle="tab" href="#enroll">Enroll</a></li>
-    <li><a data-toggle="tab" href="#batch_enroll">Batch Enroll</a></li>
+    <li><a data-toggle="tab" href="#bulk_enroll">Bulk Enroll</a></li>
 </ul>
 
 <div class="tab-content">
+    <!-- dashboard -->
     <div id="query" class="tab-pane fade in active">
         <div class="panel panel-default">
             <div class="panel-heading">Query</div>
             <div class="panel-body">
-                <form method="get" action="/devices" class="form-inline">
+                <form method="get" action="/dashboard" class="form-inline">
                     <div class="form-group">
                         <input type="text" class="form-control" name="imei" aria-describedby="imei" placeholder="IMEI" value={{.filter.imei}}>
                     </div>
@@ -41,7 +42,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Enroll</div>
             <div class="panel-body">
-                <form method="post" action="/devices" class="form-inline">
+                <form method="post" action="/enroll" class="form-inline">
                     <input type="text" class="form-control" name="imei" aria-describedby="imei" placeholder="IMEI">
                     <input type="text" class="form-control" name="vendor" aria-describedby="imei" placeholder="Vendor">            
                     <button type="submit" class="btn btn-primary">Enroll</button>
@@ -49,11 +50,11 @@
             </div>
         </div>        
     </div>
-    <div id="batch_enroll" class="tab-pane fade">
+    <div id="bulk_enroll" class="tab-pane fade">
         <div class="panel panel-default">
             <div class="panel-heading">Enroll File</div>
             <div class="panel-body">
-                <form method="post" action="/upload" class="form-inline" enctype="multipart/form-data">
+                <form method="post" action="/bulk_enroll" class="form-inline" enctype="multipart/form-data">
                     <input type="file" class="form-control" name="upload_file">
                     <button type="submit" class="btn btn-primary">Enroll</button>
                 </form>      
