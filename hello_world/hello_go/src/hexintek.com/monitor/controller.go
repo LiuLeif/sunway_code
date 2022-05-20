@@ -3,7 +3,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -19,8 +18,7 @@ func error(c *gin.Context, msg string) {
 }
 
 func showDashBoard(c *gin.Context) {
-	if (needLogin(c)) {
-		fmt.Println("here")
+	if needLogin(c) {
 		return
 	}
 	imei := strings.TrimSpace(c.Query("imei"))
@@ -37,6 +35,9 @@ func showDashBoard(c *gin.Context) {
 }
 
 func enroll(c *gin.Context) {
+	if needLogin(c) {
+		return
+	}
 	imei := strings.TrimSpace(c.PostForm("imei"))
 	vendor := strings.TrimSpace(c.PostForm("vendor"))
 	InsertDeviceInfo(DeviceInfo{imei, vendor})
@@ -47,7 +48,9 @@ func enroll(c *gin.Context) {
 }
 
 func bulkEnroll(c *gin.Context) {
-	fmt.Println("handle upload")
+	if needLogin(c) {
+		return
+	}
 	file, err := c.FormFile("upload_file")
 	if err != nil {
 		error(c, err.Error())
@@ -116,7 +119,7 @@ func login(c *gin.Context) {
 
 	if IsUserValid(username, password) {
 		Login(c, username)
-        showDashBoard(c)
+		showDashBoard(c)
 	} else {
 		showLogin(c)
 	}
@@ -125,8 +128,7 @@ func login(c *gin.Context) {
 func needLogin(c *gin.Context) bool {
 	if GetLoginUser(c) == "unknown" {
 		c.HTML(http.StatusOK, "login.tmpl", gin.H{})
-        return true
+		return true
 	}
 	return false
 }
-

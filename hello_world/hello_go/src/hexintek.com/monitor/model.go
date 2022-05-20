@@ -3,9 +3,11 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
 	"fmt"
 	"log"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -18,6 +20,7 @@ type DeviceInfo struct {
 var conn = getConnection()
 var db = conn.Database("monitor")
 var device_info_collection = db.Collection("device_info")
+var account_collection = db.Collection("account")
 
 func getConnection() *mongo.Client {
 	clientOptions := options.Client().ApplyURI("mongodb://myuser:mypassword@localhost:27017")
@@ -44,6 +47,23 @@ func InsertDeviceInfo(info DeviceInfo) {
 	device_info_collection.InsertOne(context.TODO(), info)
 }
 
-func IsUserValid(accout string, password string) bool {
-	return true
+type Account struct {
+	Username string
+	Password string
+}
+
+func IsUserValid(username string, password string) bool {
+	cursor, _ := account_collection.Find(context.TODO(), bson.M{"username": username})
+	var accounts []Account
+	cursor.All(context.TODO(), &accounts)
+	if len(accounts) != 1 {
+		return false
+	}
+	h := sha256.New()
+	h.Write([]byte(password))
+	bs := h.Sum(nil)
+	digest := fmt.Sprintf("%x", bs)
+	fmt.Println(digest)
+	fmt.Println(accounts[0].Password)    
+	return digest == accounts[0].Password
 }
