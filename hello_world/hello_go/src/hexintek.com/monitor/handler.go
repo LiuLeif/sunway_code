@@ -20,7 +20,7 @@ func handleGetDevices(c *gin.Context) {
 		filter["vendor"] = vendor
 	}
 	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices, "filter":filter})
+	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices, "filter": filter})
 }
 
 func handleInsertDevice(c *gin.Context) {
