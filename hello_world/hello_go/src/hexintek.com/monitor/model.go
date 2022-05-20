@@ -43,3 +43,7 @@ func GetDeviceInfo(config map[string]interface{}) []DeviceInfo {
 func InsertDeviceInfo(info DeviceInfo) {
 	device_info_collection.InsertOne(context.TODO(), info)
 }
+
+func IsUserValid(accout string, password string) bool {
+	return true
+}

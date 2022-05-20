@@ -19,6 +19,10 @@ func error(c *gin.Context, msg string) {
 }
 
 func showDashBoard(c *gin.Context) {
+	if (needLogin(c)) {
+		fmt.Println("here")
+		return
+	}
 	imei := strings.TrimSpace(c.Query("imei"))
 	vendor := strings.TrimSpace(c.Query("vendor"))
 	filter := map[string]interface{}{}
@@ -29,7 +33,7 @@ func showDashBoard(c *gin.Context) {
 		filter["vendor"] = vendor
 	}
 	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": GetLoginUser(c)})
 }
 
 func enroll(c *gin.Context) {
@@ -102,5 +106,27 @@ func bulkEnroll(c *gin.Context) {
 }
 
 func showLogin(c *gin.Context) {
-    c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+	Logout(c)
+	c.HTML(http.StatusOK, "login.tmpl", gin.H{})
 }
+
+func login(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	if IsUserValid(username, password) {
+		Login(c, username)
+        showDashBoard(c)
+	} else {
+		showLogin(c)
+	}
+}
+
+func needLogin(c *gin.Context) bool {
+	if GetLoginUser(c) == "unknown" {
+		c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+        return true
+	}
+	return false
+}
+

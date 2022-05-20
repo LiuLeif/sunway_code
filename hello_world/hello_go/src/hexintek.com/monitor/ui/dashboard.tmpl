@@ -9,7 +9,15 @@
                  <li class="active"><a href="#">Home</a></li>
                  </ul> -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">wei.sun@hexintek.com</a></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> {{.username}}
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/login">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
