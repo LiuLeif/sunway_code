@@ -2,12 +2,21 @@
 package main
 
 import (
+	"encoding/csv"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 )
+
+func error(c *gin.Context, msg string) {
+	c.JSON(http.StatusBadRequest, gin.H{"msg": msg})
+	log.Fatal(msg)
+}
 
 func handleGetDevices(c *gin.Context) {
 	imei := strings.TrimSpace(c.Query("imei"))
@@ -24,12 +33,70 @@ func handleGetDevices(c *gin.Context) {
 }
 
 func handleInsertDevice(c *gin.Context) {
-	var device DeviceInfo
-	if err := c.ShouldBindJSON(&device); err != nil {
-		log.Print(err)
-		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
+	imei := strings.TrimSpace(c.PostForm("imei"))
+	vendor := strings.TrimSpace(c.PostForm("vendor"))
+	InsertDeviceInfo(DeviceInfo{imei, vendor})
+
+	filter := map[string]interface{}{"imei": imei, "vendor": vendor}
+	devices := GetDeviceInfo(filter)
+	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices, "filter": filter})
+}
+
+func handleUpload(c *gin.Context) {
+	fmt.Println("handle upload")
+	file, err := c.FormFile("upload_file")
+	if err != nil {
+		error(c, err.Error())
 		return
 	}
-	InsertDeviceInfo(device)
-	c.JSON(http.StatusOK, gin.H{})
+
+	if file.Size > 10240000 {
+		error(c, "file size execeed 10MB")
+		return
+	}
+
+	tmpfile, _ := ioutil.TempFile("/tmp", "gin")
+	defer os.Remove(tmpfile.Name())
+	c.SaveUploadedFile(file, tmpfile.Name())
+
+	f, err := os.Open(tmpfile.Name())
+	if err != nil {
+		error(c, "internal error")
+		return
+	}
+	defer f.Close()
+
+	csvReader := csv.NewReader(f)
+	data, err := csvReader.ReadAll()
+	if err != nil {
+		error(c, "bad csv format:"+err.Error())
+		return
+	}
+
+	devices := []DeviceInfo{}
+
+	for i, line := range data {
+		if i == 0 {
+			// skip header line
+			continue
+		}
+		device := DeviceInfo{}
+		for j, v := range line {
+			if j == 0 {
+				device.IMEI = v
+			} else if j == 1 {
+				device.Vendor = v
+			} else {
+
+			}
+		}
+		devices = append(devices, device)
+	}
+
+	for _, device := range devices {
+		InsertDeviceInfo(device)
+	}
+
+	devices = GetDeviceInfo(nil)
+	c.HTML(http.StatusOK, "device_list.tmpl", gin.H{"Devices": devices})
 }

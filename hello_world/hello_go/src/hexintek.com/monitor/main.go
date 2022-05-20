@@ -9,6 +9,7 @@ func main() {
 	router.Static("/assets", "src/hexintek.com/monitor/assets")
 
 	router.GET("/devices/", handleGetDevices)
-	router.PUT("/devices/", handleInsertDevice)
+	router.POST("/devices/", handleInsertDevice)
+	router.POST("/upload/", handleUpload)	
 	router.Run()
 }
