@@ -110,7 +110,8 @@ func bulkEnroll(c *gin.Context) {
 
 func showLogin(c *gin.Context) {
 	Logout(c)
-	c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+	retry, _ := c.Get("retry")
+	c.HTML(http.StatusOK, "login.tmpl", gin.H{"retry": retry})
 }
 
 func login(c *gin.Context) {
@@ -121,13 +122,14 @@ func login(c *gin.Context) {
 		Login(c, username)
 		showDashBoard(c)
 	} else {
+		c.Set("retry", true)
 		showLogin(c)
 	}
 }
 
 func needLogin(c *gin.Context) bool {
 	if GetLoginUser(c) == "unknown" {
-		c.HTML(http.StatusOK, "login.tmpl", gin.H{})
+		c.Redirect(http.StatusFound, "/login")
 		return true
 	}
 	return false
