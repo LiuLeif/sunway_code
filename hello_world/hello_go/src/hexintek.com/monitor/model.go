@@ -32,7 +32,6 @@ func getConnection() *mongo.Client {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Connected to MongoDB!")
 	return client
 }
 
@@ -63,7 +62,5 @@ func IsUserValid(username string, password string) bool {
 	h.Write([]byte(password))
 	bs := h.Sum(nil)
 	digest := fmt.Sprintf("%x", bs)
-	fmt.Println(digest)
-	fmt.Println(accounts[0].Password)    
 	return digest == accounts[0].Password
 }
