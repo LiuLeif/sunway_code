@@ -50,8 +50,8 @@ func getConnection() *mongo.Client {
 	return client
 }
 
-func GetDeviceInfo(config map[string]interface{}) []DeviceInfo {
-	cursor, _ := device_info_collection.Find(context.TODO(), config)
+func GetDeviceInfo(filter map[string]interface{}) []DeviceInfo {
+	cursor, _ := device_info_collection.Find(context.TODO(), filter)
 	var ret []DeviceInfo
 	cursor.All(context.TODO(), &ret)
 	return ret
