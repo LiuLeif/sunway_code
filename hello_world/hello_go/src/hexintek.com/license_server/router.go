@@ -9,8 +9,8 @@ func main() {
 	InitSession(router)
 	InitModel()
 
-	router.Static("/assets", "src/hexintek.com/monitor/assets")
-	router.LoadHTMLGlob("src/hexintek.com/monitor/ui/*")
+	router.Static("/assets", "src/hexintek.com/license_server/assets")
+	router.LoadHTMLGlob("src/hexintek.com/license_server/ui/*")
 
 	// for web client
 	router.GET("/login", showLogin)
