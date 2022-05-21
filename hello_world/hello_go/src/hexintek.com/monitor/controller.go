@@ -31,7 +31,7 @@ func showDashBoard(c *gin.Context) {
 		filter["vendor"] = vendor
 	}
 	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": GetLoginUser(c)})
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": GetLoginUser(c), "count": len(devices)})
 }
 
 func enroll(c *gin.Context) {
