@@ -7,16 +7,18 @@ func main() {
 	router := gin.Default()
 
 	InitSession(router)
-	
+	InitModel()
+
 	router.Static("/assets", "src/hexintek.com/monitor/assets")
 	router.LoadHTMLGlob("src/hexintek.com/monitor/ui/*")
 
 	// for web client
+	router.GET("/login", showLogin)
+	router.POST("/login", login)
+
 	router.GET("/dashboard/", showDashBoard)
 	router.POST("/enroll/", enroll)
-	router.POST("/bulk_enroll/", bulkEnroll)
-	router.GET("/login", showLogin)
-	router.POST("/login", login)	
+	router.POST("/bulk_enroll/", bulkEnroll)	
 
 	router.Run()
 }

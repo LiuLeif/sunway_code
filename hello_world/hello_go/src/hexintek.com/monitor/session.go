@@ -2,6 +2,8 @@
 package main
 
 import (
+	"errors"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -12,9 +14,9 @@ func InitSession(router *gin.Engine) {
 	router.Use(sessions.Sessions("mysession", store))
 }
 
-func Login(c *gin.Context, username string) {
+func Login(c *gin.Context, account Account) {
 	session := sessions.Default(c)
-	session.Set("username", username)
+	session.Set("account", account)
 	session.Options(sessions.Options{
 		MaxAge: 3600 * 6, // 6 hours
 	})
@@ -23,15 +25,30 @@ func Login(c *gin.Context, username string) {
 
 func Logout(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Set("username", "unknown")
+	session.Delete("account")
 	session.Save()
 }
 
-func GetLoginUser(c *gin.Context) string {
+func GetLoginAccount(c *gin.Context) (Account, error) {
 	session := sessions.Default(c)
-	v := session.Get("username")
+	v := session.Get("account")
 	if v == nil {
-		return "unknown"
+		return Account{}, errors.New("not logged in")
 	}
-	return v.(string)
+	switch v.(type) {
+	case Account:
+		return (v.(Account)), nil
+	case *Account:
+		return *(v.(*Account)), nil
+	}
+	return Account{}, errors.New("not logged in")
+}
+
+func LimitToVendor(c *gin.Context, config map[string]interface{}) map[string]interface{} {
+	account, _ := GetLoginAccount(c)
+	if config == nil {
+		config = map[string]interface{}{}
+	}
+	config["vendor"] = account.Vendor
+	return config
 }

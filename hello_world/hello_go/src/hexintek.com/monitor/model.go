@@ -4,6 +4,8 @@ package main
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/gob"
+	"errors"
 	"fmt"
 	"log"
 
@@ -13,14 +15,27 @@ import (
 )
 
 type DeviceInfo struct {
-	IMEI   string
-	Vendor string
+	IMEI    string
+	Version string
+	Vendor  string
 }
 
-var conn = getConnection()
-var db = conn.Database("monitor")
-var device_info_collection = db.Collection("device_info")
-var account_collection = db.Collection("account")
+func (d DeviceInfo) ToCSV() []string {
+	return []string{d.IMEI, d.Version}
+}
+
+var conn *mongo.Client
+var db *mongo.Database
+var device_info_collection *mongo.Collection
+var account_collection *mongo.Collection
+
+func InitModel() {
+	gob.Register(&Account{})
+	conn = getConnection()
+	db = conn.Database("monitor")
+	device_info_collection = db.Collection("device_info")
+	account_collection = db.Collection("account")
+}
 
 func getConnection() *mongo.Client {
 	clientOptions := options.Client().ApplyURI("mongodb://myuser:mypassword@localhost:27017")
@@ -49,18 +64,23 @@ func InsertDeviceInfo(info DeviceInfo) {
 type Account struct {
 	Username string
 	Password string
+	Vendor   string
 }
 
-func IsUserValid(username string, password string) bool {
+func GetAccount(username string, password string) (Account, error) {
+	fmt.Println(username)
 	cursor, _ := account_collection.Find(context.TODO(), bson.M{"username": username})
 	var accounts []Account
 	cursor.All(context.TODO(), &accounts)
 	if len(accounts) != 1 {
-		return false
+		return Account{}, errors.New("multiple account found")
 	}
 	h := sha256.New()
 	h.Write([]byte(password))
 	bs := h.Sum(nil)
 	digest := fmt.Sprintf("%x", bs)
-	return digest == accounts[0].Password
+	if digest == accounts[0].Password {
+		return accounts[0], nil
+	}
+	return Account{}, errors.New("wrong password")
 }

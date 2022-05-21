@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func error(c *gin.Context, msg string) {
+func reportError(c *gin.Context, msg string) {
 	c.JSON(http.StatusBadRequest, gin.H{"msg": msg})
 	log.Fatal(msg)
 }
@@ -22,16 +22,45 @@ func showDashBoard(c *gin.Context) {
 		return
 	}
 	imei := strings.TrimSpace(c.Query("imei"))
-	vendor := strings.TrimSpace(c.Query("vendor"))
+	version := strings.TrimSpace(c.Query("version"))
 	filter := map[string]interface{}{}
+	_, isExport := c.GetQuery("export")
 	if len(imei) != 0 {
 		filter["imei"] = imei
 	}
-	if len(vendor) != 0 {
-		filter["vendor"] = vendor
+	if len(version) != 0 {
+		filter["version"] = version
 	}
-	devices := GetDeviceInfo(filter)
-	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": GetLoginUser(c), "count": len(devices)})
+	devices := GetDeviceInfo(LimitToVendor(c, filter))
+
+	if isExport {
+		exportCSV(c, devices)
+		return
+	}
+	account, _ := GetLoginAccount(c)
+	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": account.Username, "count": len(devices)})
+}
+
+func exportCSV(c *gin.Context, devices []DeviceInfo) {
+	tmpfile, _ := ioutil.TempFile("/tmp", "gin")
+	defer os.Remove(tmpfile.Name())
+
+	file, err := os.Create(tmpfile.Name())
+	if err != nil {
+		reportError(c, "failed create tmpfile ")
+		return
+	}
+	writer := csv.NewWriter(file)
+	for _, device := range devices {
+		writer.Write(device.ToCSV())
+	}
+	writer.Flush()
+
+	c.Header("Content-Description", "File Transfer")
+	c.Header("Content-Transfer-Encoding", "text")
+	c.Header("Content-Disposition", "attachment; filename=devices.txt")
+	c.Header("Content-Type", "application/text")
+	c.File(tmpfile.Name())
 }
 
 func enroll(c *gin.Context) {
@@ -39,11 +68,13 @@ func enroll(c *gin.Context) {
 		return
 	}
 	imei := strings.TrimSpace(c.PostForm("imei"))
-	vendor := strings.TrimSpace(c.PostForm("vendor"))
-	InsertDeviceInfo(DeviceInfo{imei, vendor})
+	version := strings.TrimSpace(c.PostForm("version"))
 
-	filter := map[string]interface{}{"imei": imei, "vendor": vendor}
-	devices := GetDeviceInfo(filter)
+	account, _ := GetLoginAccount(c)
+	InsertDeviceInfo(DeviceInfo{imei, version, account.Vendor})
+
+	filter := map[string]interface{}{"imei": imei, "version": version}
+	devices := GetDeviceInfo(LimitToVendor(c, filter))
 	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
 }
 
@@ -53,14 +84,16 @@ func bulkEnroll(c *gin.Context) {
 	}
 	file, err := c.FormFile("upload_file")
 	if err != nil {
-		error(c, err.Error())
+		reportError(c, err.Error())
 		return
 	}
 
 	if file.Size > 10240000 {
-		error(c, "file size execeed 10MB")
+		reportError(c, "file size execeed 10MB")
 		return
 	}
+
+	account, _ := GetLoginAccount(c)
 
 	tmpfile, _ := ioutil.TempFile("/tmp", "gin")
 	defer os.Remove(tmpfile.Name())
@@ -68,7 +101,7 @@ func bulkEnroll(c *gin.Context) {
 
 	f, err := os.Open(tmpfile.Name())
 	if err != nil {
-		error(c, "internal error")
+		reportError(c, "internal error")
 		return
 	}
 	defer f.Close()
@@ -76,7 +109,7 @@ func bulkEnroll(c *gin.Context) {
 	csvReader := csv.NewReader(f)
 	data, err := csvReader.ReadAll()
 	if err != nil {
-		error(c, "bad csv format:"+err.Error())
+		reportError(c, "bad csv format:"+err.Error())
 		return
 	}
 
@@ -88,11 +121,12 @@ func bulkEnroll(c *gin.Context) {
 			continue
 		}
 		device := DeviceInfo{}
+		device.Vendor = account.Vendor
 		for j, v := range line {
 			if j == 0 {
 				device.IMEI = v
 			} else if j == 1 {
-				device.Vendor = v
+				device.Version = v
 			} else {
 
 			}
@@ -104,7 +138,7 @@ func bulkEnroll(c *gin.Context) {
 		InsertDeviceInfo(device)
 	}
 
-	devices = GetDeviceInfo(nil)
+	devices = GetDeviceInfo(LimitToVendor(c, nil))
 	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices})
 }
 
@@ -118,8 +152,8 @@ func login(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 
-	if IsUserValid(username, password) {
-		Login(c, username)
+	if account, err := GetAccount(username, password); err == nil {
+		Login(c, account)
 		showDashBoard(c)
 	} else {
 		c.Set("retry", true)
@@ -128,7 +162,7 @@ func login(c *gin.Context) {
 }
 
 func needLogin(c *gin.Context) bool {
-	if GetLoginUser(c) == "unknown" {
+	if _, err := GetLoginAccount(c); err != nil {
 		c.Redirect(http.StatusFound, "/login")
 		return true
 	}
