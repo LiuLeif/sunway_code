@@ -3,6 +3,7 @@ package main
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -83,9 +84,7 @@ func handleEnroll(c *gin.Context) {
 	account, _ := session.GetLoginAccount(c)
 	model.InsertDeviceInfo(model.DeviceInfo{imei, version, account.Vendor})
 
-	filter := map[string]interface{}{"imei": imei, "version": version}
-	devices := model.GetDeviceInfo(session.LimitToVendor(c, filter))
-	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
+	c.Redirect(http.StatusFound, fmt.Sprintf("/dashboard?imei=%s&version=%s", imei, version))
 }
 
 func handleBulkEnroll(c *gin.Context) {
@@ -148,8 +147,7 @@ func handleBulkEnroll(c *gin.Context) {
 		model.InsertDeviceInfo(device)
 	}
 
-	devices = model.GetDeviceInfo(session.LimitToVendor(c, nil))
-	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices})
+	c.Redirect(http.StatusFound, "/dashboard")	
 }
 
 func handleShowLogin(c *gin.Context) {
@@ -184,6 +182,7 @@ func main() {
 	router.GET("/login", handleShowLogin)
 	router.POST("/login", handleLogin)
 
+	router.GET("/", handleShowDashboard)
 	router.GET("/dashboard/", handleShowDashboard)
 	router.POST("/enroll/", handleEnroll)
 	router.POST("/bulk_enroll/", handleBulkEnroll)

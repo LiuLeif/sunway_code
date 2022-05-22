@@ -38,7 +38,8 @@ func Init() {
 }
 
 func getConnection() *mongo.Client {
-	clientOptions := options.Client().ApplyURI("mongodb://myuser:mypassword@localhost:27017")
+	// clientOptions := options.Client().ApplyURI("mongodb://myuser:mypassword@localhost:27017")
+	clientOptions := options.Client().ApplyURI("mongodb+srv://myuser:mypassword@cluster0.hz2pggk.mongodb.net/")	
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
