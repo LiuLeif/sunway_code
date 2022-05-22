@@ -1,4 +1,4 @@
-// 2022-05-20 11:03
+// 2022-05-20 10:20
 package main
 
 import (
@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"hexintek.com/license_server/model"
+	"hexintek.com/license_server/session"
 )
 
 func reportError(c *gin.Context, msg string) {
@@ -17,7 +19,15 @@ func reportError(c *gin.Context, msg string) {
 	log.Fatal(msg)
 }
 
-func showDashBoard(c *gin.Context) {
+func needLogin(c *gin.Context) bool {
+	if _, err := session.GetLoginAccount(c); err != nil {
+		c.Redirect(http.StatusFound, "/login")
+		return true
+	}
+	return false
+}
+
+func handleShowDashboard(c *gin.Context) {
 	if needLogin(c) {
 		return
 	}
@@ -31,17 +41,17 @@ func showDashBoard(c *gin.Context) {
 	if len(version) != 0 {
 		filter["version"] = version
 	}
-	devices := GetDeviceInfo(LimitToVendor(c, filter))
+	devices := model.GetDeviceInfo(session.LimitToVendor(c, filter))
 
 	if isExport {
 		exportCSV(c, devices)
 		return
 	}
-	account, _ := GetLoginAccount(c)
+	account, _ := session.GetLoginAccount(c)
 	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter, "username": account.Username, "count": len(devices)})
 }
 
-func exportCSV(c *gin.Context, devices []DeviceInfo) {
+func exportCSV(c *gin.Context, devices []model.DeviceInfo) {
 	tmpfile, _ := ioutil.TempFile("/tmp", "gin")
 	defer os.Remove(tmpfile.Name())
 
@@ -63,22 +73,22 @@ func exportCSV(c *gin.Context, devices []DeviceInfo) {
 	c.File(tmpfile.Name())
 }
 
-func enroll(c *gin.Context) {
+func handleEnroll(c *gin.Context) {
 	if needLogin(c) {
 		return
 	}
 	imei := strings.TrimSpace(c.PostForm("imei"))
 	version := strings.TrimSpace(c.PostForm("version"))
 
-	account, _ := GetLoginAccount(c)
-	InsertDeviceInfo(DeviceInfo{imei, version, account.Vendor})
+	account, _ := session.GetLoginAccount(c)
+	model.InsertDeviceInfo(model.DeviceInfo{imei, version, account.Vendor})
 
 	filter := map[string]interface{}{"imei": imei, "version": version}
-	devices := GetDeviceInfo(LimitToVendor(c, filter))
+	devices := model.GetDeviceInfo(session.LimitToVendor(c, filter))
 	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices, "filter": filter})
 }
 
-func bulkEnroll(c *gin.Context) {
+func handleBulkEnroll(c *gin.Context) {
 	if needLogin(c) {
 		return
 	}
@@ -93,7 +103,7 @@ func bulkEnroll(c *gin.Context) {
 		return
 	}
 
-	account, _ := GetLoginAccount(c)
+	account, _ := session.GetLoginAccount(c)
 
 	tmpfile, _ := ioutil.TempFile("/tmp", "gin")
 	defer os.Remove(tmpfile.Name())
@@ -113,14 +123,14 @@ func bulkEnroll(c *gin.Context) {
 		return
 	}
 
-	devices := []DeviceInfo{}
+	devices := []model.DeviceInfo{}
 
 	for i, line := range data {
 		if i == 0 {
 			// skip header line
 			continue
 		}
-		device := DeviceInfo{}
+		device := model.DeviceInfo{}
 		device.Vendor = account.Vendor
 		for j, v := range line {
 			if j == 0 {
@@ -135,36 +145,48 @@ func bulkEnroll(c *gin.Context) {
 	}
 
 	for _, device := range devices {
-		InsertDeviceInfo(device)
+		model.InsertDeviceInfo(device)
 	}
 
-	devices = GetDeviceInfo(LimitToVendor(c, nil))
+	devices = model.GetDeviceInfo(session.LimitToVendor(c, nil))
 	c.HTML(http.StatusOK, "dashboard.tmpl", gin.H{"Devices": devices})
 }
 
-func showLogin(c *gin.Context) {
-	Logout(c)
+func handleShowLogin(c *gin.Context) {
+	session.Logout(c)
 	retry, _ := c.Get("retry")
 	c.HTML(http.StatusOK, "login.tmpl", gin.H{"retry": retry})
 }
 
-func login(c *gin.Context) {
+func handleLogin(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 
-	if account, err := GetAccount(username, password); err == nil {
-		Login(c, account)
-		showDashBoard(c)
+	if account, err := model.GetAccount(username, password); err == nil {
+		session.Login(c, account)
+		handleShowDashboard(c)
 	} else {
 		c.Set("retry", true)
-		showLogin(c)
+		handleShowLogin(c)
 	}
 }
 
-func needLogin(c *gin.Context) bool {
-	if _, err := GetLoginAccount(c); err != nil {
-		c.Redirect(http.StatusFound, "/login")
-		return true
-	}
-	return false
+func main() {
+	router := gin.Default()
+
+	session.Init(router)
+	model.Init()
+
+	router.Static("/assets", "src/hexintek.com/license_server/assets")
+	router.LoadHTMLGlob("src/hexintek.com/license_server/ui/*")
+
+	// for web client
+	router.GET("/login", handleShowLogin)
+	router.POST("/login", handleLogin)
+
+	router.GET("/dashboard/", handleShowDashboard)
+	router.POST("/enroll/", handleEnroll)
+	router.POST("/bulk_enroll/", handleBulkEnroll)
+
+	router.Run()
 }

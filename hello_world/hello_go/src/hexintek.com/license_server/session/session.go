@@ -1,5 +1,5 @@
 // 2022-05-20 19:25
-package main
+package session
 
 import (
 	"errors"
@@ -7,14 +7,15 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"hexintek.com/license_server/model"
 )
 
-func InitSession(router *gin.Engine) {
+func Init(router *gin.Engine) {
 	store := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))
 }
 
-func Login(c *gin.Context, account Account) {
+func Login(c *gin.Context, account model.Account) {
 	session := sessions.Default(c)
 	session.Set("account", account)
 	session.Options(sessions.Options{
@@ -29,19 +30,19 @@ func Logout(c *gin.Context) {
 	session.Save()
 }
 
-func GetLoginAccount(c *gin.Context) (Account, error) {
+func GetLoginAccount(c *gin.Context) (model.Account, error) {
 	session := sessions.Default(c)
 	v := session.Get("account")
 	if v == nil {
-		return Account{}, errors.New("not logged in")
+		return model.Account{}, errors.New("not logged in")
 	}
 	switch v.(type) {
-	case Account:
-		return (v.(Account)), nil
-	case *Account:
-		return *(v.(*Account)), nil
+	case model.Account:
+		return (v.(model.Account)), nil
+	case *model.Account:
+		return *(v.(*model.Account)), nil
 	}
-	return Account{}, errors.New("not logged in")
+	return model.Account{}, errors.New("not logged in")
 }
 
 func LimitToVendor(c *gin.Context, config map[string]interface{}) map[string]interface{} {

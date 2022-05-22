@@ -43,7 +43,32 @@
                     </div>
                     <button type="submit" class="btn btn-primary" name="filter">Filter</button>
                     <button type="submit" class="btn btn-primary" name="export">Export</button>
+                    <button type="submit" class="btn btn-primary" name="abandon">Abondon</button>                    
                 </form>      
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Query result: {{ .count }} items</div>
+            <div class="panel-body">
+                <div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>IMEI</th>
+                                <th>Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Devices}}
+                            <tr class='clickable-row' data-href='/dashboard?imei={{.IMEI}}&version={{.Version}}'>
+                                <td>{{.IMEI}}</td>
+                                <td>{{.Version}}</td>        
+                            </tr>
+                            {{end}}  
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>        
     </div>
@@ -72,29 +97,11 @@
     </div>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Query result: {{ .count }} items</div>
-    <div class="panel-body">
-
-        <div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>IMEI</th>
-                        <th>Version</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{range .Devices}}  
-                    <tr>
-                        <td>{{.IMEI}}</td>
-                        <td>{{.Version}}</td>        
-                    </tr>
-                    {{end}}  
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-</div>
+<script>
+ jQuery(document).ready(function($) {
+     $(".clickable-row").click(function() {
+         window.location = $(this).data("href");
+     });
+ });
+</script>
 {{template "footer.tmpl" .}}

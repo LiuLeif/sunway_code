@@ -1,5 +1,5 @@
 // 2022-05-20 10:37
-package main
+package model
 
 import (
 	"context"
@@ -29,7 +29,7 @@ var db *mongo.Database
 var device_info_collection *mongo.Collection
 var account_collection *mongo.Collection
 
-func InitModel() {
+func Init() {
 	gob.Register(&Account{})
 	conn = getConnection()
 	db = conn.Database("monitor")
