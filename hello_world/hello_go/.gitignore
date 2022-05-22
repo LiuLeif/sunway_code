@@ -1,7 +1,0 @@
-bin
-pkg
-src/github.com
-src/gopkg.in
-src/golang.org
-src/go.mongodb.org
-src/google.golang.org
