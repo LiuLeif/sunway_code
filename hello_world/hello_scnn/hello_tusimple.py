@@ -11,30 +11,11 @@ import torchvision
 import numpy as np
 import torch.nn.functional as F
 
-from scnn import SCNN
+from .scnn import SCNN
+from . import util
+from . import config
 
-resize_shape = (800, 288)
-
-mean = (0.485, 0.456, 0.406)
-std = (0.229, 0.224, 0.225)
-
-
-def resize(img, size):
-    img = cv2.resize(img, size, interpolation=cv2.INTER_CUBIC)
-    return img
-
-
-def to_tensor(img):
-    img = img.transpose(2, 0, 1)
-    img = torch.from_numpy(img).type(torch.float) / 255.0
-    return img
-
-
-def normalize(img, mean, std):
-    return torchvision.transforms.Normalize(mean, std)(img)
-
-
-net = SCNN(input_size=resize_shape, pretrained=False)
+net = SCNN(input_size=(config.W, config.H), pretrained=False)
 save_dict = torch.load("hello_tusimple.pth")
 net.load_state_dict(save_dict["net"])
 net.eval()
@@ -62,8 +43,8 @@ with torch.no_grad():
     img = cv2.imread("hello_tusimple.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    img = resize(img, resize_shape)
-    data = normalize(to_tensor(img), mean, std)
+    img = util.resize(img, (config.W, config.H))
+    data = util.normalize(util.to_tensor(img), config.MEAN, config.STD)
     data.unsqueeze_(0)
 
     seg_pred, exist_pred = net(data)[:2]
