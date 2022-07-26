@@ -1,6 +1,7 @@
 # 1. Get ComputeCPP from https://developer.codeplay.com/products/computecpp/ce/download/
 # 2. apt install intel-opencl-icd
 CUDA_SRC := $(wildcard *.cu)
+NVCC := /opt/anaconda3/envs/cuda-11/bin/nvcc
 
 SYCL_SRC := $(wildcard *.cc)
 SYCL_CPPFLAGS := -I ~/program/ComputeCpp-CE-2.8.0-x86_64-linux-gnu/include/
@@ -27,7 +28,7 @@ sycl:${SYCL_APP}
 	g++ ${SYCL_CPPFLAGS} ${SYCL_LDFLAGS} -include $^ -o $@ ${SYCL_LDLIBS}
 
 %.cu.elf: %.cu
-	nvcc $^ -o $@
+	${NVCC} $^ -o $@
 
 clean:
 	-rm -f *.elf
