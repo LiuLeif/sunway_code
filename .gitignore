@@ -10,3 +10,5 @@ qrc_*.cpp
 *.d
 *.pth
 *.elf
+hello_world/hello_fft/kissfft/tools/*
+hello_world/hello_fft/hello_fft

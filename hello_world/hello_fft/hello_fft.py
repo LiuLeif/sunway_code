@@ -4,18 +4,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-sample_rate = 100
+sample_rate = 128
 ts = 1.0 / sample_rate
 t = np.arange(0, 1, ts)
 
 freq = 1.0
-x = 3 * np.sin(2 * np.pi * freq * t)
+x = np.cos(2 * np.pi * freq * t)
 
-freq = 4.0
-x += np.sin(2 * np.pi * freq * t)
-
-# plt.plot(t, x, "r")
-# plt.show()
+freq = 2.0
+x += 10 * np.sin(2 * np.pi * freq * t)
 
 
 def DFT(x):
@@ -27,18 +24,33 @@ def DFT(x):
     return X
 
 
+def IDFT(x):
+    N = len(x)
+    n = np.arange(N)
+    k = n.reshape((N, 1))
+    e = np.exp(2j * np.pi * k * n / N)
+    X = np.dot(e, x) / N
+    return X
+
+
 X = DFT(x)
-N = len(X)
-n = np.arange(N)
-T = N / sample_rate
-freq = n / T
 
-plt.figure(figsize=(8, 6))
-plt.stem(freq, abs(X), "b", markerfmt=" ", basefmt="-b")
-plt.xlabel("Freq (Hz)")
-plt.ylabel("DFT Amplitude |X(freq)|")
-plt.show()
+print("------")
+print(f"1hz cos: {np.real(X[1])/64}")
+print(f"2hz sin: {-np.imag(X[2])/64}")
+X_1_cos = np.sum(np.cos(-2 * np.pi * t) * x)
+X_2_sin = np.sum(np.sin(-2 * 2 * np.pi * t) * x)
+print("------")
+print(f"1hz cos: {X_1_cos/64}")
+print(f"2hz sin: {-X_2_sin/64}")
 
-# calc X[1] manually
-X_1_sin = np.sum(np.sin(2 * np.pi * t) * x)
-X_1_cos = np.sum(np.cos(2 * np.pi * t) * x)
+print("-----")
+print("ifft manually:")
+for i in range(10):
+    x_restored = (
+        np.sum(np.cos(i * 2 * np.pi * t) * [np.real(a) for a in X])
+        - np.sum(np.sin(i * 2 * np.pi * t) * [np.imag(a) for a in X])
+    ) / 128
+    print("-----")
+    print(x_restored)
+    print(x[i])
