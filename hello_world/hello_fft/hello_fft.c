@@ -14,9 +14,9 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
     for (int i = 0; i < n_point; i++) {
         float tmp_r = 0.0f;
         float tmp_i = 0.0f;
-        for (int j = 0; j < n_point; j++) {
-            tmp_r += in[j].r * cos(i * 2.0 * PI * j / n_point);
-            tmp_i -= in[j].r * sin(i * 2.0 * PI * j / n_point);
+        for (int k = 0; k < n_point; k++) {
+            tmp_r += in[k].r * cos(i * 2.0 * PI * k / n_point);
+            tmp_i -= in[k].r * sin(i * 2.0 * PI * k / n_point);
         }
         out[i].r = tmp_r;
         out[i].i = tmp_i;
@@ -26,9 +26,9 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
 void my_ifft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
     for (int i = 0; i < n_point; i++) {
         float tmp = 0.0f;
-        for (int j = 0; j < n_point; j++) {
-            tmp += in[j].r * cos(2.0 * PI * i * j / n_point);
-            tmp -= in[j].i * sin(2.0 * PI * i * j / n_point);
+        for (int k = 0; k < n_point; k++) {
+            tmp += in[k].r * cos(2.0 * PI * i * k / n_point);
+            tmp -= in[k].i * sin(2.0 * PI * i * k / n_point);
         }
         out[i].r = tmp;
         out[i].i = 0.0f;
