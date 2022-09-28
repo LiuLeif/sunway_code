@@ -1,10 +1,14 @@
 all: hello_fft
 
-LDLIBS := kissfft/libkissfft-float.a -lm
+LDLIBS := -lm
+CFLAGS := -O2
 
-CFLAGS := -g -Og
+SRC := $(wildcard *.c)
+OBJ := $(patsubst %.c,%.o,${SRC})
 
-hello_fft:kissfft/libkissfft-float.a hello_fft.o twi_table.o
+${OBJ}:Makefile
+
+hello_fft:${OBJ} kissfft/libkissfft-float.a
 
 kissfft/libkissfft-float.a: FORCE
 	make -C kissfft KISSFFT_STATIC=1
@@ -12,7 +16,7 @@ kissfft/libkissfft-float.a: FORCE
 FORCE:
 
 clean:
-	rm hello_fft *.o
+	rm hello_fft ${OBJ}
 
 run:hello_fft
 	./hello_fft
