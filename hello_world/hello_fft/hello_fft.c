@@ -74,24 +74,26 @@ void my_recursive_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
 
     int mid = n_point / 2;
     for (int i = 0; i < mid; i++) {
-        float twi_factor_r = cos(-2 * PI * i / n_point);
-        float twi_factor_i = sin(-2 * PI * i / n_point);
+        float twiddle_factor_r = cos(-2 * PI * i / n_point);
+        float twiddle_factor_i = sin(-2 * PI * i / n_point);
 
-        out[i].r = even_out[i].r + odd_out[i].r * twi_factor_r -
-                   odd_out[i].i * twi_factor_i;
-        out[i].i = even_out[i].i + odd_out[i].r * twi_factor_i +
-                   odd_out[i].i * twi_factor_r;
+        out[i].r = even_out[i].r + odd_out[i].r * twiddle_factor_r -
+                   odd_out[i].i * twiddle_factor_i;
+        out[i].i = even_out[i].i + odd_out[i].r * twiddle_factor_i +
+                   odd_out[i].i * twiddle_factor_r;
 
-        twi_factor_r = cos(-2 * PI * (i + mid) / n_point);
-        twi_factor_i = sin(-2 * PI * (i + mid) / n_point);
-        out[i + mid].r = even_out[i].r + odd_out[i].r * twi_factor_r -
-                         odd_out[i].i * twi_factor_i;
-        out[i + mid].i = even_out[i].i + odd_out[i].r * twi_factor_i +
-                         odd_out[i].i * twi_factor_r;
+        twiddle_factor_r = cos(-2 * PI * (i + mid) / n_point);
+        twiddle_factor_i = sin(-2 * PI * (i + mid) / n_point);
+        out[i + mid].r = even_out[i].r + odd_out[i].r * twiddle_factor_r -
+                         odd_out[i].i * twiddle_factor_i;
+        out[i + mid].i = even_out[i].i + odd_out[i].r * twiddle_factor_i +
+                         odd_out[i].i * twiddle_factor_r;
     }
 }
 
-void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
+extern float twiddle_table[];
+void my_fft(
+    int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out, int with_twiddle_table) {
     int rev[n_point];
     for (int i = 0; i < n_point; i++) {
         rev[i] = 0;
@@ -114,20 +116,57 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
                 kiss_fft_cpx even = out[i];
                 kiss_fft_cpx odd = out[i + mid];
 
-                float twi_factor_r = cos(-1 * PI * i / mid);
-                float twi_factor_i = sin(-1 * PI * i / mid);
-                out[i].r = even.r + odd.r * twi_factor_r - odd.i * twi_factor_i;
-                out[i].i = even.i + odd.r * twi_factor_i + odd.i * twi_factor_r;
+                int index = (int)log2(mid);
+                float twiddle_factor_r = 0.0f;
+                float twiddle_factor_i = 0.0f;
+                if (with_twiddle_table) {
+                    twiddle_factor_r = twiddle_table[index * N * 2 + i * 2];
+                    twiddle_factor_i = twiddle_table[index * N * 2 + i * 2 + 1];
+                } else {
+                    twiddle_factor_r = cos(-1 * PI * i / mid);
+                    twiddle_factor_i = sin(-1 * PI * i / mid);
+                }
 
-                twi_factor_r = cos(-1 * PI * (i + mid) / mid);
-                twi_factor_i = sin(-1 * PI * (i + mid) / mid);
+                out[i].r = even.r + odd.r * twiddle_factor_r - odd.i * twiddle_factor_i;
+                out[i].i = even.i + odd.r * twiddle_factor_i + odd.i * twiddle_factor_r;
+
+                if (with_twiddle_table) {
+                    twiddle_factor_r = twiddle_table[index * N * 2 + (i + mid) * 2];
+                    twiddle_factor_i = twiddle_table[index * N * 2 + (i + mid) * 2 + 1];
+                } else {
+                    twiddle_factor_r = cos(-1 * PI * (i + mid) / mid);
+                    twiddle_factor_i = sin(-1 * PI * (i + mid) / mid);
+                }
                 out[i + mid].r =
-                    even.r + (odd.r * twi_factor_r - odd.i * twi_factor_i);
+                    even.r + (odd.r * twiddle_factor_r - odd.i * twiddle_factor_i);
                 out[i + mid].i =
-                    even.i + (odd.r * twi_factor_i + odd.i * twi_factor_r);
+                    even.i + (odd.r * twiddle_factor_i + odd.i * twiddle_factor_r);
             }
         }
     }
+}
+
+void generate_twiddle_table(int n_point) {
+    int bit = (int)log2(n_point);
+    float twiddle_table[bit][n_point * 2];
+    for (int mid = 1; mid < n_point; mid *= 2) {
+        for (int j = 0; j < n_point; j += mid * 2) {
+            for (int i = j; i < j + mid; i++) {
+                int index = (int)log2(mid);
+                twiddle_table[index][i * 2] = cos(-1 * PI * i / mid);
+                twiddle_table[index][i * 2 + 1] = sin(-1 * PI * i / mid);
+                twiddle_table[index][(i + mid) * 2] =
+                    cos(-1 * PI * (i + mid) / mid);
+                twiddle_table[index][(i + mid) * 2 + 1] =
+                    sin(-1 * PI * (i + mid) / mid);
+            }
+        }
+    }
+    printf("float twiddle_table[%d*%d] = {\n", bit, n_point * 2);
+    for (int i = 0; i < bit * n_point * 2; i++) {
+        printf("%f,", ((float *)twiddle_table)[i]);
+    }
+    printf("};\n");
 }
 
 void clear(kiss_fft_cpx *data) {
@@ -171,7 +210,14 @@ int main(int argc, char *argv[]) {
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_fft(N, in, out), 10);
+    TIMEIT(my_fft(N, in, out, 0), 10);
+    for (int i = 0; i < 5; i++) {
+        printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
+    }
+    printf("------\n");
+
+    clear(out);
+    TIMEIT(my_fft(N, in, out, 1), 10);
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
@@ -190,4 +236,5 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < 5; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
     }
+    /* generate_twiddle_table(N); */
 }
