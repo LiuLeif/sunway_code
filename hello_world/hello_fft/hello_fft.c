@@ -11,6 +11,10 @@
 #define PI 3.14159
 #define N 128
 
+/* https://pythonnumericalmethods.berkeley.edu/notebooks/chapter24.03-Fast-Fourier-Transform.html
+ * https://zhuanlan.zhihu.com/p/538891353
+ */
+
 #define TIMEIT(F, REPS)                  \
     {                                    \
         clock_t start = clock();         \
@@ -46,7 +50,7 @@ void my_idft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
     }
 }
 
-void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
+void my_recursive_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
     if (n_point == 1) {
         out[0].r = in[0].r;
         out[0].i = in[0].i;
@@ -65,10 +69,11 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
         even_in[i] = in[i * 2];
         odd_in[i] = in[i * 2 + 1];
     }
-    my_fft(n_point / 2, even_in, even_out);
-    my_fft(n_point / 2, odd_in, odd_out);
+    my_recursive_fft(n_point / 2, even_in, even_out);
+    my_recursive_fft(n_point / 2, odd_in, odd_out);
 
-    for (int i = 0; i < n_point / 2; i++) {
+    int mid = n_point / 2;
+    for (int i = 0; i < mid; i++) {
         float factor_r = cos(-2 * PI * i / n_point);
         float factor_i = sin(-2 * PI * i / n_point);
 
@@ -76,21 +81,54 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
             even_out[i].r + odd_out[i].r * factor_r - odd_out[i].i * factor_i;
         out[i].i =
             even_out[i].i + odd_out[i].r * factor_i + odd_out[i].i * factor_r;
-    }
-    for (int i = n_point / 2; i < n_point; i++) {
-        float factor_r = cos(-2 * PI * i / n_point);
-        float factor_i = sin(-2 * PI * i / n_point);
 
-        out[i].r = even_out[i - n_point / 2].r +
-                   odd_out[i - n_point / 2].r * factor_r -
-                   odd_out[i - n_point / 2].i * factor_i;
-        out[i].i = even_out[i - n_point / 2].i +
-                   odd_out[i - n_point / 2].r * factor_i +
-                   odd_out[i - n_point / 2].i * factor_r;
+        factor_r = cos(-2 * PI * (i + mid) / n_point);
+        factor_i = sin(-2 * PI * (i + mid) / n_point);
+        out[i + mid].r =
+            even_out[i].r + odd_out[i].r * factor_r - odd_out[i].i * factor_i;
+        out[i + mid].i =
+            even_out[i].i + odd_out[i].r * factor_i + odd_out[i].i * factor_r;
     }
 }
 
-void reset(kiss_fft_cpx *data) {
+void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
+    int rev[n_point];
+    for (int i = 0; i < n_point; i++) {
+        rev[i] = 0;
+    }
+    int bit = (int)log2(n_point);
+    for (int i = 1; i < n_point; i++) {
+        rev[i] = (rev[i >> 1] >> 1 | ((i & 1) << (bit - 1)));
+    }
+    memcpy(out, in, n_point * sizeof(in[0]));
+    for (int i = 1; i < n_point; i++) {
+        if (i < rev[i]) {
+            kiss_fft_cpx tmp = out[i];
+            out[i] = out[rev[i]];
+            out[rev[i]] = tmp;
+        }
+    }
+    for (int mid = 1; mid < n_point; mid *= 2) {
+        for (int j = 0; j < n_point; j += mid * 2) {
+            for (int i = j; i < j + mid; i++) {
+                kiss_fft_cpx even = out[i];
+                kiss_fft_cpx odd = out[i + mid];
+
+                float factor_r = cos(-1 * PI * i / mid);
+                float factor_i = sin(-1 * PI * i / mid);
+                out[i].r = even.r + odd.r * factor_r - odd.i * factor_i;
+                out[i].i = even.i + odd.r * factor_i + odd.i * factor_r;
+
+                factor_r = cos(-1 * PI * (i + mid) / mid);
+                factor_i = sin(-1 * PI * (i + mid) / mid);
+                out[i + mid].r = even.r + (odd.r * factor_r - odd.i * factor_i);
+                out[i + mid].i = even.i + (odd.r * factor_i + odd.i * factor_r);
+            }
+        }
+    }
+}
+
+void clear(kiss_fft_cpx *data) {
     for (int i = 0; i < N; i++) {
         data[i].r = 0.0f;
         data[i].i = 0.0f;
@@ -107,31 +145,37 @@ int main(int argc, char *argv[]) {
         (kiss_fft_cpx *)KISS_FFT_MALLOC(N * sizeof(kiss_fft_cpx));
     /* NOTE: 1hz cos with amplitude 1 + 2hz sin with amplitude 10 */
     for (int i = 0; i < N; i++) {
-        in[i].r = cos(i * 2.0 * PI / N) + 10 * sin(2 * i * 2.0 * PI / N);
+        in[i].r = cos(1 * i * 2.0 * PI / N) + 10 * sin(2 * i * 2.0 * PI / N);
     }
-    printf("fft:\n");
-    reset(out);
+    clear(out);
     TIMEIT(kiss_fft(cfg, in, out), 10);
-    printf("1hz cos: %f\n", out[1].r / 64);
-    printf("2hz sin: %f\n", -out[2].i / 64);
+    for (int i = 0; i < 10; i++) {
+        printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
+    }
     printf("------\n");
 
-    printf("dft manually:\n");
-    reset(out);
+    clear(out);
     TIMEIT(my_dft(N, in, out), 10);
-    printf("1hz cos: %f\n", out[1].r / 64);
-    printf("2hz sin: %f\n", -out[2].i / 64);
+    for (int i = 0; i < 10; i++) {
+        printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
+    }
     printf("------\n");
 
-    printf("fft manually:\n");
-    reset(out);
+    clear(out);
+    TIMEIT(my_recursive_fft(N, in, out), 10);
+    for (int i = 0; i < 10; i++) {
+        printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
+    }
+    printf("------\n");
+
+    clear(out);
     TIMEIT(my_fft(N, in, out), 10);
-    printf("1hz cos: %f\n", out[1].r / 64);
-    printf("2hz sin: %f\n", -out[2].i / 64);
+    for (int i = 0; i < 10; i++) {
+        printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
+    }
     printf("------\n");
 
-    printf("ifft:\n");
-    reset(in_restored);
+    clear(in_restored);
     cfg = kiss_fft_alloc(N, 1, 0, 0);
     TIMEIT(kiss_fft(cfg, out, in_restored), 10);
     for (int i = 0; i < 10; i++) {
@@ -139,8 +183,7 @@ int main(int argc, char *argv[]) {
     }
     printf("------\n");
 
-    printf("dift manually:\n");
-    reset(in_restored);
+    clear(in_restored);
     TIMEIT(my_idft(N, out, in_restored), 10)
     for (int i = 0; i < 10; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
