@@ -126,7 +126,6 @@ void my_fft(
                     twiddle_factor_r = cos(-1 * PI * i / mid);
                     twiddle_factor_i = sin(-1 * PI * i / mid);
                 }
-
                 out[i].r = even.r + odd.r * twiddle_factor_r - odd.i * twiddle_factor_i;
                 out[i].i = even.i + odd.r * twiddle_factor_i + odd.i * twiddle_factor_r;
 
