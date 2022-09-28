@@ -74,20 +74,20 @@ void my_recursive_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
 
     int mid = n_point / 2;
     for (int i = 0; i < mid; i++) {
-        float factor_r = cos(-2 * PI * i / n_point);
-        float factor_i = sin(-2 * PI * i / n_point);
+        float twi_factor_r = cos(-2 * PI * i / n_point);
+        float twi_factor_i = sin(-2 * PI * i / n_point);
 
-        out[i].r =
-            even_out[i].r + odd_out[i].r * factor_r - odd_out[i].i * factor_i;
-        out[i].i =
-            even_out[i].i + odd_out[i].r * factor_i + odd_out[i].i * factor_r;
+        out[i].r = even_out[i].r + odd_out[i].r * twi_factor_r -
+                   odd_out[i].i * twi_factor_i;
+        out[i].i = even_out[i].i + odd_out[i].r * twi_factor_i +
+                   odd_out[i].i * twi_factor_r;
 
-        factor_r = cos(-2 * PI * (i + mid) / n_point);
-        factor_i = sin(-2 * PI * (i + mid) / n_point);
-        out[i + mid].r =
-            even_out[i].r + odd_out[i].r * factor_r - odd_out[i].i * factor_i;
-        out[i + mid].i =
-            even_out[i].i + odd_out[i].r * factor_i + odd_out[i].i * factor_r;
+        twi_factor_r = cos(-2 * PI * (i + mid) / n_point);
+        twi_factor_i = sin(-2 * PI * (i + mid) / n_point);
+        out[i + mid].r = even_out[i].r + odd_out[i].r * twi_factor_r -
+                         odd_out[i].i * twi_factor_i;
+        out[i + mid].i = even_out[i].i + odd_out[i].r * twi_factor_i +
+                         odd_out[i].i * twi_factor_r;
     }
 }
 
@@ -114,15 +114,17 @@ void my_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
                 kiss_fft_cpx even = out[i];
                 kiss_fft_cpx odd = out[i + mid];
 
-                float factor_r = cos(-1 * PI * i / mid);
-                float factor_i = sin(-1 * PI * i / mid);
-                out[i].r = even.r + odd.r * factor_r - odd.i * factor_i;
-                out[i].i = even.i + odd.r * factor_i + odd.i * factor_r;
+                float twi_factor_r = cos(-1 * PI * i / mid);
+                float twi_factor_i = sin(-1 * PI * i / mid);
+                out[i].r = even.r + odd.r * twi_factor_r - odd.i * twi_factor_i;
+                out[i].i = even.i + odd.r * twi_factor_i + odd.i * twi_factor_r;
 
-                factor_r = cos(-1 * PI * (i + mid) / mid);
-                factor_i = sin(-1 * PI * (i + mid) / mid);
-                out[i + mid].r = even.r + (odd.r * factor_r - odd.i * factor_i);
-                out[i + mid].i = even.i + (odd.r * factor_i + odd.i * factor_r);
+                twi_factor_r = cos(-1 * PI * (i + mid) / mid);
+                twi_factor_i = sin(-1 * PI * (i + mid) / mid);
+                out[i + mid].r =
+                    even.r + (odd.r * twi_factor_r - odd.i * twi_factor_i);
+                out[i + mid].i =
+                    even.i + (odd.r * twi_factor_i + odd.i * twi_factor_r);
             }
         }
     }
@@ -149,28 +151,28 @@ int main(int argc, char *argv[]) {
     }
     clear(out);
     TIMEIT(kiss_fft(cfg, in, out), 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
     TIMEIT(my_dft(N, in, out), 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
     TIMEIT(my_recursive_fft(N, in, out), 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
     TIMEIT(my_fft(N, in, out), 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
@@ -178,14 +180,14 @@ int main(int argc, char *argv[]) {
     clear(in_restored);
     cfg = kiss_fft_alloc(N, 1, 0, 0);
     TIMEIT(kiss_fft(cfg, out, in_restored), 10);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
     }
     printf("------\n");
 
     clear(in_restored);
     TIMEIT(my_idft(N, out, in_restored), 10)
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 5; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
     }
 }
