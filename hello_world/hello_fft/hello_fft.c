@@ -10,20 +10,22 @@
 #include "kissfft/kiss_fft.h"
 
 #define PI 3.14159
+
+#define TIMEIT_REPS 30
 #define N 128
 
 /* https://pythonnumericalmethods.berkeley.edu/notebooks/chapter24.03-Fast-Fourier-Transform.html
  * https://zhuanlan.zhihu.com/p/538891353
  */
 
-#define TIMEIT(F, REPS)                  \
-    {                                    \
-        clock_t start = clock();         \
-        for (int i = 0; i < REPS; ++i) { \
-            F;                           \
-        }                                \
-        clock_t diff = clock() - start;  \
-        printf("%s: %ld\n", #F, diff);   \
+#define TIMEIT(F)                               \
+    {                                           \
+        clock_t start = clock();                \
+        for (int i = 0; i < TIMEIT_REPS; ++i) { \
+            F;                                  \
+        }                                       \
+        clock_t diff = clock() - start;         \
+        printf("%s: %ld\n", #F, diff);          \
     }
 
 void my_dft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
@@ -291,42 +293,42 @@ int main(int argc, char *argv[]) {
         in[i].r = cos(1 * i * 2.0 * PI / N) + 10 * sin(2 * i * 2.0 * PI / N);
     }
     clear(out);
-    TIMEIT(kiss_fft(cfg, in, out), 10);
+    TIMEIT(kiss_fft(cfg, in, out));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_dft(N, in, out), 10);
+    TIMEIT(my_dft(N, in, out));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_recursive_fft(N, in, out), 10);
+    TIMEIT(my_recursive_fft(N, in, out));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_fft(N, in, out, 0), 10);
+    TIMEIT(my_fft(N, in, out, 0));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_fft_fixed(N, in, out), 10);
+    TIMEIT(my_fft(N, in, out, 1));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
     printf("------\n");
 
     clear(out);
-    TIMEIT(my_fft(N, in, out, 1), 10);
+    TIMEIT(my_fft_fixed(N, in, out));
     for (int i = 0; i < 5; i++) {
         printf("[%.3f,%.3f]\n", out[i].r, out[i].i);
     }
@@ -334,14 +336,14 @@ int main(int argc, char *argv[]) {
 
     clear(in_restored);
     cfg = kiss_fft_alloc(N, 1, 0, 0);
-    TIMEIT(kiss_fft(cfg, out, in_restored), 10);
+    TIMEIT(kiss_fft(cfg, out, in_restored));
     for (int i = 0; i < 5; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
     }
     printf("------\n");
 
     clear(in_restored);
-    TIMEIT(my_idft(N, out, in_restored), 10)
+    TIMEIT(my_idft(N, out, in_restored))
     for (int i = 0; i < 5; i++) {
         printf("%f %f\n", in_restored[i].r / N, in[i].r);
     }
