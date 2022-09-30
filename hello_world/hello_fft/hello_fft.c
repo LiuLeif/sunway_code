@@ -79,7 +79,6 @@ void my_recursive_fft(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
     for (int i = 0; i < mid; i++) {
         float twiddle_factor_r = cos(-2 * PI * i / n_point);
         float twiddle_factor_i = sin(-2 * PI * i / n_point);
-
         out[i].r = even_out[i].r + odd_out[i].r * twiddle_factor_r -
                    odd_out[i].i * twiddle_factor_i;
         out[i].i = even_out[i].i + odd_out[i].r * twiddle_factor_i +
@@ -133,11 +132,8 @@ void my_fft(
                            odd.i * twiddle_factor_i;
                 out[i].i = even.i + odd.r * twiddle_factor_i +
                            odd.i * twiddle_factor_r;
+
                 if (with_twiddle_table) {
-                    /* printf( */
-                    /*     "%f %f %f %f %f %f | ", even.r, odd.r,
-                     * twiddle_factor_r, */
-                    /*     odd.i, twiddle_factor_i, out[i].r); */
                     twiddle_factor_r =
                         twiddle_table[index * N * 2 + (i + mid) * 2];
                     twiddle_factor_i =
@@ -202,10 +198,8 @@ void my_fft_fixed(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
                 twiddle_factor_r = twiddle_table_fixed[index * N * 2 + i * 2];
                 twiddle_factor_i =
                     twiddle_table_fixed[index * N * 2 + i * 2 + 1];
-
                 out_fixed[i].r = even.r + MUL_Q15(odd.r, twiddle_factor_r) -
                                  MUL_Q15(odd.i, twiddle_factor_i);
-
                 out_fixed[i].i = even.i + MUL_Q15(odd.r, twiddle_factor_i) +
                                  MUL_Q15(odd.i, twiddle_factor_r);
 
@@ -213,7 +207,6 @@ void my_fft_fixed(int n_point, kiss_fft_cpx *in, kiss_fft_cpx *out) {
                     twiddle_table_fixed[index * N * 2 + (i + mid) * 2];
                 twiddle_factor_i =
                     twiddle_table_fixed[index * N * 2 + (i + mid) * 2 + 1];
-
                 out_fixed[i + mid].r = even.r +
                                        MUL_Q15(odd.r, twiddle_factor_r) -
                                        MUL_Q15(odd.i, twiddle_factor_i);
