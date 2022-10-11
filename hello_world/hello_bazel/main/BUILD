@@ -9,7 +9,6 @@ cc_library(
 cc_binary(
     name = "hello-world",
     srcs = ["hello-world.cc"],
-    linkopts = ["-lstdc++","-static"],
     deps = [
         ":hello-greet",
         "//lib:hello-time",

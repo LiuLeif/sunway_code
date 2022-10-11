@@ -1,7 +1,7 @@
 cc_toolchain_suite(
     name = "toolchain",
     toolchains = {
-        "qemu": ":gnu_toolchain",
+        "rv64g": ":gnu_toolchain",
     },
 )
 
@@ -22,6 +22,6 @@ cc_toolchain(
 
 package(default_visibility = ["//visibility:public"])
 
-load(":toolchain_config.bzl", "toolchain_config")
+load(":cc_toolchain_config.bzl", "cc_toolchain_config")
 
-toolchain_config(name = "gnu_toolchain_config")
+cc_toolchain_config(name = "gnu_toolchain_config")

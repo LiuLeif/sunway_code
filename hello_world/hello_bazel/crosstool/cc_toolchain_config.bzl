@@ -8,11 +8,11 @@ def _impl(ctx):
         ),
         tool_path(
             name = "ld",
-            path = "/opt/riscv/bin/riscv64-unknown-linux-gnu-ld",            
+            path = "/opt/riscv/bin/riscv64-unknown-linux-gnu-ld",
         ),
         tool_path(
             name = "ar",
-            path = "/opt/riscv/bin/riscv64-unknown-linux-gnu-ar",                        
+            path = "/opt/riscv/bin/riscv64-unknown-linux-gnu-ar",
         ),
         tool_path(
             name = "cpp",
@@ -41,11 +41,11 @@ def _impl(ctx):
           "/opt/riscv/sysroot/usr/include",
           "/opt/riscv/riscv64-unknown-linux-gnu/include",
           "/opt/riscv/lib/gcc/riscv64-unknown-linux-gnu",
-        ],        
+        ],
         toolchain_identifier = "local",
         host_system_name = "local",
         target_system_name = "local",
-        target_cpu = "qemu",
+        target_cpu = "rv64g",
         target_libc = "unknown",
         compiler = "gcc",
         abi_version = "unknown",
@@ -53,7 +53,7 @@ def _impl(ctx):
         tool_paths = tool_paths,
     )
 
-toolchain_config = rule(
+cc_toolchain_config = rule(
     implementation = _impl,
     attrs = {},
     provides = [CcToolchainConfigInfo],
