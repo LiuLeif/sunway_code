@@ -12,3 +12,4 @@ qrc_*.cpp
 *.elf
 hello_world/hello_fft/kissfft/tools/*
 hello_world/hello_fft/hello_fft
+bazel-*
