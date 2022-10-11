@@ -1,4 +1,5 @@
 build:riscv --crosstool_top=//crosstool:toolchain
+build:riscv --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 build:riscv --cpu=rv64g
 build:riscv --linkopt=-static
 build:riscv --linkopt=-lstdc++
