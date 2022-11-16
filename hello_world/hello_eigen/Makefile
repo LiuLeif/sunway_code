@@ -1,6 +1,10 @@
-CPPFLAGS = -I.
+CPPFLAGS := -Ieigen-3.4.0
+CXXFLAGS := -g -Og
 
-TESTS=matrix
+SRC := $(wildcard *.cc)
+APP := $(patsubst %.cc,%,${SRC})
 
-run: ${TESTS}
-	$(foreach test, $(TESTS), $(info ${test}) $(info $(shell ${test})))
+all:${APP}
+
+clean:
+	rm -rf ${APP}

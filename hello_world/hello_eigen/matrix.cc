@@ -1,14 +1,25 @@
 #include <Eigen/Dense>
 #include <iostream>
 
+using Eigen::Array22d;
 using Eigen::MatrixXd;
+using Eigen::Vector4f;
 
-void test_matrix() {
-    MatrixXd m(2, 2);
-    m(0, 0) = 3;
-    m(1, 0) = 2.5;
-    m(0, 1) = -1;
-    m(1, 1) = m(1, 0) + m(0, 1);
-    std::cout << m << std::endl;
+// void test_matrix() {
+//     Array22d m1;
+//     m1 << 1, 2, 3, 4;
+
+//     Array22d m2;
+//     m2 << 1, 2, 3, 4;
+
+//     Array22d m3 = m1 + m2;
+//     std::cout << m3 << std::endl;
+// }
+int main() {
+    Vector4f a, b;
+    a << 1, 2, 3, 4;
+    b << 1, 2, 3, 4;
+    a += b;
+    // test_matrix();
+    std::cout << a << std::endl;
 }
-int main() { test_matrix(); }

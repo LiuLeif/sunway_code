@@ -1,0 +1,16 @@
+[
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-g",
+            "-Og",
+            "-Ieigen-3.4.0",
+            "-o",
+            "matrix",
+            "matrix.cc"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_eigen",
+        "file": "matrix.cc"
+    }
+]
