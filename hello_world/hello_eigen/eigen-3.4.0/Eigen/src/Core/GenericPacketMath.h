@@ -10,7 +10,7 @@
 
 #ifndef EIGEN_GENERIC_PACKET_MATH_H
 #define EIGEN_GENERIC_PACKET_MATH_H
-
+#include "debugbreak.h"
 namespace Eigen {
 
 namespace internal {
@@ -212,7 +212,7 @@ preinterpret(const Packet& a); /* { return reinterpret_cast<const Target&>(a); }
 
 /** \internal \returns a + b (coeff-wise) */
 template<typename Packet> EIGEN_DEVICE_FUNC inline Packet
-padd(const Packet& a, const Packet& b) { return a+b; }
+padd(const Packet& a, const Packet& b) { debug_break();return a+b; }
 // Avoid compiler warning for boolean algebra.
 template<> EIGEN_DEVICE_FUNC inline bool
 padd(const bool& a, const bool& b) { return a || b; }
@@ -823,7 +823,7 @@ Packet prsqrt(const Packet& a) {
 
 /** \internal \returns the rounded value of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet pround(const Packet& a) { using numext::round; return round(a); }
+Packet pround(const Packet& a) { debug_break();using numext::round; return round(a); }
 
 /** \internal \returns the floor of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS

@@ -867,7 +867,7 @@ void call_assignment(NoAlias<Dst,StorageBase>& dst, const Src& src, const Func& 
   call_assignment_no_alias(dst.expression(), src, func);
 }
 
-
+#include "debugbreak.h"
 template<typename Dst, typename Src, typename Func>
 EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE
 void call_assignment_no_alias(Dst& dst, const Src& src, const Func& func)

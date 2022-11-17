@@ -1,5 +1,5 @@
-CPPFLAGS := -Ieigen-3.4.0
-CXXFLAGS := -g -Og
+CPPFLAGS := -Ieigen-3.4.0 -I.
+CXXFLAGS := -g -O0
 
 SRC := $(wildcard *.cc)
 APP := $(patsubst %.cc,%,${SRC})

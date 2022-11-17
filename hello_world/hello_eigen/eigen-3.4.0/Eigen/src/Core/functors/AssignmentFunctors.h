@@ -43,6 +43,7 @@ struct functor_traits<assign_op<DstScalar,SrcScalar> > {
   * \brief Template functor for scalar/packet assignment with addition
   *
   */
+#include "debugbreak.h"
 template<typename DstScalar,typename SrcScalar> struct add_assign_op {
 
   EIGEN_EMPTY_STRUCT_CTOR(add_assign_op)
