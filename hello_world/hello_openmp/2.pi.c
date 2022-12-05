@@ -15,7 +15,7 @@
             F;                                                 \
         }                                                      \
         double diff = (omp_get_wtime() - start) / TIMEIT_REPS; \
-        printf("%s: %f sec\n", #F, diff);                      \
+        printf("%f %50s : %f sec\n", F, #F, diff);                 \
     }
 
 double pi() {
@@ -27,6 +27,31 @@ double pi() {
         double x = 0.0;
         double sum = 0.0;
         for (int i = id; i < N_STEPS; i += NUM_THREADS) {
+            x = (i + 0.5) * step;
+            sum += 4.0 / (1.0 + x * x);
+        }
+        partial_sum[id] = sum;
+    }
+    double pi, sum = 0.0;
+    for (int i = 0; i < NUM_THREADS; i++) {
+        sum += partial_sum[i];
+    }
+    pi = step * sum;
+    return pi;
+}
+
+double pi_another_work_sharing() {
+    double step = 1.0 / N_STEPS;
+    double partial_sum[NUM_THREADS] = {0.0};
+    int STEP = (int)(N_STEPS / NUM_THREADS);
+#pragma omp parallel
+    {
+        double x = 0.0;
+        double sum = 0.0;
+        int id = omp_get_thread_num();
+        int start = id * STEP;
+        int end = id * STEP + STEP;
+        for (int i = start; i < end; i++) {
             x = (i + 0.5) * step;
             sum += 4.0 / (1.0 + x * x);
         }
@@ -65,7 +90,7 @@ double pi_false_sharing() {
     return pi;
 }
 
-double pi_no_false_sharing() {
+double pi_no_false_sharing_with_align() {
     double step = 1.0 / N_STEPS;
     double* partial_sum[NUM_THREADS];
     /* NOTE: 强制 partial_sum[i] 在不同的 cache line, 假设 cache line <= 128 */
@@ -85,8 +110,28 @@ double pi_no_false_sharing() {
     for (int i = 0; i < NUM_THREADS; i++) {
         sum += *partial_sum[i];
     }
-    pi = step * sum;
-    return pi;
+    return step * sum;
+}
+
+double pi_no_false_sharing_with_atomic() {
+    double step = 1.0 / N_STEPS;
+    double sum = 0.0;
+#pragma omp parallel
+    {
+        int id = omp_get_thread_num();
+        double x = 0.0;
+        double partial_sum = 0.0;
+        for (int i = id; i < N_STEPS; i += NUM_THREADS) {
+            x = (i + 0.5) * step;
+            partial_sum += 4.0 / (1.0 + x * x);
+        }
+/* NOTE: critcal 要求后续操作是 exclusive 的, atomic 只要求对 sum 的更新是
+ * exclusive 的 */
+/* #pragma omp critical*/
+#pragma omp atomic
+        sum += partial_sum;
+    }
+    return step * sum;
 }
 
 double pi_linear() {
@@ -103,6 +148,8 @@ int main(int argc, char* argv[]) {
     omp_set_num_threads(NUM_THREADS);
     TIMEIT(pi_linear());
     TIMEIT(pi_false_sharing());
-    TIMEIT(pi_no_false_sharing());
+    TIMEIT(pi_no_false_sharing_with_align());
+    TIMEIT(pi_no_false_sharing_with_atomic());
     TIMEIT(pi());
+    TIMEIT(pi_another_work_sharing());
 }
