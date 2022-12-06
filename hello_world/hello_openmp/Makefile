@@ -1,4 +1,4 @@
-CFLAGS := -fopenmp
+CFLAGS := -fopenmp -O2
 SRC := $(wildcard *.c)
 APP := $(patsubst %.c, %.elf,${SRC})
 

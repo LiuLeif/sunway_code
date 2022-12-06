@@ -15,7 +15,7 @@
             F;                                                 \
         }                                                      \
         double diff = (omp_get_wtime() - start) / TIMEIT_REPS; \
-        printf("%f %50s : %f sec\n", F, #F, diff);                 \
+        printf("%f %50s : %f sec\n", F, #F, diff);             \
     }
 
 double pi() {

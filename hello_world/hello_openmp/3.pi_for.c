@@ -43,8 +43,8 @@ double pi_parallel_for_reduction() {
     double partial_sum[NUM_THREADS] = {0.0};
     double sum = 0.0;
 #pragma omp parallel for reduction(+ : sum)
-    /* NOTE: omp parallel for 相当于 parallem + for, 这里用到 reduction
-     * directive, reduction (+:sum)相当于:
+    /* NOTE: omp parallel for 相当于 parallem + for, 这里用到 reduction,
+     * reduction (+:sum)相当于:
      *
      * 1. 声明了一个线程内部的 local_sum, 其初始值为 0 (+ 对应的初始值为 0, *
      * 的话会是 1)
