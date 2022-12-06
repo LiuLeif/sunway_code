@@ -79,10 +79,27 @@ void test_lock() {
     }
 }
 
+void test_flush() {
+    printf("------ %s ------\n", __FUNCTION__);
+    int flag = 0;
+#pragma omp parallel num_threads(2)
+    {
+#pragma omp master
+        { flag = 1; }
+        /* NOTE: 由于 omp master 没有隐式的 barrier, 所以其它线程需要用 omp
+         * flush 获得 flag = 1 的改动 */
+        while (flag != 1) {
+#pragma omp flush(flag)
+        }
+        printf("%d %d\n", flag, omp_get_thread_num());
+    }
+}
+
 int main(int argc, char *argv[]) {
     test_barrier();
     test_nowait();
     test_master();
     test_single();
     test_lock();
+    test_flush();
 }

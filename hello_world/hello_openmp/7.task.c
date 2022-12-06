@@ -4,15 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TIMEIT_REPS 1
-#define TIMEIT(F)                                              \
-    {                                                          \
-        double start = omp_get_wtime();                        \
-        for (int i = 0; i < TIMEIT_REPS; ++i) {                \
-            F;                                                 \
-        }                                                      \
-        double diff = (omp_get_wtime() - start) / TIMEIT_REPS; \
-        printf("%s : %f sec\n", #F, diff);                     \
+#define TIMEIT(F)                                \
+    {                                            \
+        double start = omp_get_wtime();          \
+        F;                                       \
+        double diff = (omp_get_wtime() - start); \
+        printf("%s : %f sec\n", #F, diff);       \
     }
 
 void test_task() {
