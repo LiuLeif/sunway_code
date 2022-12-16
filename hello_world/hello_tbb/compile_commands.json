@@ -1,0 +1,62 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I/opt/intel/oneapi/tbb/latest/include",
+      "-Wl,-rpath,/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8/",
+      "-o",
+      "1.hello.elf",
+      "1.hello.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_tbb",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_tbb/1.hello.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_tbb/1.hello.elf"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I/opt/intel/oneapi/tbb/latest/include",
+      "-Wl,-rpath,/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8/",
+      "-o",
+      "2.schedule.elf",
+      "2.schedule.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_tbb",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_tbb/2.schedule.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_tbb/2.schedule.elf"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I/opt/intel/oneapi/tbb/latest/include",
+      "-Wl,-rpath,/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8/",
+      "-o",
+      "3.reduce.elf",
+      "3.reduce.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_tbb",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_tbb/3.reduce.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_tbb/3.reduce.elf"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I/opt/intel/oneapi/tbb/latest/include",
+      "-Wl,-rpath,/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8/",
+      "-o",
+      "4.pipeline.elf",
+      "4.pipeline.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_tbb",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_tbb/4.pipeline.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_tbb/4.pipeline.elf"
+  }
+]
