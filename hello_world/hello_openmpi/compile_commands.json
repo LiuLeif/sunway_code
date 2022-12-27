@@ -1,0 +1,14 @@
+[
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-I/usr/lib/x86_64-linux-gnu/openmpi/include/",
+            "-o",
+            "1.hello.elf",
+            "1.hello.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_openmpi",
+        "file": "1.hello.c"
+    }
+]
