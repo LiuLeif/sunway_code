@@ -10,6 +10,8 @@ int main(int argc, char *argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &np);
     printf("pid: %d, np: %d\n", pid, np);
     MPI_Comm comm;
+    /* NOTE: communator 把任务分成多个组, 相关 api 例如 MPI_Send, MPI_Bcast 等只
+     * 能在组内部通信 */
     MPI_Comm_split(MPI_COMM_WORLD, pid % 2, pid, &comm);
 
     MPI_Comm_rank(comm, &pid);
