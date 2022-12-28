@@ -1,5 +1,5 @@
 CFLAGS := -I/usr/lib/x86_64-linux-gnu/openmpi/include/
-LDFLAGS := -lmpi
+LDLIBS := -lmpi
 SRC := $(wildcard *.c)
 APP := $(patsubst %.c, %.elf,${SRC})
 RUN_APP := $(patsubst %.elf, run_%,${APP})
@@ -8,7 +8,7 @@ RUN_APP := $(patsubst %.elf, run_%,${APP})
 all:${APP}
 
 %.elf: %.c
-	${CC} -o $@ $^ ${CFLAGS} ${LDFLAGS}
+	${CC} -o $@ $^ ${CFLAGS} ${LDLIBS}
 
 ${RUN_APP}:run_%:%.elf
 	mpirun -np 4 $<
