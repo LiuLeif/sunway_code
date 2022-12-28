@@ -3,6 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* NOTE: https://andrew.gibiansky.com/blog/machine-learning/baidu-allreduce/
+ *
+ * 关于 ring allreduce:
+ *
+ * ring allreduce 需要传递的总数据量与普通的算法是一样的, 例如普通的算法可以简单
+ * 的循环 N 次, 每次把第 n 个节点的数据传递给最后一个节点. ring allreduce 的好处
+ * 是它每次循环时可以充分利用设备之间的带宽, 而不像普通算法那样, 两个设备之间带
+ * 宽需求很高, 其它设备的带宽空闲.
+ *
+ * 因此, 如果设备之间使用的是总线型拓朴, 则 ring allreduce 就没有优势了. 好在高
+ * 性能的互联都是星型拓朴, 例如 infiband, 使用交换机的以太网等 */
 int main(int argc, char *argv[]) {
     int pid, np;
     MPI_Init(&argc, &argv);
