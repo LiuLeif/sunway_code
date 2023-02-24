@@ -12,8 +12,7 @@
  * 是它每次循环时可以充分利用设备之间的带宽, 而不像普通算法那样, 两个设备之间带
  * 宽需求很高, 其它设备的带宽空闲.
  *
- * 因此, 如果设备之间使用的是总线型拓朴, 则 ring allreduce 就没有优势了. 好在高
- * 性能的互联都是星型拓朴, 例如 infiband, Gigabit Ethernet 等
+ * 因此, 如果设备之间使用的是总线型或星型拓朴, 则 ring allreduce 就没有优势了
  * */
 int main(int argc, char *argv[]) {
     int pid, np;
