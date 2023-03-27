@@ -1,51 +1,41 @@
+
+#include <gcc-plugin.h>
+#include <plugin-version.h>
+#include <tree-core.h>
+#include <tree-pretty-print.h>
+#include <tree.h>
+
 #include <iostream>
 
-#include "gcc-plugin.h"
-#include "plugin-version.h"
-
 static void callback_finish_type(void *gcc_data, void *user_data) {
-    std::cerr << " *** A type has been finished\n";
+    std::cerr << "hello" << std::endl;
 }
 
 static void callback_finish_declaration(void *gcc_data, void *user_data) {
-    std::cerr << " *** A declaration has been finished\n";
+    std::cerr << "finish decl of: ";
+    tree_node *tree = (tree_node *)gcc_data;
+    debug_generic_expr(tree);
+    std::cerr << "code: " << get_tree_code_name(TREE_CODE(tree)) << std::endl;
+    debug_generic_expr(TREE_TYPE(tree));
 }
 
-static void callback_finish_unit(void *gcc_data, void *user_data) {
-    std::cerr << " *** A translation unit has been finished\n";
-}
+static void callback_finish_unit(void *gcc_data, void *user_data) {}
 
-static void callback_pre_genericize(void *gcc_data, void *user_data) {
-    std::cerr << " *** We are about to emit GENERIC after parsing C/C++\n";
-}
+static void callback_pre_genericize(void *gcc_data, void *user_data) {}
 
-static void callback_finish(void *gcc_data, void *user_data) {
-    std::cerr << " *** GCC is exiting\n";
-}
+static void callback_finish(void *gcc_data, void *user_data) {}
 
-static void callback_register_attribute(void *gcc_data, void *user_data) {
-    std::cerr << " *** Registering attributes\n";
-}
+static void callback_register_attribute(void *gcc_data, void *user_data) {}
 
-static void callback_start_unit(void *gcc_data, void *user_data) {
-    std::cerr << " *** We are about to process a translation unit\n";
-}
+static void callback_start_unit(void *gcc_data, void *user_data) {}
 
-static void callback_registering_pragmas(void *gcc_data, void *user_data) {
-    std::cerr << " *** Registering pragmas\n";
-}
+static void callback_registering_pragmas(void *gcc_data, void *user_data) {}
 
-static void callback_all_passes_start(void *gcc_data, void *user_data) {
-    std::cerr << " *** About to start all passes\n";
-}
+static void callback_all_passes_start(void *gcc_data, void *user_data) {}
 
-static void callback_all_passes_end(void *gcc_data, void *user_data) {
-    std::cerr << " *** All passes ended\n";
-}
+static void callback_all_passes_end(void *gcc_data, void *user_data) {}
 
-static void callback_pass_execution(void *gcc_data, void *user_data) {
-    std::cerr << " *** About to execute a pass\n";
-}
+static void callback_pass_execution(void *gcc_data, void *user_data) {}
 
 void register_callbacks(const char *base_name) {
     register_callback(
