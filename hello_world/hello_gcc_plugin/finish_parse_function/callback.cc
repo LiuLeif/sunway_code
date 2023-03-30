@@ -12,26 +12,6 @@
 
 #include "plugin.h"
 
-static void callback_finish_type(void *gcc_data, void *user_data) {
-    std::cerr << "finish type of: ";
-    tree_node *tree = (tree_node *)gcc_data;
-    debug_generic_expr(tree);
-}
-
-static void callback_finish_declaration(void *gcc_data, void *user_data) {
-    std::cerr << "======" << std::endl;
-    std::cerr << "DECLARATION: " << std::endl;
-    tree decl = (tree)gcc_data;
-    // debug_tree(tree);
-    std::cerr << "code: " << get_tree_code_name(TREE_CODE(decl)) << std::endl;
-    std::cerr << "decl name: " << IDENTIFIER_POINTER(DECL_NAME(decl))
-              << std::endl;
-
-    tree tree_type = TREE_TYPE(decl);
-    std::cerr << "tree_type code: " << get_tree_code_name(TREE_CODE(tree_type))
-              << std::endl;
-}
-
 void traverse_function_body(tree t) {
     // t = build_int_cst(integer_type_node, 1);
 #define CHECK_AND_CHANGE_CST(x)            \
@@ -80,14 +60,6 @@ void callback_parse_function(void *event, void *__unused__) {
 }
 
 void register_callbacks(const char *base_name) {
-    register_callback(
-        base_name, PLUGIN_FINISH_TYPE, callback_finish_type,
-        /* user_data */ NULL);
-
-    register_callback(
-        base_name, PLUGIN_FINISH_DECL, callback_finish_declaration,
-        /* user_data */ NULL);
-
     register_callback(
         base_name, PLUGIN_FINISH_PARSE_FUNCTION, callback_parse_function,
         /* user_data */ NULL);

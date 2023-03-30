@@ -5,7 +5,7 @@ TEST_BIN := test.elf
 GCCPLUGINS_DIR := $(shell gcc -print-file-name=plugin)
 PLUGIN_CXXFLAGS := -I$(GCCPLUGINS_DIR)/include -fPIC -fno-rtti -O2
 
-PLUGIN_SRC := $(wildcard *.cc)
+PLUGIN_SRC := $(wildcard *.cc) ../hello_plugin.cc
 PLUGIN_OBJ := $(patsubst %.cc,%.o,${PLUGIN_SRC})
 
 $(PLUGIN_OBJ):CXXFLAGS := ${PLUGIN_CXXFLAGS}
@@ -33,6 +33,6 @@ run: ${TEST_BIN}
 	- ./${TEST_BIN}
 
 clean:
-	rm -f ${TEST_OBJ} ${PLUGIN} ${PLUGIN_OBJ}
+	rm -f ${TEST_OBJ} ${PLUGIN} ${PLUGIN_OBJ} ${TEST_BIN}
 
 .PHONY: test clean FORCE
