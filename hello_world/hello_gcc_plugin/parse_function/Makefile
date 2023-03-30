@@ -1,5 +1,6 @@
-
 all: test
+
+TEST_BIN := test.elf
 
 GCCPLUGINS_DIR := $(shell gcc -print-file-name=plugin)
 PLUGIN_CXXFLAGS := -I$(GCCPLUGINS_DIR)/include -fPIC -fno-rtti -O2
@@ -24,6 +25,12 @@ ${TEST_OBJ}:${PLUGIN} FORCE
 test:${TEST_OBJ}
 
 FORCE:
+
+${TEST_BIN}:${TEST_OBJ}
+	gcc $< -o $@ ${LDFLAGS} ${LDLIBS}
+
+run: ${TEST_BIN}
+	- ./${TEST_BIN}
 
 clean:
 	rm -f ${TEST_OBJ} ${PLUGIN} ${PLUGIN_OBJ}
