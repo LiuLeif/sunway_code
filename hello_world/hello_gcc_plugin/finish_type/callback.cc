@@ -6,11 +6,10 @@
 #include <tree.h>
 #include <tree-iterator.h>
 #include <tree-pretty-print.h>
+#include <iostream>
 // clang-format on
 
-#include <iostream>
-
-#include "plugin.h"
+// NOTE: 这个 plugin 会打印出 struct 的大小
 
 static void callback_finish_type(void *gcc_data, void *user_data) {
     tree t = (tree)gcc_data;
@@ -28,6 +27,5 @@ static void callback_finish_type(void *gcc_data, void *user_data) {
 
 void register_callbacks(const char *base_name) {
     register_callback(
-        base_name, PLUGIN_FINISH_TYPE, callback_finish_type,
-        /* user_data */ NULL);
+        base_name, PLUGIN_FINISH_TYPE, callback_finish_type, NULL);
 }

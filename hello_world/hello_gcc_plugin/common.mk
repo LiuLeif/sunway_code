@@ -2,7 +2,10 @@ all: test
 
 TEST_BIN := test.elf
 
-GCCPLUGINS_DIR := $(shell gcc -print-file-name=plugin)
+CC=gcc
+CXX=g++
+
+GCCPLUGINS_DIR := $(shell ${CC} -print-file-name=plugin)
 PLUGIN_CXXFLAGS := -I$(GCCPLUGINS_DIR)/include -fPIC -fno-rtti -O2
 
 PLUGIN_SRC := $(wildcard *.cc) ../hello_plugin.cc
@@ -12,7 +15,7 @@ $(PLUGIN_OBJ):CXXFLAGS := ${PLUGIN_CXXFLAGS}
 
 PLUGIN := libhello.so
 ${PLUGIN}: $(PLUGIN_OBJ)
-	gcc -shared $^ -o $@ -lstdc++
+	${CC} -shared $^ -o $@ -lstdc++
 
 #-------------------------------------------
 TEST_CFLAGS := -O0 -g3 -fplugin=./${PLUGIN} -fplugin-arg-libhello-count=1
@@ -27,7 +30,7 @@ test:${TEST_OBJ}
 FORCE:
 
 ${TEST_BIN}:${TEST_OBJ}
-	gcc $< -o $@ ${LDFLAGS} ${LDLIBS}
+	${CC} $< -o $@ ${LDFLAGS} ${LDLIBS}
 
 run: ${TEST_BIN}
 	- ./${TEST_BIN}

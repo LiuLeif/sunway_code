@@ -6,11 +6,10 @@
 #include <tree.h>
 #include <tree-iterator.h>
 #include <tree-pretty-print.h>
+#include <iostream>
 // clang-format on
 
-#include <iostream>
-
-#include "plugin.h"
+// NOTE: 这个 plugin 会把所有的 int 常量变成 1
 
 void traverse_function_body(tree t) {
     // t = build_int_cst(integer_type_node, 1);
@@ -52,10 +51,11 @@ void callback_parse_function(void *event, void *__unused__) {
     std::cerr << "======" << std::endl;
     std::cerr << "FUNCTION: " << std::endl;
     tree t = (tree)event;
+    // debug_tree(t);
     printf(
         "%s %s\n", get_tree_code_name(TREE_CODE(t)),
         IDENTIFIER_POINTER(DECL_NAME(t)));
-    debug_tree(DECL_SAVED_TREE(t));
+    // debug_tree(DECL_SAVED_TREE(t));
     traverse_function_body(DECL_SAVED_TREE(t));
 }
 
