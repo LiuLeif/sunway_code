@@ -15,7 +15,7 @@
 
 extern tree pushdecl(tree x);
 
-// NOTE: 这个 plugin 给生成全局变量生成 getter 函数, 例如 __get_a
+// NOTE: 这个 plugin 会给全局变量生成 getter 函数, 例如 __get_a
 
 static void callback_finish_decl(void *gcc_data, void *user_data) {
     tree t = (tree)gcc_data;
@@ -26,7 +26,7 @@ static void callback_finish_decl(void *gcc_data, void *user_data) {
     if (DECL_CONTEXT(t) != NULL) {
         return;
     }
-    if (! SCALAR_FLOAT_TYPE_P(TREE_TYPE(t)) && ! INTEGRAL_TYPE_P(TREE_TYPE(t))) {
+    if (!SCALAR_FLOAT_TYPE_P(TREE_TYPE(t)) && !INTEGRAL_TYPE_P(TREE_TYPE(t))) {
         return;
     }
     // debug_tree(t);
@@ -36,7 +36,8 @@ static void callback_finish_decl(void *gcc_data, void *user_data) {
     tree ftype = build_function_type_list(decl_type, NULL_TREE);
     const char *var_name = IDENTIFIER_POINTER(DECL_NAME(t));
 
-    tree decl = build_fn_decl(("__get_" + std::string(var_name)).c_str(), ftype);
+    tree decl =
+        build_fn_decl(("__get_" + std::string(var_name)).c_str(), ftype);
     tree result =
         build_decl(DECL_SOURCE_LOCATION(t), RESULT_DECL, 0, decl_type);
 
