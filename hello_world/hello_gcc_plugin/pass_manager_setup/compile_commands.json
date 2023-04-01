@@ -1,0 +1,50 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-I/usr/lib/gcc/x86_64-linux-gnu/11/plugin/include",
+      "-fPIC",
+      "-fno-rtti",
+      "-O2",
+      "-c",
+      "-o",
+      "callback.o",
+      "callback.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup/callback.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup/callback.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-I/usr/lib/gcc/x86_64-linux-gnu/11/plugin/include",
+      "-fPIC",
+      "-fno-rtti",
+      "-O2",
+      "-c",
+      "-o",
+      "../hello_plugin.o",
+      "../hello_plugin.cc"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/hello_plugin.cc",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/hello_plugin.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O0",
+      "-g3",
+      "-fplugin=./libhello.so",
+      "-fplugin-arg-libhello-count=1",
+      "-c",
+      "-o",
+      "test.o",
+      "test.c"
+    ],
+    "directory": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup",
+    "file": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup/test.c",
+    "output": "/home/sunway/Gitbox/code/hello_world/hello_gcc_plugin/pass_manager_setup/test.o"
+  }
+]
