@@ -21,11 +21,15 @@ static void callback_pre_genericize(void *gcc_data, void *user_data) {
     printf("======= AST ======\n");
     tree t = (tree)gcc_data;
     debug_tree(DECL_SAVED_TREE(t));
+    print_generic_decl(stderr,t, TDF_RAW);
+    print_generic_stmt(stderr,DECL_SAVED_TREE(t), TDF_RAW);
 }
 
 static void callback_finish_parse_function(void *gcc_data, void *user_data) {
     printf("======= GENERIC ======\n");
     tree t = (tree)gcc_data;
+    print_generic_decl(stderr,t, TDF_RAW);
+    print_generic_stmt(stderr,DECL_SAVED_TREE(t), TDF_RAW);
     debug_tree(DECL_SAVED_TREE(t));
 }
 
