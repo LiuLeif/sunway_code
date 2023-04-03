@@ -11,9 +11,13 @@
 #include <gimplify.h>
 #include <tree-pass.h>
 #include <iostream>
+#include "basic-block.h"
+#include <gimple.h>
+#include <gimple-iterator.h>
+#include <gimple-pretty-print.h>
 #include <context.h>
-
 // clang-format on
+
 const pass_data my_pass_data = {
     .type = GIMPLE_PASS,
     .name = "my_pass",
@@ -23,14 +27,42 @@ const pass_data my_pass_data = {
     .properties_provided = 0,
     .properties_destroyed = 0,
     .todo_flags_start = 0,
-    .todo_flags_finish = 0};
+    .todo_flags_finish = 0,
+};
 
 struct my_pass : gimple_opt_pass {
    public:
     my_pass(gcc::context* ctxt) : gimple_opt_pass(my_pass_data, ctxt) {}
 
     virtual unsigned int execute(function* fun) override {
+        printf("===FNDECL===\n");
         printf("%s\n", function_name(fun));
+        debug_tree(fun->decl);
+
+        printf("===VARDECL===\n");
+        tree var;
+        int i;
+        FOR_EACH_VEC_SAFE_ELT(cfun->local_decls, i, var) { debug_tree(var); }
+
+        printf("===BODY===\n");
+        basic_block bb;
+        gimple_stmt_iterator gsi;
+
+        FOR_EACH_BB_FN(bb, fun)
+        for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
+            gimple* stmt = gsi_stmt(gsi);
+            printf("GIMPLE: %s\n", gimple_code_name[gimple_code(stmt)]);
+            debug(stmt);
+            if (gimple_code(stmt) == GIMPLE_ASSIGN) {
+                tree lhs = gimple_get_lhs(stmt);
+                debug_tree(lhs);
+                if (DECL_NAME(lhs) != NULL_TREE) {
+                    if (strcmp(IDENTIFIER_POINTER(DECL_NAME(lhs)), "_not_used") == 0) {
+                        gsi_remove(&gsi, true);
+                    }
+                }
+            }
+        }
         return 0;
     }
 
