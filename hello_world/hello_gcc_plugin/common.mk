@@ -8,7 +8,7 @@ CXX=g++
 GCCPLUGINS_DIR := $(shell ${CC} -print-file-name=plugin)
 PLUGIN_CXXFLAGS := -I$(GCCPLUGINS_DIR)/include -fPIC -fno-rtti -O2
 
-PLUGIN_SRC := $(wildcard *.cc) ../hello_plugin.cc
+PLUGIN_SRC := callback.cc ../hello_plugin.cc
 PLUGIN_OBJ := $(patsubst %.cc,%.o,${PLUGIN_SRC})
 
 $(PLUGIN_OBJ):CXXFLAGS := ${PLUGIN_CXXFLAGS}
@@ -19,10 +19,14 @@ ${PLUGIN}: $(PLUGIN_OBJ)
 
 #-------------------------------------------
 TEST_CFLAGS := -O0 -g3 -fplugin=./${PLUGIN} -fplugin-arg-libhello-count=1
+TEST_CXXFLAGS := -O0 -g3 -fplugin=./${PLUGIN} -fplugin-arg-libhello-count=1
 
-TEST_SRC := $(wildcard test*.c)
-TEST_OBJ := $(patsubst %.c,%.o,${TEST_SRC})
+TEST_SRC := $(wildcard test*.c) + $(wildcard test*.cc)
+TEST_OBJ := $(patsubst %.cc,%.o,$(patsubst %.c,%.o,${TEST_SRC}))
+
 ${TEST_OBJ}:CFLAGS:=${TEST_CFLAGS}
+${TEST_OBJ}:CXXFLAGS:=${TEST_CXXFLAGS}
+
 ${TEST_OBJ}:${PLUGIN} FORCE
 
 test:${TEST_OBJ}
