@@ -15,7 +15,7 @@
 
 extern tree pushdecl(tree x);
 
-// NOTE: 这个 plugin 会给全局变量生成 getter 函数, 例如 __get_a
+// NOTE: 这个 plugin 会给全局变量生成 getter/setter 函数, 例如 __get_a, __set_a
 
 static void callback_finish_decl(void *gcc_data, void *user_data) {
     tree t = (tree)gcc_data;
@@ -33,9 +33,10 @@ static void callback_finish_decl(void *gcc_data, void *user_data) {
     printf("found global var: %s\n", IDENTIFIER_POINTER(DECL_NAME(t)));
 
     tree decl_type = TREE_TYPE(t);
-    tree ftype = build_function_type_list(decl_type, NULL_TREE);
     const char *var_name = IDENTIFIER_POINTER(DECL_NAME(t));
 
+    // NOTE: getter
+    tree ftype = build_function_type_list(decl_type, NULL_TREE);
     tree decl =
         build_fn_decl(("__get_" + std::string(var_name)).c_str(), ftype);
     tree result =
@@ -44,13 +45,33 @@ static void callback_finish_decl(void *gcc_data, void *user_data) {
     DECL_EXTERNAL(decl) = 0;
     DECL_INITIAL(decl) = make_node(BLOCK);
     DECL_RESULT(decl) = result;
-
     pushdecl(decl);
-
     tree modify = build2(MODIFY_EXPR, TREE_TYPE(result), result, t);
     modify = build1(RETURN_EXPR, void_type_node, modify);
     tree bind =
         build3(BIND_EXPR, void_type_node, NULL_TREE, modify, make_node(BLOCK));
+    DECL_SAVED_TREE(decl) = bind;
+    gimplify_function_tree(decl);
+    cgraph_node::add_new_function(decl, false);
+
+    // NOTE: setter
+    ftype = build_function_type_list(void_type_node, decl_type, NULL_TREE);
+    decl = build_fn_decl(("__set_" + std::string(var_name)).c_str(), ftype);
+    result =
+        build_decl(DECL_SOURCE_LOCATION(t), RESULT_DECL, 0, void_type_node);
+    tree param = build_decl(
+        DECL_SOURCE_LOCATION(t), PARM_DECL, get_identifier("x"), decl_type);
+    DECL_ARG_TYPE(param) = decl_type;
+
+    DECL_EXTERNAL(decl) = 0;
+    DECL_INITIAL(decl) = make_node(BLOCK);
+    DECL_RESULT(decl) = result;
+    DECL_ARGUMENTS(decl) = param;
+    pushdecl(decl);
+
+    modify = build2(MODIFY_EXPR, decl_type, t, param);
+    tree block = make_node(BLOCK);
+    bind = build3(BIND_EXPR, void_type_node, NULL_TREE, modify, block);
     DECL_SAVED_TREE(decl) = bind;
 
     gimplify_function_tree(decl);

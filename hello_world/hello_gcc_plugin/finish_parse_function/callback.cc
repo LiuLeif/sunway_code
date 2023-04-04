@@ -55,7 +55,8 @@ void callback_parse_function(void *event, void *__unused__) {
     printf(
         "%s %s\n", get_tree_code_name(TREE_CODE(t)),
         IDENTIFIER_POINTER(DECL_NAME(t)));
-    // debug_tree(DECL_SAVED_TREE(t));
+    debug_tree(DECL_SAVED_TREE(t));
+    debug_tree(t);
     traverse_function_body(DECL_SAVED_TREE(t));
 }
 
