@@ -45,15 +45,19 @@ void callback_parse_function(void *data, void *__unused__) {
     tree ftype = build_function_type_list(
         void_type_node, build_pointer_type(char_type_node), NULL_TREE);
     tree fndecl = build_fn_decl("trace", ftype);
-
     if (TREE_CODE(t) == STATEMENT_LIST) {
         // NOTE: it seems `main` starts wil `statement_list`, while other
         // function starts with `bind_expr`
         tree_stmt_iterator iter = tsi_start(t);
         t = tsi_stmt(iter);
     }
-
     tree body = BIND_EXPR_BODY(t);
+    if (TREE_CODE(body) != STATEMENT_LIST) {
+        tree tmp = alloc_stmt_list();
+        append_to_statement_list(body, &tmp);
+        body = tmp;
+        BIND_EXPR_BODY(t) = body;
+    }
     tree_stmt_iterator iter = tsi_start(body);
     tree call_stmt = build_call_expr(
         fndecl, 1, build_string_literal(strlen(fname) + 1, fname));
