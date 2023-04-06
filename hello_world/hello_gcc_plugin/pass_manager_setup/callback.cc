@@ -40,9 +40,11 @@ struct my_pass : gimple_opt_pass {
             return;
         }
         gimple_set_visited(stmt, true);
+        printf("visit:\n");
+        debug(stmt);
         use_operand_p use_p;
         ssa_op_iter i;
-        FOR_EACH_SSA_USE_OPERAND(use_p, stmt, i, SSA_OP_USE) {
+        FOR_EACH_PHI_OR_STMT_USE(use_p, stmt, i, SSA_OP_USE) {
             tree use = USE_FROM_PTR(use_p);
             gimple* def = SSA_NAME_DEF_STMT(use);
             mark_stmt_visited(def);
@@ -58,20 +60,27 @@ struct my_pass : gimple_opt_pass {
 
         basic_block bb;
         gimple_stmt_iterator gsi;
-
+        gphi_iterator gpi;
         printf("===BODY===\n");
-        FOR_EACH_BB_FN(bb, fun)
-        for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
-            gimple* stmt = gsi_stmt(gsi);
-            debug(stmt);
-            gimple_set_visited(stmt, false);
+        FOR_EACH_BB_FN(bb, fun) {
+            for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
+                gimple* stmt = gsi_stmt(gsi);
+                debug(stmt);
+                gimple_set_visited(stmt, false);
+            }
+            for (gpi = gsi_start_phis(bb); !gsi_end_p(gpi); gsi_next(&gpi)) {
+                gimple* stmt = gsi_stmt(gpi);
+                debug(stmt);
+                gimple_set_visited(stmt, false);
+            }
         }
+
         printf("====================================\n");
 
         FOR_EACH_BB_FN(bb, fun)
         for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
             gimple* stmt = gsi_stmt(gsi);
-            if (gimple_code(stmt) != GIMPLE_RETURN) {
+            if (gimple_code(stmt) == GIMPLE_ASSIGN) {
                 continue;
             }
             mark_stmt_visited(stmt);
