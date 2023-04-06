@@ -9,8 +9,6 @@
 #include <iostream>
 // clang-format on
 
-// NOTE: 这个 plugin 会把所有的 int 常量变成 1
-
 void callback_parse_function(void *data, void *__unused__) {
     std::cerr << "======" << std::endl;
     std::cerr << "FUNCTION: " << std::endl;
