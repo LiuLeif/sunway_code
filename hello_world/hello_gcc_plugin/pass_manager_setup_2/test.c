@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-void trace() { printf("trace\n"); }
+void trace(char* func) { printf("%s\n", func); }
 
-void foo(char* x) { int a = 0; }
+void foo() { int a = 0; }
 
-char a[] = "hello";
+
 int main(int argc, char* argv[]) {
-    foo("a");
+    foo();
     return 0;
 }
