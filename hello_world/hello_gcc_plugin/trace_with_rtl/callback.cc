@@ -19,6 +19,8 @@
 #include <context.h>
 #include <ssa.h>
 #include <rtl.h>
+#include <memmodel.h>
+#include <emit-rtl.h>
 // clang-format on
 
 #define PASS_NAME test_pass
@@ -38,6 +40,20 @@ unsigned int test_pass_execute() {
 
     basic_block bb;
     rtx_insn* insn;
+    rtx_insn* last_insn;
+    for (insn = get_insns(), last_insn = get_last_insn(); insn != last_insn;
+         insn = NEXT_INSN(insn)) {
+        if (GET_CODE(insn) == NOTE) {
+            continue;
+        }
+        rtx_insn* call_tace = emit_call_insn_before(call, insn);
+        rtx_insn* setx = emit_insn_before(
+            gen_rtx_SET(
+                gen_rtx_REG(DImode, 5), gen_rtx_SYMBOL_REF(DImode, var_name)),
+            call_tace);
+        goto out;
+    }
+    /*
     FOR_EACH_BB_FN(bb, cfun) {
         FOR_BB_INSNS(bb, insn) {
             if (GET_CODE(insn) == NOTE) {
@@ -52,6 +68,7 @@ unsigned int test_pass_execute() {
             goto out;
         }
     }
+    */
 out:
     return 0;
 }
