@@ -37,53 +37,36 @@ static void callback_start_unit(void* gcc_data, void* user_data) {
     // TREE_USED(sancov_fndecl) = 1;
 }
 
-const pass_data my_pass_data = {
-    .type = GIMPLE_PASS,
-    .name = "my_pass",
-    .optinfo_flags = OPTGROUP_NONE,
-    .tv_id = TV_NONE,
-    .properties_required = PROP_gimple_any,
-    .properties_provided = 0,
-    .properties_destroyed = 0,
-    .todo_flags_start = 0,
-    .todo_flags_finish = 0,
-};
+#define PASS_NAME test_pass
+#define PASS_GIMPLE
 
-struct my_pass : gimple_opt_pass {
-   public:
-    my_pass(gcc::context* ctxt) : gimple_opt_pass(my_pass_data, ctxt) {}
-
-    virtual unsigned int execute(function* fun) override {
-        const char* fname = function_name(fun);
-        if (strcmp(fname, "trace") == 0) {
-            return 0;
-        }
-        basic_block bb;
-        FOR_EACH_BB_FN(bb, cfun) {
-            gcall* gcall;
-            gimple_stmt_iterator gsi = gsi_after_labels(bb);
-            if (gsi_end_p(gsi)) continue;
-            gimple* stmt = gsi_stmt(gsi);
-
-            gcall = gimple_build_call(
-                sancov_fndecl, 1,
-                build_string_literal(strlen(fname) + 1, fname));
-            gimple_set_location(gcall, gimple_location(stmt));
-            gsi_insert_before(&gsi, gcall, GSI_SAME_STMT);
-            break;
-        }
-        gimple_dump_cfg(stderr, TDF_NONE);
+unsigned int test_pass_execute() {
+    const char* fname = function_name(cfun);
+    if (strcmp(fname, "trace") == 0) {
         return 0;
     }
+    basic_block bb;
+    FOR_EACH_BB_FN(bb, cfun) {
+        gcall* gcall;
+        gimple_stmt_iterator gsi = gsi_after_labels(bb);
+        if (gsi_end_p(gsi)) continue;
+        gimple* stmt = gsi_stmt(gsi);
 
-    virtual my_pass* clone() override { return this; }
-};
+        gcall = gimple_build_call(
+            sancov_fndecl, 1, build_string_literal(strlen(fname) + 1, fname));
+        gimple_set_location(gcall, gimple_location(stmt));
+        gsi_insert_before(&gsi, gcall, GSI_SAME_STMT);
+        break;
+    }
+    gimple_dump_cfg(stderr, TDF_NONE);
+    return 0;
+}
+#include "../generate_pass.h"
 
 struct register_pass_info my_passinfo {
-    .pass = new my_pass(g), .reference_pass_name = "cfg",
-    .ref_pass_instance_number = 1, .pos_op = PASS_POS_INSERT_AFTER
+    .pass = new test_pass(g), .reference_pass_name = "cfg",
+    .ref_pass_instance_number = 1, .pos_op = PASS_POS_INSERT_AFTER,
 };
-
 void register_callbacks(const char* base_name) {
     register_callback(base_name, PLUGIN_PASS_MANAGER_SETUP, NULL, &my_passinfo);
     register_callback(base_name, PLUGIN_START_UNIT, callback_start_unit, NULL);

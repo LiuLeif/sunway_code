@@ -21,15 +21,15 @@ static void callback_pre_genericize(void *gcc_data, void *user_data) {
     printf("======= AST ======\n");
     tree t = (tree)gcc_data;
     debug_tree(DECL_SAVED_TREE(t));
-    print_generic_decl(stderr,t, TDF_RAW);
-    print_generic_stmt(stderr,DECL_SAVED_TREE(t), TDF_RAW);
+    print_generic_decl(stderr, t, TDF_RAW);
+    print_generic_stmt(stderr, DECL_SAVED_TREE(t), TDF_RAW);
 }
 
 static void callback_finish_parse_function(void *gcc_data, void *user_data) {
     printf("======= GENERIC ======\n");
     tree t = (tree)gcc_data;
-    print_generic_decl(stderr,t, TDF_RAW);
-    print_generic_stmt(stderr,DECL_SAVED_TREE(t), TDF_RAW);
+    print_generic_decl(stderr, t, TDF_RAW);
+    print_generic_stmt(stderr, DECL_SAVED_TREE(t), TDF_RAW);
     debug_tree(DECL_SAVED_TREE(t));
 }
 
@@ -45,42 +45,38 @@ const pass_data my_pass_data = {
     .todo_flags_finish = 0,
 };
 
-struct my_pass : gimple_opt_pass {
-   public:
-    my_pass(gcc::context *ctxt) : gimple_opt_pass(my_pass_data, ctxt) {}
+#define PASS_NAME test_pass
+#define PASS_GIMPLE
 
-    virtual unsigned int execute(function *fun) override {
-        printf("===GIMPLE===\n");
-        basic_block bb;
-        gimple_stmt_iterator gsi;
+unsigned int test_pass_execute() {
+    printf("===GIMPLE===\n");
+    basic_block bb;
+    gimple_stmt_iterator gsi;
 
-        FOR_EACH_BB_FN(bb, fun) {
-            printf("---BB---\n");
-            for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
-                gimple *stmt = gsi_stmt(gsi);
-                print_gimple_stmt(stderr, stmt, 0, TDF_RAW);
-                printf(
-                    "gimple code: %s\n", gimple_code_name[gimple_code(stmt)]);
-                if (gimple_code(stmt) == GIMPLE_RETURN) {
-                    printf("return:\n");
-                    debug_tree(gimple_return_retval((greturn *)stmt));
-                } else {
-                    printf("lhs:\n");
-                    debug_tree(gimple_get_lhs(stmt));
-                    printf("rhs1:\n");
-                    debug_tree(gimple_assign_rhs1(stmt));
-                }
+    FOR_EACH_BB_FN(bb, cfun) {
+        printf("---BB---\n");
+        for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
+            gimple *stmt = gsi_stmt(gsi);
+            print_gimple_stmt(stderr, stmt, 0, TDF_RAW);
+            printf("gimple code: %s\n", gimple_code_name[gimple_code(stmt)]);
+            if (gimple_code(stmt) == GIMPLE_RETURN) {
+                printf("return:\n");
+                debug_tree(gimple_return_retval((greturn *)stmt));
+            } else {
+                printf("lhs:\n");
+                debug_tree(gimple_get_lhs(stmt));
+                printf("rhs1:\n");
+                debug_tree(gimple_assign_rhs1(stmt));
             }
         }
-        return 0;
     }
-
-    virtual my_pass *clone() override { return this; }
-};
+    return 0;
+}
+#include "../generate_pass.h"
 
 struct register_pass_info my_passinfo {
-    .pass = new my_pass(g), .reference_pass_name = "cfg",
-    .ref_pass_instance_number = 1, .pos_op = PASS_POS_INSERT_AFTER
+    .pass = new test_pass(g), .reference_pass_name = "cfg",
+    .ref_pass_instance_number = 1, .pos_op = PASS_POS_INSERT_AFTER,
 };
 
 void register_callbacks(const char *base_name) {

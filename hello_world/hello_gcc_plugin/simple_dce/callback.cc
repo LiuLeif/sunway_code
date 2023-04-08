@@ -19,92 +19,79 @@
 #include <ssa.h>
 // clang-format on
 
-const pass_data my_pass_data = {
-    .type = GIMPLE_PASS,
-    .name = "my_pass",
-    .optinfo_flags = OPTGROUP_NONE,
-    .tv_id = TV_NONE,
-    .properties_required = PROP_gimple_any,
-    .properties_provided = 0,
-    .properties_destroyed = 0,
-    .todo_flags_start = 0,
-    .todo_flags_finish = 0,
-};
+#define PASS_NAME test_pass
+#define PASS_GIMPLE
 
-struct my_pass : gimple_opt_pass {
-   public:
-    my_pass(gcc::context* ctxt) : gimple_opt_pass(my_pass_data, ctxt) {}
-
-    virtual void mark_stmt_visited(gimple* stmt) const {
-        if (gimple_visited_p(stmt)) {
-            return;
-        }
-        gimple_set_visited(stmt, true);
-        printf("visit:\n");
-        debug(stmt);
-        use_operand_p use_p;
-        ssa_op_iter i;
-        FOR_EACH_PHI_OR_STMT_USE(use_p, stmt, i, SSA_OP_USE) {
-            tree use = USE_FROM_PTR(use_p);
-            gimple* def = SSA_NAME_DEF_STMT(use);
-            mark_stmt_visited(def);
-        }
+void mark_stmt_visited(gimple* stmt) {
+    if (gimple_visited_p(stmt)) {
+        return;
     }
-    virtual unsigned int execute(function* fun) override {
-        printf("===FNDECL===\n");
-        printf("%s\n", function_name(fun));
+    gimple_set_visited(stmt, true);
+    printf("visit:\n");
+    debug(stmt);
+    use_operand_p use_p;
+    ssa_op_iter i;
+    FOR_EACH_PHI_OR_STMT_USE(use_p, stmt, i, SSA_OP_USE) {
+        tree use = USE_FROM_PTR(use_p);
+        gimple* def = SSA_NAME_DEF_STMT(use);
+        mark_stmt_visited(def);
+    }
+}
 
-        tree var;
-        int i;
-        FOR_EACH_VEC_SAFE_ELT(cfun->local_decls, i, var) {}
+unsigned int test_pass_execute() {
+    printf("===FNDECL===\n");
+    printf("%s\n", function_name(cfun));
 
-        basic_block bb;
-        gimple_stmt_iterator gsi;
-        gphi_iterator gpi;
-        printf("===BODY===\n");
-        FOR_EACH_BB_FN(bb, fun) {
-            for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
-                gimple* stmt = gsi_stmt(gsi);
-                debug(stmt);
-                gimple_set_visited(stmt, false);
-            }
-            for (gpi = gsi_start_phis(bb); !gsi_end_p(gpi); gsi_next(&gpi)) {
-                gimple* stmt = gsi_stmt(gpi);
-                debug(stmt);
-                gimple_set_visited(stmt, false);
-            }
-        }
+    tree var;
+    int i;
+    FOR_EACH_VEC_SAFE_ELT(cfun->local_decls, i, var) {}
 
-        printf("====================================\n");
-
-        FOR_EACH_BB_FN(bb, fun)
+    basic_block bb;
+    gimple_stmt_iterator gsi;
+    gphi_iterator gpi;
+    printf("===BODY===\n");
+    FOR_EACH_BB_FN(bb, cfun) {
         for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
             gimple* stmt = gsi_stmt(gsi);
-            if (gimple_code(stmt) == GIMPLE_ASSIGN) {
-                continue;
-            }
-            mark_stmt_visited(stmt);
+            debug(stmt);
+            gimple_set_visited(stmt, false);
         }
-
-        FOR_EACH_BB_FN(bb, fun)
-        for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi);) {
-            gimple* stmt = gsi_stmt(gsi);
-            if (!gimple_visited_p(stmt)) {
-                printf("remove: \n");
-                debug(stmt);
-                gsi_remove(&gsi, true);
-            } else {
-                gsi_next(&gsi);
-            }
+        for (gpi = gsi_start_phis(bb); !gsi_end_p(gpi); gsi_next(&gpi)) {
+            gimple* stmt = gsi_stmt(gpi);
+            debug(stmt);
+            gimple_set_visited(stmt, false);
         }
-        return 0;
     }
 
-    virtual my_pass* clone() override { return this; }
-};
+    printf("====================================\n");
+
+    FOR_EACH_BB_FN(bb, cfun)
+    for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi); gsi_next(&gsi)) {
+        gimple* stmt = gsi_stmt(gsi);
+        if (gimple_code(stmt) == GIMPLE_ASSIGN) {
+            continue;
+        }
+        mark_stmt_visited(stmt);
+    }
+
+    FOR_EACH_BB_FN(bb, cfun)
+    for (gsi = gsi_start_bb(bb); !gsi_end_p(gsi);) {
+        gimple* stmt = gsi_stmt(gsi);
+        if (!gimple_visited_p(stmt)) {
+            printf("remove: \n");
+            debug(stmt);
+            gsi_remove(&gsi, true);
+        } else {
+            gsi_next(&gsi);
+        }
+    }
+    return 0;
+}
+
+#include "../generate_pass.h"
 
 struct register_pass_info my_passinfo {
-    .pass = new my_pass(g), .reference_pass_name = "ssa",
+    .pass = new test_pass(g), .reference_pass_name = "ssa",
     .ref_pass_instance_number = 1, .pos_op = PASS_POS_INSERT_AFTER
 };
 
