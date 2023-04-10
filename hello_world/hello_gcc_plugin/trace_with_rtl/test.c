@@ -2,8 +2,7 @@
 
 void trace(char* func) { printf("%s\n", func); }
 
-void foo() { int a = 0; }
-
+int foo() { return 0; }
 
 int main(int argc, char* argv[]) {
     foo();
