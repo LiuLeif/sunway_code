@@ -47,7 +47,7 @@ static int test_vqadd_s8() {
 
 /* NOTE: vuqadd 的 uq 前缀表示 unsiged saturat, 表示 int=int+uint, 其它要求和
  * vqadd 相同 */
-static int test_vuqadd_s8() {
+TEST_CASE(test_vuqadd_s8) {
     static const struct {
         int8_t a[8];
         uint8_t b[8];
@@ -94,7 +94,7 @@ static int test_vuqadd_s8() {
 
 /* NOTE: vsqadd 的 sq 前缀表示 siged saturat, 表示 uint=uint+int, 其它要求和
  * vqadd 相同 */
-static int test_vsqadd_u8() {
+TEST_CASE(test_vsqadd_u8) {
     static const struct {
         uint8_t a[8];
         int8_t b[8];
@@ -138,7 +138,7 @@ static int test_vsqadd_u8() {
 }
 
 /* NOTE: vqadd{b,h,s,d} 是 vqadd 的 scalar 版本 */
-static int test_vqaddb_s8() {
+TEST_CASE(test_vqaddb_s8) {
     static const struct {
         int8_t a;
         int8_t b;
@@ -156,7 +156,7 @@ static int test_vqaddb_s8() {
 }
 
 /* NOTE: vuqadd{b,h,s,d}_{s}{n} 是 vuqadd 的 scalar 版本 */
-static int test_vuqaddb_s8() {
+TEST_CASE(test_vuqaddb_s8) {
     static const struct {
         int8_t a;
         uint8_t b;
@@ -175,7 +175,7 @@ static int test_vuqaddb_s8() {
 }
 
 /* NOTE: vsqadd{b,h,s,d} 是 vsqadd 的 scalar 版本 */
-static int test_vsqaddb_u8() {
+TEST_CASE(test_vsqaddb_u8) {
     static const struct {
         uint8_t a;
         int8_t b;
@@ -189,16 +189,5 @@ static int test_vsqaddb_u8() {
         uint8_t r = vsqaddb_u8(test_vec[i].a, test_vec[i].b);
         assert(r == test_vec[i].r);
     }
-    return 0;
-}
-
-int main(int argc, char *argv[]) {
-    test_vqadd_s8();
-    test_vuqadd_s8();
-    test_vsqadd_u8();
-
-    test_vqaddb_s8();
-    test_vuqaddb_s8();
-    test_vsqaddb_u8();
     return 0;
 }

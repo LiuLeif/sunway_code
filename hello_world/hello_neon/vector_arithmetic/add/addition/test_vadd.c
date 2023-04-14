@@ -1,7 +1,7 @@
 // 2023-04-14 10:44
 #include <neon.h>
 /* NOTE: vadd{q} 支持 {s,u}{8,16,32,64} 以及 {s,u}f{32,64} */
-static int test_vadd_s8() {
+TEST_CASE(test_vadd_s8) {
     struct {
         int8_t a[8];
         int8_t b[8];
@@ -43,7 +43,7 @@ static int test_vadd_s8() {
     return 0;
 }
 
-static int test_vaddq_s8() {
+TEST_CASE(test_vaddq_s8) {
     struct {
         int8_t a[16];
         int8_t b[16];
@@ -104,11 +104,5 @@ static int test_vaddq_s8() {
         int8x16_t check = vld1q_s8(test_vec[i].r);
         ASSERT_EQUAL(16, r, check);
     }
-    return 0;
-}
-
-int main(int argc, char *argv[]) {
-    test_vadd_s8();
-    test_vaddq_s8();
     return 0;
 }

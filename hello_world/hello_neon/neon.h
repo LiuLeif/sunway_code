@@ -19,4 +19,7 @@
     }
 #endif
 
+#define TEST_CASE(name) __attribute__((constructor)) int name ()
+
+int main(int argc, char *argv[]) { return 0; }
 #endif  // COMMON_H

@@ -3,7 +3,7 @@
 /* NOTE: vaddhn_s16 的 hn 后缀表示 high narrow, 计算 (a+b)>>8. vaddhn 支持
  * {s,u}{16,32,64}, 不支持 q 后缀, 因为它的输入已经是 128-bit. 不支持 float 及
  * {s,u}8 */
-static int test_vaddhn_s16() {
+TEST_CASE(test_vaddhn_s16) {
     static const struct {
         int16_t a[8];
         int16_t b[8];
@@ -46,7 +46,7 @@ static int test_vaddhn_s16() {
 
 /* NOTE: vhadd 的 h 前缀表示 half, 计算 (a+b)>>1, vhadd 支持 {s,u}{8,16,32},
  * 支持 q 后缀, 不支持 float */
-static int test_vhadd_s8() {
+TEST_CASE(test_vhadd_s8) {
     static const struct {
         int8_t a[8];
         int8_t b[8];
@@ -88,7 +88,7 @@ static int test_vhadd_s8() {
 }
 
 /* NOTE: vrhadd 的 rh 前缀表示 round half, 其它与 vhadd 相同 */
-static int test_vrhadd_s8() {
+TEST_CASE(test_vrhadd_s8) {
     static const struct {
         int8_t a[8];
         int8_t b[8];
@@ -127,12 +127,5 @@ static int test_vrhadd_s8() {
         int8x8_t check = vld1_s8(test_vec[i].r);
         ASSERT_EQUAL(8, r, check);
     }
-    return 0;
-}
-
-int main(int argc, char *argv[]) {
-    test_vaddhn_s16();
-    test_vhadd_s8();
-    test_vrhadd_s8();
     return 0;
 }
