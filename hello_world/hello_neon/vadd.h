@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include "neon_emu_types.h"
-// NOTE: 使用 64-bit vector 计算 a+b
+
 int8x8_t vadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
     for (int i = 0; i < 8; i++) {
@@ -12,7 +12,7 @@ int8x8_t vadd_s8(int8x8_t a, int8x8_t b) {
     }
     return r;
 }
-// NOTE: 使用 128-bit vector 计算 a+b, q 后缀表示 128-bit
+
 int8x16_t vaddq_s8(int8x16_t a, int8x16_t b) {
     int8x16_t r;
     for (int i = 0; i < 16; i++) {
@@ -21,8 +21,6 @@ int8x16_t vaddq_s8(int8x16_t a, int8x16_t b) {
     return r;
 }
 
-// NOTE: 返回 a+b 的高 8 位, hn 后缀表示 high narrow
-// 不存在 vaddhn_s8, 因为 s8 无法再 narrow
 int8x8_t vaddhn_s16(int16x8_t a, int16x8_t b) {
     int8x8_t r;
     for (int i = 0; i < 8; i++) {
@@ -31,7 +29,6 @@ int8x8_t vaddhn_s16(int16x8_t a, int16x8_t b) {
     return r;
 }
 
-// NOTE: 返回 (a+b)/2, h 前缀表示 half
 int8x8_t vhadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
     for (int i = 0; i < 8; i++) {
@@ -40,7 +37,6 @@ int8x8_t vhadd_s8(int8x8_t a, int8x8_t b) {
     return r;
 }
 
-// NOTE: 返回 round((a+b)/2), rh 前缀表示 round half
 int8x8_t vrhadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
     for (int i = 0; i < 8; i++) {
@@ -49,7 +45,6 @@ int8x8_t vrhadd_s8(int8x8_t a, int8x8_t b) {
     return r;
 }
 
-// NOTE: 返回 saturate(a+b), q 前缀表示 saturate
 int8x8_t vqadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
     for (int i = 0; i < 8; i++) {
@@ -135,4 +130,29 @@ int16x8_t vaddl_s8(int8x8_t a, int8x8_t b) {
     }
     return r;
 }
+
+int16x8_t vaddl_high_s8(int8x16_t a, int8x16_t b) {
+    int16x8_t r;
+    for (int i = 0; i < 8; i++) {
+        r.values[i] = (int16_t)a.values[i + 8] + b.values[i + 8];
+    }
+    return r;
+}
+
+int16x8_t vaddw_s8(int16x8_t a, int8x8_t b) {
+    int16x8_t r;
+    for (int i = 0; i < 8; i++) {
+        r.values[i] = a.values[i] + b.values[i];
+    }
+    return r;
+}
+
+int16x8_t vaddw_high_s8(int16x8_t a, int8x16_t b) {
+    int16x8_t r;
+    for (int i = 0; i < 8; i++) {
+        r.values[i] = a.values[i] + b.values[i + 8];
+    }
+    return r;
+}
+
 #endif  // VADD_H

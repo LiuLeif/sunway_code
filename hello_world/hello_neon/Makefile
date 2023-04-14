@@ -1,11 +1,11 @@
 all:native emu
 
-CFLAGS := -O3 -g3 -I.
+CFLAGS := -MMD -O3 -g3 -I.
 LDFLAGS := -L. -static
 LDLIBS := -lm
 CC :=aarch64-linux-gnu-gcc
 
-SRC := $(shell find ./ -name test_*.c)
+SRC := $(shell find ./ -name test_*.c -printf '%P\n')
 NATIVE_APP := $(patsubst %.c,%_native.elf,${SRC})
 EMU_APP := $(patsubst %.c,%_emu.elf,${SRC})
 TEST_NATIVE_APP := $(patsubst %, run_%,${NATIVE_APP})
@@ -13,6 +13,10 @@ TEST_EMU_APP := $(patsubst %, run_%,${EMU_APP})
 
 native: ${NATIVE_APP}
 emu: ${EMU_APP}
+
+DEP := $(NATIVE_APP:.elf=.d)
+DEP += $(EMU_APP:.elf=.d)
+-include ${DEP}
 
 %_native.elf:%.c
 	${CC} ${CFLAGS} -o $@ $^ ${LDFLAGS} ${LDLIBS}
@@ -30,6 +34,6 @@ run_emu: ${TEST_EMU_APP}
 run: run_native run_emu
 
 clean:
-	rm -f ${NATIVE_APP} ${EMU_APP}
+	rm -f ${NATIVE_APP} ${EMU_APP} ${DEP}
 
 .PHONY: clean app run
