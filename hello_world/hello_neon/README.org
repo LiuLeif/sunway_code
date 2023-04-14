@@ -7,36 +7,36 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 1. [ ] Basic intrinsics
    1. [ ] Vector arithmetic
       1. [ ] Add
-         1) [ ] Addition
-         2) [ ] Widening addition
-         3) [ ] Narrowing addition
-         4) [ ] Saturating addition
+         1. [ ] Addition
+         2. [ ] Widening addition
+         3. [ ] Narrowing addition
+         4. [ ] Saturating addition
       2. [ ] Multiply
-         1) [ ] Multiplication
-         2) [ ] Multiply extended
-         3) [ ] Multiply-accumulate
-         4) [ ] Multiply-accumulate and widen
-         5) [ ] Fused multiply-accumulate
-         6) [ ] Saturating multiply
-         7) [ ] Saturating multiply-accumulate
-         8) [ ] Widening multiplication
-         9) [ ] Saturating multiply by scalar and widen
-         10) [ ] Saturating multiply-accumulate by scalar and widen
+         1. [ ] Multiplication
+         2. [ ] Multiply extended
+         3. [ ] Multiply-accumulate
+         4. [ ] Multiply-accumulate and widen
+         5. [ ] Fused multiply-accumulate
+         6. [ ] Saturating multiply
+         7. [ ] Saturating multiply-accumulate
+         8. [ ] Widening multiplication
+         9. [ ] Saturating multiply by scalar and widen
+         10. [ ] Saturating multiply-accumulate by scalar and widen
       3. [ ] Polynomial
          1. [ ] Polynomial multiply
       4. [ ] Division
       5. [ ] Subtract
-         1) [ ] Subtraction
-         2) [ ] Widening subtraction
-         3) [ ] Narrowing subtraction
-         4) [ ] Saturating subtract
+         1. [ ] Subtraction
+         2. [ ] Widening subtraction
+         3. [ ] Narrowing subtraction
+         4. [ ] Saturating subtract
       6. [ ] Absolute
-         1) [ ] Absolute difference
-         2) [ ] Widening absolute difference
-         3) [ ] Absolute difference and accumulate
-         4) [ ] Widening absolute difference and accumulate
-         5) [ ] Absolute value
-         6) [ ] Saturating absolute value
+         1. [ ] Absolute difference
+         2. [ ] Widening absolute difference
+         3. [ ] Absolute difference and accumulate
+         4. [ ] Widening absolute difference and accumulate
+         5. [ ] Absolute value
+         6. [ ] Saturating absolute value
       7. [ ] Maximum
       8. [ ] Minimum
       9. [ ] Rounding
@@ -60,35 +60,35 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
           5. [ ] Maximum across vector (IEEE754)
           6. [ ] Minimum across vector (IEEE754)
    2. [ ] Compare
-      - [ ] Bitwise equal
-      - [ ] Bitwise equal to zero
-      - [ ] Greater than or equal to
-      - [ ] Less than or equal to
-      - [ ] Greater than
-      - [ ] Less than
-      - [ ] Absolute greater than or equal to
-      - [ ] Absolute less than or equal to
-      - [ ] Absolute greater than
-      - [ ] Absolute less than
-      - [ ] Bitwise not equal to zero
+      1. [ ] Bitwise equal
+      2. [ ] Bitwise equal to zero
+      3. [ ] Greater than or equal to
+      4. [ ] Less than or equal to
+      5. [ ] Greater than
+      6. [ ] Less than
+      7. [ ] Absolute greater than or equal to
+      8. [ ] Absolute less than or equal to
+      9. [ ] Absolute greater than
+      10. [ ] Absolute less than
+      11. [ ] Bitwise not equal to zero
    3. [ ] Shift
-      - [ ] Left
-        - [ ] Vector shift left
-        - [ ] Vector saturating shift left
-        - [ ] Vector rounding shift left
-        - [ ] Vector saturating rounding shift left
-        - [ ] Vector shift left and widen
-        - [ ] Vector shift left and insert
-      - [ ] Right
-        - [ ] Vector shift right
-        - [ ] Vector rounding shift right
-        - [ ] Vector shift right and accumulate
-        - [ ] Vector rounding shift right and accumulate
-        - [ ] Vector shift right and narrow
-        - [ ] Vector saturating shift right and narrow
-        - [ ] Vector saturating rounding shift right and narrow
-        - [ ] Vector rounding shift right and narrow
-        - [ ] Vector shift right and insert
+      1. [ ] Left
+         1. [ ] Vector shift left
+         2. [ ] Vector saturating shift left
+         3. [ ] Vector rounding shift left
+         4. [ ] Vector saturating rounding shift left
+         5. [ ] Vector shift left and widen
+         6. [ ] Vector shift left and insert
+      2. [ ] Right
+         1. [ ] Vector shift right
+         2. [ ] Vector rounding shift right
+         3. [ ] Vector shift right and accumulate
+         4. [ ] Vector rounding shift right and accumulate
+         5. [ ] Vector shift right and narrow
+         6. [ ] Vector saturating shift right and narrow
+         7. [ ] Vector saturating rounding shift right and narrow
+         8. [ ] Vector rounding shift right and narrow
+         9. [ ] Vector shift right and insert
    4. [ ] Data type conversion
       1. [ ] Conversions
       2. [ ] Reinterpret casts
