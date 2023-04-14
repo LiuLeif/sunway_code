@@ -4,5 +4,6 @@
 
 #include "./vld.h"
 #include "./vadd.h"
+#include "./vmul.h"
 
 #endif  // ARM_NEON_H

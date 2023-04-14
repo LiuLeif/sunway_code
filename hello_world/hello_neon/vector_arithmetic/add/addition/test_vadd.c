@@ -1,6 +1,6 @@
 // 2023-04-14 10:44
 #include <neon.h>
-/* NOTE: vadd{q} 支持 {s,u}{8,16,32,64} 以及 {s,u}f{32,64} */
+/* NOTE: vadd{q} 支持 {s,u}{8,16,32,64} 以及 f{32,64} */
 TEST_CASE(test_vadd_s8) {
     struct {
         int8_t a[8];
