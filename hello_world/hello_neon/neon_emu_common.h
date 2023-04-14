@@ -1,0 +1,16 @@
+// 2023-04-14 13:08
+#ifndef ARM_NEON_COMMON_H
+#define ARM_NEON_COMMON_H
+
+#include <stdint.h>
+#include <string.h>
+
+typedef union {
+    int8_t values[8];
+} int8x8_t;
+
+typedef union {
+    int8_t values[16];
+} int8x16_t;
+
+#endif  // ARM_NEON_COMMON_H

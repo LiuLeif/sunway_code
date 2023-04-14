@@ -1,0 +1,15 @@
+[
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-o",
+            "test_vadd.elf",
+            "test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test_vadd.c"
+    }
+]
