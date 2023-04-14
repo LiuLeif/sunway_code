@@ -10,6 +10,10 @@ typedef union {
 } int8x8_t;
 
 typedef union {
+    uint8_t values[8];
+} uint8x8_t;
+
+typedef union {
     int8_t values[16];
 } int8x16_t;
 

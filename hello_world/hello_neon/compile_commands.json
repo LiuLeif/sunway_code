@@ -3,13 +3,29 @@
         "arguments": [
             "aarch64-linux-gnu-gcc",
             "-c",
-            "-O0",
+            "-O3",
             "-g3",
+            "-I.",
+            "-DEMU",
             "-o",
-            "test_vadd.elf",
-            "test_vadd.c"
+            "vector_arithmetic/add/addition/test_vadd_emu.elf",
+            "vector_arithmetic/add/addition/test_vadd.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test_vadd.c"
+        "file": "vector_arithmetic/add/addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-I.",
+            "-o",
+            "vector_arithmetic/add/addition/test_vadd_native.elf",
+            "vector_arithmetic/add/addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "vector_arithmetic/add/addition/test_vadd.c"
     }
 ]

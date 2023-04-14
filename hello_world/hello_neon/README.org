@@ -4,11 +4,11 @@ the complete neon intrinsics list:
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [ ] Vector arithmetic
-   1. [ ] Add
-      1. [ ] Addition
+1. [-] Vector arithmetic
+   1. [-] Add
+      1. [X] Addition
       2. [ ] Widening addition
-      3. [ ] Narrowing addition
+      3. [X] Narrowing addition
       4. [ ] Saturating addition
    2. [ ] Multiply
       1. [ ] Multiplication
