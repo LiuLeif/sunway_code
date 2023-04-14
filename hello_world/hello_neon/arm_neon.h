@@ -3,6 +3,7 @@
 #define COMMON_H
 #include <assert.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #ifndef EMU
 #include <arm_neon.h>

@@ -13,4 +13,8 @@ typedef union {
     int8_t values[16];
 } int8x16_t;
 
+typedef union {
+    int16_t values[8];
+} int16x8_t;
+
 #endif  // ARM_NEON_COMMON_H
