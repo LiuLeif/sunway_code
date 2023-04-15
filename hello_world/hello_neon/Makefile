@@ -1,6 +1,6 @@
 all:native emu
 
-CFLAGS := -MMD -O3 -g3 -I.
+CFLAGS := -MMD -O3 -g3 -Ineon_emu -I.
 LDFLAGS := -L. -static
 LDLIBS := -lm
 CC :=aarch64-linux-gnu-gcc
