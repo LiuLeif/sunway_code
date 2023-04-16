@@ -1,6 +1,8 @@
 // 2023-04-14 19:39
 #ifndef VMUL_H
 #define VMUL_H
+#include <stdint.h>
+
 #include "neon_emu_types.h"
 
 int8x8_t vmul_s8(int8x8_t a, int8x8_t b) {
@@ -97,6 +99,30 @@ float32x2_t vfma_laneq_f32(
 
 float vfmas_lane_f32(float a, float b, float32x2_t v, int lane) {
     float r = (double)a + (double)b * v.values[lane];
+    return r;
+}
+
+int16x4_t vqdmulh_s16(int16x4_t a, int16x4_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        r.values[i] = (a.values[i] * b.values[i] * 2) >> 16;
+    }
+    return r;
+}
+
+int16x4_t vqrdmulh_s16(int16x4_t a, int16x4_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        r.values[i] = (a.values[i] * b.values[i] * 2 + (1 << 15)) >> 16;
+    }
+    return r;
+}
+
+int32x4_t vqdmull_s16(int16x4_t a, int16x4_t b) {
+    int32x4_t r;
+    for (int i = 0; i < 4; i++) {
+        r.values[i] = (a.values[i] * b.values[i] * 2);
+    }
     return r;
 }
 #endif  // VMUL_H

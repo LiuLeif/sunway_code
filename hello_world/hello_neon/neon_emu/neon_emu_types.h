@@ -29,4 +29,12 @@ typedef union {
     float values[4];
 } float32x4_t;
 
+typedef union {
+    int16_t values[4];
+} int16x4_t;
+
+typedef union {
+    int32_t values[4];
+} int32x4_t;
+
 #endif  // ARM_NEON_COMMON_H

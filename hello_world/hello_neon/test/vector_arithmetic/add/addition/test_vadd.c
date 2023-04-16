@@ -1,6 +1,34 @@
 // 2023-04-14 10:44
 #include <neon.h>
-/* NOTE: vadd{q} 支持 {s,u}{8,16,32,64} 以及 f{32,64} */
+// vadd:
+//
+// int8x8_t vadd_s8(int8x8_t a,int8x8_t b)
+// int16x4_t vadd_s16(int16x4_t a,int16x4_t b)
+// int32x2_t vadd_s32(int32x2_t a,int32x2_t b)
+// int64x1_t vadd_s64(int64x1_t a,int64x1_t b)
+// uint8x8_t vadd_u8(uint8x8_t a,uint8x8_t b)
+// uint16x4_t vadd_u16(uint16x4_t a,uint16x4_t b)
+// uint32x2_t vadd_u32(uint32x2_t a,uint32x2_t b)
+// uint64x1_t vadd_u64(uint64x1_t a,uint64x1_t b)
+//
+// vaddq:
+//
+// int8x16_t vaddq_s8(int8x16_t a,int8x16_t b)
+// int16x8_t vaddq_s16(int16x8_t a,int16x8_t b)
+// int32x4_t vaddq_s32(int32x4_t a,int32x4_t b)
+// int64x2_t vaddq_s64(int64x2_t a,int64x2_t b)
+// uint8x16_t vaddq_u8(uint8x16_t a,uint8x16_t b)
+// uint16x8_t vaddq_u16(uint16x8_t a,uint16x8_t b)
+// uint32x4_t vaddq_u32(uint32x4_t a,uint32x4_t b)
+// uint64x2_t vaddq_u64(uint64x2_t a,uint64x2_t b)
+//
+// float:
+//
+// float32x2_t vadd_f32(float32x2_t a,float32x2_t b)
+// float32x4_t vaddq_f32(float32x4_t a,float32x4_t b)
+// float64x1_t vadd_f64(float64x1_t a,float64x1_t b)
+// float64x2_t vaddq_f64(float64x2_t a,float64x2_t b)
+//
 TEST_CASE(test_vadd_s8) {
     struct {
         int8_t a[8];

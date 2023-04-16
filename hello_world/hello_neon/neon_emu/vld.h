@@ -8,6 +8,12 @@ int8x8_t vld1_s8(const int8_t* ptr) {
     return r;
 }
 
+int16x4_t vld1_s16(const int16_t* ptr) {
+    int16x4_t r;
+    memcpy(&r, ptr, sizeof(r));
+    return r;
+}
+
 uint8x8_t vld1_u8(const uint8_t* ptr) {
     uint8x8_t r;
     memcpy(&r, ptr, sizeof(r));
@@ -22,6 +28,12 @@ int8x16_t vld1q_s8(const int8_t* ptr) {
 
 int16x8_t vld1q_s16(const int16_t* ptr) {
     int16x8_t r;
+    memcpy(&r, ptr, sizeof(r));
+    return r;
+}
+
+int32x4_t vld1q_s32(const int32_t* ptr) {
+    int32x4_t r;
     memcpy(&r, ptr, sizeof(r));
     return r;
 }
