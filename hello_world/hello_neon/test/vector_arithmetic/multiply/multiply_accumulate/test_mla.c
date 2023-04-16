@@ -48,7 +48,7 @@ TEST_CASE(test_vmla_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int8x8_t r = vmla_s8(a, b, c);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check)
+        ASSERT_EQUAL(8, r, check);
     }
     return 0;
 }

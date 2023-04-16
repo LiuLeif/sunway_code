@@ -40,7 +40,7 @@ static int test_vqadd_s8() {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vqadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check)
+        ASSERT_EQUAL(8, r, check);
     }
     return 0;
 }

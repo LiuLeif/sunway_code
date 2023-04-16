@@ -2,24 +2,53 @@
 #ifndef COMMON_H
 #define COMMON_H
 #include <assert.h>
+#include <math.h>
 #include <stddef.h>
 #include <stdio.h>
 
 #ifndef EMU
 #include <arm_neon.h>
-#define ASSERT_EQUAL(n, a, b)     \
-    for (int i = 0; i < n; i++) { \
-        assert(a[i] == b[i]);     \
-    }
+#define ASSERT_EQUAL(n, a, b)         \
+    do {                              \
+        for (int i = 0; i < n; i++) { \
+            assert(a[i] == b[i]);     \
+        }                             \
+    } while (0)
+
+#define ASSERT_CLOSE(n, a, b)                 \
+    do {                                      \
+        for (int i = 0; i < n; i++) {         \
+            assert(fabs(a[i] - b[i]) < 1e-2); \
+        }                                     \
+    } while (0)
 #else
 #include "./neon_emu.h"
-#define ASSERT_EQUAL(n, a, b)               \
-    for (int i = 0; i < n; i++) {           \
-        assert(a.values[i] == b.values[i]); \
-    }
+#define ASSERT_EQUAL(n, a, b)                   \
+    do {                                        \
+        for (int i = 0; i < n; i++) {           \
+            assert(a.values[i] == b.values[i]); \
+        }                                       \
+    } while (0)
+
+#define ASSERT_CLOSE(n, a, b)                               \
+    do {                                                    \
+        for (int i = 0; i < n; i++) {                       \
+            assert(fabs(a.values[i] - b.values[i]) < 1e-2); \
+        }                                                   \
+    } while (0)
 #endif
 
-#define TEST_CASE(name) __attribute__((constructor)) int name ()
+#define ASSERT_EQUAL_SCALAR(a, b) \
+    do {                          \
+        assert(a == b);           \
+    } while (0)
+
+#define ASSERT_CLOSE_SCALAR(a, b)   \
+    do {                            \
+        assert(fabs(a - b) < 1e-2); \
+    } while (0)
+
+#define TEST_CASE(name) __attribute__((constructor)) int name()
 
 int main(int argc, char *argv[]) { return 0; }
 #endif  // COMMON_H

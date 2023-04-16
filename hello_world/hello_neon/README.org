@@ -10,12 +10,12 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       2. [X] Widening addition
       3. [X] Narrowing addition
       4. [X] Saturating addition
-   2. [-] Multiply [3/10]
+   2. [-] Multiply [4/10]
       1. [X] Multiplication
       2. [ ] Multiply extended
       3. [X] Multiply-accumulate
       4. [X] Multiply-accumulate and widen
-      5. [ ] Fused multiply-accumulate
+      5. [X] Fused multiply-accumulate
       6. [ ] Saturating multiply
       7. [ ] Saturating multiply-accumulate
       8. [ ] Widening multiplication

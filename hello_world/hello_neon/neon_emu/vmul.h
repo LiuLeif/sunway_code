@@ -67,4 +67,36 @@ int16x8_t vmlsl_high_s8(int16x8_t a, int8x16_t b, int8x16_t c) {
     return r;
 }
 
+float32x2_t vfma_f32(float32x2_t a, float32x2_t b, float32x2_t c) {
+    float32x2_t r;
+    for (int i = 0; i < 2; i++) {
+        r.values[i] = (double)a.values[i] + (double)b.values[i] * c.values[i];
+    }
+    return r;
+}
+
+float32x2_t vfma_lane_f32(
+    float32x2_t a, float32x2_t b, float32x2_t v, int lane) {
+    float32x2_t r;
+    for (int i = 0; i < 2; i++) {
+        r.values[i] =
+            (double)a.values[i] + (double)b.values[i] * v.values[lane];
+    }
+    return r;
+}
+
+float32x2_t vfma_laneq_f32(
+    float32x2_t a, float32x2_t b, float32x4_t v, int lane) {
+    float32x2_t r;
+    for (int i = 0; i < 2; i++) {
+        r.values[i] =
+            (double)a.values[i] + (double)b.values[i] * v.values[lane];
+    }
+    return r;
+}
+
+float vfmas_lane_f32(float a, float b, float32x2_t v, int lane) {
+    float r = (double)a + (double)b * v.values[lane];
+    return r;
+}
 #endif  // VMUL_H
