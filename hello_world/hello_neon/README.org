@@ -2,18 +2,20 @@ the complete neon intrinsics list:
 
 * 指令格式
 
-v{1.q}{2.r}{3.d}xxx{4.l}{5.w}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
+v{1.q}{2.r}{3.d}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
 
 - 1.q saturating
 - 2.r rounding
 - 3.d doubling
 - 4.l widen
-- 5.w
+- 5.w 只 widen 一个输入参数
 - 6.q 128-bit
 - 7.b 参数都是 scalar: int8,int16,int32,int64
 - 8.lane, 使用 v[lane] 而不是 v[i]
 - 9.high, 使用 a[i+x] 而不是 a[i]
-- 10.n 有一个参数是 scalar 
+- 10.n 有一个参数是 scalar
+- 11.h half narrow, 例如 xx>>1
+- 12.hn high narrow, 例如 xx>>8
 
 * List of Intrinsics [0/14]
 
