@@ -1,14 +1,21 @@
 // 2023-04-17 18:22
 #include <neon.h>
+//                      	          11.5	12.5	−11.5	−12.5
+// to nearest, ties to even           12    12      −12.0   −12.0
+// to nearest, ties away from zero    12    13      −12.0   −13.0
+// toward 0                           11    12      −11.0   −12.0
+// toward +∞                         12    13      −11.0   −12.0
+// toward −∞                         11    12      −12.0   −13.0
 
 // float32x2_t vrnd_f32(float32x2_t a)
-//              ^^^---默认使用 Round to Integral, toward Zero (vector), 相当于 (int)x
+//              ^^^---默认使用 Round to Integral, toward Zero (vector), 相当于
+//              (int)x
 // float64x1_t vrnd_f64(float64x1_t a)
 // float32x4_t vrndq_f32(float32x4_t a)
 // float64x2_t vrndq_f64(float64x2_t a)
 //
 // float32x2_t vrndn_f32(float32x2_t a)
-//                 ^---Round to Integral, to nearest with ties to even
+//                 ^---Round to Integral, to nearest with ties to even ()
 // float64x1_t vrndn_f64(float64x1_t a)
 // float32x4_t vrndnq_f32(float32x4_t a)
 // float64x2_t vrndnq_f64(float64x2_t a)
@@ -16,19 +23,22 @@
 // float32_t vrndns_f32(float32_t a)
 //
 // float32x2_t vrndm_f32(float32x2_t a)
-//                 ^---Round to Integral, toward Minus infinity (vector) (相当于 floor)
+//                 ^---Round to Integral, toward Minus infinity (vector) (相当于
+//                 floor)
 // float64x1_t vrndm_f64(float64x1_t a)
 // float32x4_t vrndmq_f32(float32x4_t a)
 // float64x2_t vrndmq_f64(float64x2_t a)
 //
 // float32x2_t vrndp_f32(float32x2_t a)
-//                 ^---Round to Integral, toward Plus infinity (vector) (相当于 ceil)
+//                 ^---Round to Integral, toward Plus infinity (vector) (相当于
+//                 ceil)
 // float64x1_t vrndp_f64(float64x1_t a)
 // float32x4_t vrndpq_f32(float32x4_t a)
 // float64x2_t vrndpq_f64(float64x2_t a)
 //
 // float32x2_t vrnda_f32(float32x2_t a)
 //                 ^---Round to Integral, to nearest with ties to Away (vector)
+//                 (四舍五入)
 // float64x1_t vrnda_f64(float64x1_t a)
 // float32x4_t vrndaq_f32(float32x4_t a)
 // float64x2_t vrndaq_f64(float64x2_t a)
@@ -66,6 +76,30 @@ TEST_CASE(test_vrnd_f32) {
     for (size_t i = 0; i < (sizeof(test_vec) / sizeof(test_vec[0])); i++) {
         float32x2_t a = vld1_f32(test_vec[i].a);
         float32x2_t r = vrnd_f32(a);
+        float32x2_t check = vld1_f32(test_vec[i].r);
+        ASSERT_CLOSE(2, r, check);
+    }
+    return 0;
+}
+
+TEST_CASE(test_vrndn_f32) {
+    static const struct {
+        float a[2];
+        float r[2];
+    } test_vec[] = {{{-1.50, 1.50}, {-2.00, 2.00}},
+                    {{-2.50, 2.50}, {-2.00, 2.00}},
+                    {{-593.90, 196.84}, {-594.00, 197.00}},
+                    {{569.79, 336.27}, {570.00, 336.00}},
+                    {{-670.11, 299.96}, {-670.00, 300.00}},
+                    {{-4.27, -333.31}, {-4.00, -333.00}},
+                    {{-389.20, 338.21}, {-389.00, 338.00}},
+                    {{172.22, 764.71}, {172.00, 765.00}},
+                    {{789.38, -740.62}, {789.00, -741.00}},
+                    {{713.87, -75.96}, {714.00, -76.00}}};
+
+    for (size_t i = 0; i < (sizeof(test_vec) / sizeof(test_vec[0])); i++) {
+        float32x2_t a = vld1_f32(test_vec[i].a);
+        float32x2_t r = vrndn_f32(a);
         float32x2_t check = vld1_f32(test_vec[i].r);
         ASSERT_CLOSE(2, r, check);
     }
