@@ -1,7 +1,34 @@
 // 2023-04-15 22:20
 #include <neon.h>
-/* NOTE: widen 类指令, 支持 {s,u}{8,16,32}, 不支持 float, 没有 q 后缀 */
-/* NOTE: r=a+b*c */
+// int16x8_t vmlal_s8(int16x8_t a,int8x8_t b,int8x8_t c)
+//               ^--- widening, r[i]=a[i]+widen(b[i]*c[i])
+// int32x4_t vmlal_s16(int32x4_t a,int16x4_t b,int16x4_t c)
+// int64x2_t vmlal_s32(int64x2_t a,int32x2_t b,int32x2_t c)
+// uint16x8_t vmlal_u8(uint16x8_t a,uint8x8_t b,uint8x8_t c)
+// uint32x4_t vmlal_u16(uint32x4_t a,uint16x4_t b,uint16x4_t c)
+// uint64x2_t vmlal_u32(uint64x2_t a,uint32x2_t b,uint32x2_t c)
+//
+// int16x8_t vmlal_high_s8(int16x8_t a,int8x16_t b,int8x16_t c)
+//                 ^^^^--- high part, r[i]=a[i]+widen(b[i+8]*c[i+8])
+// int32x4_t vmlal_high_s16(int32x4_t a,int16x8_t b,int16x8_t c)
+// int64x2_t vmlal_high_s32(int64x2_t a,int32x4_t b,int32x4_t c)
+// uint16x8_t vmlal_high_u8(uint16x8_t a,uint8x16_t b,uint8x16_t c)
+// uint32x4_t vmlal_high_u16(uint32x4_t a,uint16x8_t b,uint16x8_t c)
+// uint64x2_t vmlal_high_u32(uint64x2_t a,uint32x4_t b,uint32x4_t c)
+//
+// int16x8_t vmlsl_s8(int16x8_t a,int8x8_t b,int8x8_t c)
+// int32x4_t vmlsl_s16(int32x4_t a,int16x4_t b,int16x4_t c)
+// int64x2_t vmlsl_s32(int64x2_t a,int32x2_t b,int32x2_t c)
+// uint16x8_t vmlsl_u8(uint16x8_t a,uint8x8_t b,uint8x8_t c)
+// uint32x4_t vmlsl_u16(uint32x4_t a,uint16x4_t b,uint16x4_t c)
+// uint64x2_t vmlsl_u32(uint64x2_t a,uint32x2_t b,uint32x2_t c)
+//
+// int16x8_t vmlsl_high_s8(int16x8_t a,int8x16_t b,int8x16_t c)
+// int32x4_t vmlsl_high_s16(int32x4_t a,int16x8_t b,int16x8_t c)
+// int64x2_t vmlsl_high_s32(int64x2_t a,int32x4_t b,int32x4_t c)
+// uint16x8_t vmlsl_high_u8(uint16x8_t a,uint8x16_t b,uint8x16_t c)
+// uint32x4_t vmlsl_high_u16(uint32x4_t a,uint16x8_t b,uint16x8_t c)
+// uint64x2_t vmlsl_high_u32(uint64x2_t a,uint32x4_t b,uint32x4_t c)
 TEST_CASE(test_vmlal_s8) {
     static const struct {
         int16_t a[8];
@@ -55,7 +82,6 @@ TEST_CASE(test_vmlal_s8) {
     return 0;
 }
 
-/* NOTE: 与 vaddl_high 类似 */
 TEST_CASE(test_vmlal_high_s8) {
     static const struct {
         int16_t a[8];
@@ -123,7 +149,6 @@ TEST_CASE(test_vmlal_high_s8) {
     return 0;
 }
 
-/* NOTE: 与 vmlal 类似 */
 TEST_CASE(test_vmlsl_s8) {
     static const struct {
         int16_t a[8];
@@ -239,6 +264,5 @@ TEST_CASE(test_vmlsl_high_s8) {
         int16x8_t check = vld1q_s16(test_vec[i].r);
         ASSERT_EQUAL(8, r, check);
     }
-
     return 0;
 }

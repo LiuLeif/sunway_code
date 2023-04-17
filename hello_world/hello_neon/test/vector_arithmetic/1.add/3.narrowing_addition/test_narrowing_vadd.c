@@ -1,8 +1,53 @@
 // 2023-04-14 10:44
 #include <neon.h>
-/* NOTE: vaddhn_s16 的 hn 后缀表示 high narrow, 计算 (a+b)>>8. vaddhn 支持
- * {s,u}{16,32,64}, 不支持 q 后缀, 因为它的输入已经是 128-bit. 不支持 float 及
- * {s,u}8 */
+/* NOTE: add 的结果会有右移, 所以称为 narrowing 指令 */
+
+// int8x8_t vhadd_s8(int8x8_t a,int8x8_t b)
+//           ^--- half, r[i]=(a[i]+b[i])>>1
+// int16x4_t vhadd_s16(int16x4_t a,int16x4_t b)
+// int32x2_t vhadd_s32(int32x2_t a,int32x2_t b)
+// uint8x8_t vhadd_u8(uint8x8_t a,uint8x8_t b)
+// uint16x4_t vhadd_u16(uint16x4_t a,uint16x4_t b)
+// uint32x2_t vhadd_u32(uint32x2_t a,uint32x2_t b)
+//
+// uint8x16_t vhaddq_u8(uint8x16_t a,uint8x16_t b)
+// uint16x8_t vhaddq_u16(uint16x8_t a,uint16x8_t b)
+// uint32x4_t vhaddq_u32(uint32x4_t a,uint32x4_t b)
+// int8x16_t vhaddq_s8(int8x16_t a,int8x16_t b)
+// int16x8_t vhaddq_s16(int16x8_t a,int16x8_t b)
+// int32x4_t vhaddq_s32(int32x4_t a,int32x4_t b)
+// ------------------------------------------------
+// int8x8_t vrhadd_s8(int8x8_t a,int8x8_t b)
+//           ^--- rounding, r[i]=(a[i]+b[i]+1)>>1
+// int16x4_t vrhadd_s16(int16x4_t a,int16x4_t b)
+// int32x2_t vrhadd_s32(int32x2_t a,int32x2_t b)
+// uint8x8_t vrhadd_u8(uint8x8_t a,uint8x8_t b)
+// uint16x4_t vrhadd_u16(uint16x4_t a,uint16x4_t b)
+// uint32x2_t vrhadd_u32(uint32x2_t a,uint32x2_t b)
+//
+// int8x16_t vrhaddq_s8(int8x16_t a,int8x16_t b)
+// int16x8_t vrhaddq_s16(int16x8_t a,int16x8_t b)
+// int32x4_t vrhaddq_s32(int32x4_t a,int32x4_t b)
+// uint8x16_t vrhaddq_u8(uint8x16_t a,uint8x16_t b)
+// uint16x8_t vrhaddq_u16(uint16x8_t a,uint16x8_t b)
+// uint32x4_t vrhaddq_u32(uint32x4_t a,uint32x4_t b)
+// ------------------------------------------------
+// int8x8_t vaddhn_s16(int16x8_t a,int16x8_t b)
+//              ^^--- high narrow, r[i]=(a[i]+b[i])>>8
+// int16x4_t vaddhn_s32(int32x4_t a,int32x4_t b)
+// int32x2_t vaddhn_s64(int64x2_t a,int64x2_t b)
+// uint8x8_t vaddhn_u16(uint16x8_t a,uint16x8_t b)
+// uint16x4_t vaddhn_u32(uint32x4_t a,uint32x4_t b)
+// uint32x2_t vaddhn_u64(uint64x2_t a,uint64x2_t b)
+// ------------------------------------------------
+// int8x8_t vraddhn_s16(int16x8_t a,int16x8_t b)
+//           ^--- round, r[i]=(a[i]+b[i]+1<<7)>>8
+// int16x4_t vraddhn_s32(int32x4_t a,int32x4_t b)
+// int32x2_t vraddhn_s64(int64x2_t a,int64x4_t b)
+// uint8x8_t vraddhn_u16(uint16x8_t a,uint16x8_t b)
+// uint16x4_t vraddhn_u32(uint32x4_t a,uint32x4_t b)
+// uint32x2_t vraddhn_u64(uint64x2_t a,uint64x2_t b)
+//
 TEST_CASE(test_vaddhn_s16) {
     static const struct {
         int16_t a[8];

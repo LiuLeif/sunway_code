@@ -14,6 +14,7 @@
 // vaddq:
 //
 // int8x16_t vaddq_s8(int8x16_t a,int8x16_t b)
+//               ^--- q 表示 128-bit vector
 // int16x8_t vaddq_s16(int16x8_t a,int16x8_t b)
 // int32x4_t vaddq_s32(int32x4_t a,int32x4_t b)
 // int64x2_t vaddq_s64(int64x2_t a,int64x2_t b)

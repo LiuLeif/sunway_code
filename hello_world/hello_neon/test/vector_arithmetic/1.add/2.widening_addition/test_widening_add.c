@@ -1,12 +1,40 @@
 // 2023-04-14 18:03
 #include <neon.h>
+/* NOTE: 输出的 esize (向量中单个元素的宽度) 变成输入的两倍, 所以叫 widening */
 
-/* NOTE: 所有 widening add 指令的输入和输出的元素宽度都不同, 所以不支持 q 后缀,
- * 也不支持 float*/
-
-/* NOTE: addl_s8 表示 add 两个 s8 结果为 s16, 其中的 l 后缀表示 long, 支持
- * {s,u}{8,16,32}, 不支持 {s,u}64, 因为输出的长度会乘 2. 没有 q 后缀, 因为输入一
- * 定是 64-bit vector, 输出一定是 128-bit vector */
+// int16x8_t vaddl_s8(int8x8_t a,int8x8_t b)
+//               ^--- l 后缀表示输出的 esize 是输入的两倍 (int8->int16)
+// int32x4_t vaddl_s16(int16x4_t a,int16x4_t b)
+// int64x2_t vaddl_s32(int32x2_t a,int32x2_t b)
+// uint16x8_t vaddl_u8(uint8x8_t a,uint8x8_t b)
+// uint32x4_t vaddl_u16(uint16x4_t a,uint16x4_t b)
+// uint64x2_t vaddl_u32(uint32x2_t a,uint32x2_t b)
+//
+// int16x8_t vaddl_high_s8(int8x16_t a,int8x16_t b)
+//                 ^--- high 表示只使用输入 vector 的后一半数据:
+//                 r[i]=a[i+8]+b[i+8]
+// int32x4_t vaddl_high_s16(int16x8_t a,int16x8_t b)
+// int64x2_t vaddl_high_s32(int32x4_t a,int32x4_t b)
+// uint16x8_t vaddl_high_u8(uint8x16_t a,uint8x16_t b)
+// uint32x4_t vaddl_high_u16(uint16x8_t a,uint16x8_t b)
+// uint64x2_t vaddl_high_u32(uint32x4_t a,uint32x4_t b)
+//
+// int16x8_t vaddw_s8(int16x8_t a,int8x8_t b)
+//               ^--- esize(r)=esize(a)=2*esize(b)
+// int32x4_t vaddw_s16(int32x4_t a,int16x4_t b)
+// int64x2_t vaddw_s32(int64x2_t a,int32x2_t b)
+// uint16x8_t vaddw_u8(uint16x8_t a,uint8x8_t b)
+// uint32x4_t vaddw_u16(uint32x4_t a,uint16x4_t b)
+// uint64x2_t vaddw_u32(uint64x2_t a,uint32x2_t b)
+//
+// int16x8_t vaddw_high_s8(int16x8_t a,int8x16_t b)
+//               ^-^--- w_high 结合了 w 和 high
+// int32x4_t vaddw_high_s16(int32x4_t a,int16x8_t b)
+// int64x2_t vaddw_high_s32(int64x2_t a,int32x4_t b)
+// uint16x8_t vaddw_high_u8(uint16x8_t a,uint8x16_t b)
+// uint32x4_t vaddw_high_u16(uint32x4_t a,uint16x8_t b)
+// uint64x2_t vaddw_high_u32(uint64x2_t a,uint32x4_t b)
+//
 TEST_CASE(test_vaddl_s8) {
     struct {
         int8_t a[8];
@@ -50,7 +78,6 @@ TEST_CASE(test_vaddl_s8) {
     return 0;
 }
 
-/* NOTE: 与 vaddl 类似, 但只使用了 a/b 的后一半元素*/
 TEST_CASE(test_vaddl_high_s8) {
     struct {
         int8_t a[16];
@@ -110,7 +137,6 @@ TEST_CASE(test_vaddl_high_s8) {
     return 0;
 }
 
-/* NOTE: vaddw_s8 表示 int16=int16+int8, w 后缀表示 widen */
 TEST_CASE(test_vaddw_s8) {
     struct {
         int16_t a[8];
@@ -153,7 +179,6 @@ TEST_CASE(test_vaddw_s8) {
     return 0;
 }
 
-/* NOTE: 和 vaddw 和 vaddl_high 类似, 有 widening, 但只取了 a 的后一半元素 */
 TEST_CASE(test_vaddw_high_s8) {
     static const struct {
         int16_t a[8];

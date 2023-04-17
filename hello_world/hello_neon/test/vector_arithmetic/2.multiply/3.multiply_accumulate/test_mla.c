@@ -1,6 +1,48 @@
 // 2023-04-15 21:53
 #include <neon.h>
-/* NOTE: r=a+b*c, 支持 {s,u}{8,16,32} 及 f{32,64}, 支持 q 后缀*/
+// int8x8_t vmla_s8(int8x8_t a,int8x8_t b,int8x8_t c)
+//           ^^^--- multiply accumulate, r[i]=a[i]+b[i]*c[i]
+// int16x4_t vmla_s16(int16x4_t a,int16x4_t b,int16x4_t c)
+// int32x2_t vmla_s32(int32x2_t a,int32x2_t b,int32x2_t c)
+// uint8x8_t vmla_u8(uint8x8_t a,uint8x8_t b,uint8x8_t c)
+// uint16x4_t vmla_u16(uint16x4_t a,uint16x4_t b,uint16x4_t c)
+// uint32x2_t vmla_u32(uint32x2_t a,uint32x2_t b,uint32x2_t c)
+//
+// int8x16_t vmlaq_s8(int8x16_t a,int8x16_t b,int8x16_t c)
+//               ^--- 128-bit vector
+// int16x8_t vmlaq_s16(int16x8_t a,int16x8_t b,int16x8_t c)
+// int32x4_t vmlaq_s32(int32x4_t a,int32x4_t b,int32x4_t c)
+// uint8x16_t vmlaq_u8(uint8x16_t a,uint8x16_t b,uint8x16_t c)
+// uint16x8_t vmlaq_u16(uint16x8_t a,uint16x8_t b,uint16x8_t c)
+// uint32x4_t vmlaq_u32(uint32x4_t a,uint32x4_t b,uint32x4_t c)
+// --------------------------------------------------------------
+// float32x2_t vmla_f32(float32x2_t a,float32x2_t b,float32x2_t c)
+// float64x1_t vmla_f64(float64x1_t a,float64x1_t b,float64x1_t c)
+//
+// float32x4_t vmlaq_f32(float32x4_t a,float32x4_t b,float32x4_t c)
+// float64x2_t vmlaq_f64(float64x2_t a,float64x2_t b,float64x2_t c)
+// --------------------------------------------------------------
+// int8x8_t vmls_s8(int8x8_t a,int8x8_t b,int8x8_t c)
+//           ^^^--- multiple subtract, r[i]=a[i]-b[i]*c[i]
+// int16x4_t vmls_s16(int16x4_t a,int16x4_t b,int16x4_t c)
+// int32x2_t vmls_s32(int32x2_t a,int32x2_t b,int32x2_t c)
+// uint8x8_t vmls_u8(uint8x8_t a,uint8x8_t b,uint8x8_t c)
+// uint16x4_t vmls_u16(uint16x4_t a,uint16x4_t b,uint16x4_t c)
+// uint32x2_t vmls_u32(uint32x2_t a,uint32x2_t b,uint32x2_t c)
+//
+// int8x16_t vmlsq_s8(int8x16_t a,int8x16_t b,int8x16_t c)
+// int16x8_t vmlsq_s16(int16x8_t a,int16x8_t b,int16x8_t c)
+// int32x4_t vmlsq_s32(int32x4_t a,int32x4_t b,int32x4_t c)
+// uint8x16_t vmlsq_u8(uint8x16_t a,uint8x16_t b,uint8x16_t c)
+// uint16x8_t vmlsq_u16(uint16x8_t a,uint16x8_t b,uint16x8_t c)
+// uint32x4_t vmlsq_u32(uint32x4_t a,uint32x4_t b,uint32x4_t c)
+// --------------------------------------------------------------
+// float32x2_t vmls_f32(float32x2_t a,float32x2_t b,float32x2_t c)
+// float64x1_t vmls_f64(float64x1_t a,float64x1_t b,float64x1_t c)
+//
+// float32x4_t vmlsq_f32(float32x4_t a,float32x4_t b,float32x4_t c)
+// float64x2_t vmlsq_f64(float64x2_t a,float64x2_t b,float64x2_t c)
+//
 TEST_CASE(test_vmla_s8) {
     struct {
         int8_t a[8];
@@ -53,7 +95,6 @@ TEST_CASE(test_vmla_s8) {
     return 0;
 }
 
-/* NOTE: r=a-b*c */
 TEST_CASE(test_vmls_s8) {
     static const struct {
         int8_t a[8];

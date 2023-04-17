@@ -1,8 +1,69 @@
 // 2023-04-14 10:44
 #include <neon.h>
 
-/* NOTE: vqadd 的 q 前缀表示 saturate, 支持 {s,u}{8,16,32,64}, 支持 q 后缀. 不支
- * 持 float, 因为 float 没有 saturation 的概念 */
+// int8x8_t vqadd_s8(int8x8_t a,int8x8_t b)
+//           ^--- q 表示 saturating
+// int16x4_t vqadd_s16(int16x4_t a,int16x4_t b)
+// int32x2_t vqadd_s32(int32x2_t a,int32x2_t b)
+// int64x1_t vqadd_s64(int64x1_t a,int64x1_t b)
+// uint8x8_t vqadd_u8(uint8x8_t a,uint8x8_t b)
+// uint16x4_t vqadd_u16(uint16x4_t a,uint16x4_t b)
+// uint32x2_t vqadd_u32(uint32x2_t a,uint32x2_t b)
+// uint64x1_t vqadd_u64(uint64x1_t a,uint64x1_t b)
+//
+// int8x16_t vqaddq_s8(int8x16_t a,int8x16_t b)
+//                ^--- q 表示 128-bit vector
+// int16x8_t vqaddq_s16(int16x8_t a,int16x8_t b)
+// int32x4_t vqaddq_s32(int32x4_t a,int32x4_t b)
+// int64x2_t vqaddq_s64(int64x2_t a,int64x2_t b)
+// uint8x16_t vqaddq_u8(uint8x16_t a,uint8x16_t b)
+// uint16x8_t vqaddq_u16(uint16x8_t a,uint16x8_t b)
+// uint32x4_t vqaddq_u32(uint32x4_t a,uint32x4_t b)
+// uint64x2_t vqaddq_u64(uint64x2_t a,uint64x2_t b)
+// -------------------------------------------------
+// int8_t vqaddb_s8(int8_t a,int8_t b)
+//             ^--- 计算 scalar 而不是 vector, b 表示 int8
+// int16_t vqaddh_s16(int16_t a,int16_t b)
+//              ^--- h 表示 HI (half int), int16_t
+// int32_t vqadds_s32(int32_t a,int32_t b)
+//              ^--- SI, int32_t
+// int64_t vqaddd_s64(int64_t a,int64_t b)
+//              ^--- DI, int64_t
+// uint8_t vqaddb_u8(uint8_t a,uint8_t b)
+// uint16_t vqaddh_u16(uint16_t a,uint16_t b)
+// uint32_t vqadds_u32(uint32_t a,uint32_t b)
+// uint64_t vqaddd_u64(uint64_t a,uint64_t b)
+// -------------------------------------------------
+// int8x8_t vuqadd_s8(int8x8_t a,uint8x8_t b)
+//           ^--- b 是 unsigned int
+// int8x16_t vuqaddq_s8(int8x16_t a,uint8x16_t b)
+// int16x4_t vuqadd_s16(int16x4_t a,uint16x4_t b)
+// int16x8_t vuqaddq_s16(int16x8_t a,uint16x8_t b)
+// int32x2_t vuqadd_s32(int32x2_t a,uint32x2_t b)
+// int32x4_t vuqaddq_s32(int32x4_t a,uint32x4_t b)
+// int64x1_t vuqadd_s64(int64x1_t a,uint64x1_t b)
+// int64x2_t vuqaddq_s64(int64x2_t a,uint64x2_t b)
+// int8_t vuqaddb_s8(int8_t a,uint8_t b)
+// int16_t vuqaddh_s16(int16_t a,uint16_t b)
+// int32_t vuqadds_s32(int32_t a,uint32_t b)
+// int64_t vuqaddd_s64(int64_t a,uint64_t b)
+// -------------------------------------------------
+// uint8x8_t vsqadd_u8(uint8x8_t a,int8x8_t b)
+//            ^--- a 是 unsigned int
+// uint8x16_t vsqaddq_u8(uint8x16_t a,int8x16_t b)
+// uint16x4_t vsqadd_u16(uint16x4_t a,int16x4_t b)
+// uint16x8_t vsqaddq_u16(uint16x8_t a,int16x8_t b)
+// uint32x2_t vsqadd_u32(uint32x2_t a,int32x2_t b)
+// uint32x4_t vsqaddq_u32(uint32x4_t a,int32x4_t b)
+// uint64x1_t vsqadd_u64(uint64x1_t a,int64x1_t b)
+// uint64x2_t vsqaddq_u64(uint64x2_t a,int64x2_t b)
+// --------------------------------------------------
+// uint8_t vsqaddb_u8(uint8_t a,int8_t b)
+//               ^--- scalar
+// uint16_t vsqaddh_u16(uint16_t a,int16_t b)
+// uint32_t vsqadds_u32(uint32_t a,int32_t b)
+// uint64_t vsqaddd_u64(uint64_t a,int64_t b)
+// 
 static int test_vqadd_s8() {
     static const struct {
         int8_t a[8];
@@ -45,8 +106,6 @@ static int test_vqadd_s8() {
     return 0;
 }
 
-/* NOTE: vuqadd 的 uq 前缀表示 unsiged saturat, 表示 int=int+uint, 其它要求和
- * vqadd 相同 */
 TEST_CASE(test_vuqadd_s8) {
     static const struct {
         int8_t a[8];
@@ -92,8 +151,6 @@ TEST_CASE(test_vuqadd_s8) {
     return 0;
 }
 
-/* NOTE: vsqadd 的 sq 前缀表示 siged saturat, 表示 uint=uint+int, 其它要求和
- * vqadd 相同 */
 TEST_CASE(test_vsqadd_u8) {
     static const struct {
         uint8_t a[8];
@@ -137,7 +194,6 @@ TEST_CASE(test_vsqadd_u8) {
     return 0;
 }
 
-/* NOTE: vqadd{b,h,s,d} 是 vqadd 的 scalar 版本 */
 TEST_CASE(test_vqaddb_s8) {
     static const struct {
         int8_t a;
@@ -155,7 +211,6 @@ TEST_CASE(test_vqaddb_s8) {
     return 0;
 }
 
-/* NOTE: vuqadd{b,h,s,d}_{s}{n} 是 vuqadd 的 scalar 版本 */
 TEST_CASE(test_vuqaddb_s8) {
     static const struct {
         int8_t a;
@@ -174,7 +229,6 @@ TEST_CASE(test_vuqaddb_s8) {
     return 0;
 }
 
-/* NOTE: vsqadd{b,h,s,d} 是 vsqadd 的 scalar 版本 */
 TEST_CASE(test_vsqaddb_u8) {
     static const struct {
         uint8_t a;

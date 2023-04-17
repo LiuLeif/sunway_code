@@ -1,9 +1,57 @@
 // 2023-04-16 16:55
 #include <neon.h>
 
-/* NOTE: fma (fused multiply accumulation) 和 mla 基本相同, 只是精度会有点不同:
- * mla 是先计算 b*c 后舍入再加 a, fma 是最后只做一次舍入.  支持 f{32,64} 和 q 后
- * 缀, 不支持 int 类型.  另外还有一个类似 fms (subtract) 指令 */
+// float32x2_t vfma_f32(float32x2_t a,float32x2_t b,float32x2_t c)
+//              ^^^ fused multply accumulate, r[i]=a[i]+b[i]*c[i], 但与 mla 不同的是, fma 只针对
+//                  最终结果计算一次舍入, 而 mla 会针对 b*c 舍入一次后再针对最终结果再舍入一次, 所以
+//                  fma 的精度更高
+// float64x1_t vfma_f64(float64x1_t a,float64x1_t b,float64x1_t c)
+//
+// float32x4_t vfmaq_f32(float32x4_t a,float32x4_t b,float32x4_t c)
+//                 ^--- 128-bit vector
+// float64x2_t vfmaq_f64(float64x2_t a,float64x2_t b,float64x2_t c)
+// -----------------------------------------------------------------------------------
+// float32x2_t vfma_lane_f32(float32x2_t a,float32x2_t b,float32x2_t v,const int lane)
+//                  ^^^^--- r[i]=a[i]+b[i]*v[lane]
+// float64x1_t vfma_lane_f64(float64x1_t a,float64x1_t b,float64x1_t v,const int lane)
+//
+// float32x4_t vfmaq_lane_f32(float32x4_t a,float32x4_t b,float32x2_t v,const int lane)
+// float64x2_t vfmaq_lane_f64(float64x2_t a,float64x2_t b,float64x1_t v,const int lane)
+//
+// float32x2_t vfma_laneq_f32(float32x2_t a,float32x2_t b,float32x4_t v,const int lane)
+//                      ^--- lane 是 128-bit vector
+// float64x1_t vfma_laneq_f64(float64x1_t a,float64x1_t b,float64x2_t v,const int lane)
+// float32x4_t vfmaq_laneq_f32(float32x4_t a,float32x4_t b,float32x4_t v,const int lane)
+// float64x2_t vfmaq_laneq_f64(float64x2_t a,float64x2_t b,float64x2_t v,const int lane)
+// -----------------------------------------------------------------------------------
+// float32_t vfmas_lane_f32(float32_t a,float32_t b,float32x2_t v,const int lane)
+//               ^--- scalar, s 表示 single float, r=a+b*v[lane]
+// float64_t vfmad_lane_f64(float64_t a,float64_t b,float64x1_t v,const int lane)
+//               ^--- d 表示 double float
+//
+// float32_t vfmas_laneq_f32(float32_t a,float32_t b,float32x4_t v,const int lane)
+// float64_t vfmad_laneq_f64(float64_t a,float64_t b,float64x2_t v,const int lane)
+// -----------------------------------------------------------------------------------
+// float32x2_t vfms_f32(float32x2_t a,float32x2_t b,float32x2_t c)
+//                ^--- fused multiply subtract
+// float64x1_t vfms_f64(float64x1_t a,float64x1_t b,float64x1_t c)
+// float32x4_t vfmsq_f32(float32x4_t a,float32x4_t b,float32x4_t c)
+// float64x2_t vfmsq_f64(float64x2_t a,float64x2_t b,float64x2_t c)
+// -----------------------------------------------------------------------------------
+// float32x2_t vfms_lane_f32(float32x2_t a,float32x2_t b,float32x2_t v,const int lane)
+// float64x1_t vfms_lane_f64(float64x1_t a,float64x1_t b,float64x1_t v,const int lane)
+// float32x4_t vfmsq_lane_f32(float32x4_t a,float32x4_t b,float32x2_t v,const int lane)
+// float64x2_t vfmsq_lane_f64(float64x2_t a,float64x2_t b,float64x1_t v,const int lane)
+// float32x2_t vfms_laneq_f32(float32x2_t a,float32x2_t b,float32x4_t v,const int lane)
+// float64x1_t vfms_laneq_f64(float64x1_t a,float64x1_t b,float64x2_t v,const int lane)
+// float32x4_t vfmsq_laneq_f32(float32x4_t a,float32x4_t b,float32x4_t v,const int lane)
+// float64x2_t vfmsq_laneq_f64(float64x2_t a,float64x2_t b,float64x2_t v,const int lane)
+// -----------------------------------------------------------------------------------
+// float32_t vfmss_lane_f32(float32_t a,float32_t b,float32x2_t v,const int lane)
+// float64_t vfmsd_lane_f64(float64_t a,float64_t b,float64x1_t v,const int lane)
+// float32_t vfmss_laneq_f32(float32_t a,float32_t b,float32x4_t v,const int lane)
+// float64_t vfmsd_laneq_f64(float64_t a,float64_t b,float64x2_t v,const int lane)
+//
 TEST_CASE(test_vfma_f32) {
     static const struct {
         float a[2];
@@ -55,9 +103,6 @@ TEST_CASE(test_vfma_f32) {
     return 0;
 }
 
-/* NOTE: r[i]=a[i]+b[i]*v[lane], 支持 f{32,64} 和 q 后缀, 例如 fma_lane_f64,
- * fmaq_lane_f32, 另外, lane 后可以加 q 后缀表示 lane 本身是 128bit, 例如
- * fmaq_laneq_f32 */
 TEST_CASE(test_vfma_lane_f32) {
     static const struct {
         float a[2];
@@ -208,8 +253,6 @@ TEST_CASE(test_vfma_laneq_f32) {
     return 0;
 }
 
-/* NOTE: 和 vqadd{b,h,s,d} 类似, 表示 scalar, 其中 vfmas_f32 表示 float,
- * vfmad_f64 表示 double. 与 vfma_lane 类似, lane 后支持 q 后缀 */
 TEST_CASE(test_vfmas_lane_f32) {
     static const struct {
         float a;

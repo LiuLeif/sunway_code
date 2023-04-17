@@ -5,14 +5,15 @@
             "-c",
             "-O3",
             "-g3",
+            "-Ineon_emu",
             "-I.",
             "-DEMU",
             "-o",
-            "vector_arithmetic/add/saturating_addition/test_saturating_vadd_emu.elf",
-            "vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen_emu.elf",
+            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+        "file": "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
     },
     {
         "arguments": [
@@ -20,13 +21,14 @@
             "-c",
             "-O3",
             "-g3",
+            "-Ineon_emu",
             "-I.",
             "-o",
-            "vector_arithmetic/add/saturating_addition/test_saturating_vadd_native.elf",
-            "vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+            "test/vector_arithmetic/add/widening_addition/test_widening_add_native.elf",
+            "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+        "file": "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
     },
     {
         "arguments": [
@@ -34,42 +36,15 @@
             "-c",
             "-O3",
             "-g3",
-            "-I.",
-            "-o",
-            "vector_arithmetic/add/widening_addition/test_widening_add_native.elf",
-            "vector_arithmetic/add/widening_addition/test_widening_add.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/widening_addition/test_widening_add.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-I.",
-            "-o",
-            "vector_arithmetic/add/addition/test_vadd_native.elf",
-            "vector_arithmetic/add/addition/test_vadd.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/addition/test_vadd.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
+            "-Ineon_emu",
             "-I.",
             "-DEMU",
             "-o",
-            "vector_arithmetic/add/widening_addition/test_widening_add_emu.elf",
-            "vector_arithmetic/add/widening_addition/test_widening_add.c"
+            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma_emu.elf",
+            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/widening_addition/test_widening_add.c"
+        "file": "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
     },
     {
         "arguments": [
@@ -77,28 +52,15 @@
             "-c",
             "-O3",
             "-g3",
-            "-I.",
-            "-o",
-            "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_native.elf",
-            "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
+            "-Ineon_emu",
             "-I.",
             "-DEMU",
             "-o",
-            "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_emu.elf",
-            "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd_emu.elf",
+            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+        "file": "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
     },
     {
         "arguments": [
@@ -106,13 +68,214 @@
             "-c",
             "-O3",
             "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul_native.elf",
+            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
             "-I.",
             "-DEMU",
             "-o",
-            "vector_arithmetic/add/addition/test_vadd_emu.elf",
-            "vector_arithmetic/add/addition/test_vadd.c"
+            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla_emu.elf",
+            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "vector_arithmetic/add/addition/test_vadd.c"
+        "file": "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla_native.elf",
+            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/multiply/multiplication/test_mul_native.elf",
+            "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen_native.elf",
+            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul_emu.elf",
+            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_emu.elf",
+            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/add/widening_addition/test_widening_add_emu.elf",
+            "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd_native.elf",
+            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_native.elf",
+            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma_native.elf",
+            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/add/addition/test_vadd_emu.elf",
+            "test/vector_arithmetic/add/addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/multiply/multiplication/test_mul_emu.elf",
+            "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/add/addition/test_vadd_native.elf",
+            "test/vector_arithmetic/add/addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/add/addition/test_vadd.c"
     }
 ]

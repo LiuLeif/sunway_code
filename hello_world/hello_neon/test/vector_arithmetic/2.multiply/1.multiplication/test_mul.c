@@ -1,6 +1,26 @@
 // 2023-04-14 19:36
 #include <neon.h>
-/* NOTE: 与 vadd 类似, 支持 {s,u}{8,16,32,64} 以及 f{32,64} */
+// int8x8_t vmul_s8(int8x8_t a,int8x8_t b)
+// int16x4_t vmul_s16(int16x4_t a,int16x4_t b)
+// int32x2_t vmul_s32(int32x2_t a,int32x2_t b)
+// uint8x8_t vmul_u8(uint8x8_t a,uint8x8_t b)
+// uint16x4_t vmul_u16(uint16x4_t a,uint16x4_t b)
+// uint32x2_t vmul_u32(uint32x2_t a,uint32x2_t b)
+//
+// int16x8_t vmulq_s16(int16x8_t a,int16x8_t b)
+//               ^--- 128-bit vector
+// int8x16_t vmulq_s8(int8x16_t a,int8x16_t b)
+// int32x4_t vmulq_s32(int32x4_t a,int32x4_t b)
+// uint8x16_t vmulq_u8(uint8x16_t a,uint8x16_t b)
+// uint16x8_t vmulq_u16(uint16x8_t a,uint16x8_t b)
+// uint32x4_t vmulq_u32(uint32x4_t a,uint32x4_t b)
+// --------------------------------------------------
+// float32x2_t vmul_f32(float32x2_t a,float32x2_t b)
+// float64x1_t vmul_f64(float64x1_t a,float64x1_t b)
+//
+// float64x2_t vmulq_f64(float64x2_t a,float64x2_t b)
+// float32x4_t vmulq_f32(float32x4_t a,float32x4_t b)
+//
 TEST_CASE(test_vmul_s8) {
     struct {
         int8_t a[8];
