@@ -1,26 +1,41 @@
 the complete neon intrinsics list:
 
+* 指令格式
+
+v{1.q}{2.r}{3.d}xxx{4.l}{5.w}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
+
+- 1.q saturating
+- 2.r rounding
+- 3.d doubling
+- 4.l widen
+- 5.w
+- 6.q 128-bit
+- 7.b 参数都是 scalar: int8,int16,int32,int64
+- 8.lane, 使用 v[lane] 而不是 v[i]
+- 9.high, 使用 a[i+x] 而不是 a[i]
+- 10.n 有一个参数是 scalar 
+
 * List of Intrinsics [0/14]
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Vector arithmetic [4/24]
+1. [-] Vector arithmetic [7/24]
    1. [X] Add [4/4]
       1. [X] Addition
       2. [X] Widening addition
       3. [X] Narrowing addition
       4. [X] Saturating addition
-   2. [-] Multiply [6/10]
+   2. [X] Multiply [6/6]
       1. [X] Multiplication
-      2. [ ] Multiply extended
-      3. [X] Multiply-accumulate
-      4. [X] Multiply-accumulate and widen
-      5. [X] Fused multiply-accumulate
-      6. [X] Saturating multiply
-      7. [ ] Saturating multiply-accumulate
-      8. [X] Widening multiplication
-      9. [ ] Saturating multiply by scalar and widen
-      10. [ ] Saturating multiply-accumulate by scalar and widen
+      +2. Multiply extended+
+      1. [X] Multiply-accumulate
+      2. [X] Multiply-accumulate and widen
+      3. [X] Fused multiply-accumulate
+      4. [X] Saturating multiply
+      +7. Saturating multiply-accumulate+
+      1. [X] Widening multiplication
+      +9. Saturating multiply by scalar and widen+
+      +10. Saturating multiply-accumulate by scalar and widen+
    3. [X] Polynomial [1/1]
       1. [X] Polynomial multiply
    4. [ ] Division
@@ -36,8 +51,8 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       4. [X] Widening absolute difference and accumulate
       5. [X] Absolute value
       6. [X] Saturating absolute value
-   7. [ ] Maximum
-   8. [ ] Minimum
+   7. [X] Maximum
+   8. [X] Minimum
    9. [ ] Rounding
    10. [ ] Reciprocal [0/3]
        1. [ ] Reciprocal estimate

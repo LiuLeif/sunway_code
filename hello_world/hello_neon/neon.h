@@ -15,11 +15,15 @@
         }                             \
     } while (0)
 
-#define ASSERT_CLOSE(n, a, b)                 \
-    do {                                      \
-        for (int i = 0; i < n; i++) {         \
-            assert(fabs(a[i] - b[i]) < 1e-2); \
-        }                                     \
+#define ASSERT_CLOSE(n, a, b)                         \
+    do {                                              \
+        for (int i = 0; i < n; i++) {                 \
+            if (isnanf(a[i]) || isnanf(b[i])) {       \
+                assert(isnanf(b[i]) && isnanf(a[i])); \
+            } else {                                  \
+                assert(fabs(a[i] - b[i]) < 1e-2);     \
+            }                                         \
+        }                                             \
     } while (0)
 #else
 #include "./neon_emu.h"
@@ -30,11 +34,15 @@
         }                                       \
     } while (0)
 
-#define ASSERT_CLOSE(n, a, b)                               \
-    do {                                                    \
-        for (int i = 0; i < n; i++) {                       \
-            assert(fabs(a.values[i] - b.values[i]) < 1e-2); \
-        }                                                   \
+#define ASSERT_CLOSE(n, a, b)                                       \
+    do {                                                            \
+        for (int i = 0; i < n; i++) {                               \
+            if (isnanf(a.values[i]) || isnanf(b.values[i])) {       \
+                assert(isnanf(b.values[i]) && isnanf(a.values[i])); \
+            } else {                                                \
+                assert(fabs(a.values[i] - b.values[i]) < 1e-2);     \
+            }                                                       \
+        }                                                           \
     } while (0)
 #endif
 

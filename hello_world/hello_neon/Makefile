@@ -19,9 +19,9 @@ DEP += $(EMU_APP:.elf=.d)
 -include ${DEP}
 
 %_native.elf:%.c
-	${CC} ${CFLAGS} -o $@ $^ ${LDFLAGS} ${LDLIBS}
+	${CC} ${CFLAGS} -o $@ $< ${LDFLAGS} ${LDLIBS}
 %_emu.elf:%.c
-	${CC} ${CFLAGS} -DEMU -o $@ $^ ${LDFLAGS} ${LDLIBS}
+	${CC} ${CFLAGS} -DEMU -o $@ $< ${LDFLAGS} ${LDLIBS}
 
 ${TEST_EMU_APP}:run_%:%
 	./$<
