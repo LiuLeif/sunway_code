@@ -4,13 +4,13 @@ the complete neon intrinsics list:
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Vector arithmetic [1/24]
+1. [-] Vector arithmetic [4/24]
    1. [X] Add [4/4]
       1. [X] Addition
       2. [X] Widening addition
       3. [X] Narrowing addition
       4. [X] Saturating addition
-   2. [-] Multiply [5/10]
+   2. [-] Multiply [6/10]
       1. [X] Multiplication
       2. [ ] Multiply extended
       3. [X] Multiply-accumulate
@@ -18,24 +18,24 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       5. [X] Fused multiply-accumulate
       6. [X] Saturating multiply
       7. [ ] Saturating multiply-accumulate
-      8. [ ] Widening multiplication
+      8. [X] Widening multiplication
       9. [ ] Saturating multiply by scalar and widen
       10. [ ] Saturating multiply-accumulate by scalar and widen
-   3. [ ] Polynomial [0/1]
-      1. [ ] Polynomial multiply
+   3. [X] Polynomial [1/1]
+      1. [X] Polynomial multiply
    4. [ ] Division
-   5. [ ] Subtract [0/4]
-      1. [ ] Subtraction
-      2. [ ] Widening subtraction
-      3. [ ] Narrowing subtraction
-      4. [ ] Saturating subtract
-   6. [ ] Absolute [0/6]
-      1. [ ] Absolute difference
-      2. [ ] Widening absolute difference
-      3. [ ] Absolute difference and accumulate
-      4. [ ] Widening absolute difference and accumulate
-      5. [ ] Absolute value
-      6. [ ] Saturating absolute value
+   5. [X] Subtract [4/4]
+      1. [X] Subtraction
+      2. [X] Widening subtraction
+      3. [X] Narrowing subtraction
+      4. [X] Saturating subtract
+   6. [X] Absolute [6/6]
+      1. [X] Absolute difference
+      2. [X] Widening absolute difference
+      3. [X] Absolute difference and accumulate
+      4. [X] Widening absolute difference and accumulate
+      5. [X] Absolute value
+      6. [X] Saturating absolute value
    7. [ ] Maximum
    8. [ ] Minimum
    9. [ ] Rounding
