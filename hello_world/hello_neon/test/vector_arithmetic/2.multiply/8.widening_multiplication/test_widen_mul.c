@@ -1,4 +1,5 @@
 #include <neon.h>
+#include <neon_test.h>
 // int16x8_t vmull_s8(int8x8_t a,int8x8_t b)
 //               ^---widen
 // int32x4_t vmull_s16(int16x4_t a,int16x4_t b)
@@ -50,7 +51,7 @@ TEST_CASE(test_vmull_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int16x8_t r = vmull_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -105,7 +106,7 @@ TEST_CASE(test_vmull_high_s8) {
         int8x16_t b = vld1q_s8(test_vec[i].b);
         int16x8_t r = vmull_high_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

@@ -1,5 +1,6 @@
 // 2023-04-17 16:18
 #include <neon.h>
+#include <neon_test.h>
 /* 与 widening_multiplication 相同 */
 // int16x8_t vabdl_s8(int8x8_t a,int8x8_t b)
 // int32x4_t vabdl_s16(int16x4_t a,int16x4_t b)

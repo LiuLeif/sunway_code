@@ -1,5 +1,6 @@
 // 2023-04-16 16:55
 #include <neon.h>
+#include <neon_test.h>
 
 // float32x2_t vfma_f32(float32x2_t a,float32x2_t b,float32x2_t c)
 //              ^^^ fused multply accumulate, r[i]=a[i]+b[i]*c[i], 但与 mla 不同的是, fma 只针对
@@ -98,7 +99,7 @@ TEST_CASE(test_vfma_f32) {
         float32x2_t c = vld1_f32(test_vec[i].c);
         float32x2_t r = vfma_f32(a, b, c);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }
@@ -160,8 +161,8 @@ TEST_CASE(test_vfma_lane_f32) {
         float32x2_t r1 = vfma_lane_f32(a, b, v, 1);
         float32x2_t check0 = vld1_f32(test_vec[i].r0);
         float32x2_t check1 = vld1_f32(test_vec[i].r1);
-        ASSERT_CLOSE(2, r0, check0);
-        ASSERT_CLOSE(2, r1, check1);
+        ASSERT_CLOSE(r0, check0);
+        ASSERT_CLOSE(r1, check1);
     }
     return 0;
 }
@@ -245,10 +246,10 @@ TEST_CASE(test_vfma_laneq_f32) {
         float32x2_t check1 = vld1_f32(test_vec[i].r1);
         float32x2_t check2 = vld1_f32(test_vec[i].r2);
         float32x2_t check3 = vld1_f32(test_vec[i].r3);
-        ASSERT_CLOSE(2, r0, check0);
-        ASSERT_CLOSE(2, r1, check1);
-        ASSERT_CLOSE(2, r2, check2);
-        ASSERT_CLOSE(2, r3, check3);
+        ASSERT_CLOSE(r0, check0);
+        ASSERT_CLOSE(r1, check1);
+        ASSERT_CLOSE(r2, check2);
+        ASSERT_CLOSE(r3, check3);
     }
     return 0;
 }

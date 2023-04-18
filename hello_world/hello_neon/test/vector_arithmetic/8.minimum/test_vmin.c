@@ -1,5 +1,6 @@
 // 2023-04-17 17:17
 #include <neon.h>
+#include <neon_test.h>
 // int8x8_t vmin_s8(int8x8_t a,int8x8_t b)
 // int16x4_t vmin_s16(int16x4_t a,int16x4_t b)
 // int32x2_t vmin_s32(int32x2_t a,int32x2_t b)
@@ -63,7 +64,7 @@ TEST_CASE(test_vmaxnm_f32) {
         float32x2_t b = vld1_f32(test_vec[i].b);
         float32x2_t r = vmaxnm_f32(a, b);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }

@@ -1,5 +1,6 @@
 // 2023-04-15 22:20
 #include <neon.h>
+#include <neon_test.h>
 // int16x8_t vmlal_s8(int16x8_t a,int8x8_t b,int8x8_t c)
 //               ^--- widening, r[i]=a[i]+widen(b[i]*c[i])
 // int32x4_t vmlal_s16(int32x4_t a,int16x4_t b,int16x4_t c)
@@ -76,7 +77,7 @@ TEST_CASE(test_vmlal_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int16x8_t r = vmlal_s8(a, b, c);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
 
     return 0;
@@ -144,7 +145,7 @@ TEST_CASE(test_vmlal_high_s8) {
         int8x16_t c = vld1q_s8(test_vec[i].c);
         int16x8_t r = vmlal_high_s8(a, b, c);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -195,7 +196,7 @@ TEST_CASE(test_vmlsl_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int16x8_t r = vmlsl_s8(a, b, c);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -262,7 +263,7 @@ TEST_CASE(test_vmlsl_high_s8) {
         int8x16_t c = vld1q_s8(test_vec[i].c);
         int16x8_t r = vmlsl_high_s8(a, b, c);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

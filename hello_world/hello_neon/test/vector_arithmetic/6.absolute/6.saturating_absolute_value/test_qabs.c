@@ -1,5 +1,6 @@
 // 2023-04-17 16:48
 #include <neon.h>
+#include <neon_test.h>
 #include <stdint.h>
 // int8x8_t vqabs_s8(int8x8_t a)
 // int16x4_t vqabs_s16(int16x4_t a)

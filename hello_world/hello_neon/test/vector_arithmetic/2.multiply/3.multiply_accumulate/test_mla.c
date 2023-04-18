@@ -1,5 +1,6 @@
 // 2023-04-15 21:53
 #include <neon.h>
+#include <neon_test.h>
 // int8x8_t vmla_s8(int8x8_t a,int8x8_t b,int8x8_t c)
 //           ^^^--- multiply accumulate, r[i]=a[i]+b[i]*c[i]
 // int16x4_t vmla_s16(int16x4_t a,int16x4_t b,int16x4_t c)
@@ -90,7 +91,7 @@ TEST_CASE(test_vmla_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int8x8_t r = vmla_s8(a, b, c);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -141,7 +142,7 @@ TEST_CASE(test_vmls_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int8x8_t r = vmls_s8(a, b, c);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

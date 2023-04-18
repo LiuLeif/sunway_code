@@ -1,5 +1,6 @@
 // 2023-04-17 16:21
 #include <neon.h>
+#include <neon_test.h>
 /* NOTE: 与 mla 基本相同, 但不支持 float */
 // int8x8_t vaba_s8(int8x8_t a,int8x8_t b,int8x8_t c)
 // int16x4_t vaba_s16(int16x4_t a,int16x4_t b,int16x4_t c)
@@ -61,7 +62,7 @@ TEST_CASE(test_vaba_s8) {
         int8x8_t c = vld1_s8(test_vec[i].c);
         int8x8_t r = vaba_s8(a, b, c);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

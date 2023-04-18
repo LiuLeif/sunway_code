@@ -1,5 +1,6 @@
 // 2023-04-14 10:44
 #include <neon.h>
+#include <neon_test.h>
 
 // int8x8_t vqadd_s8(int8x8_t a,int8x8_t b)
 //           ^--- q 表示 saturating
@@ -101,7 +102,7 @@ static int test_vqadd_s8() {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vqadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -145,7 +146,7 @@ TEST_CASE(test_vuqadd_s8) {
         int8x8_t r = vuqadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
 
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
 
     return 0;
@@ -188,7 +189,7 @@ TEST_CASE(test_vsqadd_u8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         uint8x8_t r = vsqadd_u8(a, b);
         uint8x8_t check = vld1_u8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
 
     return 0;

@@ -5,12 +5,14 @@
 #include "./reinterp.h"
 #include "./vabd.h"
 #include "./vadd.h"
+#include "./vaddv.h"
 #include "./vld.h"
 #include "./vmax.h"
 #include "./vmul.h"
+#include "./vpadd.h"
+#include "./vpmax.h"
 #include "./vrecp.h"
 #include "./vrnd.h"
 #include "./vsqrt.h"
-#include "./vpadd.h"
 
 #endif  // ARM_NEON_H

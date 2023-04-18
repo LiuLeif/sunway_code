@@ -1,5 +1,6 @@
 // 2023-04-17 13:41
 #include <neon.h>
+#include <neon_test.h>
 /* clang-format off */
 //  r[i]=a[i]+((int32_t)b[i]*c[i]*2)
 //  int32x4_t vqdmlal_s16(int32x4_t a,int16x4_t b,int16x4_t c)

@@ -1,5 +1,6 @@
 // 2023-04-17 14:40
 #include <neon.h>
+#include <neon_test.h>
 // clang format off
 // poly8x8_t vmul_p8(poly8x8_t a,poly8x8_t b)
 // poly8x16_t vmulq_p8(poly8x16_t a,poly8x16_t b)
@@ -41,6 +42,6 @@ TEST_CASE(test_vmll_p8) {
         poly8x8_t _b = vreinterpret_p8_u8(b);
         poly8x8_t r = vmul_p8(_a, _b);
         uint8x8_t check = vld1_u8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
 }

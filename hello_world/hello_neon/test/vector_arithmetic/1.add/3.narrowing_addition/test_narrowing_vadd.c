@@ -1,5 +1,6 @@
 // 2023-04-14 10:44
 #include <neon.h>
+#include <neon_test.h>
 /* NOTE: add 的结果会有右移, 所以称为 narrowing 指令 */
 
 // int8x8_t vhadd_s8(int8x8_t a,int8x8_t b)
@@ -84,7 +85,7 @@ TEST_CASE(test_vaddhn_s16) {
         int16x8_t b = vld1q_s16(test_vec[i].b);
         int8x8_t r = vaddhn_s16(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -127,7 +128,7 @@ TEST_CASE(test_vhadd_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vhadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -170,7 +171,7 @@ TEST_CASE(test_vrhadd_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vrhadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

@@ -1,5 +1,6 @@
 // 2023-04-17 16:26
 #include <neon.h>
+#include <neon_test.h>
 /* NOTE: 与 mlal 相同 */
 // int16x8_t vabal_s8(int16x8_t a,int8x8_t b,int8x8_t c)
 // int32x4_t vabal_s16(int32x4_t a,int16x4_t b,int16x4_t c)

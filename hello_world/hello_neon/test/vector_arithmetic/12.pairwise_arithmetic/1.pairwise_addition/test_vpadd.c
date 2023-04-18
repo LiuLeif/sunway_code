@@ -1,5 +1,6 @@
 // 2023-04-18 11:41
 #include <neon.h>
+#include <neon_test.h>
 
 // int8x8_t vpadd_s8(int8x8_t a,int8x8_t b)
 //          ^---pair
@@ -63,7 +64,7 @@ TEST_CASE(test_simde_vpadd_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vpadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

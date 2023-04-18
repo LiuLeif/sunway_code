@@ -1,5 +1,6 @@
 // 2023-04-14 10:44
 #include <neon.h>
+#include <neon_test.h>
 // int8x8_t vadd_s8(int8x8_t a,int8x8_t b)
 // int16x4_t vadd_s16(int16x4_t a,int16x4_t b)
 // int32x2_t vadd_s32(int32x2_t a,int32x2_t b)
@@ -60,7 +61,7 @@ TEST_CASE(test_vadd_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int8x8_t r = vadd_s8(a, b);
         int8x8_t check = vld1_s8(test_vec[i].r);
-        ASSERT_EQUAL(8, check, r);
+        ASSERT_EQUAL(check, r);
     }
 
     return 0;
@@ -125,7 +126,7 @@ TEST_CASE(test_vaddq_s8) {
         int8x16_t b = vld1q_s8(test_vec[i].b);
         int8x16_t r = vaddq_s8(a, b);
         int8x16_t check = vld1q_s8(test_vec[i].r);
-        ASSERT_EQUAL(16, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

@@ -2,12 +2,12 @@ the complete neon intrinsics list:
 
 * 指令格式
 
-v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
+=v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{14.nm}{15.v}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type=
 
 - 1.q saturating
 - 2.r rounding
 - 3.d doubling
-- 4.l widen
+- 4.l widen/long
 - 5.w 只 widen 一个输入参数
 - 6.q 128-bit
 - 7.b 参数都是 scalar: int8,int16,int32,int64
@@ -17,12 +17,14 @@ v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.
 - 11.h half narrow, 例如 xx>>1
 - 12.hn high narrow, 例如 xx>>8
 - 13.p pairwise
+- 14.nm max 类指令使用 nm 表示符合 ieee754
+- 15.v across vector
 
 * List of Intrinsics [0/14]
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Vector arithmetic [10/24]
+1. [-] Vector arithmetic [11/24]
    1. [X] Add [4/4]
       1. [X] Addition
       2. [X] Widening addition
@@ -62,16 +64,16 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
        2. [X] Reciprocal square-root estimate
        +3. Reciprocal exponent+
    11. [X] Square root
-   12. [ ] Pairwise arithmetic [0/6]
-       1. [ ] Pairwise addition
-       2. [ ] Pairwise addition and widen
-       3. [ ] Pairwise maximum
-       4. [ ] Pairwise minimum
-       5. [ ] Pairwise maximum (IEEE754)
-       6. [ ] Pairwise minimum (IEEE754)
-   13. [ ] Across vector arithmetic [0/6]
-       1. [ ] Addition across vector
-       2. [ ] Addition across vector widening
+   12. [X] Pairwise arithmetic [6/6]
+       1. [X] Pairwise addition
+       2. [X] Pairwise addition and widen
+       3. [X] Pairwise maximum
+       4. [X] Pairwise minimum
+       5. [X] Pairwise maximum (IEEE754)
+       6. [X] Pairwise minimum (IEEE754)
+   13. [-] Across vector arithmetic [2/6]
+       1. [X] Addition across vector
+       2. [X] Addition across vector widening
        3. [ ] Maximum across vector
        4. [ ] Minimum across vector
        5. [ ] Maximum across vector (IEEE754)

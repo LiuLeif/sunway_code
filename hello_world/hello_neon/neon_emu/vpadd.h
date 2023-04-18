@@ -13,4 +13,12 @@ int8x8_t vpadd_s8(int8x8_t a, int8x8_t b) {
     return r;
 }
 
+int16x4_t vpadal_s8(int16x4_t a, int8x8_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        r.values[i] =
+            a.values[i] + (int16_t)b.values[i * 2] + b.values[i * 2 + 1];
+    }
+    return r;
+}
 #endif  // VPADD_H

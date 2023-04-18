@@ -1,5 +1,6 @@
 // 2023-04-18 10:59
 #include <neon.h>
+#include <neon_test.h>
 // uint32x2_t vrsqrte_u32(uint32x2_t a)
 //             ^^^^^^---reciprocal sqrt estimate, r[i]=sqrt(1/a[i])
 // float32x2_t vrsqrte_f32(float32x2_t a)

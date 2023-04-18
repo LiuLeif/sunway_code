@@ -1,5 +1,6 @@
 // 2023-04-18 10:37
 #include <neon.h>
+#include <neon_test.h>
 // uint32x2_t vrecpe_u32(uint32x2_t a)
 //             ^^^^^---reciprocal estimate, r[i]=1.0/a[i]
 // float32x2_t vrecpe_f32(float32x2_t a)
@@ -37,7 +38,7 @@ TEST_CASE(test_vrecpe_f32) {
         float32x2_t a = vld1_f32(test_vec[i].a);
         float32x2_t r = vrecpe_f32(a);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }
@@ -63,7 +64,7 @@ TEST_CASE(test_vrecps_f32) {
         float32x2_t b = vld1_f32(test_vec[i].b);
         float32x2_t r = vrecps_f32(a, b);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }

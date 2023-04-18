@@ -1,5 +1,6 @@
 // 2023-04-16 20:47
 #include <neon.h>
+#include <neon_test.h>
 
 /* clang-format off */
 // vqdmul                            h:
@@ -78,7 +79,7 @@ TEST_CASE(test_vqdmulh_s16) {
         int16x4_t b = vld1_s16(test_vec[i].b);
         int16x4_t r = vqdmulh_s16(a, b);
         int16x4_t check = vld1_s16(test_vec[i].r);
-        ASSERT_EQUAL(4, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -129,7 +130,7 @@ TEST_CASE(test_vqdmull_s16) {
         int16x4_t b = vld1_s16(test_vec[i].b);
         int32x4_t r = vqdmull_s16(a, b);
         int32x4_t check = vld1q_s32(test_vec[i].r);
-        ASSERT_EQUAL(4, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -170,7 +171,7 @@ TEST_CASE(test_vqrdmulh_s16) {
         int16x4_t b = vld1_s16(test_vec[i].b);
         int16x4_t r = vqrdmulh_s16(a, b);
         int16x4_t check = vld1_s16(test_vec[i].r);
-        ASSERT_EQUAL(4, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

@@ -7,28 +7,12 @@
             "-g3",
             "-Ineon_emu",
             "-I.",
-            "-DEMU",
             "-o",
-            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen_emu.elf",
-            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
+            "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd_native.elf",
+            "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/add/widening_addition/test_widening_add_native.elf",
-            "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
+        "file": "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
     },
     {
         "arguments": [
@@ -40,11 +24,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma_emu.elf",
-            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
+            "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs_emu.elf",
+            "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
+        "file": "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
     },
     {
         "arguments": [
@@ -56,11 +40,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd_emu.elf",
-            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+            "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal_emu.elf",
+            "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
+        "file": "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
     },
     {
         "arguments": [
@@ -71,27 +55,11 @@
             "-Ineon_emu",
             "-I.",
             "-o",
-            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul_native.elf",
-            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+            "test/vector_arithmetic/4.division/test_div_native.elf",
+            "test/vector_arithmetic/4.division/test_div.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-DEMU",
-            "-o",
-            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla_emu.elf",
-            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
+        "file": "test/vector_arithmetic/4.division/test_div.c"
     },
     {
         "arguments": [
@@ -102,41 +70,11 @@
             "-Ineon_emu",
             "-I.",
             "-o",
-            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla_native.elf",
-            "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
+            "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma_native.elf",
+            "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiply_accumulate/test_mla.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/multiply/multiplication/test_mul_native.elf",
-            "test/vector_arithmetic/multiply/multiplication/test_mul.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiplication/test_mul.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen_native.elf",
-            "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiply_accumulate_and_widen/test_mula_widen.c"
+        "file": "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
     },
     {
         "arguments": [
@@ -148,11 +86,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul_emu.elf",
-            "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+            "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/saturating_multiply/test_saturating_mul.c"
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
     },
     {
         "arguments": [
@@ -164,11 +102,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_emu.elf",
-            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+            "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul_emu.elf",
+            "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
+        "file": "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
     },
     {
         "arguments": [
@@ -180,56 +118,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/add/widening_addition/test_widening_add_emu.elf",
-            "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
+            "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl_emu.elf",
+            "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/widening_addition/test_widening_add.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd_native.elf",
-            "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/saturating_addition/test_saturating_vadd.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd_native.elf",
-            "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/narrowing_addition/test_narrowing_vadd.c"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-gcc",
-            "-c",
-            "-O3",
-            "-g3",
-            "-Ineon_emu",
-            "-I.",
-            "-o",
-            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma_native.elf",
-            "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
-        ],
-        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/fused_multiply_accumulate/test_fma.c"
+        "file": "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
     },
     {
         "arguments": [
@@ -241,11 +134,26 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/add/addition/test_vadd_emu.elf",
-            "test/vector_arithmetic/add/addition/test_vadd.c"
+            "test/vector_arithmetic/4.division/test_div_emu.elf",
+            "test/vector_arithmetic/4.division/test_div.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/addition/test_vadd.c"
+        "file": "test/vector_arithmetic/4.division/test_div.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/7.maximum/test_maximum_native.elf",
+            "test/vector_arithmetic/7.maximum/test_maximum.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/7.maximum/test_maximum.c"
     },
     {
         "arguments": [
@@ -257,11 +165,11 @@
             "-I.",
             "-DEMU",
             "-o",
-            "test/vector_arithmetic/multiply/multiplication/test_mul_emu.elf",
-            "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+            "test/vector_arithmetic/11.square_root/test_vsqrt_emu.elf",
+            "test/vector_arithmetic/11.square_root/test_vsqrt.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/multiply/multiplication/test_mul.c"
+        "file": "test/vector_arithmetic/11.square_root/test_vsqrt.c"
     },
     {
         "arguments": [
@@ -272,10 +180,877 @@
             "-Ineon_emu",
             "-I.",
             "-o",
-            "test/vector_arithmetic/add/addition/test_vadd_native.elf",
-            "test/vector_arithmetic/add/addition/test_vadd.c"
+            "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla_native.elf",
+            "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
-        "file": "test/vector_arithmetic/add/addition/test_vadd.c"
+        "file": "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv_emu.elf",
+            "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul_native.elf",
+            "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt_native.elf",
+            "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs_emu.elf",
+            "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen_native.elf",
+            "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd_emu.elf",
+            "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/1.multiplication/test_mul_emu.elf",
+            "test/vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt_emu.elf",
+            "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla_emu.elf",
+            "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/7.maximum/test_maximum_emu.elf",
+            "test/vector_arithmetic/7.maximum/test_maximum.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/7.maximum/test_maximum.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx_emu.elf",
+            "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/8.minimum/test_vmin_emu.elf",
+            "test/vector_arithmetic/8.minimum/test_vmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/8.minimum/test_vmin.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd_emu.elf",
+            "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl_native.elf",
+            "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv_emu.elf",
+            "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla_native.elf",
+            "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd_emu.elf",
+            "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul_emu.elf",
+            "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs_native.elf",
+            "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/11.square_root/test_vsqrt_native.elf",
+            "test/vector_arithmetic/11.square_root/test_vsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/11.square_root/test_vsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba_emu.elf",
+            "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd_native.elf",
+            "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/1.add/1.addition/test_vadd_emu.elf",
+            "test/vector_arithmetic/1.add/1.addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/1.addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba_native.elf",
+            "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax_emu.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma_emu.elf",
+            "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv_native.elf",
+            "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv_native.elf",
+            "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/8.minimum/test_vmin_native.elf",
+            "test/vector_arithmetic/8.minimum/test_vmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/8.minimum/test_vmin.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx_native.elf",
+            "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd_native.elf",
+            "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add_native.elf",
+            "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p_native.elf",
+            "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs_native.elf",
+            "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal_native.elf",
+            "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/2.multiply/1.multiplication/test_mul_native.elf",
+            "test/vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add_emu.elf",
+            "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p_emu.elf",
+            "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/9.rounding/test_vrnd_emu.elf",
+            "test/vector_arithmetic/9.rounding/test_vrnd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/9.rounding/test_vrnd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla_emu.elf",
+            "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/1.add/1.addition/test_vadd_native.elf",
+            "test/vector_arithmetic/1.add/1.addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/1.add/1.addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul_native.elf",
+            "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen_emu.elf",
+            "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe_native.elf",
+            "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm_native.elf",
+            "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-o",
+            "test/vector_arithmetic/9.rounding/test_vrnd_native.elf",
+            "test/vector_arithmetic/9.rounding/test_vrnd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/9.rounding/test_vrnd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O3",
+            "-g3",
+            "-Ineon_emu",
+            "-I.",
+            "-DEMU",
+            "-o",
+            "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe_emu.elf",
+            "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
     }
 ]

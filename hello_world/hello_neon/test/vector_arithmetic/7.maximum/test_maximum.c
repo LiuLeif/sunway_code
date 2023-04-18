@@ -1,5 +1,6 @@
 // 2023-04-17 17:11
 #include <neon.h>
+#include <neon_test.h>
 /* NOTE: 和 add 基本相同, 但不支持 {s,u}64 */
 // int8x8_t vmax_s8(int8x8_t a,int8x8_t b)
 // int16x4_t vmax_s16(int16x4_t a,int16x4_t b)
@@ -58,7 +59,7 @@ TEST_CASE(test_vmax_f32) {
         float32x2_t b = vld1_f32(test_vec[i].b);
         float32x2_t r = vmax_f32(a, b);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
 
     return 0;

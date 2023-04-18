@@ -1,5 +1,6 @@
 // 2023-04-14 18:03
 #include <neon.h>
+#include <neon_test.h>
 /* NOTE: 输出的 esize (向量中单个元素的宽度) 变成输入的两倍, 所以叫 widening */
 
 // int16x8_t vaddl_s8(int8x8_t a,int8x8_t b)
@@ -72,7 +73,7 @@ TEST_CASE(test_vaddl_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int16x8_t r = vaddl_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
 
     return 0;
@@ -132,7 +133,7 @@ TEST_CASE(test_vaddl_high_s8) {
         int16x8_t r = vaddl_high_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
 
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -174,7 +175,7 @@ TEST_CASE(test_vaddw_s8) {
         int8x8_t b = vld1_s8(test_vec[i].b);
         int16x8_t r = vaddw_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }
@@ -221,7 +222,7 @@ TEST_CASE(test_vaddw_high_s8) {
         int8x16_t b = vld1q_s8(test_vec[i].b);
         int16x8_t r = vaddw_high_s8(a, b);
         int16x8_t check = vld1q_s16(test_vec[i].r);
-        ASSERT_EQUAL(8, r, check);
+        ASSERT_EQUAL(r, check);
     }
     return 0;
 }

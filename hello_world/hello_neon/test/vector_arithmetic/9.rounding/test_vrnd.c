@@ -1,5 +1,6 @@
 // 2023-04-17 18:22
 #include <neon.h>
+#include <neon_test.h>
 //                      	          11.5	12.5	−11.5	−12.5
 // to nearest, ties to even           12    12      −12.0   −12.0
 // to nearest, ties away from zero    12    13      −12.0   −13.0
@@ -78,7 +79,7 @@ TEST_CASE(test_vrnd_f32) {
         float32x2_t a = vld1_f32(test_vec[i].a);
         float32x2_t r = vrnd_f32(a);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }
@@ -102,7 +103,7 @@ TEST_CASE(test_vrndn_f32) {
         float32x2_t a = vld1_f32(test_vec[i].a);
         float32x2_t r = vrndn_f32(a);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }
@@ -127,7 +128,7 @@ TEST_CASE(test_vrndm_f32) {
         float32x2_t a = vld1_f32(test_vec[i].a);
         float32x2_t r = vrndm_f32(a);
         float32x2_t check = vld1_f32(test_vec[i].r);
-        ASSERT_CLOSE(2, r, check);
+        ASSERT_CLOSE(r, check);
     }
     return 0;
 }
