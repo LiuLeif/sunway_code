@@ -1,7 +1,6 @@
 // 2023-04-14 19:39
 #ifndef VMUL_H
 #define VMUL_H
-#include <stdint.h>
 
 #include "neon_emu_types.h"
 

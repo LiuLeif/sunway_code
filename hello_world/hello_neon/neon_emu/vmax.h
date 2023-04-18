@@ -3,7 +3,6 @@
 #define VMAX_H
 
 #include <math.h>
-#include <stdint.h>
 
 #include "neon_emu_types.h"
 

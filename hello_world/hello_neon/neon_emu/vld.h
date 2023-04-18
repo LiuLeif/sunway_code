@@ -20,6 +20,12 @@ uint8x8_t vld1_u8(const uint8_t* ptr) {
     return r;
 }
 
+uint32x2_t vld1_u32(const uint32_t* ptr) {
+    uint32x2_t r;
+    memcpy(&r, ptr, sizeof(r));
+    return r;
+}
+
 int8x16_t vld1q_s8(const int8_t* ptr) {
     int8x16_t r;
     memcpy(&r, ptr, sizeof(r));

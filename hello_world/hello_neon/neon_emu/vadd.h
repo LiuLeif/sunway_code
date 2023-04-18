@@ -1,7 +1,6 @@
 // 2023-04-14 12:20
 #ifndef VADD_H
 #define VADD_H
-#include <stdint.h>
 
 #include "neon_emu_types.h"
 

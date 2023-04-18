@@ -4,7 +4,6 @@
 
 #include <fenv.h>
 #include <math.h>
-#include <stdint.h>
 
 #include "neon_emu_types.h"
 

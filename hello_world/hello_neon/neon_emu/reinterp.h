@@ -1,7 +1,6 @@
 // 2023-04-17 15:08
 #ifndef REINTERP_H
 #define REINTERP_H
-#include <stdint.h>
 
 #include "neon_emu_types.h"
 

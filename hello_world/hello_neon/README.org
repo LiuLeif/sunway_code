@@ -24,139 +24,140 @@ the complete neon intrinsics list:
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Vector arithmetic [11/24]
-   1. [X] Add [4/4]
-      1. [X] Addition
-      2. [X] Widening addition
-      3. [X] Narrowing addition
-      4. [X] Saturating addition
-   2. [X] Multiply [6/6]
-      1. [X] Multiplication
-      +2. Multiply extended+
-      1. [X] Multiply-accumulate
-      2. [X] Multiply-accumulate and widen
-      3. [X] Fused multiply-accumulate
-      4. [X] Saturating multiply
-      +7. Saturating multiply-accumulate+
-      1. [X] Widening multiplication
-      +9. Saturating multiply by scalar and widen+
-      +10. Saturating multiply-accumulate by scalar and widen+
-   3. [X] Polynomial [1/1]
-      1. [X] Polynomial multiply
-   4. [ ] Division
-   5. [X] Subtract [4/4]
-      1. [X] Subtraction
-      2. [X] Widening subtraction
-      3. [X] Narrowing subtraction
-      4. [X] Saturating subtract
-   6. [X] Absolute [6/6]
-      1. [X] Absolute difference
-      2. [X] Widening absolute difference
-      3. [X] Absolute difference and accumulate
-      4. [X] Widening absolute difference and accumulate
-      5. [X] Absolute value
-      6. [X] Saturating absolute value
-   7. [X] Maximum
-   8. [X] Minimum
-   9. [X] Rounding
-   10. [X] Reciprocal [2/2]
-       1. [X] Reciprocal estimate
-       2. [X] Reciprocal square-root estimate
-       +3. Reciprocal exponent+
-   11. [X] Square root
-   12. [X] Pairwise arithmetic [6/6]
-       1. [X] Pairwise addition
-       2. [X] Pairwise addition and widen
-       3. [X] Pairwise maximum
-       4. [X] Pairwise minimum
-       5. [X] Pairwise maximum (IEEE754)
-       6. [X] Pairwise minimum (IEEE754)
-   13. [-] Across vector arithmetic [2/6]
-       1. [X] Addition across vector
-       2. [X] Addition across vector widening
-       3. [ ] Maximum across vector
-       4. [ ] Minimum across vector
-       5. [ ] Maximum across vector (IEEE754)
-       6. [ ] Minimum across vector (IEEE754)
-   14. [ ] Compare [0/11]
-       1. [ ] Bitwise equal
-       2. [ ] Bitwise equal to zero
-       3. [ ] Greater than or equal to
-       4. [ ] Less than or equal to
-       5. [ ] Greater than
-       6. [ ] Less than
-       7. [ ] Absolute greater than or equal to
-       8. [ ] Absolute less than or equal to
-       9. [ ] Absolute greater than
-       10. [ ] Absolute less than
-       11. [ ] Bitwise not equal to zero
-   15. [ ] Shift [0/2]
-       1. [ ] Left [0/6]
-          1. [ ] Vector shift left
-          2. [ ] Vector saturating shift left
-          3. [ ] Vector rounding shift left
-          4. [ ] Vector saturating rounding shift left
-          5. [ ] Vector shift left and widen
-          6. [ ] Vector shift left and insert
-       2. [ ] Right [0/9]
-          1. [ ] Vector shift right
-          2. [ ] Vector rounding shift right
-          3. [ ] Vector shift right and accumulate
-          4. [ ] Vector rounding shift right and accumulate
-          5. [ ] Vector shift right and narrow
-          6. [ ] Vector saturating shift right and narrow
-          7. [ ] Vector saturating rounding shift right and narrow
-          8. [ ] Vector rounding shift right and narrow
-          9. [ ] Vector shift right and insert
-   16. [ ] Data type conversion [0/2]
-       1. [ ] Conversions
-       2. [ ] Reinterpret casts
-   17. [ ] Move [0/3]
-       1. [ ] Narrow
-       2. [ ] Widen
-       3. [ ] Saturating narrow
-   18. [ ] Scalar arithmetic [0/6]
-       1. [ ] Vector multiply-accumulate by scalar
-       2. [ ] Vector multiply-subtract by scalar
-       3. [ ] Vector multiply by scalar
-       4. [ ] Vector multiply by scalar and widen
-       5. [ ] Vector multiply-accumulate by scalar and widen
-       6. [ ] Fused multiply-accumulate by scalar
-   19. [ ] Logical [0/7]
-       1. [ ] Negate
-       2. [ ] Saturating Negate
-       3. [ ] Bitwise NOT
-       4. [ ] AND
-       5. [ ] OR
-       6. [ ] Exclusive OR
-       7. [ ] OR-NOT
-   20. [ ] Bit manipulation [0/5]
-       1. [ ] Count leading sign bits
-       2. [ ] Count leading zeros
-       3. [ ] Population count
-       4. [ ] Bitwise clear
-       5. [ ] Bitwise select
-   21. [ ] Vector manipulation [0/13]
-       1. [ ] Copy vector lane
-       2. [ ] Reverse bits within elements
-       3. [ ] Create vector
-       4. [ ] Set all lanes to the same value
-       5. [ ] Combine vectors
-       6. [ ] Split vectors
-       7. [ ] Extract one element from vector
-       8. [ ] Extract vector from a pair of vectors
-       9. [ ] Reverse elements
-       10. [ ] Zip elements
-       11. [ ] Unzip elements
-       12. [ ] Transpose elements
-       13. [ ] Set vector lane
-   22. [ ] Load [0/2]
+1. [-] Basic intrinsics [2/12]
+   1. [X] Vector arithmetic [12/12]
+      1. [X] Add [4/4]
+         1. [X] Addition
+         2. [X] Widening addition
+         3. [X] Narrowing addition
+         4. [X] Saturating addition
+      2. [X] Multiply [6/6]
+         1. [X] Multiplication
+         2. +Multiply extended+
+         3. [X] Multiply-accumulate
+         4. [X] Multiply-accumulate and widen
+         5. [X] Fused multiply-accumulate
+         6. [X] Saturating multiply
+         7. +Saturating multiply-accumulate+
+         8. [X] Widening multiplication
+         9. +Saturating multiply by scalar and widen+
+         10. +Saturating multiply-accumulate by scalar and widen+
+      3. [X] Polynomial [1/1]
+         1. [X] Polynomial multiply
+      4. +Division+
+      5. [X] Subtract [4/4]
+         1. [X] Subtraction
+         2. [X] Widening subtraction
+         3. [X] Narrowing subtraction
+         4. [X] Saturating subtract
+      6. [X] Absolute [6/6]
+         1. [X] Absolute difference
+         2. [X] Widening absolute difference
+         3. [X] Absolute difference and accumulate
+         4. [X] Widening absolute difference and accumulate
+         5. [X] Absolute value
+         6. [X] Saturating absolute value
+      7. [X] Maximum
+      8. [X] Minimum
+      9. [X] Rounding
+      10. [X] Reciprocal [2/2]
+          1. [X] Reciprocal estimate
+          2. [X] Reciprocal square-root estimate
+          3. +Reciprocal exponent+
+      11. [X] Square root
+      12. [X] Pairwise arithmetic [4/4]
+          1. [X] Pairwise addition
+          2. [X] Pairwise addition and widen
+          3. [X] Pairwise maximum
+          4. [X] Pairwise minimum
+          5. +Pairwise maximum (IEEE754)+
+          6. +Pairwise minimum (IEEE754)+
+      13. [X] Across vector arithmetic [4/4]
+          1. [X] Addition across vector
+          2. [X] Addition across vector widening
+          3. [X] Maximum across vector
+          4. [X] Minimum across vector
+          5. +Maximum across vector (IEEE754)+
+          6. +Minimum across vector (IEEE754)+
+   2. [X] Compare [4/4]
+      1. [X] Bitwise equal
+      2. +Bitwise equal to zero+
+      3. [X] Greater than or equal to
+      4. +Less than or equal to+
+      5. +Greater than+
+      6. +Less than+
+      7. [X] Absolute greater than or equal to
+      8. +Absolute less than or equal to+
+      9. +Absolute greater than+
+      10. +Absolute less than+
+      11. [X] Bitwise not equal to zero
+   3. [ ] Shift [0/2]
+      1. [ ] Left [0/6]
+         1. [ ] Vector shift left
+         2. [ ] Vector saturating shift left
+         3. [ ] Vector rounding shift left
+         4. [ ] Vector saturating rounding shift left
+         5. [ ] Vector shift left and widen
+         6. [ ] Vector shift left and insert
+      2. [ ] Right [0/9]
+         1. [ ] Vector shift right
+         2. [ ] Vector rounding shift right
+         3. [ ] Vector shift right and accumulate
+         4. [ ] Vector rounding shift right and accumulate
+         5. [ ] Vector shift right and narrow
+         6. [ ] Vector saturating shift right and narrow
+         7. [ ] Vector saturating rounding shift right and narrow
+         8. [ ] Vector rounding shift right and narrow
+         9. [ ] Vector shift right and insert
+   4. [ ] Data type conversion [0/2]
+      1. [ ] Conversions
+      2. [ ] Reinterpret casts
+   5. [ ] Move [0/3]
+      1. [ ] Narrow
+      2. [ ] Widen
+      3. [ ] Saturating narrow
+   6. [ ] Scalar arithmetic [0/6]
+      1. [ ] Vector multiply-accumulate by scalar
+      2. [ ] Vector multiply-subtract by scalar
+      3. [ ] Vector multiply by scalar
+      4. [ ] Vector multiply by scalar and widen
+      5. [ ] Vector multiply-accumulate by scalar and widen
+      6. [ ] Fused multiply-accumulate by scalar
+   7. [ ] Logical [0/7]
+      1. [ ] Negate
+      2. [ ] Saturating Negate
+      3. [ ] Bitwise NOT
+      4. [ ] AND
+      5. [ ] OR
+      6. [ ] Exclusive OR
+      7. [ ] OR-NOT
+   8. [ ] Bit manipulation [0/5]
+      1. [ ] Count leading sign bits
+      2. [ ] Count leading zeros
+      3. [ ] Population count
+      4. [ ] Bitwise clear
+      5. [ ] Bitwise select
+   9. [ ] Vector manipulation [0/13]
+      1. [ ] Copy vector lane
+      2. [ ] Reverse bits within elements
+      3. [ ] Create vector
+      4. [ ] Set all lanes to the same value
+      5. [ ] Combine vectors
+      6. [ ] Split vectors
+      7. [ ] Extract one element from vector
+      8. [ ] Extract vector from a pair of vectors
+      9. [ ] Reverse elements
+      10. [ ] Zip elements
+      11. [ ] Unzip elements
+      12. [ ] Transpose elements
+      13. [ ] Set vector lane
+   10. [ ] Load [0/2]
        1. [ ] Stride
        2. [ ] Load
-   23. [ ] Store [0/2]
+   11. [ ] Store [0/2]
        1. [ ] Stride
        2. [ ] Store
-   24. [ ] Table lookup [0/2]
+   12. [ ] Table lookup [0/2]
        1. [ ] Table lookup
        2. [ ] Extended table lookup
 2. [ ] Crypto [0/3]

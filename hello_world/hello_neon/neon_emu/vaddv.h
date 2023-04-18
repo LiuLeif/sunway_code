@@ -2,8 +2,6 @@
 #ifndef VADDV_H
 #define VADDV_H
 
-#include <stdint.h>
-
 #include "neon_emu_types.h"
 
 int8_t vaddv_s8(int8x8_t a) {
