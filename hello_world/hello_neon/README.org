@@ -2,7 +2,7 @@ the complete neon intrinsics list:
 
 * 指令格式
 
-v{1.q}{2.r}{3.d}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
+v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type
 
 - 1.q saturating
 - 2.r rounding
@@ -16,12 +16,13 @@ v{1.q}{2.r}{3.d}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{7.b|s|h|d}_{8.lane{q}}_{9.high}_
 - 10.n 有一个参数是 scalar
 - 11.h half narrow, 例如 xx>>1
 - 12.hn high narrow, 例如 xx>>8
+- 13.p pairwise
 
 * List of Intrinsics [0/14]
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Vector arithmetic [8/24]
+1. [-] Vector arithmetic [10/24]
    1. [X] Add [4/4]
       1. [X] Addition
       2. [X] Widening addition
@@ -56,11 +57,11 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
    7. [X] Maximum
    8. [X] Minimum
    9. [X] Rounding
-   10. [ ] Reciprocal [0/3]
-       1. [ ] Reciprocal estimate
-       2. [ ] Reciprocal square-root estimate
-       3. [ ] Reciprocal exponent
-   11. [ ] Square root
+   10. [X] Reciprocal [2/2]
+       1. [X] Reciprocal estimate
+       2. [X] Reciprocal square-root estimate
+       +3. Reciprocal exponent+
+   11. [X] Square root
    12. [ ] Pairwise arithmetic [0/6]
        1. [ ] Pairwise addition
        2. [ ] Pairwise addition and widen

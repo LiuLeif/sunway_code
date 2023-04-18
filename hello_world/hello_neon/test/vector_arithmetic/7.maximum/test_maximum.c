@@ -22,7 +22,7 @@
 // float64x2_t vmaxq_f64(float64x2_t a,float64x2_t b)
 #include <math.h>
 
-/* 针对 nanf, vmax 与 libm 中的 fmax 行为不一致 */
+/* 针对 nanf, vmax 与 libm 中的 fmax 行为不一致, vmaxnm 与 fmax 是一致的 */
 TEST_CASE(test_vmax_f32) {
     float nan = nanf("");
     static struct {

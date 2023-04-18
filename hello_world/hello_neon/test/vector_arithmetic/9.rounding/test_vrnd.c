@@ -15,7 +15,8 @@
 // float64x2_t vrndq_f64(float64x2_t a)
 //
 // float32x2_t vrndn_f32(float32x2_t a)
-//                 ^---Round to Integral, to nearest with ties to even ()
+//                 ^---Round to Integral, to nearest with ties to even
+//                 (1.2->2.0, 2.2->2.0)
 // float64x1_t vrndn_f64(float64x1_t a)
 // float32x4_t vrndnq_f32(float32x4_t a)
 // float64x2_t vrndnq_f64(float64x2_t a)

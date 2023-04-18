@@ -8,6 +8,9 @@
 #include "./vld.h"
 #include "./vmax.h"
 #include "./vmul.h"
+#include "./vrecp.h"
 #include "./vrnd.h"
+#include "./vsqrt.h"
+#include "./vpadd.h"
 
 #endif  // ARM_NEON_H
