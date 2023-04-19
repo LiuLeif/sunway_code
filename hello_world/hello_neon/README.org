@@ -99,11 +99,11 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
          4. +Vector saturating rounding shift left+
          5. [X] Vector shift left and widen
          6. [X] Vector shift left and insert
-      2. [-] Right [1/9]
+      2. [-] Right [4/9]
          1. [X] Vector shift right
-         2. [ ] Vector rounding shift right
-         3. [ ] Vector shift right and accumulate
-         4. [ ] Vector rounding shift right and accumulate
+         2. [X] Vector rounding shift right
+         3. [X] Vector shift right and accumulate
+         4. [X] Vector rounding shift right and accumulate
          5. [ ] Vector shift right and narrow
          6. [ ] Vector saturating shift right and narrow
          7. [ ] Vector saturating rounding shift right and narrow
