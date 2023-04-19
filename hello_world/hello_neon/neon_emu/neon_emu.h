@@ -17,6 +17,7 @@
 #include "./vpmax.h"
 #include "./vrecp.h"
 #include "./vrnd.h"
+#include "./vshl.h"
 #include "./vsqrt.h"
 #include "./vtst.h"
 

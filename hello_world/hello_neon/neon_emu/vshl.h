@@ -1,0 +1,66 @@
+// 2023-04-19 10:45
+#ifndef VSHL_H
+#define VSHL_H
+
+#include <stdint.h>
+
+#include "neon_emu_types.h"
+
+int16x4_t vshl_s16(int16x4_t a, int16x4_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        int8_t shift = b.values[i] & 0xff;
+        if (shift > 16) {
+            shift = 16;
+        }
+        if (shift < -16) {
+            shift = -16;
+        }
+        if (shift < 0) {
+            r.values[i] = a.values[i] >> -shift;
+        } else {
+            r.values[i] = a.values[i] << shift;
+        }
+    }
+    return r;
+}
+
+uint8x8_t vshl_u8(uint8x8_t a, int8x8_t b) {
+    uint8x8_t r;
+    for (int i = 0; i < 8; i++) {
+        int8_t shift = b.values[i];
+        if (shift > 8) {
+            shift = 8;
+        }
+        if (shift < -8) {
+            shift = -8;
+        }
+        if (shift < 0) {
+            r.values[i] = a.values[i] >> -shift;
+        } else {
+            r.values[i] = a.values[i] << shift;
+        }
+    }
+    return r;
+}
+
+int16x8_t vshlq_s16(int16x8_t a, int16x8_t b) {
+    int16x8_t r;
+    for (int i = 0; i < 8; i++) {
+        int8_t shift = b.values[i] & 0xff;
+        if (shift > 16) {
+            shift = 16;
+        }
+        if (shift < -16) {
+            shift = -16;
+        }
+        if (shift < 0) {
+            r.values[i] = a.values[i] >> -shift;
+        } else {
+            r.values[i] = a.values[i] << shift;
+        }
+    }
+    return r;
+}
+
+#endif  // VSHL_H
