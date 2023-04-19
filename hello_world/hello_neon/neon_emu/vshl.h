@@ -81,4 +81,79 @@ int16x4_t vshl_n_s16(int16x4_t a, int16_t n) {
     }
     return r;
 }
+
+int16x4_t vqshl_s16(int16x4_t a, int16x4_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        int8_t shift = b.values[i] & 0xff;
+        if (shift > 16) {
+            shift = 16;
+        }
+        if (shift < -16) {
+            shift = -16;
+        }
+        int32_t tmp;
+        if (shift < 0) {
+            tmp = a.values[i] >> -shift;
+        } else {
+            tmp = a.values[i] << shift;
+        }
+        if (tmp > INT16_MAX) {
+            tmp = INT16_MAX;
+        }
+        if (tmp < INT16_MIN) {
+            tmp = INT16_MIN;
+        }
+        r.values[i] = tmp;
+    }
+    return r;
+}
+
+uint64x1_t vqshl_u64(uint64x1_t a, int64x1_t b) {
+    uint64x1_t r;
+    for (int i = 0; i < 1; i++) {
+        int8_t shift = b.values[i] & 0xff;
+        if (shift > 64) {
+            shift = 64;
+        }
+        if (shift < -64) {
+            shift = -64;
+        }
+        uint64_t tmp, prev_tmp;
+        if (shift < 0) {
+            tmp = a.values[i] >> -shift;
+        } else {
+            tmp = a.values[i];
+            for (int i = 0; i < shift; i++) {
+                prev_tmp = tmp;
+                tmp <<= 1;
+                if (tmp < prev_tmp) {
+                    tmp = UINT64_MAX;
+                    break;
+                }
+            }
+        }
+        r.values[i] = tmp;
+    }
+    return r;
+}
+
+int16x4_t vrshl_s16(int16x4_t a, int16x4_t b) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        int8_t shift = b.values[i] & 0xff;
+        if (shift > 16) {
+            shift = 16;
+        }
+        if (shift < -16) {
+            shift = -16;
+        }
+        if (shift < 0) {
+            r.values[i] = (a.values[i] + (1 << (-shift - 1))) >> -shift;
+        } else {
+            r.values[i] = a.values[i] << shift;
+        }
+    }
+    return r;
+}
 #endif  // VSHL_H

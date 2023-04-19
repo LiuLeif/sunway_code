@@ -91,10 +91,10 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       9. +Absolute greater than+
       10. +Absolute less than+
       11. [X] Bitwise not equal to zero
-   3. [ ] Shift [0/2]
-      1. [ ] Left [0/6]
-         1. [ ] Vector shift left
-         2. [ ] Vector saturating shift left
+   3. [-] Shift [0/2]
+      1. [-] Left [2/6]
+         1. [X] Vector shift left
+         2. [X] Vector saturating shift left
          3. [ ] Vector rounding shift left
          4. [ ] Vector saturating rounding shift left
          5. [ ] Vector shift left and widen

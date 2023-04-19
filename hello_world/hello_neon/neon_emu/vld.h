@@ -26,6 +26,18 @@ uint32x2_t vld1_u32(const uint32_t* ptr) {
     return r;
 }
 
+uint64x1_t vld1_u64(const uint64_t* ptr) {
+    uint64x1_t r;
+    memcpy(&r, ptr, sizeof(r));
+    return r;
+}
+
+int64x1_t vld1_s64(const int64_t* ptr) {
+    int64x1_t r;
+    memcpy(&r, ptr, sizeof(r));
+    return r;
+}
+
 int8x16_t vld1q_s8(const int8_t* ptr) {
     int8x16_t r;
     memcpy(&r, ptr, sizeof(r));

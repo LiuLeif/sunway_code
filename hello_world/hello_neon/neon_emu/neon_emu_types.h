@@ -18,6 +18,14 @@ typedef union {
 } uint32x2_t;
 
 typedef union {
+    uint64_t values[1];
+} uint64x1_t;
+
+typedef union {
+    int64_t values[1];
+} int64x1_t;
+
+typedef union {
     uint8_t values[8];
 } poly8x8_t;
 
