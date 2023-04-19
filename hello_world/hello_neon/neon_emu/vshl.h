@@ -63,4 +63,22 @@ int16x8_t vshlq_s16(int16x8_t a, int16x8_t b) {
     return r;
 }
 
+int16x4_t vshl_n_s16(int16x4_t a, int16_t n) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        int8_t shift = n & 0xff;
+        if (shift > 16) {
+            shift = 16;
+        }
+        if (shift < -16) {
+            shift = -16;
+        }
+        if (shift < 0) {
+            r.values[i] = a.values[i] >> -shift;
+        } else {
+            r.values[i] = a.values[i] << shift;
+        }
+    }
+    return r;
+}
 #endif  // VSHL_H
