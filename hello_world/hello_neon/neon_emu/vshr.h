@@ -43,4 +43,21 @@ int8x8_t vrsra_n_s8(int8x8_t a, int8x8_t b, int n) {
     }
     return r;
 }
+
+int8x8_t vshrn_n_s16(int16x8_t a, int n) {
+    int8x8_t r;
+    for (int i = 0; i < 8; i++) {
+        r.values[i] = a.values[i] >> n;
+    }
+    return r;
+}
+
+int8x16_t vshrn_high_n_s16(int8x8_t a, int16x8_t b, int n) {
+    int8x16_t r;
+    for (int i = 0; i < 8; i++) {
+        r.values[i] = a.values[i];
+        r.values[i + 8] = b.values[i] >> n;
+    }
+    return r;
+}
 #endif  // VSHR_H
