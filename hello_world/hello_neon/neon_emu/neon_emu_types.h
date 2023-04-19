@@ -5,52 +5,40 @@
 #include <stdint.h>
 #include <string.h>
 
-typedef union {
-    int8_t values[8];
-} int8x8_t;
+typedef float float32_t;
+typedef double float64_t;
 
-typedef union {
-    uint8_t values[8];
-} uint8x8_t;
+#define DEF_TYPE(base, n)   \
+    typedef union {         \
+        base##_t values[n]; \
+    } base##x##n##_t;
 
-typedef union {
-    uint32_t values[2];
-} uint32x2_t;
+DEF_TYPE(int8, 8);
+DEF_TYPE(int8, 16);
+DEF_TYPE(uint8, 8);
+DEF_TYPE(uint8, 16);
 
-typedef union {
-    uint64_t values[1];
-} uint64x1_t;
+DEF_TYPE(int16, 4);
+DEF_TYPE(int16, 8);
+DEF_TYPE(uint16, 4);
+DEF_TYPE(uint16, 8);
 
-typedef union {
-    int64_t values[1];
-} int64x1_t;
+DEF_TYPE(int32, 2);
+DEF_TYPE(int32, 4);
+DEF_TYPE(uint32, 2);
+DEF_TYPE(uint32, 4);
+
+DEF_TYPE(int64, 1);
+DEF_TYPE(int64, 2);
+DEF_TYPE(uint64, 1);
+DEF_TYPE(uint64, 2);
+
+DEF_TYPE(float32, 2);
+DEF_TYPE(float32, 4);
+DEF_TYPE(float64, 1);
+DEF_TYPE(float64, 2);
 
 typedef union {
     uint8_t values[8];
 } poly8x8_t;
-
-typedef union {
-    int8_t values[16];
-} int8x16_t;
-
-typedef union {
-    int16_t values[8];
-} int16x8_t;
-
-typedef union {
-    float values[2];
-} float32x2_t;
-
-typedef union {
-    float values[4];
-} float32x4_t;
-
-typedef union {
-    int16_t values[4];
-} int16x4_t;
-
-typedef union {
-    int32_t values[4];
-} int32x4_t;
-
 #endif  // ARM_NEON_COMMON_H

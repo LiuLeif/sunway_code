@@ -156,4 +156,31 @@ int16x4_t vrshl_s16(int16x4_t a, int16x4_t b) {
     }
     return r;
 }
+
+int16x8_t vshll_n_s8(int8x8_t a, int n) {
+    int16x8_t r;
+    for (int i = 0; i < 8; i++) {
+        int8_t shift = n & 0xff;
+        if (shift > 8) {
+            shift = 8;
+        }
+        if (shift < -8) {
+            shift = -8;
+        }
+        if (shift < 0) {
+            r.values[i] = (int16_t)a.values[i] >> -shift;
+        } else {
+            r.values[i] = (int16_t)a.values[i] << shift;
+        }
+    }
+    return r;
+};
+
+int16x4_t vsli_n_s16(int16x4_t a, int16x4_t b, int n) {
+    int16x4_t r;
+    for (int i = 0; i < 4; i++) {
+        r.values[i] = (a.values[i] & ((1 << n) - 1)) + (b.values[i] << n);
+    }
+    return r;
+}
 #endif  // VSHL_H
