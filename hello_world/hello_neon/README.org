@@ -30,7 +30,7 @@ the complete neon intrinsics list:
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Basic intrinsics [6/12]
+1. [-] Basic intrinsics [7/12]
    1. [X] Vector arithmetic [12/12]
       1. [X] Add [4/4]
          1. [X] Addition
@@ -129,17 +129,17 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       4. +Vector multiply by scalar and widen+
       5. +Vector multiply-accumulate by scalar and widen+
       6. +Fused multiply-accumulate by scalar+
-   7. [-] Logical [2/7]
+   7. [X] Logical [7/7]
       1. [X] Negate
       2. [X] Saturating Negate
-      3. [ ] Bitwise NOT
-      4. [ ] AND
-      5. [ ] OR
-      6. [ ] Exclusive OR
-      7. [ ] OR-NOT
-   8. [ ] Bit manipulation [0/5]
-      1. [ ] Count leading sign bits
-      2. [ ] Count leading zeros
+      3. [X] Bitwise NOT
+      4. [X] AND
+      5. [X] OR
+      6. [X] Exclusive OR
+      7. [X] OR-NOT
+   8. [-] Bit manipulation [2/5]
+      1. [X] Count leading sign bits
+      2. [X] Count leading zeros
       3. [ ] Population count
       4. [ ] Bitwise clear
       5. [ ] Bitwise select
