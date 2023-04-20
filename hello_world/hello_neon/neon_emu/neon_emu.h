@@ -15,6 +15,7 @@
 #include "./vcls.h"
 #include "./vclz.h"
 #include "./vcnt.h"
+#include "./vcopy_lane.h"
 #include "./vcvt.h"
 #include "./veor.h"
 #include "./vld.h"
