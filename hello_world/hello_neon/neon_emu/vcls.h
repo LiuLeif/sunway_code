@@ -4,7 +4,7 @@
 
 #include "neon_emu_types.h"
 int8x8_t vcls_s8(int8x8_t a) {
-    int8x8_t r;
+    int8x8_t r = {0};
     for (int i = 0; i < 8; i++) {
         int8_t tmp = a.values[i];
         int8_t sign = tmp < 0 ? 1 : 0;
@@ -20,7 +20,7 @@ int8x8_t vcls_s8(int8x8_t a) {
 }
 
 int8x8_t vcls_u8(uint8x8_t a) {
-    int8x8_t r;
+    int8x8_t r = {0};
     for (int i = 0; i < 8; i++) {
         uint8_t tmp = a.values[i];
         int8_t sign = (tmp & (1 << 7)) == 0 ? 0 : 1;
