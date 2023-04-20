@@ -4,10 +4,14 @@
 
 #include "neon_emu_types.h"
 
-poly8x8_t vreinterpret_p8_u8(uint8x8_t a) {
-    poly8x8_t r;
-    memcpy(&r, &a, sizeof(a));
-    return r;
-}
+#define DEF_REINTERP(to, to_short, from, from_short)    \
+    to vreinterpret_##to_short##_##from_short(from a) { \
+        to r;                                           \
+        memcpy(&r, &a, sizeof(a));                      \
+        return r;                                       \
+    }
 
+DEF_REINTERP(poly8x8_t, p8, uint8x8_t, u8);
+DEF_REINTERP(float32x2_t, f32, int8x8_t, s8);
+DEF_REINTERP(int8x8_t, s8, float32x2_t, f32);
 #endif  // REINTERP_H

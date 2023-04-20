@@ -2,7 +2,7 @@ the complete neon intrinsics list:
 
 * 指令格式
 
-=v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{4.l}{5.w}{12.hn}{6.q}{14.nm}{15.v}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type=
+=v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{17.n|m|p|a|i|x}{16.u|s}{4.l}{5.w}{12.hn}{6.q}{14.nm}{15.v}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type=
 
 - 1.q saturating
 - 2.r rounding
@@ -12,19 +12,25 @@ the complete neon intrinsics list:
 - 6.q long (128-bit)
 - 7.b 参数都是 scalar: int8,int16,int32,int64
 - 8.lane, 使用 v[lane] 而不是 v[i]
-- 9.high, 使用 a[i+x] 而不是 a[i]
+- 9.high, 使用 x[i+x] 而不是 x[i]
 - 10.n 有一个参数是 scalar
 - 11.h half narrow, 例如 xx>>1
 - 12.hn high narrow, 例如 xx>>8
 - 13.p pairwise
 - 14.nm max 类指令使用 nm 表示符合 ieee754
 - 15.v across vector
+- 16.u unsigned, 输入是 signed, 输出变成 unsigned
+- 16.s signed, 输入是 unsigned, 输出变成 signed
+- 17.n round to nearest even
+- 17.m rount to minus inf
+- 17.p round to plus inf
+- 17.a round to nearest away
 
 * List of Intrinsics [0/14]
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Basic intrinsics [2/12]
+1. [-] Basic intrinsics [4/12]
    1. [X] Vector arithmetic [12/12]
       1. [X] Add [4/4]
          1. [X] Addition
@@ -91,7 +97,7 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       9. +Absolute greater than+
       10. +Absolute less than+
       11. [X] Bitwise not equal to zero
-   3. [-] Shift [1/2]
+   3. [X] Shift [2/2]
       1. [X] Left [5/5]
          1. [X] Vector shift left
          2. [X] Vector saturating shift left
@@ -99,19 +105,19 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
          4. +Vector saturating rounding shift left+
          5. [X] Vector shift left and widen
          6. [X] Vector shift left and insert
-      2. [-] Right [5/9]
+      2. [X] Right [9/9]
          1. [X] Vector shift right
          2. [X] Vector rounding shift right
          3. [X] Vector shift right and accumulate
          4. [X] Vector rounding shift right and accumulate
          5. [X] Vector shift right and narrow
-         6. [ ] Vector saturating shift right and narrow
-         7. [ ] Vector saturating rounding shift right and narrow
-         8. [ ] Vector rounding shift right and narrow
-         9. [ ] Vector shift right and insert
-   4. [ ] Data type conversion [0/2]
-      1. [ ] Conversions
-      2. [ ] Reinterpret casts
+         6. [X] Vector saturating shift right and narrow
+         7. [X] Vector saturating rounding shift right and narrow
+         8. [X] Vector rounding shift right and narrow
+         9. [X] Vector shift right and insert
+   4. [X] Data type conversion [2/2]
+      1. [X] Conversions
+      2. [X] Reinterpret casts
    5. [ ] Move [0/3]
       1. [ ] Narrow
       2. [ ] Widen

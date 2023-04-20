@@ -9,6 +9,7 @@
 #include "./vcage.h"
 #include "./vceq.h"
 #include "./vcge.h"
+#include "./vcvt.h"
 #include "./vld.h"
 #include "./vmax.h"
 #include "./vmaxv.h"
