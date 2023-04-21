@@ -164,23 +164,23 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
    12. [X] Table lookup [2/2]
        1. [X] Table lookup
        2. [X] Extended table lookup
-2. [ ] Crypto [0/3]
+2. [ ] Crypto [0/2]
    1. [ ] Cryptography [0/3]
       1. [ ] AES
       2. [ ] SHA1
       3. [ ] SHA256
-   2. [ ] Vector arithmetic
-   3. [ ] Polynomial [0/2]
-      1. [ ] Polynomial multiply
-      2. [ ] Polynomial addition
+   2. [ ] Vector arithmetic [0/1]
+      1. [ ] Polynomial [0/2]
+         1. [ ] Polynomial multiply
+         2. [ ] Polynomial addition
 3. [ ] CRC32 [0/1]
    1. [ ] Cryptography [0/1]
       1. [ ] CRC32
-4. [ ] sqrdmlah intrinsics (From ARMv8.1-A) [0/2]
-   1. [ ] Vector arithmetic
-   2. [ ] Multiply [0/2]
-      1. [ ] Saturating multiply-accumulate
-      2. [ ] Saturating multiply-accumulate by element
+4. [ ] sqrdmlah intrinsics (From ARMv8.1-A) [0/1]
+   1. [ ] Vector arithmetic [0/1]
+      1. [ ] Multiply [0/2]
+         1. [ ] Saturating multiply-accumulate
+         2. [ ] Saturating multiply-accumulate by element
 5. [ ] fp16 scalar intrinsics (available through from ARMv8.2-A) [0/4]
    1. [ ] Vector arithmetic [0/10]
       1. [ ] Absolute [0/2]
