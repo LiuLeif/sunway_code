@@ -13,6 +13,11 @@ typedef double float64_t;
         base##_t values[n]; \
     } base##x##n##_t;
 
+#define DEF_ARRAY_TYPE(base, n) \
+    typedef union {             \
+        base##_t val[n];        \
+    } base##x##n##_t;
+
 DEF_TYPE(int8, 8);
 DEF_TYPE(int8, 16);
 DEF_TYPE(uint8, 8);
@@ -41,4 +46,7 @@ DEF_TYPE(float64, 2);
 typedef union {
     uint8_t values[8];
 } poly8x8_t;
+
+DEF_ARRAY_TYPE(int8x8, 2);
+
 #endif  // ARM_NEON_COMMON_H

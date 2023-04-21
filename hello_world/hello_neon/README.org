@@ -143,19 +143,19 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       3. [X] Population count
       4. [X] Bitwise clear
       5. [X] Bitwise select
-   9. [-] Vector manipulation [1/13]
+   9. [-] Vector manipulation [12/13]
       1. [X] Copy vector lane
-      2. [ ] Reverse bits within elements
-      3. [ ] Create vector
-      4. [ ] Set all lanes to the same value
-      5. [ ] Combine vectors
-      6. [ ] Split vectors
-      7. [ ] Extract one element from vector
-      8. [ ] Extract vector from a pair of vectors
-      9. [ ] Reverse elements
-      10. [ ] Zip elements
-      11. [ ] Unzip elements
-      12. [ ] Transpose elements
+      2. [X] Reverse bits within elements
+      3. [X] Create vector
+      4. [X] Set all lanes to the same value
+      5. [X] Combine vectors
+      6. [X] Split vectors
+      7. [X] Extract one element from vector
+      8. [X] Extract vector from a pair of vectors
+      9. [X] Reverse elements
+      10. [X] Zip elements
+      11. [X] Unzip elements
+      12. [X] Transpose elements
       13. [ ] Set vector lane
    10. [ ] Load [0/2]
        1. [ ] Stride
