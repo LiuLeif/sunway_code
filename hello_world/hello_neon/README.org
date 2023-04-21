@@ -26,11 +26,11 @@ the complete neon intrinsics list:
 - 17.p round to plus inf
 - 17.a round to nearest away
 
-* List of Intrinsics [0/14]
+* List of Intrinsics [1/14]
 
 https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
 
-1. [-] Basic intrinsics [8/12]
+1. [X] Basic intrinsics [11/11]
    1. [X] Vector arithmetic [12/12]
       1. [X] Add [4/4]
          1. [X] Addition
@@ -143,7 +143,7 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       3. [X] Population count
       4. [X] Bitwise clear
       5. [X] Bitwise select
-   9. [-] Vector manipulation [12/13]
+   9. [X] Vector manipulation [13/13]
       1. [X] Copy vector lane
       2. [X] Reverse bits within elements
       3. [X] Create vector
@@ -156,16 +156,14 @@ https://arm-software.github.io/acle/neon_intrinsics/advsimd.html
       10. [X] Zip elements
       11. [X] Unzip elements
       12. [X] Transpose elements
-      13. [ ] Set vector lane
-   10. [ ] Load [0/2]
-       1. [ ] Stride
-       2. [ ] Load
-   11. [ ] Store [0/2]
-       1. [ ] Stride
-       2. [ ] Store
-   12. [ ] Table lookup [0/2]
-       1. [ ] Table lookup
-       2. [ ] Extended table lookup
+      13. [X] Set vector lane
+   10. [X] Load [1/1]
+       1. [X] Stride
+   11. +Store [0/0]+
+       1. +Stride+
+   12. [X] Table lookup [2/2]
+       1. [X] Table lookup
+       2. [X] Extended table lookup
 2. [ ] Crypto [0/3]
    1. [ ] Cryptography [0/3]
       1. [ ] AES

@@ -42,6 +42,7 @@
 #include "./vshl.h"
 #include "./vshr.h"
 #include "./vsqrt.h"
+#include "./vtbl.h"
 #include "./vtrn.h"
 #include "./vtst.h"
 #include "./vuzp.h"
