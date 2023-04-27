@@ -8,6 +8,24 @@
 #include <stdio.h>
 
 #ifndef EMU
+#define DEBUG_I(a)                                           \
+    do {                                                     \
+        printf("{");                                         \
+        for (int i = 0; i < sizeof(a) / sizeof(a[0]); i++) { \
+            printf("%d, ", a[i]);                            \
+        }                                                    \
+        printf("}\n");                                       \
+    } while (0)
+
+#define DEBUG_F(a)                                           \
+    do {                                                     \
+        printf("{");                                         \
+        for (int i = 0; i < sizeof(a) / sizeof(a[0]); i++) { \
+            printf("%f, ", a[i]);                            \
+        }                                                    \
+        printf("}\n");                                       \
+    } while (0)
+
 #define ASSERT_EQUAL(a, b)                \
     do {                                  \
         int n = sizeof(a) / sizeof(a[0]); \
@@ -28,6 +46,24 @@
         }                                             \
     } while (0)
 #else
+#define DEBUG_I(a)                                           \
+    do {                                                     \
+        printf("{");                                         \
+        for (int i = 0; i < sizeof(a) / sizeof(a.values[0]); i++) { \
+            printf("%d, ", a.values[i]);                     \
+        }                                                    \
+        printf("}\n");                                       \
+    } while (0)
+
+#define DEBUG_F(a)                                           \
+    do {                                                     \
+        printf("{");                                         \
+        for (int i = 0; i < sizeof(a) / sizeof(a.values[0]); i++) { \
+            printf("%f, ", a.values[i]);                     \
+        }                                                    \
+        printf("}\n");                                       \
+    } while (0)
+
 #define ASSERT_EQUAL(a, b)                       \
     do {                                         \
         int n = sizeof(a) / sizeof(a.values[0]); \

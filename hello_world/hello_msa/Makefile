@@ -1,9 +1,9 @@
 all:native emu
 
-CFLAGS := -mmsa -MMD -O3 -g3 -Imsa_emu -I.
+CFLAGS := -mmsa -march=loongson3a -MMD -O3 -g3 -Imsa_emu -I.
 LDFLAGS := -L. -static
 LDLIBS := -lm
-CC := ~/program/toolchain/mips-gcc720-glibc229/bin/mips-linux-gnu-gcc
+CC :=mips64-linux-gnuabi64-gcc
 
 SRC := $(shell find ./ -name test_*.c -printf '%P\n')
 NATIVE_APP := $(patsubst %.c,%_native.elf,${SRC})
@@ -23,11 +23,12 @@ DEP += $(EMU_APP:.elf=.d)
 %_emu.elf:%.c
 	${CC} ${CFLAGS} -DEMU -o $@ $< ${LDFLAGS} ${LDLIBS}
 
+# NOTE: use latest qemu to support Loongson-3A4000
 ${TEST_EMU_APP}:run_%:%
-	qemu-mipsel -cpu P5600 ./$<
+	/opt/qemu/bin/qemu-mips64 --cpu Loongson-3A4000 ./$<
 
 ${TEST_NATIVE_APP}:run_%:%
-	qemu-mipsel -cpu P5600 ./$<
+	/opt/qemu/bin/qemu-mips64 --cpu Loongson-3A4000 ./$<
 
 run_native: ${TEST_NATIVE_APP}
 run_emu: ${TEST_EMU_APP}

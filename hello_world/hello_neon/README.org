@@ -1,5 +1,3 @@
-the complete neon intrinsics list:
-
 * 指令格式
 
 =v{1.q}{2.r}{3.d}{13.p}{11.h}xxx{17.n|m|p|a|i|x}{16.u|s}{4.l}{5.w}{12.hn}{6.q}{14.nm}{15.v}{7.b|s|h|d}_{8.lane{q}}_{9.high}_{10.n}_type=

@@ -32,6 +32,10 @@ TEST_CASE(test_vcls_s8) {
     for (size_t i = 0; i < (sizeof(test_vec) / sizeof(test_vec[0])); i++) {
         int8x8_t a = vld1_s8(test_vec[i].a);
         int8x8_t r = vcls_s8(a);
+        for (int i = 0; i < 8; i++) {
+            printf("%d ", r.values[i]);
+        }
+        printf("\n");
         int8x8_t check = vld1_s8(test_vec[i].r);
         ASSERT_EQUAL(r, check);
     }

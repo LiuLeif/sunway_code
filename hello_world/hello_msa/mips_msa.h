@@ -9,4 +9,9 @@
 #endif
 #include <stdint.h>
 
+typedef union {
+    v16i8 i8;
+    v16u8 u8;
+} m128;
+
 #endif  // COMMON_H

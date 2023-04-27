@@ -9,4 +9,10 @@ v16i8 __msa_ld_b(void *a, int n) {
     memcpy(&r, a, 16);
     return r;
 }
+
+v8i16 __msa_ld_h(void *a, int n) {
+    v8i16 r;
+    memcpy(&r, a, 16);
+    return r;
+}
 #endif  // LD_H

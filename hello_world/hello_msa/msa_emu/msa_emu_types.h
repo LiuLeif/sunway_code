@@ -5,12 +5,13 @@
 #include <stdint.h>
 #include <string.h>
 
-#define DEF_TYPE(base, n, abbr)   \
-    typedef union {         \
-        base##_t values[n]; \
+#define DEF_TYPE(base, n, abbr) \
+    typedef union {             \
+        base##_t values[n];     \
     } v##n##abbr;
 
-
 DEF_TYPE(int8, 16, i8);
+DEF_TYPE(uint8, 16, u8);
+DEF_TYPE(int16, 8, i16);
 
 #endif  // ARM_NEON_COMMON_H
