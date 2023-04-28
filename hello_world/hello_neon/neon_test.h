@@ -7,7 +7,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#ifndef EMU
+#ifdef __aarch64__
 #define ASSERT_EQUAL(a, b)                \
     do {                                  \
         int n = sizeof(a) / sizeof(a[0]); \
@@ -28,9 +28,9 @@
         }                                             \
     } while (0)
 #else
-#define ASSERT_EQUAL(a, b)                       \
+#define ASSERT_EQUAL(a, b)                      \
     do {                                         \
-        int n = sizeof(a) / sizeof(a.values[0]); \
+        int n = sizeof(a.values) / sizeof(a.values[0]); \
         for (int i = 0; i < n; i++) {            \
             assert(a.values[i] == b.values[i]);  \
         }                                        \
@@ -38,7 +38,7 @@
 
 #define ASSERT_CLOSE(a, b)                                          \
     do {                                                            \
-        int n = sizeof(a) / sizeof(a.values[0]);                    \
+        int n = sizeof(a.values) / sizeof(a.values[0]);                    \
         for (int i = 0; i < n; i++) {                               \
             if (isnanf(a.values[i]) || isnanf(b.values[i])) {       \
                 assert(isnanf(b.values[i]) && isnanf(a.values[i])); \

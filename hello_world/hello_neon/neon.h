@@ -2,9 +2,15 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#ifndef EMU
+#ifdef __aarch64__
 #include <arm_neon.h>
-#else
+#endif
+
+#ifdef __x86_64
+#include <neon_emu.h>
+#endif
+
+#ifdef __mips_msa
 #include <neon_emu.h>
 #endif
 
