@@ -118,3 +118,28 @@ TEST_CASE(test_vshf_b) {
     }
     return 0;
 }
+
+TEST_CASE(test_sld_b) {
+    struct {
+        int8_t a[16];
+        int8_t b[16];
+        int8_t r[16];
+    } test_vec[] = {
+        {
+            {-51, 8, -16, -79, -121, -101, -47, 115, 28, -124, -17, -117, -124,
+             -22, 125, 109},
+            {-103, 43, -76, -98, -75, 79, -61, 120, 14, -125, 88, 115, -23, 119,
+             -31, -73},
+            {43, -76, -98, -75, 79, -61, 120, 14, -125, 88, 115, -23, 119, -31,
+             -73, -51},
+        },
+    };
+    for (size_t i = 0; i < (sizeof(test_vec) / sizeof(test_vec[0])); i++) {
+        v16i8 a = __msa_ld_b(test_vec[i].a, 0);
+        v16i8 b = __msa_ld_b(test_vec[i].b, 0);
+        v16i8 r = __msa_sld_b(a, b, 1);
+        v16i8 check = __msa_ld_b(test_vec[i].r, 0);
+        ASSERT_EQUAL(check, r);
+    }
+    return 0;
+}

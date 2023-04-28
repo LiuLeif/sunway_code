@@ -44,4 +44,19 @@ v16i8 __msa_vshf_b(v16i8 c, v16i8 a, v16i8 b) {
     return r;
 }
 
+v16i8 __msa_sld_b(v16i8 a, v16i8 b, int n) {
+    v16i8 r;
+    int offset = n % 16;
+    if (offset < 0) offset += 16;
+    for (int i = 0; i < 16; i++) {
+        int index = offset + i;
+        if (index > 15) {
+            r.values[i] = a.values[index - 16];
+        } else {
+            r.values[i] = b.values[index];
+        }
+    }
+    return r;
+}
+
 #endif  // SHUFFLE_H
