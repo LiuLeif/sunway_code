@@ -21,4 +21,12 @@ v4i32 __msa_ld_w(void *a, int n) {
     memcpy(&r, a, 16);
     return r;
 }
+
+v16i8 __msa_splat_b(v16i8 a, int b) {
+    v16i8 r;
+    for (int i = 0; i < 16; i++) {
+        r.values[i] = a.values[b];
+    }
+    return r;
+}
 #endif  // LD_H

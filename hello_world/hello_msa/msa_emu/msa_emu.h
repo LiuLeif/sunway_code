@@ -15,5 +15,6 @@
 #include "./float_convert.h"
 #include "./ld.h"
 #include "./max.h"
+#include "./shuffle.h"
 
 #endif  // MSA_EMU_H
