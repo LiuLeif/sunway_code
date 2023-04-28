@@ -7,9 +7,12 @@
 #include "./bit_logical.h"
 #include "./bit_manip.h"
 #include "./bit_shift.h"
+#include "./compare.h"
 #include "./div.h"
 #include "./dotp.h"
 #include "./float_arith.h"
+#include "./float_compare.h"
+#include "./float_convert.h"
 #include "./ld.h"
 #include "./max.h"
 

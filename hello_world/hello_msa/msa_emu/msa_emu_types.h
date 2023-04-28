@@ -16,7 +16,10 @@ typedef double float64_t;
 DEF_TYPE(int8, 16, i8);
 DEF_TYPE(uint8, 16, u8);
 DEF_TYPE(int16, 8, i16);
+DEF_TYPE(uint16, 8, u16);
 DEF_TYPE(int32, 4, i32);
+DEF_TYPE(uint32, 4, u32);
 DEF_TYPE(float32, 4, f32);
+DEF_TYPE(float64, 2, f64);
 
 #endif  // ARM_NEON_COMMON_H

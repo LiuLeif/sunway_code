@@ -1,6 +1,6 @@
 all:native emu
 
-CFLAGS := -mmsa -march=loongson3a -MMD -O3 -g3 -Imsa_emu -I.
+CFLAGS := -mmsa -march=loongson3a -MMD -O0 -g3 -Imsa_emu -I.
 LDFLAGS := -L. -static
 LDLIBS := -lm
 CC :=mips64-linux-gnuabi64-gcc

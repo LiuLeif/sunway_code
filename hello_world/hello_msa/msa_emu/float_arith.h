@@ -24,17 +24,9 @@ v4f32 __msa_fmadd_w(v4f32 c, v4f32 a, v4f32 b) {
 
 v4f32 __msa_frint_w(v4f32 a) {
     v4f32 r;
-    fesetround(FE_TOWARDZERO);
     for (int i = 0; i < 4; i++) {
-        float tmp = a.values[i];
-        if (tmp > 0.0f) {
-            tmp += 0.5f;
-        } else {
-            tmp -= 0.5f;
-        }
-        r.values[i] = nearbyintf(tmp);
+        r.values[i] = nearbyintf(a.values[i]);
     }
-    fesetround(FE_TONEAREST);
     return r;
 }
 
