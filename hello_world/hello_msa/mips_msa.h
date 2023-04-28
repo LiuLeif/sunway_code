@@ -12,6 +12,8 @@
 typedef union {
     v16i8 i8;
     v16u8 u8;
+    v4i32 i32;
+    v4f32 f32;
 } m128;
 
 #endif  // COMMON_H

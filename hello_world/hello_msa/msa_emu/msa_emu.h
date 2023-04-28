@@ -9,6 +9,7 @@
 #include "./bit_shift.h"
 #include "./div.h"
 #include "./dotp.h"
+#include "./float_arith.h"
 #include "./ld.h"
 #include "./max.h"
 

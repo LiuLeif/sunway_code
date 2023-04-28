@@ -74,4 +74,19 @@ v16i8 __msa_nloc_b(v16i8 a) {
     return r;
 }
 
+v16i8 __msa_nlzc_b(v16i8 a) {
+    v16i8 r = {0};
+    for (int i = 0; i < 16; i++) {
+        uint8_t tmp = a.values[i];
+        for (int j = 0; j < 8; j++) {
+            if ((tmp & (1 << 7)) != 0) {
+                break;
+            }
+            r.values[i] += 1;
+            tmp <<= 1;
+        }
+    }
+    return r;
+}
+
 #endif  // BIT_MANIP_H

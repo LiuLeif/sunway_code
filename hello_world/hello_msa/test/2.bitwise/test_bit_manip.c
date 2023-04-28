@@ -237,3 +237,28 @@ TEST_CASE(test_nloc) {
     }
     return 0;
 }
+
+TEST_CASE(test_nlzc) {
+    struct {
+        int8_t a[16];
+        int8_t r[16];
+    } test_vec[] = {
+        {
+            {-51, 8, -16, -79, -121, -101, -47, 115, 28, -124, -17, -117, -124,
+             -22, 125, 109},
+            {0, 4, 0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 1, 1},
+        },
+        {
+            {INT8_MAX, -47, 104, 6, 109, 57, 121, 6, -20, INT8_MIN, 37, 112,
+             106, -94, -35, 120},
+            {1, 0, 1, 5, 1, 2, 1, 5, 0, 0, 2, 1, 1, 0, 0, 1},
+        },
+    };
+    for (size_t i = 0; i < (sizeof(test_vec) / sizeof(test_vec[0])); i++) {
+        v16i8 a = __msa_ld_b(test_vec[i].a, 0);
+        v16i8 r = __msa_nlzc_b(a);
+        v16i8 check = __msa_ld_b(test_vec[i].r, 0);
+        ASSERT_EQUAL(r, check);
+    }
+    return 0;
+}

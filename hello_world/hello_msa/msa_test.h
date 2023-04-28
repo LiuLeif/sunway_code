@@ -46,22 +46,22 @@
         }                                             \
     } while (0)
 #else
-#define DEBUG_I(a)                                           \
-    do {                                                     \
-        printf("{");                                         \
+#define DEBUG_I(a)                                                  \
+    do {                                                            \
+        printf("{");                                                \
         for (int i = 0; i < sizeof(a) / sizeof(a.values[0]); i++) { \
-            printf("%d, ", a.values[i]);                     \
-        }                                                    \
-        printf("}\n");                                       \
+            printf("%d, ", a.values[i]);                            \
+        }                                                           \
+        printf("}\n");                                              \
     } while (0)
 
-#define DEBUG_F(a)                                           \
-    do {                                                     \
-        printf("{");                                         \
+#define DEBUG_F(a)                                                  \
+    do {                                                            \
+        printf("{");                                                \
         for (int i = 0; i < sizeof(a) / sizeof(a.values[0]); i++) { \
-            printf("%f, ", a.values[i]);                     \
-        }                                                    \
-        printf("}\n");                                       \
+            printf("%f, ", a.values[i]);                            \
+        }                                                           \
+        printf("}\n");                                              \
     } while (0)
 
 #define ASSERT_EQUAL(a, b)                       \
