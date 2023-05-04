@@ -6,6 +6,8 @@
 
 #include "util.h"
 
+// NOTE: msa 只支持 128 bit, 所以 neon 中非 `q` 类型的指令会浪费一倍的计算资源,
+// 因为后 64 bit 并不需要处理
 int8x8_t vadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
     r.v.i8 = __msa_addv_b(a.v.i8, b.v.i8);
@@ -30,6 +32,9 @@ int8x8_t vaddhn_s16(int16x8_t a, int16x8_t b) {
 
 int8x8_t vhadd_s8(int8x8_t a, int8x8_t b) {
     int16x8_t _a, _b, tmp;
+    // NOTE: msa 不支持 (a+b)>>c, 为了避免 a+b 时溢出, 只能使用更宽的数据类型,例
+    // 如 int8 转换为 int16. 另外, msa 不支持 int vector 的 mov 指令, 所以只能用
+    // COPY 来模拟
     COPY(_a, a);
     COPY(_b, b);
 
@@ -79,6 +84,7 @@ uint8x8_t vsqadd_u8(uint8x8_t a, int8x8_t b) {
     COPY(_a, a);
     COPY(_b, b);
     _r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
+    // NOTE: msa 不存在类似的 saturating 操作
     for (int i = 0; i < 8; i++) {
         if (_r.values[i] > UINT8_MAX) {
             _r.values[i] = UINT8_MAX;
@@ -136,6 +142,7 @@ int16x8_t vaddl_s8(int8x8_t a, int8x8_t b) {
 int16x8_t vaddl_high_s8(int8x16_t a, int8x16_t b) {
     int16x8_t r;
     int16x8_t _a, _b;
+    // NOTE: msa 无法支持 high 类型的指令, 它要求输入输出的的元素个数总是相同的
     COPY_HIGH(_a, a);
     COPY_HIGH(_b, b);
     r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
@@ -145,6 +152,8 @@ int16x8_t vaddl_high_s8(int8x16_t a, int8x16_t b) {
 int16x8_t vaddw_s8(int16x8_t a, int8x8_t b) {
     int16x8_t r;
     int16x8_t _b;
+    // NOTE: msa 基本不支持 widen/narrow 类型的指令, 它要求输入的类型是总是相同
+    // 的 (除了 hadd/hsub)
     COPY(_b, b);
     r.v.i16 = __msa_addv_h(a.v.i16, _b.v.i16);
     return r;

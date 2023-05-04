@@ -25,6 +25,7 @@ int8x8_t vabs_s8(int8x8_t a) {
     return r;
 }
 
+// NOTE: msa 不支持标量
 int8_t vqabsb_s8(int8_t a) {
     int16_t tmp;
     tmp = a > 0 ? a : -a;

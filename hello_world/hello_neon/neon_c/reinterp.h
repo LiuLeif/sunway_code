@@ -15,4 +15,5 @@ DEF_REINTERP(poly8x8_t, p8, uint8x8_t, u8);
 DEF_REINTERP(float32x2_t, f32, int8x8_t, s8);
 DEF_REINTERP(int8x8_t, s8, float32x2_t, f32);
 DEF_REINTERP(uint64x1_t, u64, int8x8_t, s8);
+DEF_REINTERP(int8x8_t, s8, uint8x8_t, u8);
 #endif  // REINTERP_H
