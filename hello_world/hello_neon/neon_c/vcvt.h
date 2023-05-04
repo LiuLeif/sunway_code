@@ -4,7 +4,7 @@
 #include <fenv.h>
 #include <math.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int32x2_t vcvt_s32_f32(float32x2_t a) {
     int32x2_t r;

@@ -2,90 +2,92 @@
 #ifndef VADD_H
 #define VADD_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
+
+#include "util.h"
 
 int8x8_t vadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = a.values[i] + b.values[i];
-    }
+    r.v.i8 = __msa_addv_b(a.v.i8, b.v.i8);
     return r;
 }
 
 int8x16_t vaddq_s8(int8x16_t a, int8x16_t b) {
     int8x16_t r;
-    for (int i = 0; i < 16; i++) {
-        r.values[i] = a.values[i] + b.values[i];
-    }
+    r.v.i8 = __msa_addv_b(a.v.i8, b.v.i8);
     return r;
 }
 
 int8x8_t vaddhn_s16(int16x8_t a, int16x8_t b) {
+    int16x8_t tmp;
+    tmp.v.i16 = __msa_addv_h(a.v.i16, b.v.i16);
+    tmp.v.i16 = __msa_srai_h(tmp.v.i16, 8);
+
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = (a.values[i] + b.values[i]) >> 8;
-    }
+    COPY(r, tmp);
     return r;
 }
 
 int8x8_t vhadd_s8(int8x8_t a, int8x8_t b) {
+    int16x8_t _a, _b, tmp;
+    COPY(_a, a);
+    COPY(_b, b);
+
+    tmp.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
+    tmp.v.i16 = __msa_srai_h(tmp.v.i16, 1);
+
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = (a.values[i] + b.values[i]) >> 1;
-    }
+    COPY(r, tmp);
+
     return r;
 }
 
 int8x8_t vrhadd_s8(int8x8_t a, int8x8_t b) {
+    int16x8_t _a, _b, tmp;
+    COPY(_a, a);
+    COPY(_b, b);
+
+    tmp.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
+    tmp.v.i16 = __msa_addvi_h(tmp.v.i16, 1);
+    tmp.v.i16 = __msa_srai_h(tmp.v.i16, 1);
+
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = (a.values[i] + b.values[i] + 1) >> 1;
-    }
+    COPY(r, tmp);
     return r;
 }
 
 int8x8_t vqadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        int16_t tmp = (int16_t)a.values[i] + b.values[i];
-        if (tmp > INT8_MAX) {
-            tmp = INT8_MAX;
-        }
-        if (tmp < INT8_MIN) {
-            tmp = INT8_MIN;
-        }
-        r.values[i] = (int8_t)tmp;
-    }
+    r.v.i8 = __msa_adds_s_b(a.v.i8, b.v.i8);
     return r;
 }
 
 int8x8_t vuqadd_s8(int8x8_t a, uint8x8_t b) {
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        int16_t tmp = (int16_t)a.values[i] + b.values[i];
-        if (tmp > INT8_MAX) {
-            tmp = INT8_MAX;
-        }
-        if (tmp < INT8_MIN) {
-            tmp = INT8_MIN;
-        }
-        r.values[i] = (int8_t)tmp;
-    }
+    int16x8_t _a, _b, _r;
+    COPY(_a, a);
+    COPY(_b, b);
+    _r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
+    _r.v.i16 = __msa_sat_s_h(_r.v.i16, 7);
+    COPY(r, _r);
     return r;
 }
 
 uint8x8_t vsqadd_u8(uint8x8_t a, int8x8_t b) {
     uint8x8_t r;
+    int16x8_t _a, _b, _r;
+    COPY(_a, a);
+    COPY(_b, b);
+    _r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
     for (int i = 0; i < 8; i++) {
-        int16_t tmp = (int16_t)a.values[i] + b.values[i];
-        if (tmp > UINT8_MAX) {
-            tmp = UINT8_MAX;
+        if (_r.values[i] > UINT8_MAX) {
+            _r.values[i] = UINT8_MAX;
         }
-        if (tmp < 0) {
-            tmp = 0;
+        if (_r.values[i] < 0) {
+            _r.values[i] = 0;
         }
-        r.values[i] = (uint8_t)tmp;
     }
+    COPY(r, _r);
     return r;
 }
 
@@ -124,33 +126,35 @@ uint8_t vsqaddb_u8(uint8_t a, int8_t b) {
 
 int16x8_t vaddl_s8(int8x8_t a, int8x8_t b) {
     int16x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = (int16_t)a.values[i] + b.values[i];
-    }
+    int16x8_t _a, _b;
+    COPY(_a, a);
+    COPY(_b, b);
+    r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
     return r;
 }
 
 int16x8_t vaddl_high_s8(int8x16_t a, int8x16_t b) {
     int16x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = (int16_t)a.values[i + 8] + b.values[i + 8];
-    }
+    int16x8_t _a, _b;
+    COPY_HIGH(_a, a);
+    COPY_HIGH(_b, b);
+    r.v.i16 = __msa_addv_h(_a.v.i16, _b.v.i16);
     return r;
 }
 
 int16x8_t vaddw_s8(int16x8_t a, int8x8_t b) {
     int16x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = a.values[i] + b.values[i];
-    }
+    int16x8_t _b;
+    COPY(_b, b);
+    r.v.i16 = __msa_addv_h(a.v.i16, _b.v.i16);
     return r;
 }
 
 int16x8_t vaddw_high_s8(int16x8_t a, int8x16_t b) {
     int16x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = a.values[i] + b.values[i + 8];
-    }
+    int16x8_t _b;
+    COPY_HIGH(_b, b);
+    r.v.i16 = __msa_addv_h(a.v.i16, _b.v.i16);
     return r;
 }
 

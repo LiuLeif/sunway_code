@@ -2,7 +2,7 @@
 #ifndef VMVN_H
 #define VMVN_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vmvn_s8(int8x8_t a) {
     int8x8_t r;

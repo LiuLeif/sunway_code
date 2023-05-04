@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 float32x2_t vmax_f32(float32x2_t a, float32x2_t b) {
     float32x2_t r;

@@ -1,13 +1,13 @@
-// 2023-04-18 16:19
-#ifndef VCEQ_H
-#define VCEQ_H
+// 2023-04-18 17:01
+#ifndef VCGT_H
+#define VCGT_H
 
 #include <neon_emu_types.h>
 
-uint8x8_t vceq_s8(int8x8_t a, int8x8_t b) {
+uint8x8_t vcgt_s8(int8x8_t a, int8x8_t b) {
     uint8x8_t r;
     for (int i = 0; i < 8; i++) {
-        if (memcmp(&a.values[i], &b.values[i], sizeof(a.values[0])) == 0) {
+        if (a.values[i] > b.values[i]) {
             r.values[i] = UINT8_MAX;
         } else {
             r.values[i] = 0;
@@ -15,4 +15,4 @@ uint8x8_t vceq_s8(int8x8_t a, int8x8_t b) {
     }
     return r;
 }
-#endif  // VCEQ_H
+#endif  // VCGT_H

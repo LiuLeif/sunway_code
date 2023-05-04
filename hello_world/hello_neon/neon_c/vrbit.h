@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vrbit_s8(int8x8_t a) {
     int8x8_t r;

@@ -27,7 +27,7 @@ DEP += $(C_APP:.elf=.d)
 %_c.elf:%.c
 	gcc ${CFLAGS} -Ineon_c -o $@ $< ${LDFLAGS} ${LDLIBS}
 %_msa.elf:%.c
-	mips64-linux-gnuabi64-gcc -mmsa -march=loongson3a -Ineon_msa ${CFLAGS}  -o $@ $< ${LDFLAGS} ${LDLIBS}
+	mips64-linux-gnuabi64-gcc -mmsa -march=loongson3a -Ineon_msa -Ineon_c  ${CFLAGS}  -o $@ $< ${LDFLAGS} ${LDLIBS}
 
 
 ${TEST_C_APP}:run_%:%
@@ -45,6 +45,6 @@ run_msa: ${TEST_MSA_APP}
 run: run_native run_c run_msa
 
 clean:
-	rm -f ${NATIVE_APP} ${C_APP} ${DEP}
+	rm -f ${NATIVE_APP} ${C_APP} ${MSA_APP} ${DEP}
 
-.PHONY: clean app run
+.PHONY: clean run native c msa

@@ -2,7 +2,7 @@
 #ifndef VADD_H
 #define VADD_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
@@ -132,6 +132,8 @@ int16x8_t vaddl_s8(int8x8_t a, int8x8_t b) {
 
 int16x8_t vaddl_high_s8(int8x16_t a, int8x16_t b) {
     int16x8_t r;
+    // a: abcdefg
+    // b: abcdefg
     for (int i = 0; i < 8; i++) {
         r.values[i] = (int16_t)a.values[i + 8] + b.values[i + 8];
     }

@@ -2,17 +2,13 @@
 #ifndef VCGE_H
 #define VCGE_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 uint8x8_t vcgez_s8(int8x8_t a) {
     uint8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        if (a.values[i] >= 0) {
-            r.values[i] = UINT8_MAX;
-        } else {
-            r.values[i] = 0;
-        }
-    }
+    int8x8_t zero;
+    zero.v.i8 = __msa_fill_b(0);
+    r.v.i8 = __msa_cle_s_b(zero.v.i8, a.v.i8);
     return r;
 }
 #endif  // VCGE_H

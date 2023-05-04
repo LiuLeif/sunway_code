@@ -2,7 +2,7 @@
 #ifndef VPMAX_H
 #define VPMAX_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 

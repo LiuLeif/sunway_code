@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int16x4_t vshl_s16(int16x4_t a, int16x4_t b) {
     int16x4_t r;

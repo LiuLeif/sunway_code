@@ -2,7 +2,7 @@
 #ifndef VPADD_H
 #define VPADD_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vpadd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;

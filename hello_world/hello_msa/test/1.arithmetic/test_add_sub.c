@@ -1,6 +1,7 @@
 // 2023-04-14 10:44
 #include <mips_msa.h>
 #include <msa_test.h>
+// clang-format off
 // ADDV.df1 V2 addv_df(V,V) v3 + v Add
 // ADDVI.df V addvi_df(V,K4) v + k5 Add Immediate (immediate value is unsigned)
 // ADD_A.df V add_a_df(V,V) Add Absolute Values
@@ -18,8 +19,15 @@
 // HSUB_S.df V hsub_s_df(W,W) Signed Horizontal Subtract
 // HSUB_U.df V hsub_u_df(W,W) Unsigned Horizontal Subtract
 // SUBV.df V subv_df(V,V) v - v Subtract
-// SUBVI.df V subvi_df(V,K) v - k Subtract Immediate (immediate value is
-// unsigned)
+// SUBVI.df V subvi_df(V,K) v - k Subtract Immediate (immediate value isunsigned)
+//
+// ASUB_S.df V asub_s_df(V,V) Absolute Value of Signed Subtract
+// ASUB_U.df V asub_u_df(V,V) Absolute Value of Unsigned Subtract
+//
+// SAT_S.df V sat_s_df(V,V) Signed Saturate
+// SAT_U.df V sat_u_df(V,V) Unsigned Saturate
+//
+// clang-format on
 TEST_CASE(test_addv_b) {
     struct {
         int8_t a[16];

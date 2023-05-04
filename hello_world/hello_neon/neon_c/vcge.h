@@ -2,7 +2,7 @@
 #ifndef VCGE_H
 #define VCGE_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 uint8x8_t vcgez_s8(int8x8_t a) {
     uint8x8_t r;

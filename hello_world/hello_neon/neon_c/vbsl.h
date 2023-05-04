@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 int8x8_t vbsl_s8(uint8x8_t a, int8x8_t b, int8x8_t c) {
     int8x8_t r = {0};
     for (int i = 0; i < 8; i++) {

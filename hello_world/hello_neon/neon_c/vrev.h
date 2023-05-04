@@ -2,7 +2,7 @@
 #ifndef VREV_H
 #define VREV_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vrev16_s8(int8x8_t a) {
     int8x8_t r;

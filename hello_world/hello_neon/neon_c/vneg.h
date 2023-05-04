@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 int8x16_t vnegq_s8(int8x16_t a) {
     int8x16_t r;
     for (int i = 0; i < 16; i++) {

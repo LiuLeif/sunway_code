@@ -64,7 +64,7 @@
 // uint16_t vsqaddh_u16(uint16_t a,int16_t b)
 // uint32_t vsqadds_u32(uint32_t a,int32_t b)
 // uint64_t vsqaddd_u64(uint64_t a,int64_t b)
-// 
+//
 static int test_vqadd_s8() {
     static const struct {
         int8_t a[8];

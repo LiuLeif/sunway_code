@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 uint32x2_t vcage_f32(float32x2_t a, float32x2_t b) {
     uint32x2_t r;

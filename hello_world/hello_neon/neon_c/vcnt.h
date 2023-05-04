@@ -2,7 +2,7 @@
 #ifndef VCNT_H
 #define VCNT_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vcnt_s8(int8x8_t a) {
     int8x8_t r = {0};

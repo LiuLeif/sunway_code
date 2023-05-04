@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vmovn_s16(int16x8_t a) {
     int8x8_t r;

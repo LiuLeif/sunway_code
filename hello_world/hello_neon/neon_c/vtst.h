@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 uint8x8_t vtst_s8(int8x8_t a, int8x8_t b) {
     uint8x8_t r;

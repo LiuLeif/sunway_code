@@ -2,7 +2,7 @@
 #ifndef VEXT_H
 #define VEXT_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vext_s8(int8x8_t a, int8x8_t b, int n) {
     int8x8_t r;

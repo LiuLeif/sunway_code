@@ -2,35 +2,26 @@
 #ifndef VABD_H
 #define VABD_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 int8x8_t vabd_s8(int8x8_t a, int8x8_t b) {
     int8x8_t r;
-    int16_t tmp;
-    for (int i = 0; i < 8; i++) {
-        tmp = (int16_t)a.values[i] - b.values[i];
-        tmp = tmp > 0 ? tmp : -tmp;
-        r.values[i] = (int8_t)tmp;
-    }
+    r.v.i8 = __msa_asub_s_b(a.v.i8, b.v.i8);
     return r;
 }
 
 int8x8_t vaba_s8(int8x8_t a, int8x8_t b, int8x8_t c) {
-    int8x8_t r;
-    int16_t tmp;
-    for (int i = 0; i < 8; i++) {
-        tmp = (int16_t)b.values[i] - c.values[i];
-        tmp = tmp > 0 ? tmp : -tmp;
-        r.values[i] = a.values[i] + (int8_t)tmp;
-    }
+    int8x8_t r, tmp;
+    tmp.v.i8 = __msa_asub_s_b(b.v.i8, c.v.i8);
+    r.v.i8 = __msa_addv_b(a.v.i8, tmp.v.i8);
     return r;
 }
 
 int8x8_t vabs_s8(int8x8_t a) {
     int8x8_t r;
-    for (int i = 0; i < 8; i++) {
-        r.values[i] = a.values[i] > 0 ? a.values[i] : -a.values[i];
-    }
+    int8x8_t zero;
+    zero.v.i8 = __msa_fill_b(0);
+    r.v.i8 = __msa_add_a_b(a.v.i8, zero.v.i8);
     return r;
 }
 

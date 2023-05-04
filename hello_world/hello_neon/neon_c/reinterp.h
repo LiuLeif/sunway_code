@@ -2,7 +2,7 @@
 #ifndef REINTERP_H
 #define REINTERP_H
 
-#include "neon_emu_types.h"
+#include <neon_emu_types.h>
 
 #define DEF_REINTERP(to, to_short, from, from_short)    \
     to vreinterpret_##to_short##_##from_short(from a) { \

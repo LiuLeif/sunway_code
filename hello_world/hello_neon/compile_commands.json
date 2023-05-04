@@ -3,16 +3,4841 @@
         "arguments": [
             "aarch64-linux-gnu-gcc",
             "-c",
-            "-O3",
+            "-O0",
             "-g3",
-            "-Ineon_emu",
             "-I.",
-            "-DEMU",
             "-o",
-            "test/5.move/1.narrow/test_vmovn_emu.elf",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic_native.elf",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/6.exclusive_or/test_veor_c.elf",
+            "test/7.logical/6.exclusive_or/test_veor.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/6.exclusive_or/test_veor.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe_native.elf",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd_msa.elf",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/13.extended_table_lookup/test_vtbx_msa.elf",
+            "test/13.extended_table_lookup/test_vtbx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/13.extended_table_lookup/test_vtbx.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd_c.elf",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd_c.elf",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd_msa.elf",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/1.bitwise_equal/test_vceq_c.elf",
+            "test/2.compare/1.bitwise_equal/test_vceq.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/1.bitwise_equal/test_vceq.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p_native.elf",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr_c.elf",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn_c.elf",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl_msa.elf",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/6.less_than/test_vclt_msa.elf",
+            "test/2.compare/6.less_than/test_vclt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/6.less_than/test_vclt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd_c.elf",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla_native.elf",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/10.load/1.stride/test_vld_c.elf",
+            "test/10.load/1.stride/test_vld.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/10.load/1.stride/test_vld.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/9.absolute_greater_than/test_vcagt_c.elf",
+            "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/12.table_lookup/test_vtbl_msa.elf",
+            "test/12.table_lookup/test_vtbl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/12.table_lookup/test_vtbl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal_c.elf",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr_msa.elf",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn_c.elf",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/4.and/test_vand_msa.elf",
+            "test/7.logical/4.and/test_vand.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/4.and/test_vand.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/4.and/test_vand_c.elf",
+            "test/7.logical/4.and/test_vand.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/4.and/test_vand.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp_native.elf",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd_native.elf",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla_c.elf",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt_msa.elf",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/12.table_lookup/test_vtbl_native.elf",
+            "test/12.table_lookup/test_vtbl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/12.table_lookup/test_vtbl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla_c.elf",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl_native.elf",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl_native.elf",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt_c.elf",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn_msa.elf",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr_native.elf",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd_native.elf",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic_c.elf",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge_c.elf",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt_msa.elf",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/4.data_type_conversion/1.conversions/test_vcvt_native.elf",
+            "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr_msa.elf",
+            "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/2.vector_rounding_shift_right/test_vrshr.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane_native.elf",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine_c.elf",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll_c.elf",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/4.data_type_conversion/1.conversions/test_vcvt_c.elf",
+            "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/4.division/test_div_msa.elf",
+            "test/1.vector_arithmetic/4.division/test_div.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/4.division/test_div.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/10.load/1.stride/test_vld_msa.elf",
+            "test/10.load/1.stride/test_vld.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/10.load/1.stride/test_vld.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/3.population_count/test_vcnt_native.elf",
+            "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn_c.elf",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl_msa.elf",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn_native.elf",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext_native.elf",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen_c.elf",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd_native.elf",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/1.negate/test_vneg_msa.elf",
+            "test/7.logical/1.negate/test_vneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/1.negate/test_vneg.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/8.bit_manipulation/3.population_count/test_vcnt_c.elf",
+            "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul_c.elf",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull_native.elf",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr_native.elf",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/5.greater_than/test_vcgt_msa.elf",
+            "test/2.compare/5.greater_than/test_vcgt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/5.greater_than/test_vcgt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls_c.elf",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz_msa.elf",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl_c.elf",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret_msa.elf",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/7.or_not/test_vorn_native.elf",
+            "test/7.logical/7.or_not/test_vorn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/7.or_not/test_vorn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul_c.elf",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup_msa.elf",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup_c.elf",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev_c.elf",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip_c.elf",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget_msa.elf",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine_native.elf",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/7.or_not/test_vorn_c.elf",
+            "test/7.logical/7.or_not/test_vorn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/7.or_not/test_vorn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl_c.elf",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/1.bitwise_equal/test_vceq_native.elf",
+            "test/2.compare/1.bitwise_equal/test_vceq.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/1.bitwise_equal/test_vceq.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/5.or/test_vorr_msa.elf",
+            "test/7.logical/5.or/test_vorr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/5.or/test_vorr.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n_native.elf",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla_msa.elf",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p_msa.elf",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane_msa.elf",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul_native.elf",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn_native.elf",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli_c.elf",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl_c.elf",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll_msa.elf",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge_native.elf",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/3.bitwise_not/test_vmvn_native.elf",
+            "test/7.logical/3.bitwise_not/test_vmvn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/3.bitwise_not/test_vmvn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/13.extended_table_lookup/test_vtbx_c.elf",
+            "test/13.extended_table_lookup/test_vtbx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/13.extended_table_lookup/test_vtbx.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret_native.elf",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit_native.elf",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/8.widening_multiplication/test_widen_mul.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate_c.elf",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/6.exclusive_or/test_veor_native.elf",
+            "test/7.logical/6.exclusive_or/test_veor.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/6.exclusive_or/test_veor.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz_native.elf",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/6.split_vectors/test_vget_msa.elf",
+            "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/2.saturating_negate/test_vqneg_c.elf",
+            "test/7.logical/2.saturating_negate/test_vqneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/2.saturating_negate/test_vqneg.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/9.absolute_greater_than/test_vcagt_native.elf",
+            "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla_native.elf",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate_native.elf",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn_native.elf",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/3.saturating_narrow/test_vqmovn_msa.elf",
+            "test/5.move/3.saturating_narrow/test_vqmovn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/3.saturating_narrow/test_vqmovn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget_c.elf",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev_msa.elf",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p_c.elf",
+            "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/3.polynomial/polynomial_multiply/test_mul_p.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/3.multiply_accumulate/test_mla.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra_msa.elf",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn_native.elf",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd_native.elf",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/6.less_than/test_vclt_native.elf",
+            "test/2.compare/6.less_than/test_vclt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/6.less_than/test_vclt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext_msa.elf",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic_msa.elf",
+            "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/4.bitwise_clear/test_vbic.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/6.less_than/test_vclt_c.elf",
+            "test/2.compare/6.less_than/test_vclt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/6.less_than/test_vclt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn_native.elf",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl_native.elf",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/2.widen/test_vmovl_native.elf",
+            "test/5.move/2.widen/test_vmovl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/2.widen/test_vmovl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz_native.elf",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt_c.elf",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls_msa.elf",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls_c.elf",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp_c.elf",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add_c.elf",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl_msa.elf",
+            "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/2.vector_saturating_shift_left/test_vqshl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret_c.elf",
+            "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/2.reinterpret_casts/test_vinterpret.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal_c.elf",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage_native.elf",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/2.saturating_negate/test_vqneg_msa.elf",
+            "test/7.logical/2.saturating_negate/test_vqneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/2.saturating_negate/test_vqneg.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/9.absolute_greater_than/test_vcagt_msa.elf",
+            "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/9.absolute_greater_than/test_vcagt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal_native.elf",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/6.split_vectors/test_vget_c.elf",
+            "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit_msa.elf",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls_native.elf",
+            "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/1.count_leading_sign_bits/test_vcls.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane_c.elf",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/1.pairwise_addition/test_vpadd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl_c.elf",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst_native.elf",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/4.data_type_conversion/1.conversions/test_vcvt_msa.elf",
+            "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/4.data_type_conversion/1.conversions/test_vcvt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/2.widen/test_vmovl_msa.elf",
+            "test/5.move/2.widen/test_vmovl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/2.widen/test_vmovl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/7.maximum/test_maximum_native.elf",
+            "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn_c.elf",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/3.population_count/test_vcnt_msa.elf",
+            "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/3.population_count/test_vcnt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/5.maximum_across_vector_ieee754/test_vmaxnmv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt_native.elf",
+            "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/11.square_root/test_vsqrt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma_native.elf",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul_c.elf",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax_c.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn_msa.elf",
+            "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/7.vector_saturating_rounding_shift_right_and_narrow/test_vqrshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane_native.elf",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx_msa.elf",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll_native.elf",
+            "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/5.vector_shift_left_and_widen/test_vshll.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx_c.elf",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/10.absolute_less_than/test_vcalt_c.elf",
+            "test/2.compare/10.absolute_less_than/test_vcalt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/10.absolute_less_than/test_vcalt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl_native.elf",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/4.division/test_div_native.elf",
+            "test/1.vector_arithmetic/4.division/test_div.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/4.division/test_div.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd_msa.elf",
+            "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/4.saturating_addition/test_saturating_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst_c.elf",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs_c.elf",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/5.greater_than/test_vcgt_c.elf",
+            "test/2.compare/5.greater_than/test_vcgt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/5.greater_than/test_vcgt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs_native.elf",
+            "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/6.saturating_absolute_value/test_qabs.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane_msa.elf",
+            "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/13.set_vector_lane/test_vset_lane.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri_c.elf",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle_msa.elf",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/6.pairwise_minimum_ieee754/test_vpminnm.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull_c.elf",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd_native.elf",
+            "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/1.addition/test_vadd.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/11.store/1.stride/test_vst_msa.elf",
+            "test/11.store/1.stride/test_vst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/11.store/1.stride/test_vst.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla_native.elf",
+            "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/7.saturating_multiply_accumulate/test_qdmla.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli_msa.elf",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma_c.elf",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra_native.elf",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/1.bitwise_equal/test_vceq_msa.elf",
+            "test/2.compare/1.bitwise_equal/test_vceq.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/1.bitwise_equal/test_vceq.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri_native.elf",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd_c.elf",
+            "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/1.absolute_difference/test_abd.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal_msa.elf",
+            "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/5.vector_multiply_accumulate_by_scalar_and_widen/test_vmlal.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd_c.elf",
+            "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/3.narrowing_addition/test_narrowing_vadd.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n_native.elf",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl_msa.elf",
+            "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/1.vector_shift_left/test_vshl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/3.bitwise_not/test_vmvn_msa.elf",
+            "test/7.logical/3.bitwise_not/test_vmvn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/3.bitwise_not/test_vmvn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl_c.elf",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n_msa.elf",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n_c.elf",
+            "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/3.vector_multiply_by_scalar/test_vmul_n.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn_msa.elf",
+            "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/12.transpose_elements/test_vtrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl_native.elf",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip_native.elf",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst_msa.elf",
+            "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/11.bitwise_not_equal_to_zero/test_vtst.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage_c.elf",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle_c.elf",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/5.greater_than/test_vcgt_native.elf",
+            "test/2.compare/5.greater_than/test_vcgt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/5.greater_than/test_vcgt.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n_c.elf",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/2.saturating_negate/test_vqneg_native.elf",
+            "test/7.logical/2.saturating_negate/test_vqneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/2.saturating_negate/test_vqneg.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/5.move/3.saturating_narrow/test_vqmovn_c.elf",
+            "test/5.move/3.saturating_narrow/test_vqmovn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/3.saturating_narrow/test_vqmovn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri_msa.elf",
+            "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/9.vector_shift_right_and_insert/test_vsri.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge_msa.elf",
+            "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/3.greater_than_or_equal_to/test_vcge.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/2.pairwise_addition_and_widen/test_vpaddl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra_native.elf",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs_c.elf",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add_msa.elf",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup_native.elf",
+            "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/4.set_all_lanes_to_the_same_value/test_vdup.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz_c.elf",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/5.or/test_vorr_native.elf",
+            "test/7.logical/5.or/test_vorr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/5.or/test_vorr.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/11.store/1.stride/test_vst_c.elf",
+            "test/11.store/1.stride/test_vst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/11.store/1.stride/test_vst.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba_c.elf",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx_native.elf",
+            "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/3.reciprocal_exponent/test_recpx.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma_msa.elf",
+            "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/5.fused_multiply_accumulate/test_fma.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn_msa.elf",
+            "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/8.vector_rounding_shift_right_and_narrow/test_vrshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle_native.elf",
+            "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/4.less_than_or_equal_to/test_vcle.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip_msa.elf",
+            "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/10.zip_elements/test_vzip.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra_c.elf",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull_msa.elf",
+            "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/4.vector_multiply_by_scalar_and_widen/test_vmull.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl_c.elf",
+            "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/5.bitwise_select/test_vbsl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls_msa.elf",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/1.negate/test_vneg_native.elf",
+            "test/7.logical/1.negate/test_vneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/1.negate/test_vneg.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev_native.elf",
+            "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/9.reverse_elements/test_vrev.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/5.or/test_vorr_c.elf",
+            "test/7.logical/5.or/test_vorr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/5.or/test_vorr.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n_msa.elf",
+            "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/6.fused_multiply_accumulate_by_scalar/test_fma_n.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/8.minimum/test_vmin_msa.elf",
+            "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/2.addition_across_vector_widening/test_vaddlv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt_native.elf",
+            "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/2.reciprocal_square_root_estimate/test_vrsqrt.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn_msa.elf",
+            "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/5.vector_shift_right_and_narrow/test_vshrn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz_msa.elf",
+            "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/8.bit_manipulation/2.count_leading_zeros/test_vclz.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/5.move/2.widen/test_vmovl_c.elf",
+            "test/5.move/2.widen/test_vmovl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/2.widen/test_vmovl.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage_msa.elf",
+            "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/7.absolute_greater_than_or_equal_to/test_vcage.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli_native.elf",
+            "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/6.vector_shift_left_and_insert/test_vsli.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl_msa.elf",
+            "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/4.vector_saturating_rounding_shift_left/test_qrshl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla_c.elf",
+            "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/1.vector_multiply_accumulate_by_scalar/test_mla.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/7.maximum/test_maximum_msa.elf",
+            "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe_msa.elf",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/3.saturating_narrow/test_vqmovn_native.elf",
+            "test/5.move/3.saturating_narrow/test_vqmovn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/3.saturating_narrow/test_vqmovn.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/1.negate/test_vneg_c.elf",
+            "test/7.logical/1.negate/test_vneg.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/1.negate/test_vneg.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/7.logical/3.bitwise_not/test_vmvn_c.elf",
+            "test/7.logical/3.bitwise_not/test_vmvn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/3.bitwise_not/test_vmvn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/10.absolute_less_than/test_vcalt_msa.elf",
+            "test/2.compare/10.absolute_less_than/test_vcalt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/10.absolute_less_than/test_vcalt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal_native.elf",
+            "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/4.widening_absolute_difference_and_accumulate/test_vabal.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/10.load/1.stride/test_vld_native.elf",
+            "test/10.load/1.stride/test_vld.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/10.load/1.stride/test_vld.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp_msa.elf",
+            "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/11.unzip_elements/test_vuzp.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls_native.elf",
+            "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/6.scalar_arithmetic/2.vector_multiply_subtract_by_scalar/test_mls.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/7.or_not/test_vorn_msa.elf",
+            "test/7.logical/7.or_not/test_vorn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/7.or_not/test_vorn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/11.store/1.stride/test_vst_native.elf",
+            "test/11.store/1.stride/test_vst.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/11.store/1.stride/test_vst.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra_c.elf",
+            "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/4.vector_rounding_shift_right_and_accumulate/test_vrsra.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul_native.elf",
+            "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/1.multiplication/test_mul.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/4.pairwise_minimum/test_vpmin.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine_msa.elf",
+            "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/5.combine_vectors/test_vcombine.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/6.exclusive_or/test_veor_msa.elf",
+            "test/7.logical/6.exclusive_or/test_veor.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/6.exclusive_or/test_veor.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/2.compare/10.absolute_less_than/test_vcalt_native.elf",
+            "test/2.compare/10.absolute_less_than/test_vcalt.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/10.absolute_less_than/test_vcalt.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen_native.elf",
+            "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/4.multiply_accumulate_and_widen/test_mula_widen.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr_c.elf",
+            "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/1.vector_shift_right/test_vshr.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv_native.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/1.addition_across_vector/test_vaddv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/6.split_vectors/test_vget_native.elf",
+            "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/6.split_vectors/test_vget.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit_c.elf",
+            "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/2.reverse_bits_within_elements/test_rbit.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/8.minimum/test_vmin_c.elf",
+            "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl_msa.elf",
+            "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/2.widening_absolute_difference/test_abdl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/4.division/test_div_c.elf",
+            "test/1.vector_arithmetic/4.division/test_div.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/4.division/test_div.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra_msa.elf",
+            "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/3.vector_shift_right_and_accumulate/test_vsra.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl_native.elf",
+            "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/1.left/3.vector_rounding_shift_left/test_vrshl.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/7.logical/4.and/test_vand_native.elf",
+            "test/7.logical/4.and/test_vand.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/7.logical/4.and/test_vand.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext_c.elf",
+            "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/8.extract_vector_from_a_pair_of_vectors/test_vext.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget_native.elf",
+            "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/7.extract_one_element_from_vector/test_vget.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add_native.elf",
+            "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/1.add/2.widening_addition/test_widening_add.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd_msa.elf",
+            "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/9.rounding/test_vrnd.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz_c.elf",
+            "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/2.compare/2.bitwise_equal_to_zero/test_vceqz.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/1.narrow/test_vmovn_msa.elf",
             "test/5.move/1.narrow/test_vmovn.c"
         ],
         "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
         "file": "test/5.move/1.narrow/test_vmovn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/5.move/1.narrow/test_vmovn_native.elf",
+            "test/5.move/1.narrow/test_vmovn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/1.narrow/test_vmovn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm_native.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/5.pairwise_maximum_ieee754/test_vpmaxnm.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn_c.elf",
+            "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/3.shift/2.right/6.vector_saturating_shift_right_and_narrow/test_vqshrn.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba_native.elf",
+            "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/3.absolute_difference_accumulate/test_aba.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/8.minimum/test_vmin_native.elf",
+            "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/8.minimum/test_vmin.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/3.maximum_across_vector/test_vmaxv.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax_msa.elf",
+            "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/12.pairwise_arithmetic/3.pairwise_maximum/test_pmax.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/12.table_lookup/test_vtbl_c.elf",
+            "test/12.table_lookup/test_vtbl.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/12.table_lookup/test_vtbl.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe_c.elf",
+            "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/10.reciprocal/1.reciprocal_estimate/test_recpe.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv_c.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/4.minimum_across_vector/test_vminv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul_native.elf",
+            "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/2.multiply/6.saturating_multiply/test_saturating_mul.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/5.move/1.narrow/test_vmovn_c.elf",
+            "test/5.move/1.narrow/test_vmovn.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/5.move/1.narrow/test_vmovn.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate_msa.elf",
+            "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/3.create_vector/test_vcreate.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane_c.elf",
+            "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/9.vector_manipulation/1.copy_vector_lane/test_vcopy_lane.c"
+    },
+    {
+        "arguments": [
+            "mips64-linux-gnuabi64-gcc",
+            "-c",
+            "-mmsa",
+            "-march=loongson3a",
+            "-Ineon_msa",
+            "-Ineon_c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv_msa.elf",
+            "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/13.across_vector_arithmetic/6.minimum_across_vector_ieee754/test_vminnmv.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/13.extended_table_lookup/test_vtbx_native.elf",
+            "test/13.extended_table_lookup/test_vtbx.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/13.extended_table_lookup/test_vtbx.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-Ineon_c",
+            "-o",
+            "test/1.vector_arithmetic/7.maximum/test_maximum_c.elf",
+            "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/7.maximum/test_maximum.c"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-gcc",
+            "-c",
+            "-O0",
+            "-g3",
+            "-I.",
+            "-o",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs_native.elf",
+            "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
+        ],
+        "directory": "/home/sunway/Gitbox/code/hello_world/hello_neon",
+        "file": "test/1.vector_arithmetic/6.absolute/5.absolute_value/test_abs.c"
     }
 ]
